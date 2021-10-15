@@ -1,0 +1,67 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.AthomBV.HomeAssistant",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "Home Assistant"
+  },
+  "description": {
+    "en": "integration for the home assistant smarthome helper"
+  },
+  "category": [
+    "tools"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Marleen Beekman",
+    "email": "marleenbeekman@gmail.com"
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "binarySensor"
+      },
+      "class": "sensor",
+      "capabilities": [],
+      "images": {
+        "small": "/drivers/binarysensor/assets/images/small.png",
+        "large": "/drivers/binarysensor/assets/images/large.png",
+        "xlarge": "/drivers/binarysensor/assets/images/xlarge.png"
+      },
+      "id": "binarysensor"
+    },
+    {
+      "name": {
+        "en": "light"
+      },
+      "class": "light",
+      "capabilities": [],
+      "images": {
+        "small": "/drivers/light/assets/images/small.png",
+        "large": "/drivers/light/assets/images/large.png",
+        "xlarge": "/drivers/light/assets/images/xlarge.png"
+      },
+      "id": "light"
+    },
+    {
+      "name": {
+        "en": "sensor"
+      },
+      "class": "sensor",
+      "capabilities": [],
+      "images": {
+        "small": "/drivers/sensor/assets/images/small.png",
+        "large": "/drivers/sensor/assets/images/large.png",
+        "xlarge": "/drivers/sensor/assets/images/xlarge.png"
+      },
+      "id": "sensor"
+    }
+  ]
+}

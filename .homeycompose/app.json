@@ -1,0 +1,25 @@
+{
+  "id": "com.AthomBV.HomeAssistant",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "Home Assistant"
+  },
+  "description": {
+    "en": "integration for the home assistant smarthome helper"
+  },
+  "category": [
+    "tools"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Marleen Beekman",
+    "email": "marleenbeekman@gmail.com"
+  }
+}
