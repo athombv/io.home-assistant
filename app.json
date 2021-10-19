@@ -26,42 +26,16 @@
   "drivers": [
     {
       "name": {
-        "en": "binarySensor"
+        "en": "homeAssistantDevice"
       },
-      "class": "sensor",
+      "class": "other",
       "capabilities": [],
       "images": {
-        "small": "/drivers/binarysensor/assets/images/small.png",
-        "large": "/drivers/binarysensor/assets/images/large.png",
-        "xlarge": "/drivers/binarysensor/assets/images/xlarge.png"
+        "small": "/drivers/homeassistantdevice/assets/images/small.png",
+        "large": "/drivers/homeassistantdevice/assets/images/large.png",
+        "xlarge": "/drivers/homeassistantdevice/assets/images/xlarge.png"
       },
-      "id": "binarysensor"
-    },
-    {
-      "name": {
-        "en": "light"
-      },
-      "class": "light",
-      "capabilities": [],
-      "images": {
-        "small": "/drivers/light/assets/images/small.png",
-        "large": "/drivers/light/assets/images/large.png",
-        "xlarge": "/drivers/light/assets/images/xlarge.png"
-      },
-      "id": "light"
-    },
-    {
-      "name": {
-        "en": "sensor"
-      },
-      "class": "sensor",
-      "capabilities": [],
-      "images": {
-        "small": "/drivers/sensor/assets/images/small.png",
-        "large": "/drivers/sensor/assets/images/large.png",
-        "xlarge": "/drivers/sensor/assets/images/xlarge.png"
-      },
-      "id": "sensor"
+      "id": "homeassistantdevice"
     }
   ]
 }
