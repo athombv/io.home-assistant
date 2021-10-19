@@ -78,9 +78,9 @@ async function homeyMapper(entities) {
                 const deviceName = entity.entity_id;
                 console.log(`${deviceName}`);
                 return deviceName; 
-            }).filter(deviceName => {
+            }).filter(Device => {
                 // console.log(capabilityId);
-                return typeof deviceName === 'string';
+                return typeof Device === 'string';
             }),
     }
     console.log(HomeyMap);
