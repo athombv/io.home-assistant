@@ -2,14 +2,15 @@
   "name": "com.AthomBV.HomeAssistant",
   "version": "1.0.0",
   "main": "app.js",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
     "home-assistant-js-websocket": "^5.11.1",
+    "homey": "^2.23.3",
     "ws": "^8.2.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.4"
   }
 }
