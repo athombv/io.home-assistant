@@ -1,5 +1,5 @@
 {
-  "name": "com.AthomBV.HomeAssistant",
+  "name": "com.athombv.homeassistant",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
