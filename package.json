@@ -7,10 +7,11 @@
   },
   "dependencies": {
     "home-assistant-js-websocket": "^5.11.1",
-    "homey": "^2.23.3",
+    "homey": "^2.18.0",
     "ws": "^8.2.3"
   },
   "devDependencies": {
+    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.2.2",
     "typescript": "^4.4.4"
   }
 }
