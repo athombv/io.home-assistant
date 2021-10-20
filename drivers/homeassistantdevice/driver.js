@@ -22,7 +22,10 @@ class MyDriver extends Driver {
    * This should return an array with the data of devices that are available for pairing.
    */
   async onPairListDevices() {
-    return [
+    const client = this.homey.app.getClient();
+    const haDevices = client.getSensors();
+    return haDevices;
+    //return [
       // Example device data, note that `store` is optional
       // {
       //   name: 'My Device',
@@ -33,7 +36,8 @@ class MyDriver extends Driver {
       //     address: '127.0.0.1',
       //   },
       // },
-    ];
+      
+    //];
   }
 
 }
