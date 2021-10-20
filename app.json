@@ -3,6 +3,10 @@
   "id": "com.athombv.homeassistant",
   "version": "1.0.0",
   "compatibility": ">=5.0.0",
+  "platforms": [
+    "local",
+    "cloud"
+  ],
   "sdk": 3,
   "name": {
     "en": "Home Assistant"
@@ -11,7 +15,7 @@
     "en": "integration for the home assistant smarthome helper"
   },
   "category": [
-    "tools"
+    "appliances"
   ],
   "permissions": [],
   "images": {
@@ -35,6 +39,19 @@
         "large": "/drivers/homeassistantdevice/assets/images/large.png",
         "xlarge": "/drivers/homeassistantdevice/assets/images/xlarge.png"
       },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
       "id": "homeassistantdevice"
     }
   ]

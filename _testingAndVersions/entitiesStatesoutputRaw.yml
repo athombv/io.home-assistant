@@ -1,0 +1,809 @@
+[  
+{
+    entity_id: 'binary_sensor.hangplanten_watering',
+    state: 'off',
+    attributes: {
+      attribution: 'Data provided by hydrawise.com',
+      identifier: 4,
+      friendly_name: 'Hangplanten  Watering',
+      device_class: 'moisture'
+    },
+    last_changed: '2021-10-19T06:05:37.925958+00:00',
+    last_updated: '2021-10-19T06:05:37.925958+00:00',
+    context: {
+      id: '402ad4bec336efed18a4e365ad29d902',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'binary_sensor.my_controller_status',
+    state: 'on',
+    attributes: {
+      attribution: 'Data provided by hydrawise.com',
+      identifier: null,
+      friendly_name: 'My Controller Status',
+      device_class: 'connectivity'
+    },
+    last_changed: '2021-10-19T06:05:38.021623+00:00',
+    last_updated: '2021-10-19T06:05:38.021623+00:00',
+    context: {
+      id: '4c1d2cb1c736ed2a50c5465d8a318c81',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.gm1913_battery_level',
+    state: '76',
+    attributes: {
+      unit_of_measurement: '%',
+      friendly_name: 'GM1913 Battery Level',
+      icon: 'mdi:battery-70',
+      device_class: 'battery'
+    },
+    last_changed: '2021-10-19T06:05:38.093776+00:00',
+    last_updated: '2021-10-19T06:05:38.093776+00:00',
+    context: {
+      id: '624a776908db690cc03d0a2dece1a99c',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.gm1913_battery_state',
+    state: 'charging',
+    attributes: { friendly_name: 'GM1913 Battery State', icon: 'mdi:battery-plus' },
+    last_changed: '2021-10-19T06:05:38.094723+00:00',
+    last_updated: '2021-10-19T06:05:38.094723+00:00',
+    context: {
+      id: 'bf98ae207b3bbaab27c46906b4ab087f',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.gm1913_charger_type',
+    state: 'ac',
+    attributes: { friendly_name: 'GM1913 Charger Type', icon: 'mdi:power-plug' },
+    last_changed: '2021-10-19T06:05:38.095650+00:00',
+    last_updated: '2021-10-19T06:05:38.095650+00:00',
+    context: {
+      id: '026d3c921b0698829302641ee63d9014',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.gm1913_battery_temperature',
+    state: '28.4',
+    attributes: {
+      unit_of_measurement: '°C',
+      friendly_name: 'GM1913 Battery Temperature',
+      icon: 'mdi:battery',
+      device_class: 'temperature'
+    },
+    last_changed: '2021-10-19T06:05:38.096451+00:00',
+    last_updated: '2021-10-19T06:05:38.096451+00:00',
+    context: {
+      id: '2cddfcad3147763a8f29b1b0c31f170c',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'binary_sensor.gm1913_is_charging',
+    state: 'on',
+    attributes: {
+      friendly_name: 'GM1913 Is Charging',
+      icon: 'mdi:power-plug',
+      device_class: 'plug'
+    },
+    last_changed: '2021-10-19T06:05:38.097227+00:00',
+    last_updated: '2021-10-19T06:05:38.097227+00:00',
+    context: {
+      id: '16b4747454e14e7c124784e78e4f624c',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'device_tracker.gm1913',
+    state: 'unknown',
+    attributes: { source_type: 'gps', friendly_name: 'GM1913' },
+    last_changed: '2021-10-19T06:05:40.707384+00:00',
+    last_updated: '2021-10-19T06:05:40.707384+00:00',
+    context: {
+      id: 'f33fe542aabccbf09c174c715fe84a9d',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'light.my_led',
+    state: 'unavailable',
+    attributes: {
+      supported_color_modes: [Array],
+      friendly_name: 'my_led',
+      supported_features: 8
+    },
+    last_changed: '2021-10-19T06:05:41.142265+00:00',
+    last_updated: '2021-10-19T06:05:41.142265+00:00',
+    context: {
+      id: '1305b88b6e3e309103a5e8fb0458b6b7',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'light.ws2812b_led',
+    state: 'unavailable',
+    attributes: {
+      supported_color_modes: [Array],
+      friendly_name: 'WS2812B_LED',
+      supported_features: 40
+    },
+    last_changed: '2021-10-19T06:05:41.145181+00:00',
+    last_updated: '2021-10-19T06:05:41.145181+00:00',
+    context: {
+      id: '2c614999f48f966466fb670fbaed1f30',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'light.fastled_ws2812b_small_ring',
+    state: 'unavailable',
+    attributes: {
+      supported_color_modes: [Array],
+      friendly_name: 'FASTLED WS2812B small ring',
+      supported_features: 40
+    },
+    last_changed: '2021-10-19T06:05:41.148364+00:00',
+    last_updated: '2021-10-19T06:05:41.148364+00:00',
+    context: {
+      id: 'b0d6717335fc14e39299df108a84263b',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.soundbar',
+    state: 'off',
+    attributes: { friendly_name: 'Soundbar', supported_features: 152461 },
+    last_changed: '2021-10-19T07:20:48.253483+00:00',
+    last_updated: '2021-10-19T07:20:48.253483+00:00',
+    context: {
+      id: '261b2be13ff541d6e0d00c62427dc43d',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.google_beneden',
+    state: 'off',
+    attributes: { friendly_name: 'Google beneden', supported_features: 152461 },
+    last_changed: '2021-10-19T06:05:42.191100+00:00',
+    last_updated: '2021-10-19T06:05:42.240884+00:00',
+    context: {
+      id: '192bb58ab1eef9e6e0958a11c33a9d74',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.citation_group',
+    state: 'off',
+    attributes: { friendly_name: 'Citation Group', supported_features: 152461 },
+    last_changed: '2021-10-19T06:05:42.381369+00:00',
+    last_updated: '2021-10-19T06:05:42.409537+00:00',
+    context: {
+      id: '9f5e3cc573601ec708122c5be39d5bf5',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.tv_in_woonkamer',
+    state: 'unavailable',
+    attributes: { friendly_name: 'Tv in woonkamer', supported_features: 152461 },
+    last_changed: '2021-10-19T07:26:44.606549+00:00',
+    last_updated: '2021-10-19T07:26:44.606549+00:00',
+    context: {
+      id: 'e76961f535237e67552b3fc51fd789f8',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.citation_one_links',
+    state: 'off',
+    attributes: { friendly_name: 'Citation One Links', supported_features: 152461 },
+    last_changed: '2021-10-19T06:05:42.565677+00:00',
+    last_updated: '2021-10-19T06:05:42.636682+00:00',
+    context: {
+      id: 'b575e63501b3e4345f313d5d731b7a29',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.slaapkamer_klok_petra',
+    state: 'off',
+    attributes: {
+      friendly_name: 'Slaapkamer klok Petra',
+      supported_features: 152461
+    },
+    last_changed: '2021-10-19T06:05:42.659572+00:00',
+    last_updated: '2021-10-19T06:05:42.684985+00:00',
+    context: {
+      id: 'ff6c91abf972a920abf5cf6b19dcb524',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.citation_one_rechts',
+    state: 'off',
+    attributes: {
+      friendly_name: 'Citation One Rechts',
+      supported_features: 152461
+    },
+    last_changed: '2021-10-19T06:05:42.850875+00:00',
+    last_updated: '2021-10-19T06:05:42.924087+00:00',
+    context: {
+      id: '1c670810a4686e9f882741fa0f88c843',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.slaapkamer_klok_janpeter',
+    state: 'off',
+    attributes: {
+      friendly_name: 'Slaapkamer klok JanPeter',
+      supported_features: 152461
+    },
+    last_changed: '2021-10-19T06:05:42.926191+00:00',
+    last_updated: '2021-10-19T06:05:42.969256+00:00',
+    context: {
+      id: 'bac2ac54024965062a9f0e4a27de00a0',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.slaapkamer_klokken',
+    state: 'off',
+    attributes: { friendly_name: 'Slaapkamer klokken', supported_features: 152461 },
+    last_changed: '2021-10-19T06:05:43.056739+00:00',
+    last_updated: '2021-10-19T06:05:43.088899+00:00',
+    context: {
+      id: 'e8b85a28f87903dc75d2c6335d88b808',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.garage_speaker',
+    state: 'off',
+    attributes: { friendly_name: 'Garage speaker', supported_features: 152461 },
+    last_changed: '2021-10-19T06:05:43.239868+00:00',
+    last_updated: '2021-10-19T06:05:43.296995+00:00',
+    context: {
+      id: '297b0cba7229189101710735fa1ee738',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.slaapkamer_marleen_clock',
+    state: 'off',
+    attributes: {
+      friendly_name: 'Slaapkamer Marleen clock',
+      supported_features: 152461
+    },
+    last_changed: '2021-10-19T06:05:43.346222+00:00',
+    last_updated: '2021-10-19T06:05:43.392541+00:00',
+    context: {
+      id: 'b0e67f300161671c7e30fd427b59bea1',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.slaapkamer_floris_clock',
+    state: 'off',
+    attributes: {
+      friendly_name: 'Slaapkamer Floris clock',
+      supported_features: 152461
+    },
+    last_changed: '2021-10-19T06:05:43.427991+00:00',
+    last_updated: '2021-10-19T06:05:43.473875+00:00',
+    context: {
+      id: '0f4cf42cee80218553e8ae2914aa6b1f',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.eetkamer_rechts',
+    state: 'off',
+    attributes: { friendly_name: 'Eetkamer Rechts', supported_features: 152461 },
+    last_changed: '2021-10-19T06:05:44.020046+00:00',
+    last_updated: '2021-10-19T06:05:44.098928+00:00',
+    context: {
+      id: '91dd4404246ac95a0882241dcbd043f7',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.eetkamer_links',
+    state: 'off',
+    attributes: { friendly_name: 'Eetkamer Links', supported_features: 152461 },
+    last_changed: '2021-10-19T06:05:48.039173+00:00',
+    last_updated: '2021-10-19T06:05:48.099070+00:00',
+    context: {
+      id: '3a22e7c16bcc0a34b101c5ec7604d26d',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.keuken_display',
+    state: 'off',
+    attributes: { friendly_name: 'Keuken display', supported_features: 152461 },
+    last_changed: '2021-10-19T06:05:45.908855+00:00',
+    last_updated: '2021-10-19T06:05:45.918890+00:00',
+    context: {
+      id: '1da57ac5e8ea29258e9ea3639df2f6a2',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.veranda_speaker',
+    state: 'off',
+    attributes: { friendly_name: 'Veranda Speaker', supported_features: 152461 },
+    last_changed: '2021-10-19T06:05:45.885241+00:00',
+    last_updated: '2021-10-19T06:05:45.927930+00:00',
+    context: {
+      id: '67635fdd838610d86ec830fabd693181',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'binary_sensor.ikea_tradfri_motion_sensor_on_off',
+    state: 'unavailable',
+    attributes: {
+      friendly_name: 'IKEA TRADFRI motion sensor on_off',
+      device_class: 'motion'
+    },
+    last_changed: '2021-10-19T06:05:59.588319+00:00',
+    last_updated: '2021-10-19T06:06:26.428646+00:00',
+    context: {
+      id: '58a2fd8cd58bbb302733c2ae391417cf',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.ikea_tradfri_motion_sensor_power',
+    state: 'unavailable',
+    attributes: {
+      state_class: 'measurement',
+      unit_of_measurement: '%',
+      friendly_name: 'IKEA TRADFRI motion sensor power',
+      device_class: 'battery'
+    },
+    last_changed: '2021-10-19T06:05:59.588667+00:00',
+    last_updated: '2021-10-19T06:06:26.379514+00:00',
+    context: {
+      id: 'b51170f9001838a60a4f658518930492',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.lumi_lumi_weather_humidity',
+    state: 'unavailable',
+    attributes: {
+      state_class: 'measurement',
+      unit_of_measurement: '%',
+      friendly_name: 'LUMI weather sensor humidity',
+      device_class: 'humidity'
+    },
+    last_changed: '2021-10-19T06:05:59.588863+00:00',
+    last_updated: '2021-10-19T06:06:26.396034+00:00',
+    context: {
+      id: 'f2064e99005f2869024ef3e554c9b339',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.lumi_lumi_weather_power',
+    state: 'unavailable',
+    attributes: {
+      state_class: 'measurement',
+      unit_of_measurement: '%',
+      friendly_name: 'LUMI weather sensor power',
+      device_class: 'battery'
+    },
+    last_changed: '2021-10-19T06:05:59.589045+00:00',
+    last_updated: '2021-10-19T06:06:26.402737+00:00',
+    context: {
+      id: '030d7a215cd30c1ff46e4880fcca8c54',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.lumi_lumi_weather_pressure',
+    state: 'unavailable',
+    attributes: {
+      state_class: 'measurement',
+      unit_of_measurement: 'hPa',
+      friendly_name: 'LUMI weather sensor pressure',
+      device_class: 'pressure'
+    },
+    last_changed: '2021-10-19T06:05:59.589219+00:00',
+    last_updated: '2021-10-19T06:06:26.388532+00:00',
+    context: {
+      id: 'd79da2c0781d4307e15fcc98bbc86857',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.lumi_lumi_weather_temperature',
+    state: 'unavailable',
+    attributes: {
+      state_class: 'measurement',
+      unit_of_measurement: '°C',
+      friendly_name: 'LUMI weather sensor temperature',
+      device_class: 'temperature'
+    },
+    last_changed: '2021-10-19T06:05:59.589444+00:00',
+    last_updated: '2021-10-19T06:06:26.383800+00:00',
+    context: {
+      id: '4d008f4d8ba17041bb4e03c3a70b7510',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'light.ikea_tradfri_bulb_e27',
+    state: 'unavailable',
+    attributes: {
+      min_mireds: 250,
+      max_mireds: 454,
+      supported_color_modes: [Array],
+      friendly_name: 'IKEA TRADFRI bulb E27',
+      supported_features: 43
+    },
+    last_changed: '2021-10-19T06:05:59.589623+00:00',
+    last_updated: '2021-10-19T06:06:26.420984+00:00',
+    context: {
+      id: '2232c1f545afc8fe073ae33764b6c844',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.sonos_support',
+    state: 'unavailable',
+    attributes: {
+      restored: true,
+      source_list: [Array],
+      supported_features: 457279,
+      friendly_name: 'Sonos Support'
+    },
+    last_changed: '2021-10-19T06:05:59.589793+00:00',
+    last_updated: '2021-10-19T06:05:59.589793+00:00',
+    context: {
+      id: 'acb4d98ac9aae4cde7ae7c0d81a4ac25',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.sonos_development',
+    state: 'unavailable',
+    attributes: {
+      restored: true,
+      source_list: [Array],
+      supported_features: 457279,
+      friendly_name: 'Sonos Development'
+    },
+    last_changed: '2021-10-19T06:05:59.589972+00:00',
+    last_updated: '2021-10-19T06:05:59.589972+00:00',
+    context: {
+      id: '783c190d2c3b374cfd4c791d42aa61c1',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.sonos_workshop',
+    state: 'unavailable',
+    attributes: {
+      restored: true,
+      source_list: [Array],
+      supported_features: 457279,
+      friendly_name: 'Sonos Workshop'
+    },
+    last_changed: '2021-10-19T06:05:59.590142+00:00',
+    last_updated: '2021-10-19T06:05:59.590142+00:00',
+    context: {
+      id: '013215a6b76be102a6bfbcc31edbaa73',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.sonos_living_room',
+    state: 'unavailable',
+    attributes: {
+      restored: true,
+      source_list: [Array],
+      supported_features: 457279,
+      friendly_name: 'Sonos Living Room'
+    },
+    last_changed: '2021-10-19T06:05:59.590337+00:00',
+    last_updated: '2021-10-19T06:05:59.590337+00:00',
+    context: {
+      id: 'ba62cec33cb409ecaa89835e1a1a97e4',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.sonos_kitchen',
+    state: 'unavailable',
+    attributes: {
+      restored: true,
+      source_list: [Array],
+      supported_features: 457279,
+      friendly_name: 'Sonos Kitchen'
+    },
+    last_changed: '2021-10-19T06:05:59.590516+00:00',
+    last_updated: '2021-10-19T06:05:59.590516+00:00',
+    context: {
+      id: '30778892df91982fb4d032ab303be38a',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.film_studio',
+    state: 'unavailable',
+    attributes: {
+      restored: true,
+      source_list: [Array],
+      supported_features: 457279,
+      friendly_name: 'Film Studio'
+    },
+    last_changed: '2021-10-19T06:05:59.590680+00:00',
+    last_updated: '2021-10-19T06:05:59.590680+00:00',
+    context: {
+      id: '356c95bbb50658547962aa4970e32ae0',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.athom_kantoor_display',
+    state: 'unavailable',
+    attributes: {
+      restored: true,
+      supported_features: 152449,
+      friendly_name: 'Athom Kantoor Display'
+    },
+    last_changed: '2021-10-19T06:05:59.590843+00:00',
+    last_updated: '2021-10-19T06:05:59.590843+00:00',
+    context: {
+      id: 'fbd82d88604543a1a12da06c6455092b',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.memory_free',
+    state: 'unavailable',
+    attributes: {
+      restored: true,
+      supported_features: 0,
+      unit_of_measurement: 'MiB',
+      friendly_name: 'Memory free',
+      icon: 'mdi:memory'
+    },
+    last_changed: '2021-10-19T06:05:59.591024+00:00',
+    last_updated: '2021-10-19T06:05:59.591024+00:00',
+    context: {
+      id: 'b6b5bf7763b7a750337604d17418257f',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.athom_cloud_ceiling',
+    state: '30',
+    attributes: {
+      state_class: 'measurement',
+      attribution: 'Data provided by AccuWeather',
+      unit_of_measurement: 'm',
+      friendly_name: 'Athom Cloud Ceiling',
+      icon: 'mdi:weather-fog'
+    },
+    last_changed: '2021-10-19T07:26:06.576906+00:00',
+    last_updated: '2021-10-19T07:26:06.576906+00:00',
+    context: {
+      id: 'ec8d8727000c6da50f335e8f39b52df9',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.athom_realfeel_temperature',
+    state: '11.8',
+    attributes: {
+      state_class: 'measurement',
+      attribution: 'Data provided by AccuWeather',
+      unit_of_measurement: '°C',
+      friendly_name: 'Athom RealFeel Temperature',
+      device_class: 'temperature'
+    },
+    last_changed: '2021-10-19T07:26:06.577683+00:00',
+    last_updated: '2021-10-19T07:26:06.577683+00:00',
+    context: {
+      id: '943234b446d0f8825fb49a9db045cd0e',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.athom_precipitation',
+    state: '0.3',
+    attributes: {
+      state_class: 'measurement',
+      attribution: 'Data provided by AccuWeather',
+      type: 'Rain',
+      unit_of_measurement: 'mm',
+      friendly_name: 'Athom Precipitation',
+      icon: 'mdi:weather-rainy'
+    },
+    last_changed: '2021-10-19T07:26:06.578220+00:00',
+    last_updated: '2021-10-19T07:26:06.578220+00:00',
+    context: {
+      id: '3c096bd667960b95de8c6dfab4f8294a',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.athom_pressure_tendency',
+    state: 'falling',
+    attributes: {
+      attribution: 'Data provided by AccuWeather',
+      friendly_name: 'Athom Pressure Tendency',
+      icon: 'mdi:gauge',
+      device_class: 'accuweather__pressure_tendency'
+    },
+    last_changed: '2021-10-19T07:26:06.578728+00:00',
+    last_updated: '2021-10-19T07:26:06.578728+00:00',
+    context: {
+      id: '323492ceb0a382c9c13063ff5badb1d2',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.athom_uv_index',
+    state: '0',
+    attributes: {
+      state_class: 'measurement',
+      attribution: 'Data provided by AccuWeather',
+      level: 'Low',
+      unit_of_measurement: 'UV index',
+      friendly_name: 'Athom UV Index',
+      icon: 'mdi:weather-sunny'
+    },
+    last_changed: '2021-10-19T06:06:06.270403+00:00',
+    last_updated: '2021-10-19T06:06:06.270403+00:00',
+    context: {
+      id: '6f0aae3f509a226c7d6495b820b71da8',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'sensor.athom_wind',
+    state: '16.7',
+    attributes: {
+      state_class: 'measurement',
+      attribution: 'Data provided by AccuWeather',
+      unit_of_measurement: 'km/h',
+      friendly_name: 'Athom Wind',
+      icon: 'mdi:weather-windy'
+    },
+    last_changed: '2021-10-19T07:26:06.579542+00:00',
+    last_updated: '2021-10-19T07:26:06.579542+00:00',
+    context: {
+      id: 'ab97db46dea677098256b38cabe76a70',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'weather.athom',
+    state: 'rainy',
+    attributes: {
+      temperature: 15,
+      humidity: 100,
+      pressure: 1014,
+      wind_bearing: 180,
+      wind_speed: 16.7,
+      visibility: 1,
+      attribution: 'Data provided by AccuWeather',
+      friendly_name: 'Athom'
+    },
+    last_changed: '2021-10-19T07:26:06.580745+00:00',
+    last_updated: '2021-10-19T07:26:06.580745+00:00',
+    context: {
+      id: '65b2c655898f7a8628c4cf9f816f0a57',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'media_player.kantoor_tv',
+    state: 'unavailable',
+    attributes: {
+      restored: true,
+      supported_features: 152449,
+      friendly_name: 'Kantoor TV'
+    },
+    last_changed: '2021-10-19T06:05:59.593775+00:00',
+    last_updated: '2021-10-19T06:05:59.593775+00:00',
+    context: {
+      id: '60a064ea16345ceb6d0ec27d467c025d',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'persistent_notification.config_entry_discovery',
+    state: 'notifying',
+    attributes: {
+      title: 'New devices discovered',
+      friendly_name: 'New devices discovered',
+      message: 'We have discovered new devices on your network. [Check it out](/config/integrations).'
+    },
+    last_changed: '2021-10-19T06:06:05.379389+00:00',
+    last_updated: '2021-10-19T06:06:05.379389+00:00',
+    context: {
+      id: 'e2cfb78704496e61c2c9dad0135af63f',
+      parent_id: null,
+      user_id: null
+    }
+  },
+  {
+    entity_id: 'persistent_notification.supervisor_issue_free_space',
+    state: 'notifying',
+    attributes: {
+      title: 'Available space is less than 1GB!',
+      friendly_name: 'Available space is less than 1GB!',
+      message: 'Available space is 0.7GB, see https://www.home-assistant.io/more-info/free-space for more information.'
+    },
+    last_changed: '2021-10-19T06:06:19.022900+00:00',
+    last_updated: '2021-10-19T06:06:19.022900+00:00',
+    context: {
+      id: 'ea369528cc2a885c8d8df1ce8ceeed39',
+      parent_id: null,
+      user_id: null
+    }
+  }
+]

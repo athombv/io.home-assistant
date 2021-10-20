@@ -4,10 +4,9 @@ const HA_ENTITIES_TO_HOMEY_CAPABILIIES_MAP = {
   '':'',
 
 }
+const Homey = require('homey');
 
-const { Driver } = require('homey');
-
-class MyDriver extends Driver {
+class MyDriver extends Homey.Driver {
 
   /**
    * onInit is called when the driver is initialized.
@@ -22,8 +21,9 @@ class MyDriver extends Driver {
    * This should return an array with the data of devices that are available for pairing.
    */
   async onPairListDevices() {
+    this.log('Pair function called');
     const client = this.homey.app.getClient();
-    const haDevices = client.getSensors();
+    const haDevices = client.getDevices();
     return haDevices;
     //return [
       // Example device data, note that `store` is optional
