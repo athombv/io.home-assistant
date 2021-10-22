@@ -20,38 +20,7 @@ const newName = map.call(name, eachLetter => {
 console.log(newName)
 // failed attempt 2, now knowing what was wrong, thanks to the console log of device.attributes.device_class:
 
-const loadData = [...jsonData]; // myfunction.apply(null,args); --> nyfunction(...args);
-// function Mapper() {
-    //console.log(loadData);
-const homeyMapper = loadData.map(device => {
-    if (device.attributes.device_class) { // if the object attributes (of device) has a device_class, map the object 'device'.
-        // This is different for lights, so maybe check for the supported_colormodes and/or features
-        // the device_class is basically for binary_sensor or sensor. The media_player or light dont have a device class but use supported_features
-        // console.log(device.entity_id);    
-        return {
-            name: device.entity_id,  // capabilities: Object.entries(device.attributes.device_class)
-            capabilities: Object.entries(device.attributes)
-                .map(([key,value]) => { //map(([key, value]))
-                    console.log(`Content: ${Object.entries(device.attributes)}`);
-                    // console.log(`Content: ${Object.entries(device.attributes.device_class)}`);
-                    const capabilityId = HA_SENSOR_ENTITIES_TO_HOMEY_CAPABILIIES_MAP[key];
-                    if (!capabilityId) {
-                        // console.error('error');
-                        return null;
-                    }
-                    console.log(`device class: ${device.attributes.device_class}`);
-                    console.log(`Key: ${key}`);
-                    console.log(`device Name: ${device.entity_id}`);
-                    console.log(`Attached Capability: ${capabilityId}`);
-                    return capabilityId;
-                }).filter(capabilityId => {
-                    // console.log(capabilityId);
-                    return typeof capabilityId === 'string';
-                }),
-        };
-    }
-});
-console.log(homeyMapper);
+
 
 // WORKS!!!!!!!!! the one below works
 
