@@ -1,0 +1,820 @@
+calling update
+device ID: person.marleen
+Object keys of devices:
+[]
+device ID: sun.sun
+Object keys of devices:
+[]
+device ID: zone.home
+Object keys of devices:
+[]
+device ID: binary_sensor.updater
+Object keys of devices:
+[]
+device ID: binary_sensor.rpi_power_status
+Object keys of devices:
+[]
+device ID: binary_sensor.pir_office
+Object keys of devices:
+[]
+device ID: binary_sensor.lage_muur_watering
+Object keys of devices:
+[]
+device ID: binary_sensor.pir_bedroom
+Object keys of devices:
+[]
+device ID: binary_sensor.lavendel_muur_watering
+Object keys of devices:
+[]
+device ID: binary_sensor.zone_3_watering
+Object keys of devices:
+[]
+device ID: automation.automation_1
+Object keys of devices:
+[]
+device ID: automation.automation_2
+Object keys of devices:
+[]
+device ID: automation.led_ring_jump
+Object keys of devices:
+[]
+device ID: automation.new_automation
+Object keys of devices:
+[]
+device ID: automation.led_ring_off
+Object keys of devices:
+[]
+device ID: binary_sensor.hangplanten_watering
+Object keys of devices:
+[]
+device ID: sensor.gm1913_battery_level
+Object keys of devices:
+[]
+device ID: sensor.gm1913_battery_state
+Object keys of devices:
+[]
+device ID: sensor.gm1913_charger_type
+Object keys of devices:
+[]
+device ID: sensor.gm1913_battery_temperature
+Object keys of devices:
+[]
+device ID: binary_sensor.gm1913_is_charging
+Object keys of devices:
+[]
+device ID: binary_sensor.my_controller_status
+Object keys of devices:
+[]
+device ID: device_tracker.gm1913
+Object keys of devices:
+[]
+device ID: light.fastled_ws2812b_small_ring
+Object keys of devices:
+[]
+device ID: light.my_led
+Object keys of devices:
+[]
+device ID: light.ws2812b_led
+Object keys of devices:
+[]
+device ID: media_player.athom_kantoor_display
+Object keys of devices:
+[]
+device ID: media_player.sonos_development
+Object keys of devices:
+[]
+device ID: media_player.kantoor_tv
+Object keys of devices:
+[]
+device ID: binary_sensor.ikea_tradfri_motion_sensor_on_off
+Object keys of devices:
+[]
+device ID: sensor.ikea_tradfri_motion_sensor_power
+Object keys of devices:
+[]
+device ID: sensor.lumi_lumi_weather_humidity
+Object keys of devices:
+[]
+device ID: sensor.lumi_lumi_weather_power
+Object keys of devices:
+[]
+device ID: sensor.lumi_lumi_weather_pressure
+Object keys of devices:
+[]
+device ID: sensor.lumi_lumi_weather_temperature
+Object keys of devices:
+[]
+device ID: light.ikea_tradfri_bulb_e27
+Object keys of devices:
+[]
+device ID: media_player.sonos_support
+Object keys of devices:
+[]
+device ID: media_player.sonos_workshop
+Object keys of devices:
+[]
+device ID: media_player.sonos_living_room
+Object keys of devices:
+[]
+device ID: media_player.sonos_kitchen
+Object keys of devices:
+[]
+device ID: media_player.film_studio
+Object keys of devices:
+[]
+device ID: sensor.memory_free
+Object keys of devices:
+[]
+device ID: sensor.athom_cloud_ceiling
+Object keys of devices:
+[]
+device ID: sensor.athom_realfeel_temperature
+Object keys of devices:
+[]
+device ID: sensor.athom_precipitation
+Object keys of devices:
+[]
+device ID: sensor.athom_pressure_tendency
+Object keys of devices:
+[]
+device ID: sensor.athom_uv_index
+Object keys of devices:
+[]
+device ID: sensor.athom_wind
+Object keys of devices:
+[]
+device ID: weather.athom
+Object keys of devices:
+[]
+device ID: media_player.veranda_speaker
+Object keys of devices:
+[]
+device ID: media_player.soundbar
+Object keys of devices:
+[]
+device ID: media_player.google_beneden
+Object keys of devices:
+[]
+device ID: media_player.citation_group
+Object keys of devices:
+[]
+device ID: media_player.tv_in_woonkamer
+Object keys of devices:
+[]
+device ID: media_player.citation_one_links
+Object keys of devices:
+[]
+device ID: media_player.slaapkamer_klok_petra
+Object keys of devices:
+[]
+device ID: media_player.citation_one_rechts
+Object keys of devices:
+[]
+device ID: media_player.slaapkamer_klok_janpeter
+Object keys of devices:
+[]
+device ID: media_player.slaapkamer_klokken
+Object keys of devices:
+[]
+device ID: media_player.garage_speaker
+Object keys of devices:
+[]
+device ID: media_player.slaapkamer_marleen_clock
+Object keys of devices:
+[]
+device ID: media_player.slaapkamer_floris_clock
+Object keys of devices:
+[]
+device ID: media_player.eetkamer_rechts
+Object keys of devices:
+[]
+device ID: media_player.eetkamer_links
+Object keys of devices:
+[]
+device ID: media_player.keuken_display
+Object keys of devices:
+[]
+device ID: media_player.tv_slaapkamer
+Object keys of devices:
+[]
+device ID: persistent_notification.config_entry_discovery
+Object keys of devices:
+[]
+device ID: persistent_notification.supervisor_issue_free_space
+Object keys of devices:
+[]
+calling update
+device ID: person.marleen
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sun.sun
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: zone.home
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.updater
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.rpi_power_status
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.pir_office
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.lage_muur_watering
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.pir_bedroom
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.lavendel_muur_watering
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.zone_3_watering
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: automation.automation_1
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: automation.automation_2
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: automation.led_ring_jump
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: automation.new_automation
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: automation.led_ring_off
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.hangplanten_watering
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.gm1913_battery_level
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.gm1913_battery_state
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.gm1913_charger_type
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.gm1913_battery_temperature
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.gm1913_is_charging
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.my_controller_status
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: device_tracker.gm1913
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: light.fastled_ws2812b_small_ring
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: light.my_led
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: light.ws2812b_led
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.athom_kantoor_display
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.sonos_development
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.kantoor_tv
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: binary_sensor.ikea_tradfri_motion_sensor_on_off
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.ikea_tradfri_motion_sensor_power
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.lumi_lumi_weather_humidity
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.lumi_lumi_weather_power
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.lumi_lumi_weather_pressure
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.lumi_lumi_weather_temperature
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: light.ikea_tradfri_bulb_e27
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.sonos_support
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.sonos_workshop
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.sonos_living_room
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.sonos_kitchen
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.film_studio
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.memory_free
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.athom_cloud_ceiling
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.athom_realfeel_temperature
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.athom_precipitation
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.athom_pressure_tendency
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.athom_uv_index
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: sensor.athom_wind
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: weather.athom
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.veranda_speaker
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.soundbar
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.google_beneden
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.citation_group
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.tv_in_woonkamer
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.citation_one_links
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.slaapkamer_klok_petra
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.citation_one_rechts
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.slaapkamer_klok_janpeter
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.slaapkamer_klokken
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.garage_speaker
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.slaapkamer_marleen_clock
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.slaapkamer_floris_clock
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.eetkamer_rechts
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.eetkamer_links
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.keuken_display
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: media_player.tv_slaapkamer
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: persistent_notification.config_entry_discovery
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+device ID: persistent_notification.supervisor_issue_free_space
+Object keys of devices:
+[
+  'sensor.gm1913_battery_temperature',
+  'sensor.lumi_lumi_weather_humidity',
+  'sensor.lumi_lumi_weather_power',
+  'sensor.lumi_lumi_weather_pressure',
+  'sensor.lumi_lumi_weather_temperature'
+]
+Object keys of devices:
+[]

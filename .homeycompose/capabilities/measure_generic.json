@@ -1,0 +1,10 @@
+{
+    "type": "string",
+    "title": {
+      "nl": "Waarde",
+      "en": "Value"
+    },
+    "getable": true,
+    "setable": false
+  }
+  

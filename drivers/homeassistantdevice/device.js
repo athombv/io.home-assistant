@@ -11,48 +11,26 @@ class MyDevice extends Homey.Device {
   async onInit() {
     this.log('MyDevice has been initialized');
 
-    this._client = this.homey.app.getClient();
+    this.Connect = this.homey.app.getClient();
     this.entityId = this.getData().id;
     
-    this.capability = this.getCapabilities()[0];
-
+    this.capability = this.getCapabilities(); //had this.getcapabilities()[0];
+    
     this.log('id: ', this.entityId);
     this.log('name: ', this.getName());
     this.log('class: ', this.getClass());
-    this.log('capabilities: ', this.getCapabilities());
-    this._client.registerDevice(this.entityId, this);
+    this.log('capabilities: ', this.capability);
+    this.Connect.registerDevice(this.entityId, this);
 
-    const entity = this._client.getEntity(this.entityId);
+    const entity = this.Connect.getEntity(this.entityId);
     if (entity) {
       this.entityUpdate(entity);
     }
     // this.registerMultipleCapabilityListener(this.getCapabilities(), this.setCapabilities.bind(this), 100);
   }
-
-  /**
-   * onAdded is called when the user adds the device, called just after pairing.
-   */
   async onAdded() {
     this.log('MyDevice has been added');
   }
-
-  /**
-   * onSettings is called when the user updates the device's settings.
-   * @param {object} event the onSettings event data
-   * @param {object} event.oldSettings The old settings object
-   * @param {object} event.newSettings The new settings object
-   * @param {string[]} event.changedKeys An array of keys changed since the previous version
-   * @returns {Promise<string|void>} return a custom message that will be displayed
-   */
-  async onSettings({ oldSettings, newSettings, changedKeys }) {
-    this.log('MyDevice settings where changed');
-  }
-
-  /**
-   * onRenamed is called when the user updates the device's name.
-   * This method can be used this to synchronise the name to the device.
-   * @param {string} name The new name
-   */
   async onRenamed(name) {
     this.log('MyDevice was renamed');
   }
@@ -66,7 +44,10 @@ class MyDevice extends Homey.Device {
 
   entityUpdate(data) {
     try {
-      switch(this.capability) {
+      switch (this.capability) {
+        case 'measure_generic':
+          this.setCapabilityValue(this.capability, data.state);
+          break;
         default:
           this.setCapabilityValue(this.capability, parseFloat(data.state));
           break;
