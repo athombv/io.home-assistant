@@ -32,8 +32,35 @@
       "name": {
         "en": "homeAssistantDevice"
       },
-      "class": "other",
-      "capabilities": [],
+      "class": "sensor",
+      "connectivity": [
+        "cloud",
+        "ble",
+        "zwave",
+        "zigbee",
+        "infrared",
+        "rf433"
+      ],
+      "capabilities": [
+        "measure_temperature",
+        "measure_co",
+        "measure_co2",
+        "measure_pm25",
+        "measure_humidity",
+        "measure_pressure",
+        "measure_noise",
+        "measure_rain",
+        "measure_wind_strength",
+        "measure_wind_angle",
+        "measure_gust_strength",
+        "measure_gust_angle",
+        "measure_power",
+        "measure_voltage",
+        "measure_current",
+        "measure_luminance",
+        "measure_ultraviolet",
+        "measure_water"
+      ],
       "images": {
         "small": "/drivers/homeassistantdevice/assets/images/small.png",
         "large": "/drivers/homeassistantdevice/assets/images/large.png",

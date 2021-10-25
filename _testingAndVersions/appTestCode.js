@@ -22,27 +22,27 @@ const SENSOR_ENTITIES_TO_HOMEY_CAPABILITIES_MAP =// type: number
 {
     // device_class --> capability --> type
     // the binary_sensor and sensor capabilities need to be split up because the device class can be he same
-    'device_class.temperature': 'measure_temperature',
-    'device_class.co': 'measure_co',
-    'device_class.co2': 'measure_co2',
-    'device_class.pm25': 'measure_pm25',
-    'device_class.humidity': 'measure_humidity',
-    'device_class.pressure': 'measure_pressure',
-    'device_class.noise': 'measure_noise',
-    'device_class.rain': 'measure_rain',
-    'device_class.wind_strength': 'measure_wind_strength',
-    'device_class.wind_angle': 'measure_wind_angle',
-    'device_class.gust_strength': 'measure_gust_strength',
-    'device_class.gust_angle': 'measure_gust_angle',
-    'device_class:battery': 'measure_battery',
-    'device_class.power': 'measure_power',
-    'device_class.voltage': 'measure_voltage',
-    'device_class.current': 'measure_current',
-    'device_class.luminance': 'measure_luminance',
-    'device_class.ultraviolet': 'measure_ultraviolet',
-    'device_class.water_flow': 'measure_water',
-    'device_class.water': 'measure_water',
-    'device_class.energy': 'meter_power'
+    'temperature': 'measure_temperature',
+    'co': 'measure_co',
+    'co2': 'measure_co2',
+    'pm25': 'measure_pm25',
+    'humidity': 'measure_humidity',
+    'pressure': 'measure_pressure',
+    'noise': 'measure_noise',
+    'rain': 'measure_rain',
+    'wind_strength': 'measure_wind_strength',
+    'wind_angle': 'measure_wind_angle',
+    'gust_strength': 'measure_gust_strength',
+    'gust_angle': 'measure_gust_angle',
+    'battery': 'measure_battery',
+    'power': 'measure_power',
+    'voltage': 'measure_voltage',
+    'current': 'measure_current',
+    'luminance': 'measure_luminance',
+    'ultraviolet': 'measure_ultraviolet',
+    'water_flow': 'measure_water',
+    'water': 'measure_water',
+    'energy': 'meter_power'
 };
 
 const SENSOR_ENTITIES_TO_HOMEY_CAPABILITIES_MAP_1 =// type: number
