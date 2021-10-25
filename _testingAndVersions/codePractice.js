@@ -20,8 +20,6 @@ const newName = map.call(name, eachLetter => {
 console.log(newName)
 // failed attempt 2, now knowing what was wrong, thanks to the console log of device.attributes.device_class:
 
-
-
 // WORKS!!!!!!!!! the one below works
 
 const dataEx = [    // const dataEx = [{}, {}, {},]

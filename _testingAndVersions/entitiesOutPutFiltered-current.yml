@@ -1,0 +1,116 @@
+update entities
+[
+  {
+    name: 'Updater',
+    data: { id: 'binary_sensor.updater', state: 'on' },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'RPi Power status',
+    data: { id: 'binary_sensor.rpi_power_status', state: 'off' },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'Lage muur Watering',
+    data: { id: 'binary_sensor.lage_muur_watering', state: 'off' },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'Lavendel muur Watering',
+    data: { id: 'binary_sensor.lavendel_muur_watering', state: 'off' },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'Zone 3 Watering',
+    data: { id: 'binary_sensor.zone_3_watering', state: 'off' },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'Hangplanten  Watering',
+    data: { id: 'binary_sensor.hangplanten_watering', state: 'off' },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'GM1913 Battery Level',
+    data: { id: 'sensor.gm1913_battery_level', state: '84' },
+    capabilities: [ 'measure_battery' ]
+  },
+  {
+    name: 'GM1913 Battery Temperature',
+    data: { id: 'sensor.gm1913_battery_temperature', state: '27.8' },
+    capabilities: [ 'measure_temperature' ]
+  },
+  {
+    name: 'GM1913 Is Charging',
+    data: { id: 'binary_sensor.gm1913_is_charging', state: 'off' },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'My Controller Status',
+    data: { id: 'binary_sensor.my_controller_status', state: 'on' },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'IKEA TRADFRI motion sensor on_off',
+    data: {
+      id: 'binary_sensor.ikea_tradfri_motion_sensor_on_off',
+      state: 'on'
+    },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'IKEA TRADFRI motion sensor power',
+    data: { id: 'sensor.ikea_tradfri_motion_sensor_power', state: '74' },
+    capabilities: [ 'measure_battery' ]
+  },
+  {
+    name: 'LUMI weather sensor humidity',
+    data: { id: 'sensor.lumi_lumi_weather_humidity', state: '53.6' },
+    capabilities: [ 'measure_humidity' ]
+  },
+  {
+    name: 'LUMI weather sensor power',
+    data: { id: 'sensor.lumi_lumi_weather_power', state: '66' },
+    capabilities: [ 'measure_battery' ]
+  },
+  {
+    name: 'LUMI weather sensor pressure',
+    data: { id: 'sensor.lumi_lumi_weather_pressure', state: '1010' },
+    capabilities: [ 'measure_pressure' ]
+  },
+  {
+    name: 'LUMI weather sensor temperature',
+    data: { id: 'sensor.lumi_lumi_weather_temperature', state: '24.9' },
+    capabilities: [ 'measure_temperature' ]
+  },
+  {
+    name: 'Athom Cloud Ceiling',
+    data: { id: 'sensor.athom_cloud_ceiling' },
+    capabilities: 'measurement'
+  },
+  {
+    name: 'Athom RealFeel Temperature',
+    data: { id: 'sensor.athom_realfeel_temperature', state: '8.4' },
+    capabilities: [ 'measure_temperature' ]
+  },
+  {
+    name: 'Athom Precipitation',
+    data: { id: 'sensor.athom_precipitation' },
+    capabilities: 'measurement'
+  },
+  {
+    name: 'Athom Pressure Tendency',
+    data: { id: 'sensor.athom_pressure_tendency', state: 'steady' },
+    capabilities: [ 'measurement' ]
+  },
+  {
+    name: 'Athom UV Index',
+    data: { id: 'sensor.athom_uv_index' },
+    capabilities: 'measurement'
+  },
+  {
+    name: 'Athom Wind',
+    data: { id: 'sensor.athom_wind' },
+    capabilities: 'measurement'
+  }
+]
