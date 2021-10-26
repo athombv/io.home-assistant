@@ -10,13 +10,13 @@ class MyDevice extends Homey.Device {
     this.client = this.homey.app.getClient();
     this.entityId = this.getData().id;
     
-    this.capability = this.getCapabilities(); //had this.getcapabilities()[0];
+    this.capabilities = this.getCapabilities(); //had this.getcapabilities()[0];
     
     this.log('device initialized');
     this.log('id: ', this.entityId);
     this.log('name: ', this.getName());
     this.log('class: ', this.getClass());
-    this.log('capabilities: ', this.capability);
+    this.log('capabilities: ', this.capabilities);
 
     this.client.registerDevice(this.entityId, this);
 
@@ -42,28 +42,13 @@ class MyDevice extends Homey.Device {
 
   entityUpdate(data) {
     try {
-      this.capability.forEach(capability => {
+      this.capabilities.forEach(capability => {
         this.setCapabilityValue(capability, parseFloat(data.state));
       });
     } catch(ex) {
       console.log('error', ex);
     }
   }
-  // entityUpdate(data) {
-  //   try {
-  //     switch (this.capability) {
-  //       case 'measure_generic':
-  //         this.setCapabilityValue(this.capability, data.state);
-  //         break;
-  //       default:
-  //         this.setCapabilityValue(this.capability, parseFloat(data.state));
-  //         break;
-  //     }
-  //   } catch (ex) {
-  //     this.log('error', ex);
-  //   }
-  // }
-
 }
 
 module.exports = MyDevice;
