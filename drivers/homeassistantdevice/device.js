@@ -4,25 +4,23 @@ const Homey = require('homey');
 
 class MyDevice extends Homey.Device {
 
-
-  /**
-   * onInit is called when the device is initialized.
-   */
   async onInit() {
     this.log('MyDevice has been initialized');
 
-    this.Connect = this.homey.app.getClient();
+    this.client = this.homey.app.getClient();
     this.entityId = this.getData().id;
     
     this.capability = this.getCapabilities(); //had this.getcapabilities()[0];
     
+    this.log('device initialized');
     this.log('id: ', this.entityId);
     this.log('name: ', this.getName());
     this.log('class: ', this.getClass());
     this.log('capabilities: ', this.capability);
-    this.Connect.registerDevice(this.entityId, this);
 
-    const entity = this.Connect.getEntity(this.entityId);
+    this.client.registerDevice(this.entityId, this);
+
+    const entity = this.client.getEntity(this.entityId);
     if (entity) {
       this.entityUpdate(entity);
     }
@@ -44,18 +42,27 @@ class MyDevice extends Homey.Device {
 
   entityUpdate(data) {
     try {
-      switch (this.capability) {
-        case 'measure_generic':
-          this.setCapabilityValue(this.capability, data.state);
-          break;
-        default:
-          this.setCapabilityValue(this.capability, parseFloat(data.state));
-          break;
-      }
-    } catch (ex) {
-      this.log('error', ex);
+      this.capability.forEach(capability => {
+        this.setCapabilityValue(capability, parseFloat(data.state));
+      });
+    } catch(ex) {
+      console.log('error', ex);
     }
   }
+  // entityUpdate(data) {
+  //   try {
+  //     switch (this.capability) {
+  //       case 'measure_generic':
+  //         this.setCapabilityValue(this.capability, data.state);
+  //         break;
+  //       default:
+  //         this.setCapabilityValue(this.capability, parseFloat(data.state));
+  //         break;
+  //     }
+  //   } catch (ex) {
+  //     this.log('error', ex);
+  //   }
+  // }
 
 }
 
