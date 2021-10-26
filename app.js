@@ -8,7 +8,7 @@ const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlYTIzMDk5YTMyMjE0
 class MyApp extends Homey.App {
   async onInit() {
     this.log('MyApp has been initialized');
-  
+    super.onInit();
     this.log('connecting Home Assistant');
     
     this.Connect = new Client(address, token);
