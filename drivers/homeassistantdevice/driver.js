@@ -18,7 +18,7 @@ class MyDriver extends Homey.Driver {
    * and the 'list_devices' view is called.
    * This should return an array with the data of devices that are available for pairing.
    */
-  async onPairListDevices() {
+  async onPairListDevices(data) {
     this.log('Pair function called');
     const client = this.homey.app.getClient();
     const haDevices = client.getDevices();
