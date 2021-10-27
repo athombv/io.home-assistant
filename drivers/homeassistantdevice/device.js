@@ -9,8 +9,10 @@ class MyDevice extends Homey.Device {
 
     this.client = this.homey.app.getClient();
     this.entityId = this.getData().id;
-    
-    this.capabilities = this.getCapabilities(); //had this.getcapabilities()[0];
+    this.capabilities = this.getCapabilities();
+    //if (this.capabilities.length != 0) { this.getCapabilities()[0];} else {this.getCapabilities();}
+
+    //this.capabilities = this.getCapabilities(); //had this.getcapabilities()[0];
     
     this.log('device initialized');
     this.log('id: ', this.entityId);
@@ -41,6 +43,7 @@ class MyDevice extends Homey.Device {
   }
 
   entityUpdate(data) {
+    console.log('updating capabilities');
     try {
       this.capabilities.forEach(capability => {
         this.setCapabilityValue(capability, parseFloat(data.state));
