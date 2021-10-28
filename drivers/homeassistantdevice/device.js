@@ -1,9 +1,13 @@
 'use strict';
 
 const Homey = require('homey');
-
+const WEATHER_CAPABILITIES = {
+  'sensor.lumi_lumi_weather_temperature': 'measure_temperature',
+  'sensor.lumi_lumi_weather_power': 'measure_battery',
+  'sensor.lumi_lumi_weather_pressure': 'measure_pressure',
+  'sensor.lumi_lumi_weather_humidity': 'measure_humidity'
+};
 class MyDevice extends Homey.Device {
-
   async onInit() {
     this.log('MyDevice has been initialized');
 
@@ -46,7 +50,15 @@ class MyDevice extends Homey.Device {
     console.log('updating capabilities');
     try {
       this.capabilities.forEach(capability => {
-        this.setCapabilityValue(capability, parseFloat(data.state));
+        console.log(capability);
+        //Object.keys(WEATHER_CAPABILITIES).forEach(id => {
+          for(const [id,value] of Object.entries(WEATHER_CAPABILITIES)) {
+          console.log(id);
+          if(data.entity_id === id && capability === value) {
+            this.setCapabilityValue(capability, parseFloat(data.state)); //dont set other capabilities to null
+           }
+          }
+        //});
       });
     } catch(ex) {
       console.log('error', ex);
