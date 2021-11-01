@@ -1,12 +1,14 @@
 'use strict';
 
 const Homey = require('homey');
+
 const WEATHER_CAPABILITIES = {
   'sensor.lumi_lumi_weather_temperature': 'measure_temperature',
   'sensor.lumi_lumi_weather_power': 'measure_battery',
   'sensor.lumi_lumi_weather_pressure': 'measure_pressure',
   'sensor.lumi_lumi_weather_humidity': 'measure_humidity'
 };
+
 class MyDevice extends Homey.Device {
   async onInit() {
     this.log('MyDevice has been initialized');
@@ -30,8 +32,8 @@ class MyDevice extends Homey.Device {
     if (entity) {
       this.entityUpdate(entity);
     }
-    // this.registerMultipleCapabilityListener(this.getCapabilities(), this.setCapabilities.bind(this), 100);
   }
+
   async onAdded() {
     this.log('MyDevice has been added');
   }
@@ -39,9 +41,6 @@ class MyDevice extends Homey.Device {
     this.log('MyDevice was renamed');
   }
 
-  /**
-   * onDeleted is called when the user deleted the device.
-   */
   async onDeleted() {
     this.log('MyDevice has been deleted');
   }

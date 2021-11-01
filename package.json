@@ -6,7 +6,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "home-assistant-js-websocket": "^5.11.1",
+    "home-assistant-js-websocket": "^5.11.2",
     "ws": "^8.2.3"
   },
   "devDependencies": {
