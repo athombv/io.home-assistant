@@ -1,9 +1,5 @@
 'use strict';
 
-const HA_ENTITIES_TO_HOMEY_CAPABILIIES_MAP = {
-  '':'',
-
-}
 const Homey = require('homey');
 
 class MyDriver extends Homey.Driver {
