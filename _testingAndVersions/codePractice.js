@@ -157,7 +157,7 @@ function comparedevices() {
                 },
             });
         }
-    }
+    }//echt kijken of je bij storage kan komen
     console.log(devicesAll); // i want devicesAll.data.id
     const deviceNames = [];
     const deviceIds = Object.values(devicesAll);
