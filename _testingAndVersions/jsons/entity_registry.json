@@ -1,0 +1,782 @@
+[
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "259f76f2bcc0fc3aea8035a193129ae0",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.home_assistant_operating_system_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "259f76f2bcc0fc3aea8035a193129ae0",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.home_assistant_operating_system_newest_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "259f76f2bcc0fc3aea8035a193129ae0",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "binary_sensor.home_assistant_operating_system_update_available",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": null,
+      "device_id": null,
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "binary_sensor.updater",
+      "name": null,
+      "icon": null,
+      "platform": "updater"
+    },
+    {
+      "config_entry_id": null,
+      "device_id": null,
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "person.marleen",
+      "name": null,
+      "icon": null,
+      "platform": "person"
+    },
+    {
+      "config_entry_id": "4d401096bb78a2718fde6ae743041469",
+      "device_id": null,
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "binary_sensor.rpi_power_status",
+      "name": null,
+      "icon": null,
+      "platform": "rpi_power"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "a7719cdd00a98c98287ceb0a1c64842a",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "binary_sensor.check_home_assistant_configuration_update_available",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "a7719cdd00a98c98287ceb0a1c64842a",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.check_home_assistant_configuration_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "a7719cdd00a98c98287ceb0a1c64842a",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.check_home_assistant_configuration_newest_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "85faa5375c4339e8d1baa7dc648f20a0",
+      "device_id": "cf5c454054d42b6399b2684aeaa050f3",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "light.fastled_ws2812b_small_ring",
+      "name": null,
+      "icon": null,
+      "platform": "esphome"
+    },
+    {
+      "config_entry_id": "41311b77e37074640bfdd339fe952f70",
+      "device_id": "cf5c454054d42b6399b2684aeaa050f3",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "light.ws2812b_led",
+      "name": null,
+      "icon": null,
+      "platform": "esphome"
+    },
+    {
+      "config_entry_id": "41311b77e37074640bfdd339fe952f70",
+      "device_id": "cf5c454054d42b6399b2684aeaa050f3",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "light.my_led",
+      "name": null,
+      "icon": null,
+      "platform": "esphome"
+    },
+    {
+      "config_entry_id": null,
+      "device_id": null,
+      "area_id": "keuken",
+      "disabled_by": null,
+      "entity_id": "automation.automation_1",
+      "name": null,
+      "icon": null,
+      "platform": "automation"
+    },
+    {
+      "config_entry_id": null,
+      "device_id": null,
+      "area_id": "keuken",
+      "disabled_by": null,
+      "entity_id": "automation.automation_2",
+      "name": null,
+      "icon": null,
+      "platform": "automation"
+    },
+    {
+      "config_entry_id": null,
+      "device_id": null,
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "automation.led_ring_jump",
+      "name": null,
+      "icon": null,
+      "platform": "automation"
+    },
+    {
+      "config_entry_id": "d2a151ded49fdfe05b5a6f465730ef59",
+      "device_id": "6a37b6ae6626441b5b0f30939a3bf6a6",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "binary_sensor.ikea_tradfri_motion_sensor_on_off",
+      "name": "IKEA TRADFRI motion sensor on_off",
+      "icon": null,
+      "platform": "zha"
+    },
+    {
+      "config_entry_id": "d2a151ded49fdfe05b5a6f465730ef59",
+      "device_id": "6a37b6ae6626441b5b0f30939a3bf6a6",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.ikea_tradfri_motion_sensor_power",
+      "name": "IKEA TRADFRI motion sensor power",
+      "icon": null,
+      "platform": "zha"
+    },
+    {
+      "config_entry_id": null,
+      "device_id": null,
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "automation.new_automation",
+      "name": null,
+      "icon": null,
+      "platform": "automation"
+    },
+    {
+      "config_entry_id": "d2a151ded49fdfe05b5a6f465730ef59",
+      "device_id": "e8d70a998569278b07dfbb4538889241",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.lumi_lumi_weather_humidity",
+      "name": "LUMI weather sensor humidity",
+      "icon": null,
+      "platform": "zha"
+    },
+    {
+      "config_entry_id": "d2a151ded49fdfe05b5a6f465730ef59",
+      "device_id": "e8d70a998569278b07dfbb4538889241",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.lumi_lumi_weather_power",
+      "name": "LUMI weather sensor power",
+      "icon": null,
+      "platform": "zha"
+    },
+    {
+      "config_entry_id": "d2a151ded49fdfe05b5a6f465730ef59",
+      "device_id": "e8d70a998569278b07dfbb4538889241",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.lumi_lumi_weather_pressure",
+      "name": "LUMI weather sensor pressure",
+      "icon": null,
+      "platform": "zha"
+    },
+    {
+      "config_entry_id": "d2a151ded49fdfe05b5a6f465730ef59",
+      "device_id": "e8d70a998569278b07dfbb4538889241",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.lumi_lumi_weather_temperature",
+      "name": "LUMI weather sensor temperature",
+      "icon": null,
+      "platform": "zha"
+    },
+    {
+      "config_entry_id": null,
+      "device_id": null,
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "automation.led_ring_off",
+      "name": null,
+      "icon": null,
+      "platform": "automation"
+    },
+    {
+      "config_entry_id": "d2a151ded49fdfe05b5a6f465730ef59",
+      "device_id": "ec02a35696b74e85b384ba72a69951c4",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "light.ikea_tradfri_bulb_e27",
+      "name": "IKEA TRADFRI bulb E27",
+      "icon": null,
+      "platform": "zha"
+    },
+    {
+      "config_entry_id": "3f6619f5e5542073da5fff265136ecb0",
+      "device_id": "d14f486bf14cab4ba249397a68cd42c8",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.sonos_support",
+      "name": null,
+      "icon": null,
+      "platform": "sonos"
+    },
+    {
+      "config_entry_id": "3f6619f5e5542073da5fff265136ecb0",
+      "device_id": "b49c64904652ada551d191f331397dfa",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.sonos_development",
+      "name": null,
+      "icon": null,
+      "platform": "sonos"
+    },
+    {
+      "config_entry_id": "3f6619f5e5542073da5fff265136ecb0",
+      "device_id": "305595ee11daaab6c9fa1373e1bc57fa",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.sonos_workshop",
+      "name": null,
+      "icon": null,
+      "platform": "sonos"
+    },
+    {
+      "config_entry_id": "3f6619f5e5542073da5fff265136ecb0",
+      "device_id": "66ef55431d16cd95c9273e173887107e",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.sonos_living_room",
+      "name": null,
+      "icon": null,
+      "platform": "sonos"
+    },
+    {
+      "config_entry_id": "3f6619f5e5542073da5fff265136ecb0",
+      "device_id": "ca365e5b210b100a419d13159c3a5164",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.sonos_kitchen",
+      "name": null,
+      "icon": null,
+      "platform": "sonos"
+    },
+    {
+      "config_entry_id": "3f6619f5e5542073da5fff265136ecb0",
+      "device_id": "ab7a5c20f001307ad537ce5835d56f0e",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.film_studio",
+      "name": null,
+      "icon": null,
+      "platform": "sonos"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "5699268fa4511a2ad1d74f4b74418a04",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.athom_kantoor_display",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "24dabd83abb34b74153b13c7e0ad338f",
+      "device_id": "7ce09ef741c8fca487190e3f85b6ebb8",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "device_tracker.gm1913",
+      "name": null,
+      "icon": null,
+      "platform": "mobile_app"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "d095bd279b4b8a94239e48607d3beeba",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "binary_sensor.ssh_web_terminal_update_available",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "d095bd279b4b8a94239e48607d3beeba",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.ssh_web_terminal_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "d095bd279b4b8a94239e48607d3beeba",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.ssh_web_terminal_newest_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "2d4781f590757a500617326f7a7fb9c6",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "binary_sensor.duck_dns_update_available",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "2d4781f590757a500617326f7a7fb9c6",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.duck_dns_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "2d4781f590757a500617326f7a7fb9c6",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.duck_dns_newest_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "24dabd83abb34b74153b13c7e0ad338f",
+      "device_id": "7ce09ef741c8fca487190e3f85b6ebb8",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.gm1913_battery_level",
+      "name": null,
+      "icon": null,
+      "platform": "mobile_app"
+    },
+    {
+      "config_entry_id": "24dabd83abb34b74153b13c7e0ad338f",
+      "device_id": "7ce09ef741c8fca487190e3f85b6ebb8",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.gm1913_battery_state",
+      "name": null,
+      "icon": null,
+      "platform": "mobile_app"
+    },
+    {
+      "config_entry_id": "24dabd83abb34b74153b13c7e0ad338f",
+      "device_id": "7ce09ef741c8fca487190e3f85b6ebb8",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "binary_sensor.gm1913_is_charging",
+      "name": null,
+      "icon": null,
+      "platform": "mobile_app"
+    },
+    {
+      "config_entry_id": "24dabd83abb34b74153b13c7e0ad338f",
+      "device_id": "7ce09ef741c8fca487190e3f85b6ebb8",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.gm1913_charger_type",
+      "name": null,
+      "icon": null,
+      "platform": "mobile_app"
+    },
+    {
+      "config_entry_id": "24dabd83abb34b74153b13c7e0ad338f",
+      "device_id": "7ce09ef741c8fca487190e3f85b6ebb8",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.gm1913_battery_temperature",
+      "name": null,
+      "icon": null,
+      "platform": "mobile_app"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.athom_apparent_temperature",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.athom_cloud_ceiling",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.athom_cloud_cover",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.athom_dew_point",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.athom_realfeel_temperature",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.athom_realfeel_temperature_shade",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.athom_precipitation",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.athom_pressure_tendency",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.athom_uv_index",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.athom_wet_bulb_temperature",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.athom_wind_chill_temperature",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "sensor.athom_wind",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.athom_wind_gust",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "be2d8c7f38db67541bb777fa496b39ad",
+      "device_id": "c225482cdb56a67d0d91bea853ed44a2",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "weather.athom",
+      "name": null,
+      "icon": null,
+      "platform": "accuweather"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "af0f69207c630f1dffb26f44414b5ade",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.kantoor_tv",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "2f0b747c390c8e71e75b86f1e7d7f053",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "binary_sensor.file_editor_update_available",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "2f0b747c390c8e71e75b86f1e7d7f053",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.file_editor_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "5df19ad48583e1158518d317415766ef",
+      "device_id": "2f0b747c390c8e71e75b86f1e7d7f053",
+      "area_id": null,
+      "disabled_by": "integration",
+      "entity_id": "sensor.file_editor_newest_version",
+      "name": null,
+      "icon": null,
+      "platform": "hassio"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "1316714e2e43f3309c3754e023391142",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.tv_in_woonkamer",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "560529a0ce8d4f4a7adff017b0efc8d9",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.soundbar",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": null,
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.citation_group",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "36fbd1ff752626c574d1756588ee8bd2",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.slaapkamer_floris_clock",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "861f626f79a00ab1806c7b0c475c4434",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.slaapkamer_klok_janpeter",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": null,
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.slaapkamer_klokken",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "dd483a48f4934ab9925c227af791b927",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.citation_one_links",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "364338541739963ff9c92293b664aa89",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.slaapkamer_klok_petra",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "81f1aba08e4b17a3a2c6f67f634587f4",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.garage_speaker",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "d4de980b45eb3ff7817d535a37adced4",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.veranda_speaker",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "a1d4e1e1702234bd07b1dc221c7c3845",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.citation_one_rechts",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "4f54bdc65e6f461090a15bad95838091",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.eetkamer_rechts",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "0199654348131b042f04baa42e5eaa5a",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.slaapkamer_marleen_clock",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": null,
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.google_beneden",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "1ade6d0fbd692be4750d1f1eae9af2f1",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.keuken_display",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "cc922885f1c874acbc8285a3979460cf",
+      "device_id": "1dabdf1a1c14634c58d3ec888043dbd4",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.eetkamer_links",
+      "name": null,
+      "icon": null,
+      "platform": "cast"
+    },
+    {
+      "config_entry_id": "3f6619f5e5542073da5fff265136ecb0",
+      "device_id": "40c01352dfd4c5cb07eef53b88f87250",
+      "area_id": null,
+      "disabled_by": null,
+      "entity_id": "media_player.marketing",
+      "name": null,
+      "icon": null,
+      "platform": "sonos"
+    }
+  ]

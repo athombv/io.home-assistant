@@ -1,0 +1,1450 @@
+{
+  "person.marleen": {
+    "entity_id": "person.marleen",
+    "state": "unknown",
+    "attributes": {
+      "editable": false,
+      "id": "marleen",
+      "user_id": "2d837f254c9b480ebef1703baca2a824",
+      "friendly_name": "Marleen"
+    },
+    "last_changed": "2021-11-03T07:36:58.587515+00:00",
+    "last_updated": "2021-11-03T07:37:37.547132+00:00",
+    "context": {
+      "id": "085bc7bdb054b8950121f19abacc0638",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sun.sun": {
+    "entity_id": "sun.sun",
+    "state": "above_horizon",
+    "attributes": {
+      "next_dawn": "2021-11-04T06:05:15.699605+00:00",
+      "next_dusk": "2021-11-03T16:43:35.439417+00:00",
+      "next_midnight": "2021-11-03T23:23:58+00:00",
+      "next_noon": "2021-11-04T11:23:57+00:00",
+      "next_rising": "2021-11-04T06:42:19.578714+00:00",
+      "next_setting": "2021-11-03T16:06:42.523342+00:00",
+      "elevation": 14.13,
+      "azimuth": 219.74,
+      "rising": false,
+      "friendly_name": "Sun"
+    },
+    "last_changed": "2021-11-03T07:37:08.196978+00:00",
+    "last_updated": "2021-11-03T14:03:57.072425+00:00",
+    "context": {
+      "id": "87e0bf2b2ecc1a03719ad11f6e5ec92b",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.time": {
+    "entity_id": "sensor.time",
+    "state": "15:06",
+    "attributes": {
+      "friendly_name": "Time",
+      "icon": "mdi:clock"
+    },
+    "last_changed": "2021-11-03T14:06:00.005971+00:00",
+    "last_updated": "2021-11-03T14:06:00.005971+00:00",
+    "context": {
+      "id": "f7bb1a5d193bc427861a6e492fce6ea7",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.date": {
+    "entity_id": "sensor.date",
+    "state": "2021-11-03",
+    "attributes": {
+      "friendly_name": "Date",
+      "icon": "mdi:calendar"
+    },
+    "last_changed": "2021-11-03T07:37:10.106934+00:00",
+    "last_updated": "2021-11-03T07:37:10.106934+00:00",
+    "context": {
+      "id": "aff56d617eedca471295dc6a3939eed5",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.date_time": {
+    "entity_id": "sensor.date_time",
+    "state": "2021-11-03, 15:06",
+    "attributes": {
+      "friendly_name": "Date & Time",
+      "icon": "mdi:calendar-clock"
+    },
+    "last_changed": "2021-11-03T14:06:00.002712+00:00",
+    "last_updated": "2021-11-03T14:06:00.002712+00:00",
+    "context": {
+      "id": "9d15d1683b10d7811f7e2d68454e8291",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.date_time_utc": {
+    "entity_id": "sensor.date_time_utc",
+    "state": "2021-11-03, 14:06",
+    "attributes": {
+      "friendly_name": "Date & Time (UTC)",
+      "icon": "mdi:calendar-clock"
+    },
+    "last_changed": "2021-11-03T14:06:00.007544+00:00",
+    "last_updated": "2021-11-03T14:06:00.007544+00:00",
+    "context": {
+      "id": "e3245e56e51c2feaa7ee2260edc63a14",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.date_time_iso": {
+    "entity_id": "sensor.date_time_iso",
+    "state": "2021-11-03T15:06:00",
+    "attributes": {
+      "friendly_name": "Date & Time (ISO)",
+      "icon": "mdi:calendar-clock"
+    },
+    "last_changed": "2021-11-03T14:06:00.010344+00:00",
+    "last_updated": "2021-11-03T14:06:00.010344+00:00",
+    "context": {
+      "id": "25340988c4022d60a214a53ca32bd04c",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.time_date": {
+    "entity_id": "sensor.time_date",
+    "state": "15:06, 2021-11-03",
+    "attributes": {
+      "friendly_name": "Time & Date",
+      "icon": "mdi:calendar-clock"
+    },
+    "last_changed": "2021-11-03T14:06:00.004363+00:00",
+    "last_updated": "2021-11-03T14:06:00.004363+00:00",
+    "context": {
+      "id": "3302b8f17f22466da39970158b26101c",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.time_utc": {
+    "entity_id": "sensor.time_utc",
+    "state": "14:06",
+    "attributes": {
+      "friendly_name": "Time (UTC)",
+      "icon": "mdi:clock"
+    },
+    "last_changed": "2021-11-03T14:06:00.012066+00:00",
+    "last_updated": "2021-11-03T14:06:00.012066+00:00",
+    "context": {
+      "id": "2885f315789f50c5ce5540cd5a56ca65",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.internet_time": {
+    "entity_id": "sensor.internet_time",
+    "state": "@629",
+    "attributes": {
+      "friendly_name": "Internet Time",
+      "icon": "mdi:clock"
+    },
+    "last_changed": "2021-11-03T14:05:45.603352+00:00",
+    "last_updated": "2021-11-03T14:05:45.603352+00:00",
+    "context": {
+      "id": "ee8739400229f3b2266a1f4c047cea37",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "zone.home": {
+    "entity_id": "zone.home",
+    "state": "zoning",
+    "attributes": {
+      "latitude": 52.3731339,
+      "longitude": 4.8903147,
+      "radius": 100,
+      "passive": false,
+      "editable": true,
+      "friendly_name": "Athom",
+      "icon": "mdi:home"
+    },
+    "last_changed": "2021-11-03T07:37:10.340958+00:00",
+    "last_updated": "2021-11-03T07:37:10.340958+00:00",
+    "context": {
+      "id": "38d0e01098803582776b21e96c18f249",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.updater": {
+    "entity_id": "binary_sensor.updater",
+    "state": "on",
+    "attributes": {
+      "release_notes": "https://www.home-assistant.io/blog/2021/10/06/release-202110/",
+      "newest_version": "2021.10.7",
+      "friendly_name": "Updater",
+      "device_class": "update"
+    },
+    "last_changed": "2021-11-03T07:37:17.231847+00:00",
+    "last_updated": "2021-11-03T07:37:17.231847+00:00",
+    "context": {
+      "id": "bb06217a57467787352e3126fa80139c",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.lage_muur_watering": {
+    "entity_id": "binary_sensor.lage_muur_watering",
+    "state": "off",
+    "attributes": {
+      "attribution": "Data provided by hydrawise.com",
+      "identifier": 1,
+      "friendly_name": "Lage muur Watering",
+      "device_class": "moisture"
+    },
+    "last_changed": "2021-11-03T07:37:10.444296+00:00",
+    "last_updated": "2021-11-03T07:37:10.444296+00:00",
+    "context": {
+      "id": "abb110dbd9c131123e615d8904e6f23a",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.rpi_power_status": {
+    "entity_id": "binary_sensor.rpi_power_status",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "RPi Power status",
+      "icon": "mdi:raspberry-pi",
+      "device_class": "problem"
+    },
+    "last_changed": "2021-11-03T07:37:10.907310+00:00",
+    "last_updated": "2021-11-03T07:37:10.907310+00:00",
+    "context": {
+      "id": "f4ffb81a74318f857a672ed88f8384b4",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.lavendel_muur_watering": {
+    "entity_id": "binary_sensor.lavendel_muur_watering",
+    "state": "off",
+    "attributes": {
+      "attribution": "Data provided by hydrawise.com",
+      "identifier": 2,
+      "friendly_name": "Lavendel muur Watering",
+      "device_class": "moisture"
+    },
+    "last_changed": "2021-11-03T07:37:17.172069+00:00",
+    "last_updated": "2021-11-03T07:37:17.172069+00:00",
+    "context": {
+      "id": "87544a9cbf9173f261be1e336c37f6b0",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.zone_3_watering": {
+    "entity_id": "binary_sensor.zone_3_watering",
+    "state": "off",
+    "attributes": {
+      "attribution": "Data provided by hydrawise.com",
+      "identifier": 3,
+      "friendly_name": "Zone 3 Watering",
+      "device_class": "moisture"
+    },
+    "last_changed": "2021-11-03T07:37:17.241574+00:00",
+    "last_updated": "2021-11-03T07:37:17.241574+00:00",
+    "context": {
+      "id": "1829b86595cd6575177808e789c6252a",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.pir_office": {
+    "entity_id": "binary_sensor.pir_office",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "PIR Office"
+    },
+    "last_changed": "2021-11-03T07:37:17.248959+00:00",
+    "last_updated": "2021-11-03T07:37:17.248959+00:00",
+    "context": {
+      "id": "cf6d266a79404e9e1c649cb98646d7b3",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.hangplanten_watering": {
+    "entity_id": "binary_sensor.hangplanten_watering",
+    "state": "off",
+    "attributes": {
+      "attribution": "Data provided by hydrawise.com",
+      "identifier": 4,
+      "friendly_name": "Hangplanten  Watering",
+      "device_class": "moisture"
+    },
+    "last_changed": "2021-11-03T07:37:17.307425+00:00",
+    "last_updated": "2021-11-03T07:37:17.307425+00:00",
+    "context": {
+      "id": "f7cb5f9b8e63357bed91a40b8796bf50",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.pir_bedroom": {
+    "entity_id": "binary_sensor.pir_bedroom",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "PIR Bedroom"
+    },
+    "last_changed": "2021-11-03T07:37:17.332950+00:00",
+    "last_updated": "2021-11-03T07:37:17.332950+00:00",
+    "context": {
+      "id": "3bc4018830a0f5e4e42dbf2bae51d3fd",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.my_controller_status": {
+    "entity_id": "binary_sensor.my_controller_status",
+    "state": "on",
+    "attributes": {
+      "attribution": "Data provided by hydrawise.com",
+      "identifier": null,
+      "friendly_name": "My Controller Status",
+      "device_class": "connectivity"
+    },
+    "last_changed": "2021-11-03T07:37:20.131949+00:00",
+    "last_updated": "2021-11-03T07:37:20.131949+00:00",
+    "context": {
+      "id": "1faf7d7a4ef906f7ab24228714e3a570",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "automation.automation_1": {
+    "entity_id": "automation.automation_1",
+    "state": "on",
+    "attributes": {
+      "last_triggered": "2021-09-21T13:43:04.624855+00:00",
+      "mode": "single",
+      "current": 0,
+      "id": "1632223013567",
+      "friendly_name": "Automation 1"
+    },
+    "last_changed": "2021-11-03T07:37:20.321484+00:00",
+    "last_updated": "2021-11-03T07:37:20.321484+00:00",
+    "context": {
+      "id": "b02458bc9c8db0da7137f5c51adb9776",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "automation.automation_2": {
+    "entity_id": "automation.automation_2",
+    "state": "on",
+    "attributes": {
+      "last_triggered": "2021-09-21T13:43:05.687797+00:00",
+      "mode": "single",
+      "current": 0,
+      "id": "1632223124057",
+      "friendly_name": "Automation 2"
+    },
+    "last_changed": "2021-11-03T07:37:20.322873+00:00",
+    "last_updated": "2021-11-03T07:37:20.322873+00:00",
+    "context": {
+      "id": "f6e798c940f91001ec1e245609751399",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "automation.led_ring_jump": {
+    "entity_id": "automation.led_ring_jump",
+    "state": "on",
+    "attributes": {
+      "last_triggered": "2021-09-21T13:28:27.813270+00:00",
+      "mode": "single",
+      "current": 0,
+      "id": "1632223611687",
+      "friendly_name": "LED ring jump"
+    },
+    "last_changed": "2021-11-03T07:37:20.324172+00:00",
+    "last_updated": "2021-11-03T07:37:20.324172+00:00",
+    "context": {
+      "id": "a2c3ca4fbf5e0168a0c2d281173510b1",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "automation.new_automation": {
+    "entity_id": "automation.new_automation",
+    "state": "on",
+    "attributes": {
+      "last_triggered": "2021-10-27T07:06:17.021814+00:00",
+      "mode": "single",
+      "current": 0,
+      "id": "1632232328414",
+      "friendly_name": "Lightdetection"
+    },
+    "last_changed": "2021-11-03T07:37:20.325663+00:00",
+    "last_updated": "2021-11-03T07:37:20.325663+00:00",
+    "context": {
+      "id": "37fdfa356dadfd9e3e6401f9f7c973b6",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "automation.led_ring_off": {
+    "entity_id": "automation.led_ring_off",
+    "state": "on",
+    "attributes": {
+      "last_triggered": "2021-09-28T11:02:18.967651+00:00",
+      "mode": "single",
+      "current": 0,
+      "id": "1632297272907",
+      "friendly_name": "Led ring off"
+    },
+    "last_changed": "2021-11-03T07:37:20.327355+00:00",
+    "last_updated": "2021-11-03T07:37:20.327355+00:00",
+    "context": {
+      "id": "e2eaeb6086c675ef906d37fb89867720",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.gm1913_battery_level": {
+    "entity_id": "sensor.gm1913_battery_level",
+    "state": "68",
+    "attributes": {
+      "unit_of_measurement": "%",
+      "friendly_name": "GM1913 Battery Level",
+      "icon": "mdi:battery-60",
+      "device_class": "battery"
+    },
+    "last_changed": "2021-11-03T14:02:39.270737+00:00",
+    "last_updated": "2021-11-03T14:02:39.270737+00:00",
+    "context": {
+      "id": "fb6cc2f58adc82776ae476103794fd98",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.gm1913_battery_state": {
+    "entity_id": "sensor.gm1913_battery_state",
+    "state": "charging",
+    "attributes": {
+      "friendly_name": "GM1913 Battery State",
+      "icon": "mdi:battery-plus"
+    },
+    "last_changed": "2021-11-03T14:02:39.271220+00:00",
+    "last_updated": "2021-11-03T14:02:39.271220+00:00",
+    "context": {
+      "id": "d13486afe2826349ac99c135ffddb1d3",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.gm1913_charger_type": {
+    "entity_id": "sensor.gm1913_charger_type",
+    "state": "ac",
+    "attributes": {
+      "friendly_name": "GM1913 Charger Type",
+      "icon": "mdi:power-plug"
+    },
+    "last_changed": "2021-11-03T14:02:39.271998+00:00",
+    "last_updated": "2021-11-03T14:02:39.271998+00:00",
+    "context": {
+      "id": "0088d64afdc97371178ff225da81bc42",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.gm1913_battery_temperature": {
+    "entity_id": "sensor.gm1913_battery_temperature",
+    "state": "30.1",
+    "attributes": {
+      "unit_of_measurement": "°C",
+      "friendly_name": "GM1913 Battery Temperature",
+      "icon": "mdi:battery",
+      "device_class": "temperature"
+    },
+    "last_changed": "2021-11-03T14:02:39.272386+00:00",
+    "last_updated": "2021-11-03T14:02:39.272386+00:00",
+    "context": {
+      "id": "7e15f55da43c50b7b354fe8827cadbb7",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.gm1913_is_charging": {
+    "entity_id": "binary_sensor.gm1913_is_charging",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "GM1913 Is Charging",
+      "icon": "mdi:power-plug",
+      "device_class": "plug"
+    },
+    "last_changed": "2021-11-03T14:02:39.271663+00:00",
+    "last_updated": "2021-11-03T14:02:39.271663+00:00",
+    "context": {
+      "id": "621ee3610c2bffe2f1bf86b08d23858c",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "device_tracker.gm1913": {
+    "entity_id": "device_tracker.gm1913",
+    "state": "unknown",
+    "attributes": {
+      "source_type": "gps",
+      "friendly_name": "GM1913"
+    },
+    "last_changed": "2021-11-03T07:37:21.783100+00:00",
+    "last_updated": "2021-11-03T07:37:21.783100+00:00",
+    "context": {
+      "id": "d606df8b8031023c72daefeeca82513a",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.my_led": {
+    "entity_id": "light.my_led",
+    "state": "unavailable",
+    "attributes": {
+      "supported_color_modes": ["onoff"],
+      "friendly_name": "my_led",
+      "supported_features": 8
+    },
+    "last_changed": "2021-11-03T07:37:26.482637+00:00",
+    "last_updated": "2021-11-03T07:37:26.482637+00:00",
+    "context": {
+      "id": "1e0a3b9745dfcc89de1ebefd463ce1fd",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.ws2812b_led": {
+    "entity_id": "light.ws2812b_led",
+    "state": "unavailable",
+    "attributes": {
+      "supported_color_modes": ["rgb"],
+      "friendly_name": "WS2812B_LED",
+      "supported_features": 40
+    },
+    "last_changed": "2021-11-03T07:37:26.485348+00:00",
+    "last_updated": "2021-11-03T07:37:26.485348+00:00",
+    "context": {
+      "id": "88ff8b1ee34645bf08f4e14879b06679",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.fastled_ws2812b_small_ring": {
+    "entity_id": "light.fastled_ws2812b_small_ring",
+    "state": "unavailable",
+    "attributes": {
+      "supported_color_modes": ["rgb"],
+      "friendly_name": "FASTLED WS2812B small ring",
+      "supported_features": 40
+    },
+    "last_changed": "2021-11-03T07:37:26.488691+00:00",
+    "last_updated": "2021-11-03T07:37:26.488691+00:00",
+    "context": {
+      "id": "f579b2ee7ea185ce938b61c7847b5a60",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.sonos_workshop": {
+    "entity_id": "media_player.sonos_workshop",
+    "state": "paused",
+    "attributes": {
+      "source_list": [
+        "BORDERLINE",
+        "HITMAN 3 (OST) - Apex Predator - Club Hölle",
+        "Homey",
+        "It Runs Through Me",
+        "Oesters & Champagne",
+        "Ringtone",
+        "Salzburg",
+        "SLANGEN",
+        "Line-in"
+      ],
+      "volume_level": 0.17,
+      "is_volume_muted": false,
+      "media_content_id": "x-sonos-spotify:spotify%3atrack%3a5PbzzUbb5X00nUDoT1zTFh?sid=9&flags=8224&sn=1",
+      "media_content_type": "music",
+      "media_duration": 212,
+      "media_position": 0,
+      "media_position_updated_at": "2021-11-03T08:02:41.307102+00:00",
+      "media_title": "DumDum",
+      "media_artist": "Biffy Clyro",
+      "media_album_name": "The Myth of The Happily Ever After",
+      "shuffle": false,
+      "repeat": "off",
+      "sonos_group": [
+        "media_player.sonos_development",
+        "media_player.sonos_kitchen",
+        "media_player.sonos_support",
+        "media_player.sonos_living_room",
+        "media_player.sonos_workshop",
+        null
+      ],
+      "bass_level": 0,
+      "treble_level": 0,
+      "queue_position": 0,
+      "friendly_name": "Sonos Workshop",
+      "entity_picture": "/api/media_player_proxy/media_player.sonos_workshop?token=29534e6bc5ae548629326a930bb6b1ac5cbefb641c574d9e21044271c765fc24&cache=4d62b2c67a75fe76",
+      "supported_features": 457279
+    },
+    "last_changed": "2021-11-03T08:02:41.321966+00:00",
+    "last_updated": "2021-11-03T08:02:41.321966+00:00",
+    "context": {
+      "id": "ee8120f25c34a0e4fa54e9ef6f859cdc",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.athom_kantoor_display": {
+    "entity_id": "media_player.athom_kantoor_display",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Athom Kantoor Display",
+      "supported_features": 152461
+    },
+    "last_changed": "2021-11-03T07:37:29.849023+00:00",
+    "last_updated": "2021-11-03T07:37:29.887136+00:00",
+    "context": {
+      "id": "20f05238e1ddfc30f56842505c4b6010",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "binary_sensor.ikea_tradfri_motion_sensor_on_off": {
+    "entity_id": "binary_sensor.ikea_tradfri_motion_sensor_on_off",
+    "state": "unavailable",
+    "attributes": {
+      "friendly_name": "IKEA TRADFRI motion sensor on_off",
+      "device_class": "motion"
+    },
+    "last_changed": "2021-11-03T07:37:37.536547+00:00",
+    "last_updated": "2021-11-03T07:38:05.677642+00:00",
+    "context": {
+      "id": "dd41f79597b23df056d6350152bc464e",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.ikea_tradfri_motion_sensor_power": {
+    "entity_id": "sensor.ikea_tradfri_motion_sensor_power",
+    "state": "unavailable",
+    "attributes": {
+      "state_class": "measurement",
+      "unit_of_measurement": "%",
+      "friendly_name": "IKEA TRADFRI motion sensor power",
+      "device_class": "battery"
+    },
+    "last_changed": "2021-11-03T07:37:37.536890+00:00",
+    "last_updated": "2021-11-03T07:38:05.626540+00:00",
+    "context": {
+      "id": "0679af015896d5e3b976c2a0706a2538",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.lumi_lumi_weather_humidity": {
+    "entity_id": "sensor.lumi_lumi_weather_humidity",
+    "state": "44.8",
+    "attributes": {
+      "state_class": "measurement",
+      "unit_of_measurement": "%",
+      "friendly_name": "LUMI weather sensor humidity",
+      "device_class": "humidity"
+    },
+    "last_changed": "2021-11-03T14:00:45.022662+00:00",
+    "last_updated": "2021-11-03T14:00:45.022662+00:00",
+    "context": {
+      "id": "29c629a759c49acb6b5c3a9669bb35f7",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.lumi_lumi_weather_power": {
+    "entity_id": "sensor.lumi_lumi_weather_power",
+    "state": "73",
+    "attributes": {
+      "state_class": "measurement",
+      "battery_voltage": 3.02,
+      "unit_of_measurement": "%",
+      "friendly_name": "LUMI weather sensor power",
+      "device_class": "battery"
+    },
+    "last_changed": "2021-11-03T08:42:07.967324+00:00",
+    "last_updated": "2021-11-03T08:42:07.967324+00:00",
+    "context": {
+      "id": "5f419afcb9f202abc51bbbb63b420700",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.lumi_lumi_weather_pressure": {
+    "entity_id": "sensor.lumi_lumi_weather_pressure",
+    "state": "994",
+    "attributes": {
+      "state_class": "measurement",
+      "unit_of_measurement": "hPa",
+      "friendly_name": "LUMI weather sensor pressure",
+      "device_class": "pressure"
+    },
+    "last_changed": "2021-11-03T12:24:44.976738+00:00",
+    "last_updated": "2021-11-03T12:24:44.976738+00:00",
+    "context": {
+      "id": "f650fc569b921298f745eae7d46ddc27",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.lumi_lumi_weather_temperature": {
+    "entity_id": "sensor.lumi_lumi_weather_temperature",
+    "state": "23.7",
+    "attributes": {
+      "state_class": "measurement",
+      "unit_of_measurement": "°C",
+      "friendly_name": "LUMI weather sensor temperature",
+      "device_class": "temperature"
+    },
+    "last_changed": "2021-11-03T14:00:45.014854+00:00",
+    "last_updated": "2021-11-03T14:00:45.014854+00:00",
+    "context": {
+      "id": "50ad2b9f36dd875fa446015195431c4d",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.ikea_tradfri_bulb_e27": {
+    "entity_id": "light.ikea_tradfri_bulb_e27",
+    "state": "unavailable",
+    "attributes": {
+      "min_mireds": 250,
+      "max_mireds": 454,
+      "supported_color_modes": ["color_temp"],
+      "friendly_name": "IKEA TRADFRI bulb E27",
+      "supported_features": 43
+    },
+    "last_changed": "2021-11-03T07:37:37.537823+00:00",
+    "last_updated": "2021-11-03T07:38:05.665851+00:00",
+    "context": {
+      "id": "809a08da6707acc6102e3d5b06a32499",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.sonos_support": {
+    "entity_id": "media_player.sonos_support",
+    "state": "paused",
+    "attributes": {
+      "source_list": [
+        "BORDERLINE",
+        "HITMAN 3 (OST) - Apex Predator - Club Hölle",
+        "Homey",
+        "It Runs Through Me",
+        "Oesters & Champagne",
+        "Ringtone",
+        "Salzburg",
+        "SLANGEN",
+        "Line-in"
+      ],
+      "volume_level": 0.14,
+      "is_volume_muted": false,
+      "media_content_id": "x-sonos-spotify:spotify%3atrack%3a5PbzzUbb5X00nUDoT1zTFh?sid=9&flags=8224&sn=1",
+      "media_content_type": "music",
+      "media_duration": 212,
+      "media_position": 0,
+      "media_position_updated_at": "2021-11-03T08:02:41.307102+00:00",
+      "media_title": "DumDum",
+      "media_artist": "Biffy Clyro",
+      "media_album_name": "The Myth of The Happily Ever After",
+      "shuffle": false,
+      "repeat": "off",
+      "sonos_group": [
+        "media_player.sonos_development",
+        "media_player.sonos_kitchen",
+        "media_player.sonos_support",
+        "media_player.sonos_living_room",
+        "media_player.sonos_workshop",
+        null
+      ],
+      "bass_level": 0,
+      "treble_level": 0,
+      "queue_position": 0,
+      "friendly_name": "Sonos Support",
+      "entity_picture": "/api/media_player_proxy/media_player.sonos_support?token=02924488e8fb22850a268e260352d1b56f80956897c9fb87bedd8c030e93b583&cache=4d62b2c67a75fe76",
+      "supported_features": 457279
+    },
+    "last_changed": "2021-11-03T08:02:41.322886+00:00",
+    "last_updated": "2021-11-03T08:02:41.322886+00:00",
+    "context": {
+      "id": "a384f41d2472cb875d9ff15e41690bb4",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.sonos_development": {
+    "entity_id": "media_player.sonos_development",
+    "state": "paused",
+    "attributes": {
+      "source_list": [
+        "BORDERLINE",
+        "HITMAN 3 (OST) - Apex Predator - Club Hölle",
+        "Homey",
+        "It Runs Through Me",
+        "Oesters & Champagne",
+        "Ringtone",
+        "Salzburg",
+        "SLANGEN",
+        "Line-in"
+      ],
+      "volume_level": 0.14,
+      "is_volume_muted": false,
+      "media_content_id": "x-sonos-spotify:spotify%3atrack%3a5PbzzUbb5X00nUDoT1zTFh?sid=9&flags=8224&sn=1",
+      "media_content_type": "music",
+      "media_duration": 212,
+      "media_position": 0,
+      "media_position_updated_at": "2021-11-03T08:02:41.307102+00:00",
+      "media_title": "DumDum",
+      "media_artist": "Biffy Clyro",
+      "media_album_name": "The Myth of The Happily Ever After",
+      "shuffle": false,
+      "repeat": "off",
+      "sonos_group": [
+        "media_player.sonos_development",
+        "media_player.sonos_kitchen",
+        "media_player.sonos_support",
+        "media_player.sonos_living_room",
+        "media_player.sonos_workshop",
+        null
+      ],
+      "bass_level": 0,
+      "treble_level": 0,
+      "queue_position": 0,
+      "friendly_name": "Sonos Development",
+      "entity_picture": "/api/media_player_proxy/media_player.sonos_development?token=d2dc553e3075986b8f7c9dc985d832041a7552dc5d7c2317fd74e7953b41f586&cache=4d62b2c67a75fe76",
+      "supported_features": 457279
+    },
+    "last_changed": "2021-11-03T08:02:41.319656+00:00",
+    "last_updated": "2021-11-03T08:02:41.319656+00:00",
+    "context": {
+      "id": "ea62118c5a2e0d29e3e323ea6ae2b845",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.sonos_living_room": {
+    "entity_id": "media_player.sonos_living_room",
+    "state": "paused",
+    "attributes": {
+      "source_list": [
+        "BORDERLINE",
+        "HITMAN 3 (OST) - Apex Predator - Club Hölle",
+        "Homey",
+        "It Runs Through Me",
+        "Oesters & Champagne",
+        "Ringtone",
+        "Salzburg",
+        "SLANGEN",
+        "Line-in"
+      ],
+      "volume_level": 0.17,
+      "is_volume_muted": false,
+      "media_content_id": "x-sonos-spotify:spotify%3atrack%3a5PbzzUbb5X00nUDoT1zTFh?sid=9&flags=8224&sn=1",
+      "media_content_type": "music",
+      "media_duration": 212,
+      "media_position": 0,
+      "media_position_updated_at": "2021-11-03T08:02:41.307102+00:00",
+      "media_title": "DumDum",
+      "media_artist": "Biffy Clyro",
+      "media_album_name": "The Myth of The Happily Ever After",
+      "shuffle": false,
+      "repeat": "off",
+      "sonos_group": [
+        "media_player.sonos_development",
+        "media_player.sonos_kitchen",
+        "media_player.sonos_support",
+        "media_player.sonos_living_room",
+        "media_player.sonos_workshop",
+        null
+      ],
+      "bass_level": 0,
+      "treble_level": 0,
+      "queue_position": 0,
+      "friendly_name": "Sonos Living Room",
+      "entity_picture": "/api/media_player_proxy/media_player.sonos_living_room?token=1c84784a5b6ab6ed25f95a100e0ec1a7a6aa2b316b524f61dba7208730687c56&cache=4d62b2c67a75fe76",
+      "supported_features": 457279
+    },
+    "last_changed": "2021-11-03T08:02:41.325208+00:00",
+    "last_updated": "2021-11-03T08:02:41.325208+00:00",
+    "context": {
+      "id": "cf5f93026d67ab8343f67fb59aa7b7c2",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.sonos_kitchen": {
+    "entity_id": "media_player.sonos_kitchen",
+    "state": "paused",
+    "attributes": {
+      "source_list": [
+        "BORDERLINE",
+        "HITMAN 3 (OST) - Apex Predator - Club Hölle",
+        "Homey",
+        "It Runs Through Me",
+        "Oesters & Champagne",
+        "Ringtone",
+        "Salzburg",
+        "SLANGEN",
+        "Line-in"
+      ],
+      "volume_level": 0.17,
+      "is_volume_muted": false,
+      "media_content_id": "x-sonos-spotify:spotify%3atrack%3a5PbzzUbb5X00nUDoT1zTFh?sid=9&flags=8224&sn=1",
+      "media_content_type": "music",
+      "media_duration": 212,
+      "media_position": 0,
+      "media_position_updated_at": "2021-11-03T08:02:41.307102+00:00",
+      "media_title": "DumDum",
+      "media_artist": "Biffy Clyro",
+      "media_album_name": "The Myth of The Happily Ever After",
+      "shuffle": false,
+      "repeat": "off",
+      "sonos_group": [
+        "media_player.sonos_development",
+        "media_player.sonos_kitchen",
+        "media_player.sonos_support",
+        "media_player.sonos_living_room",
+        "media_player.sonos_workshop",
+        null
+      ],
+      "bass_level": 0,
+      "treble_level": 0,
+      "queue_position": 0,
+      "friendly_name": "Sonos Kitchen",
+      "entity_picture": "/api/media_player_proxy/media_player.sonos_kitchen?token=738075e0a40dffd6d80118d554230ab4ce45c98731f0181fc791904ed7d21ce0&cache=4d62b2c67a75fe76",
+      "supported_features": 457279
+    },
+    "last_changed": "2021-11-03T08:02:41.324278+00:00",
+    "last_updated": "2021-11-03T08:02:41.324278+00:00",
+    "context": {
+      "id": "cfcc900d438009364f8bd4b535f88936",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.film_studio": {
+    "entity_id": "media_player.film_studio",
+    "state": "paused",
+    "attributes": {
+      "source_list": [
+        "All I Want for Christmas Is You",
+        "Hit List",
+        "Morning Tea"
+      ],
+      "volume_level": 0.14,
+      "is_volume_muted": false,
+      "media_content_id": "x-sonos-spotify:spotify%3atrack%3a2FUJ7hgdMEjNM9M0WEciI6?sid=9&flags=8224&sn=3",
+      "media_content_type": "music",
+      "media_duration": 205,
+      "media_position": 1,
+      "media_position_updated_at": "2021-11-03T07:38:01.452252+00:00",
+      "media_title": "Summer Girl - Bonus Track",
+      "media_artist": "HAIM",
+      "media_album_name": "Women In Music Pt III (Expanded Edition)",
+      "media_playlist": "Morning Tea",
+      "shuffle": false,
+      "repeat": "off",
+      "sonos_group": ["media_player.film_studio"],
+      "bass_level": 0,
+      "treble_level": 0,
+      "queue_position": 1,
+      "friendly_name": "Film Studio",
+      "entity_picture": "/api/media_player_proxy/media_player.film_studio?token=01fcf23e3d761b2ef923fdce7cbe617500d71e7adeab1b782650e61e31370409&cache=ae66c612a0c2035f",
+      "supported_features": 457279
+    },
+    "last_changed": "2021-11-03T07:38:01.552294+00:00",
+    "last_updated": "2021-11-03T07:38:02.196317+00:00",
+    "context": {
+      "id": "2b2d1418eceeff424a747bd57496473d",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.athom_cloud_ceiling": {
+    "entity_id": "sensor.athom_cloud_ceiling",
+    "state": "12192",
+    "attributes": {
+      "state_class": "measurement",
+      "attribution": "Data provided by AccuWeather",
+      "unit_of_measurement": "m",
+      "friendly_name": "Athom Cloud Ceiling",
+      "icon": "mdi:weather-fog"
+    },
+    "last_changed": "2021-11-03T07:38:03.424296+00:00",
+    "last_updated": "2021-11-03T07:38:03.424296+00:00",
+    "context": {
+      "id": "753d67b04c54fceca1b60e348379a24a",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.athom_realfeel_temperature": {
+    "entity_id": "sensor.athom_realfeel_temperature",
+    "state": "6.9",
+    "attributes": {
+      "state_class": "measurement",
+      "attribution": "Data provided by AccuWeather",
+      "unit_of_measurement": "°C",
+      "friendly_name": "Athom RealFeel Temperature",
+      "device_class": "temperature"
+    },
+    "last_changed": "2021-11-03T13:38:03.497294+00:00",
+    "last_updated": "2021-11-03T13:38:03.497294+00:00",
+    "context": {
+      "id": "73569778ccdec3f85a4a1feabf9c2215",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.athom_precipitation": {
+    "entity_id": "sensor.athom_precipitation",
+    "state": "0.0",
+    "attributes": {
+      "state_class": "measurement",
+      "attribution": "Data provided by AccuWeather",
+      "type": "Rain",
+      "unit_of_measurement": "mm",
+      "friendly_name": "Athom Precipitation",
+      "icon": "mdi:weather-rainy"
+    },
+    "last_changed": "2021-11-03T07:38:03.429778+00:00",
+    "last_updated": "2021-11-03T13:38:03.497767+00:00",
+    "context": {
+      "id": "46f20bfb93aa49a990e4e4aa5746350a",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.athom_pressure_tendency": {
+    "entity_id": "sensor.athom_pressure_tendency",
+    "state": "steady",
+    "attributes": {
+      "attribution": "Data provided by AccuWeather",
+      "friendly_name": "Athom Pressure Tendency",
+      "icon": "mdi:gauge",
+      "device_class": "accuweather__pressure_tendency"
+    },
+    "last_changed": "2021-11-03T10:18:03.463940+00:00",
+    "last_updated": "2021-11-03T10:18:03.463940+00:00",
+    "context": {
+      "id": "eb171966251087ddd3b06cbf71b88286",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.athom_uv_index": {
+    "entity_id": "sensor.athom_uv_index",
+    "state": "1",
+    "attributes": {
+      "state_class": "measurement",
+      "attribution": "Data provided by AccuWeather",
+      "level": "Low",
+      "unit_of_measurement": "UV index",
+      "friendly_name": "Athom UV Index",
+      "icon": "mdi:weather-sunny"
+    },
+    "last_changed": "2021-11-03T12:58:03.491057+00:00",
+    "last_updated": "2021-11-03T12:58:03.491057+00:00",
+    "context": {
+      "id": "7348d0eb88f597100f17b57c7a3f2b4a",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.athom_wind": {
+    "entity_id": "sensor.athom_wind",
+    "state": "13.0",
+    "attributes": {
+      "state_class": "measurement",
+      "attribution": "Data provided by AccuWeather",
+      "unit_of_measurement": "km/h",
+      "friendly_name": "Athom Wind",
+      "icon": "mdi:weather-windy"
+    },
+    "last_changed": "2021-11-03T13:38:03.498314+00:00",
+    "last_updated": "2021-11-03T13:38:03.498314+00:00",
+    "context": {
+      "id": "8003b99bde8d37e00a7507320d4c304e",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "weather.athom": {
+    "entity_id": "weather.athom",
+    "state": "rainy",
+    "attributes": {
+      "temperature": 8.9,
+      "humidity": 81,
+      "pressure": 1001,
+      "wind_bearing": 315,
+      "wind_speed": 13,
+      "visibility": 8,
+      "attribution": "Data provided by AccuWeather",
+      "friendly_name": "Athom"
+    },
+    "last_changed": "2021-11-03T13:38:03.498880+00:00",
+    "last_updated": "2021-11-03T13:38:03.498880+00:00",
+    "context": {
+      "id": "502cc2ac69380675dfede1ea07d1f062",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.kantoor_tv": {
+    "entity_id": "media_player.kantoor_tv",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Meeting",
+      "supported_features": 152461
+    },
+    "last_changed": "2021-11-03T09:31:44.676612+00:00",
+    "last_updated": "2021-11-03T09:31:44.676612+00:00",
+    "context": {
+      "id": "013f76eadec6ba02cdaa2d1433671e88",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.tv_in_woonkamer": {
+    "entity_id": "media_player.tv_in_woonkamer",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Tv in woonkamer"
+    },
+    "last_changed": "2021-11-03T07:37:37.539991+00:00",
+    "last_updated": "2021-11-03T07:37:37.539991+00:00",
+    "context": {
+      "id": "93ed256f03564341f69ec6663db92a33",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.soundbar": {
+    "entity_id": "media_player.soundbar",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Soundbar"
+    },
+    "last_changed": "2021-11-03T07:37:37.540129+00:00",
+    "last_updated": "2021-11-03T07:37:37.540129+00:00",
+    "context": {
+      "id": "f932319c288acc5f9bc74e3010d520f1",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.citation_group": {
+    "entity_id": "media_player.citation_group",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Citation Group"
+    },
+    "last_changed": "2021-11-03T07:37:37.540262+00:00",
+    "last_updated": "2021-11-03T07:37:37.540262+00:00",
+    "context": {
+      "id": "cb3ae987d15037025bc0e487c104f777",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.slaapkamer_floris_clock": {
+    "entity_id": "media_player.slaapkamer_floris_clock",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Slaapkamer Floris clock"
+    },
+    "last_changed": "2021-11-03T07:37:37.540410+00:00",
+    "last_updated": "2021-11-03T07:37:37.540410+00:00",
+    "context": {
+      "id": "f3cc0223defb9745fb1444a2c8fba0ad",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.slaapkamer_klok_janpeter": {
+    "entity_id": "media_player.slaapkamer_klok_janpeter",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Slaapkamer klok JanPeter"
+    },
+    "last_changed": "2021-11-03T07:37:37.540570+00:00",
+    "last_updated": "2021-11-03T07:37:37.540570+00:00",
+    "context": {
+      "id": "8daaa60affd741e316fad784bc0bd7bb",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.slaapkamer_klokken": {
+    "entity_id": "media_player.slaapkamer_klokken",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Slaapkamer klokken"
+    },
+    "last_changed": "2021-11-03T07:37:37.540710+00:00",
+    "last_updated": "2021-11-03T07:37:37.540710+00:00",
+    "context": {
+      "id": "c51efeaf7fe8aff3debf48c1b762d87e",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.citation_one_links": {
+    "entity_id": "media_player.citation_one_links",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Citation One Links"
+    },
+    "last_changed": "2021-11-03T07:37:37.540846+00:00",
+    "last_updated": "2021-11-03T07:37:37.540846+00:00",
+    "context": {
+      "id": "7a20af127b8027a00269416b7f06c1f5",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.slaapkamer_klok_petra": {
+    "entity_id": "media_player.slaapkamer_klok_petra",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Slaapkamer klok Petra"
+    },
+    "last_changed": "2021-11-03T07:37:37.540995+00:00",
+    "last_updated": "2021-11-03T07:37:37.540995+00:00",
+    "context": {
+      "id": "7a4e5f15771e5ff1aee84eee7cc381e1",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.garage_speaker": {
+    "entity_id": "media_player.garage_speaker",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Garage speaker"
+    },
+    "last_changed": "2021-11-03T07:37:37.541317+00:00",
+    "last_updated": "2021-11-03T07:37:37.541317+00:00",
+    "context": {
+      "id": "2af514f093e4ecb1fbdb977a1ff50e15",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.veranda_speaker": {
+    "entity_id": "media_player.veranda_speaker",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Veranda Speaker"
+    },
+    "last_changed": "2021-11-03T07:37:37.541527+00:00",
+    "last_updated": "2021-11-03T07:37:37.541527+00:00",
+    "context": {
+      "id": "167be36df24c2eb9b135b60862544154",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.citation_one_rechts": {
+    "entity_id": "media_player.citation_one_rechts",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Citation One Rechts"
+    },
+    "last_changed": "2021-11-03T07:37:37.541700+00:00",
+    "last_updated": "2021-11-03T07:37:37.541700+00:00",
+    "context": {
+      "id": "0cb143170ec39c0e154b0f4f67e5ee47",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.eetkamer_rechts": {
+    "entity_id": "media_player.eetkamer_rechts",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Eetkamer Rechts"
+    },
+    "last_changed": "2021-11-03T07:37:37.541843+00:00",
+    "last_updated": "2021-11-03T07:37:37.541843+00:00",
+    "context": {
+      "id": "04bac11b3d7b78e7dca09ff15a571096",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.slaapkamer_marleen_clock": {
+    "entity_id": "media_player.slaapkamer_marleen_clock",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Slaapkamer Marleen clock"
+    },
+    "last_changed": "2021-11-03T07:37:37.541983+00:00",
+    "last_updated": "2021-11-03T07:37:37.541983+00:00",
+    "context": {
+      "id": "1dd1634a2b65cf83f0d4d2f59bae0946",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.google_beneden": {
+    "entity_id": "media_player.google_beneden",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Google beneden"
+    },
+    "last_changed": "2021-11-03T07:37:37.542156+00:00",
+    "last_updated": "2021-11-03T07:37:37.542156+00:00",
+    "context": {
+      "id": "bc0dbe9ff2387054568e4cae8f769d3a",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.keuken_display": {
+    "entity_id": "media_player.keuken_display",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Keuken display"
+    },
+    "last_changed": "2021-11-03T07:37:37.542304+00:00",
+    "last_updated": "2021-11-03T07:37:37.542304+00:00",
+    "context": {
+      "id": "b8e21effd501acff2f4ba8374d337f4c",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.eetkamer_links": {
+    "entity_id": "media_player.eetkamer_links",
+    "state": "unavailable",
+    "attributes": {
+      "restored": true,
+      "supported_features": 152449,
+      "friendly_name": "Eetkamer Links"
+    },
+    "last_changed": "2021-11-03T07:37:37.542463+00:00",
+    "last_updated": "2021-11-03T07:37:37.542463+00:00",
+    "context": {
+      "id": "f67ec28e6dad08a1920ba8e2c41722ac",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "persistent_notification.config_entry_discovery": {
+    "entity_id": "persistent_notification.config_entry_discovery",
+    "state": "notifying",
+    "attributes": {
+      "title": "New devices discovered",
+      "friendly_name": "New devices discovered",
+      "message": "We have discovered new devices on your network. [Check it out](/config/integrations)."
+    },
+    "last_changed": "2021-11-03T07:37:47.909401+00:00",
+    "last_updated": "2021-11-03T07:37:47.909401+00:00",
+    "context": {
+      "id": "b14542f3e0532790f03a2c4c477e9ed8",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "media_player.marketing": {
+    "entity_id": "media_player.marketing",
+    "state": "paused",
+    "attributes": {
+      "source_list": [
+        "BORDERLINE",
+        "HITMAN 3 (OST) - Apex Predator - Club Hölle",
+        "Homey",
+        "It Runs Through Me",
+        "Oesters & Champagne",
+        "Ringtone",
+        "Salzburg",
+        "SLANGEN",
+        "Line-in"
+      ],
+      "volume_level": 0.05,
+      "is_volume_muted": false,
+      "media_content_id": "x-sonos-spotify:spotify%3atrack%3a5PbzzUbb5X00nUDoT1zTFh?sid=9&flags=8224&sn=1",
+      "media_content_type": "music",
+      "media_duration": 212,
+      "media_position": 0,
+      "media_position_updated_at": "2021-11-03T08:02:41.307102+00:00",
+      "media_title": "DumDum",
+      "media_artist": "Biffy Clyro",
+      "media_album_name": "The Myth of The Happily Ever After",
+      "shuffle": false,
+      "repeat": "off",
+      "sonos_group": [
+        "media_player.sonos_development",
+        "media_player.sonos_kitchen",
+        "media_player.sonos_support",
+        "media_player.sonos_living_room",
+        "media_player.sonos_workshop",
+        null
+      ],
+      "bass_level": 0,
+      "treble_level": 0,
+      "queue_position": 0,
+      "friendly_name": "Marketing",
+      "entity_picture": "/api/media_player_proxy/media_player.marketing?token=ab2a1893ebe974aecb48db764c7af75b78ac99aec555fc2d51d3e58322167788&cache=4d62b2c67a75fe76",
+      "supported_features": 457279
+    },
+    "last_changed": "2021-11-03T08:02:41.326284+00:00",
+    "last_updated": "2021-11-03T08:02:41.326284+00:00",
+    "context": {
+      "id": "d90cf1affc39590e1903a6cb50ef916e",
+      "parent_id": null,
+      "user_id": null
+    }
+  }
+}
