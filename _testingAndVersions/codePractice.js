@@ -1,3 +1,4 @@
+
 const jsonData = require('./apiget.json');
 
 const HA_SENSOR_ENTITIES_TO_HOMEY_CAPABILIIES_MAP =// type: number
@@ -8,6 +9,13 @@ const HA_SENSOR_ENTITIES_TO_HOMEY_CAPABILIIES_MAP =// type: number
     'humidity': 'measure_humidity',
     'pressure': 'measure_pressure',
     'battery': 'measure_battery'
+};
+
+const WEATHER_CAPABILITIES = {
+    'sensor.lumi_lumi_weather_temperature': 'measure_temperature',
+    'sensor.lumi_lumi_weather_power': 'measure_battery',
+    'sensor.lumi_lumi_weather_pressure': 'measure_pressure',
+    'sensor.lumi_lumi_weather_humidity': 'measure_humidity'
 };
 
 const name = "Sammy"
@@ -98,27 +106,72 @@ const homeyMapper = loadData.map(device => {
         };
     }
 });
-// console.log(HA_Attributes);
-// console.log(HA_DATA);
 
-/* what if you would just paste the informationfrom the subscribed entity (ex sensor.lumi_lumi_weather_humidity) in the HA_data first, like entity_id.
+/* what if you would just paste the information from the subscribed entity (ex sensor.lumi_lumi_weather_humidity) in the HA_data first, like entity_id.
 then the value of entity_id would become sensor.lumi_lumi_weather_humidity
 then go to attributes and like push the values of the attributes into there. Then any unknown attributes wouldn't get thrown.
 Then go to HA_attributes and just paste/push the data from the API array into there.
 
 */
 
-/* else if (key == 'friendly_name') {
-                            const friendlyName = value;
-                            return friendlyName;
-                        } */
+function comparedevices() {
+    
+    const devicesAll = [];
+    loadData.map(device => {
+        devicesAll.push({
+            name: device.attributes.friendly_name,
+            data: {
+                id: device.entity_id,
+            },
+            capabilities: Object.entries(device.attributes)
+            .map(([key, value])=> {
+                if(key == 'device_class') {
+                    const capabilityId = HA_SENSOR_ENTITIES_TO_HOMEY_CAPABILIIES_MAP[value];
+                    if(!capabilityId) {
+                        return 'measure_generic';
+                    }
+                    return capabilityId;
+                }
+            }).filter(capabilityId => {
+                return typeof capabilityId === 'string';
+            })
+        });
+    });
+    
+    for(let i = 0; i < devicesAll.length; i ++) {
+        if (i >= 4 && devicesAll[i].name === 'LUMI weather sensor temperature' && devicesAll[i - 1].name === 'LUMI weather sensor pressure' && devicesAll[i - 2].name === 'LUMI weather sensor power' && devicesAll[i - 3].name === 'LUMI weather sensor humidity') {
+            //mappedDevices[i].name = 'Update_check';
+            devicesAll.push({
+                name: "LUMI weather sensor",
+                data: {
+                    id: "sensor.lumi_lumi_weather", // changed from sensor.lumi_lumi_weather
+                    //key: Object.keys(WEATHER_CAPABILITIES),
+                },
+                capabilities: Object.values(WEATHER_CAPABILITIES),
+            });
+        } if(i >= 4 && devicesAll[i].name === 'GM1913 Battery Temperature' && devicesAll[i-1].name === 'GM1913 Charger Type' && devicesAll[i-2].name === 'GM1913 Battery State' && devicesAll[i-3].name === 'GM1913 Battery Level'){
+            devicesAll.push({
+                name: "GM1913",
+                data:{
+                    id: "sensor.gm1913",
+                },
+            });
+        }
+    }
+    console.log(devicesAll); // i want devicesAll.data.id
+    const deviceNames = [];
+    const deviceIds = Object.values(devicesAll);
+    deviceIds.forEach(deviceId => {
+        deviceNames.push(deviceId.data.id);
+    });
+    console.log(deviceNames); // now compare each value of the array to predetermined string values, like sensor.lumi_lumi_weather and sensor.gm1913
+    for(let i = 0; i < deviceNames.length; i ++){
+        if(deviceNames[i] ==='sensor.gm1913'){
+            console.log('Phone detected');
+        } else if(deviceNames[i] === 'sensor.lumi_lumi_weather'){
+            console.log('Weather sensor detected');
+        }
+    }
+}
 
-                        // const deviceContent =  [
-                        //     {
-                        //     name : Object.keys(entities)
-                        //     .forEach(name in Object.entries(entities)
-                        //         .map(([key, value]) => {
-                        //            console.log(`key: ${key}; value: ${value}`)
-                        //            return key, value;
-                        //         })),
-                        //     }];
+comparedevices();

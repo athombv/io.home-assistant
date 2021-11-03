@@ -8,6 +8,8 @@ class MyDriver extends Homey.Driver {
    */
   async onInit() {
     this.log('MyDriver has been initialized');
+    //add the authconnection here?
+    
   }
   /**
    * onPairListDevices is called when a user is adding a device

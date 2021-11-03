@@ -11,9 +11,9 @@ const WEATHER_CAPABILITIES = {
 
 class MyDevice extends Homey.Device {
   async onInit() {
-    this.log('MyDevice has been initialized');
+    this.log('MyDevice has been initialized: ');
 
-    this.client = this.homey.app.getClient();
+    this.client = await this.homey.app.getClient();
     this.entityId = this.getData().id;
     this.capabilities = this.getCapabilities();
     //if (this.capabilities.length != 0) { this.getCapabilities()[0];} else {this.getCapabilities();}
@@ -35,14 +35,14 @@ class MyDevice extends Homey.Device {
   }
 
   async onAdded() {
-    this.log('MyDevice has been added');
+    this.log('MyDevice has been added:', this.getName());
   }
   async onRenamed(name) {
-    this.log('MyDevice was renamed');
+    this.log('MyDevice was renamed', name);
   }
 
   async onDeleted() {
-    this.log('MyDevice has been deleted');
+    this.log('MyDevice has been deleted:', this.getName());
   }
 
   entityUpdate(data) {
@@ -57,7 +57,6 @@ class MyDevice extends Homey.Device {
             this.setCapabilityValue(capability, parseFloat(data.state)); //dont set other capabilities to null
            }
           }
-        //});
       });
     } catch(ex) {
       console.log('error', ex);

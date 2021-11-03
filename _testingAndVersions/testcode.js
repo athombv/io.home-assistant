@@ -147,7 +147,6 @@ class Temp {
                 access_token: token,
                 expires: new Date(new Date().getTime() + 1e11),
             });
-            // await this.Hass.createConnection({auth});
             Hass.createConnection({ auth })
                 .then(conn => {
                     console.log('succesfully connected... subscribing to entities and events');
@@ -167,7 +166,6 @@ class Temp {
                     // this.emit('connection_update', { connected: false });
                     console.log('failed to connect:', err); // works confirmed
                 });
-                console.log(`${bindEntities}`);
         }
 
     }
@@ -188,18 +186,6 @@ class Temp {
                 console.log the Object.entries(entities)
                 console.log the keys and values of entities
     */
-    updateEntities() {
-        const _entities = [...Hass];
-        _entities.map(entities => {
-            return {
-                name: entities.id,
-            }
-        })
-    }
-
-    updateStates () {
-        
-    }
 }
 
 const address = 'http://homeassistant.local:8123';
