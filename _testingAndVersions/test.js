@@ -8,6 +8,32 @@
 * if a key is equal to one of the entity registries, paste the device class or measurement class in there (later necessary for capabilities)
 * then check all entiity registries to see what their device_id is. Compare the necessary device_ids to ids of the device registry
 */
+const SENSOR_MAP =// type: number
+{
+    // device_class --> capability --> type
+    // the binary_sensor and sensor capabilities need to be split up because the device class can be he same
+    'temperature': 'measure_temperature',
+    'co': 'measure_co',
+    'co2': 'measure_co2',
+    'pm25': 'measure_pm25',
+    'humidity': 'measure_humidity',
+    'pressure': 'measure_pressure',
+    'noise': 'measure_noise',
+    'rain': 'measure_rain',
+    'wind_strength': 'measure_wind_strength',
+    'wind_angle': 'measure_wind_angle',
+    'gust_strength': 'measure_gust_strength',
+    'gust_angle': 'measure_gust_angle',
+    'battery': 'measure_battery',
+    'power': 'measure_power',
+    'voltage': 'measure_voltage',
+    'current': 'measure_current',
+    'luminance': 'measure_luminance',
+    'ultraviolet': 'measure_ultraviolet',
+    'water_flow': 'measure_water',
+    'water': 'measure_water',
+    'energy': 'meter_power'
+};
 
 const file1 = require("./jsons/device_registry.json");
 const file2 = require("./jsons/entity_registry.json");
@@ -19,6 +45,7 @@ const entityRegistry = [...file2];
 //const entityid = ['hello'];
 const entityid = Object.keys(file3);
 const homeyDevices = [];
+const moreDevices = [];
 // if device_id === id place the device_id object / block in a new array where id the owners is of
 function test() {
   entityRegistry.forEach(entity => {
@@ -30,7 +57,10 @@ function test() {
             console.log('compatible entity found: ', id);
             console.log('device class: ', file3[id].attributes.friendly_name);
             if (!homeyDevices.includes(device.name) && (device.manufacturer !== "Google Inc.")) {
-              homeyDevices.push(device.name);
+              homeyDevices.push(device.name); //now add the designated capabilities
+              moreDevices.push({
+                entityName: entity.entity_id,
+              });
             }
           }
         })
