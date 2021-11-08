@@ -35,6 +35,8 @@ const SENSOR_MAP =// type: number
     'energy': 'meter_power'
 };
 
+const endDevices = {name:"dummy", entities: {}};
+
 const file1 = require("./jsons/device_registry.json");
 const file2 = require("./jsons/entity_registry.json");
 const file3 = require("./jsons/subscribeEntities.json");
@@ -45,37 +47,34 @@ const entityRegistry = [...file2];
 //const entityid = ['hello'];
 const entityid = Object.keys(file3);
 const homeyDevices = [];
-const moreDevices = [];
 const devArray = [];
+
 // if device_id === id place the device_id object / block in a new array where id the owners is of
 function test() {
-  console.log(deviceRegistry);
-  entityRegistry.forEach(entity => {
-    deviceRegistry.forEach(device => {
-      if (entity.device_id === device.id) {
-      if(!devArray.includes(device.name)) {
+  let i = 0;
+ // console.log(deviceRegistry);
+  entityRegistry.forEach(entity => { //maps the entity registry
+    deviceRegistry.forEach(device => { //maps the device registry
+      if (entity.device_id === device.id) { //if the device_id (which the entity is linked to in the registries) equals to the id of the device, this is true
+      if(!devArray.includes(device.name) && device.manufacturer !== "Google Inc." && device.manufacturer !== "Sonos") {
         devArray.push(device.name);
       }
-        //console.log("match found with device: ", device.name);
+        console.log("match found with device: ", device.name);
+        console.log("with entity: ", entity.entity_id);
         entityid.forEach(id => {
           if (entity.entity_id === id) {
-            console.log('compatible entity found: ', id);
-            console.log('device class: ', file3[id].attributes.friendly_name);
-            moreDevices.push({
+            //console.log('compatible entity found: ', id);
+            //console.log('Name of entity: ', file3[id].attributes.friendly_name);
+            homeyDevices.push({
               name: file3[id].attributes.friendly_name,
               group: device.name,
               data: {
                 id: file3[id].entity_id,
               },
             });
-            console.log('entity: ', moreDevices);
+            //console.log('entity: ', moreDevices);
             // if the group name of the entitymap above equals the device name, you add it to devArray
             // the push method might not work because once youre here, the entire thing already is done
-            if (!homeyDevices.includes(device.name) && (device.manufacturer !== "Google Inc.")) {
-              devArray[device.name] = moreDevices;
-            
-              //homeyDevices.push(device.name); //now add the designated capabilities
-            }
           }
         })
       }
@@ -84,5 +83,5 @@ function test() {
 }
 
 test();
-console.log('devices compatible with Homey:', homeyDevices);
+console.log('devices compatible with Homey:', devArray);
 //console.log(devArray);
