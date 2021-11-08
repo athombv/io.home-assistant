@@ -46,21 +46,35 @@ const entityRegistry = [...file2];
 const entityid = Object.keys(file3);
 const homeyDevices = [];
 const moreDevices = [];
+const devArray = [];
 // if device_id === id place the device_id object / block in a new array where id the owners is of
 function test() {
+  console.log(deviceRegistry);
   entityRegistry.forEach(entity => {
     deviceRegistry.forEach(device => {
       if (entity.device_id === device.id) {
+      if(!devArray.includes(device.name)) {
+        devArray.push(device.name);
+      }
         //console.log("match found with device: ", device.name);
         entityid.forEach(id => {
           if (entity.entity_id === id) {
             console.log('compatible entity found: ', id);
             console.log('device class: ', file3[id].attributes.friendly_name);
+            moreDevices.push({
+              name: file3[id].attributes.friendly_name,
+              group: device.name,
+              data: {
+                id: file3[id].entity_id,
+              },
+            });
+            console.log('entity: ', moreDevices);
+            // if the group name of the entitymap above equals the device name, you add it to devArray
+            // the push method might not work because once youre here, the entire thing already is done
             if (!homeyDevices.includes(device.name) && (device.manufacturer !== "Google Inc.")) {
-              homeyDevices.push(device.name); //now add the designated capabilities
-              moreDevices.push({
-                entityName: entity.entity_id,
-              });
+              devArray[device.name] = moreDevices;
+            
+              //homeyDevices.push(device.name); //now add the designated capabilities
             }
           }
         })
@@ -71,3 +85,4 @@ function test() {
 
 test();
 console.log('devices compatible with Homey:', homeyDevices);
+//console.log(devArray);
