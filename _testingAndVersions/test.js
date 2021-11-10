@@ -54,58 +54,44 @@ class compDevice {
   }
 }
 
-var homeyDevices = [];
-
-
+const homeyDevices = [];
 const deviceRegistry = [...file1];
 const entityRegistry = [...file2];
-const entityData = [];
 //const subscribeEntities = [...file3];
 //const entityid = ['hello'];
 const entityKeys = Object.keys(file3);
 // if device_id === id place the device_id object / block in a new array where id the owners is of
 function test() {
-  let i = 0;
   let buffer = "test";
+  let entities = [];
   // console.log(deviceRegistry);
   entityRegistry.forEach(entity => { //maps the entity registry
     deviceRegistry.forEach(device => { //maps the device registry
       if (entity.device_id === device.id) { //if the device_id (which the entity is linked to in the registries) equals to the id of the device, this is true
-        if (device.name !== buffer) {
-          homeyDevices[i] = new compDevice(device.name);
-          homeyDevices[i].deviceId = device.id;
+        entities.push(entity.entity_id);
+        //console.log(entities);
+        //if (device.name !== buffer) {
+          if(buffer !== device.name){
+          homeyDevices.push({
+            name: device.name,
+            deviceId: device.id,
+            matchedEntities: entities,
+          });
           buffer = device.name;
-          entityRegistry.forEach(entity_ => {
-            if (homeyDevices[i].deviceId === entity_.device_id) {
-              // homeyDevices[i].matchedEntities.push({
-              // name: entity_.entity_id,
-              // });
-              homeyDevices[i].matchedEntities.push(entity_.entity_id);
-            }
-          });
-          const lengthOfEntities = Object.keys(homeyDevices[i].matchedEntities).length;
-          console.log(lengthOfEntities);
-          entityKeys.forEach(id => {
-            
-          });
-          
-          // match the entities subclass stuff to this
-          
-          i++;
+          entities = [];
         }
         // hier zitten alle entities gekoppeld aan de devices
-
       }
     });
   });
 }
 
 test();
-for (let i = 0; i < homeyDevices.length; i++) {
-  homeyDevices[i].display();
-}
+// for (let i = 0; i < homeyDevices.length; i++) {
+//   homeyDevices[i].display();
+// }
+console.log(JSON.stringify(homeyDevices, null, 4));
 //console.log(homeyDevices);
-
 
 // -- WORKS WITH homeyDevices[i].matchedEntities.push(entity_.entity_id)
 /* for(let k = 0; k < homeyDevices[i].matchedEntities.length; k ++){
