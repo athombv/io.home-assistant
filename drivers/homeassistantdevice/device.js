@@ -2,11 +2,31 @@
 
 const Homey = require('homey');
 
-const WEATHER_CAPABILITIES = {
-  'sensor.lumi_lumi_weather_temperature': 'measure_temperature',
-  'sensor.lumi_lumi_weather_power': 'measure_battery',
-  'sensor.lumi_lumi_weather_pressure': 'measure_pressure',
-  'sensor.lumi_lumi_weather_humidity': 'measure_humidity'
+const SENSOR_MAP =// type: number
+{
+    // device_class --> capability --> type
+    // the binary_sensor and sensor capabilities need to be split up because the device class can be he same
+    'temperature': 'measure_temperature',
+    'co': 'measure_co',
+    'co2': 'measure_co2',
+    'pm25': 'measure_pm25',
+    'humidity': 'measure_humidity',
+    'pressure': 'measure_pressure',
+    'noise': 'measure_noise',
+    'rain': 'measure_rain',
+    'wind_strength': 'measure_wind_strength',
+    'wind_angle': 'measure_wind_angle',
+    'gust_strength': 'measure_gust_strength',
+    'gust_angle': 'measure_gust_angle',
+    'battery': 'measure_battery',
+    'power': 'measure_power',
+    'voltage': 'measure_voltage',
+    'current': 'measure_current',
+    'luminance': 'measure_luminance',
+    'ultraviolet': 'measure_ultraviolet',
+    'water_flow': 'measure_water',
+    'water': 'measure_water',
+    'energy': 'meter_power'
 };
 
 class MyDevice extends Homey.Device {
@@ -49,11 +69,11 @@ class MyDevice extends Homey.Device {
     console.log('updating capabilities');
     try {
       this.capabilities.forEach(capability => {
-        console.log(capability);
+        //console.log(capability);
         //Object.keys(WEATHER_CAPABILITIES).forEach(id => {
-          for(const [id,value] of Object.entries(WEATHER_CAPABILITIES)) {
+          for(const [id,value] of Object.entries(SENSOR_MAP)) {
           console.log(id);
-          if(data.entity_id === id && capability === value) {
+          if(data.attributes.device_class === id && capability === value) {
             this.setCapabilityValue(capability, parseFloat(data.state)); //dont set other capabilities to null
            }
           }
