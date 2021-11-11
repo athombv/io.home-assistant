@@ -1,52 +1,30 @@
 'use strict';
 
 const Homey = require('homey');
-
-const SENSOR_MAP =// type: number
-{
-    // device_class --> capability --> type
-    // the binary_sensor and sensor capabilities need to be split up because the device class can be he same
-    'temperature': 'measure_temperature',
-    'co': 'measure_co',
-    'co2': 'measure_co2',
-    'pm25': 'measure_pm25',
-    'humidity': 'measure_humidity',
-    'pressure': 'measure_pressure',
-    'noise': 'measure_noise',
-    'rain': 'measure_rain',
-    'wind_strength': 'measure_wind_strength',
-    'wind_angle': 'measure_wind_angle',
-    'gust_strength': 'measure_gust_strength',
-    'gust_angle': 'measure_gust_angle',
-    'battery': 'measure_battery',
-    'power': 'measure_power',
-    'voltage': 'measure_voltage',
-    'current': 'measure_current',
-    'luminance': 'measure_luminance',
-    'ultraviolet': 'measure_ultraviolet',
-    'water_flow': 'measure_water',
-    'water': 'measure_water',
-    'energy': 'meter_power'
-};
+const HAUtil = require('../../lib/HAUtil');
 
 class MyDevice extends Homey.Device {
   async onInit() {
     this.log('MyDevice has been initialized: ');
 
-    this.client = await this.homey.app.getClient();
-    this.entityId = this.getData().id;
+    this.client = this.homey.app.getClient();
+    this.deviceId = this.getData().id;
     this.capabilities = this.getCapabilities();
-    //if (this.capabilities.length != 0) { this.getCapabilities()[0];} else {this.getCapabilities();}
+    this.capabilities.forEach(capabilityId => {
+      const entityId = [];// TODO this.getStore().
+      if (!entityId) return;
 
-    //this.capabilities = this.getCapabilities(); //had this.getcapabilities()[0];
-    
+      // TODO: Register Capability Listener
+
+      // TODO: Register Realtime Entity Update
+
+    });
+
     this.log('device initialized');
     this.log('id: ', this.entityId);
     this.log('name: ', this.getName());
     this.log('class: ', this.getClass());
     this.log('capabilities: ', this.capabilities);
-
-    this.client.registerDevice(this.entityId, this);
 
     const entity = this.client.getEntity(this.entityId);
     if (entity) {
@@ -71,14 +49,14 @@ class MyDevice extends Homey.Device {
       this.capabilities.forEach(capability => {
         //console.log(capability);
         //Object.keys(WEATHER_CAPABILITIES).forEach(id => {
-          for(const [id,value] of Object.entries(SENSOR_MAP)) {
+        for (const [id, value] of Object.entries(HAUtil.ENTITY_CAPABILITY_MAP)) {
           console.log(id);
-          if(data.attributes.device_class === id && capability === value) {
+          if (data.attributes.device_class === id && capability === value) {
             this.setCapabilityValue(capability, parseFloat(data.state)); //dont set other capabilities to null
-           }
           }
+        }
       });
-    } catch(ex) {
+    } catch (ex) {
       console.log('error', ex);
     }
   }
