@@ -57,33 +57,59 @@ class compDevice {
 const homeyDevices = [];
 const deviceRegistry = [...file1];
 const entityRegistry = [...file2];
+
 //const subscribeEntities = [...file3];
 //const entityid = ['hello'];
 const entityKeys = Object.keys(file3);
 // if device_id === id place the device_id object / block in a new array where id the owners is of
 function test() {
-  let buffer = "test";
+  const file3_1 = Object.values(file3);
+  let buffer = [];
   let entities = [];
   // console.log(deviceRegistry);
-  entityRegistry.forEach(entity => { //maps the entity registry
-    deviceRegistry.forEach(device => { //maps the device registry
+
+  deviceRegistry.forEach(device => { //maps the entity registry
+    entityRegistry.forEach(entity => { //maps the device registry
       if (entity.device_id === device.id) { //if the device_id (which the entity is linked to in the registries) equals to the id of the device, this is true
-        entities.push(entity.entity_id);
-        //console.log(entities);
-        //if (device.name !== buffer) {
-          if(buffer !== device.name){
-          homeyDevices.push({
-            name: device.name,
-            deviceId: device.id,
-            matchedEntities: entities,
-          });
+        file3_1.forEach(ent => {
+          if (ent.entity_id === entity.entity_id) {
+            if (ent.attributes.device_class) {
+              entities.push({
+                name: ent.attributes.friendly_name,
+                data: {
+                  id: entity.entity_id,
+                },
+                capabilities: Object.entries(ent.attributes)
+                  .map(([key, value]) => {
+                    if (key == 'device_class') {
+                      const capabilityId = SENSOR_MAP[value];
+                      if (!capabilityId) {
+                        return 'measure_generic';
+                      }
+                      return capabilityId;
+                    }
+                  }).filter(capabilityId => {
+                    return typeof capabilityId === 'string';
+                  })
+              });
+            }
+          }
+        })
+        while (device.name !== buffer) {
           buffer = device.name;
-          entities = [];
+          // hier zitten alle entities gekoppeld aan de devices
         }
-        // hier zitten alle entities gekoppeld aan de devices
       }
     });
+    homeyDevices.push({
+      name: device.name,
+      deviceId: device.id,
+      matchedEntities: entities,
+      matchedCapabilities: entities.capabilities,
+    });
+    entities = [];
   });
+
 }
 
 test();
@@ -104,3 +130,40 @@ console.log(JSON.stringify(homeyDevices, null, 4));
             })
           }
           */
+
+          /*
+                      entityRegistry.forEach(entity => {  // maps the entity registry
+                deviceRegistry.forEach(device => { //maps the device registry
+                    if(entity.device_id === device.id) { //if the entity device id equals to the device ID this is true
+                        entityKey.forEach(id => { //map the names of 'entitites' 
+                            if(entity.entity_id === id){ // if the entity id of the entity registry is equal to this id, a compatible entity was found
+                                console.log('compatible entity found: ', id);
+                                entityData.push({
+                                    name: entities[id].attributes.friendly_name,
+                                    data: {
+                                        id: entities[id].entity_id,
+                                    },
+                                    capabilities: Object.entries(entities[id].attributes)
+                                    .map(([key,value]) => {
+                                        if(key === 'device_class') {
+                                            const capabilityId = SENSOR_ENTITIES_TO_HOMEY_CAPABILITIES_MAP[value];
+                                            if(!capabilityId) {
+                                                return 'measure_generic';
+                                            }
+                                            return capabilityId;
+                                        }
+                                    }).filter(capabilityId =>{
+                                        return typeof capabilityId === 'string';
+                                    })
+                                });
+                                
+                                console.log('device class: ', entities[id].attributes.friendly_name);
+                                if(!homeyDevices.includes(device.name) && device.name !== 'device1-wrk' && !id.startsWith('media_player') && !id.startsWith('light.')){
+                                    homeyDevices.push(device.name);
+                                    
+                                }
+                            }
+                        });
+                    }
+                });
+            });*/

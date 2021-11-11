@@ -1,0 +1,12 @@
+log --> compatible devices with homey:
+devices compatible with Homey: [
+  'Home Assistant Operating System',
+  'Check Home Assistant configuration',
+  'device1-wrk',
+  'IKEA of Sweden TRADFRI motion sensor',
+  'LUMI lumi.weather',
+  'IKEA of Sweden TRADFRI bulb E27 WS clear 806lm',
+  'GM1913',
+  'AccuWeather'
+]
+
