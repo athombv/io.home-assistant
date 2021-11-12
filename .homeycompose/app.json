@@ -1,8 +1,8 @@
 {
-  "id": "com.athombv.homeassistant",
+  "id": "io.home-assistant",
   "version": "1.0.0",
   "compatibility": ">=5.0.0",
-  "platforms":["local", "cloud"],
+  "platforms": ["local", "cloud"],
   "sdk": 3,
   "name": {
     "en": "Home Assistant"
@@ -10,9 +10,7 @@
   "description": {
     "en": "integration for the home assistant smarthome helper"
   },
-  "category": [
-    "appliances"
-  ],
+  "category": ["appliances"],
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
