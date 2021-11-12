@@ -175,6 +175,7 @@
     "area_id": null,
     "disabled_by": null,
     "entity_id": "automation.new_automation",
+    "entity": {},
     "name": null,
     "icon": null,
     "platform": "automation"
