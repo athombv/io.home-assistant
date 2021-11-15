@@ -833,25 +833,56 @@
       "user_id": null
     }
   },
+  "light.ikea_tradfri_bulb_e27_off": {
+      "entity_id": "light.ikea_tradfri_bulb_e27",
+      "state": "off",
+      "attributes": {
+          "min_mireds": 250,
+          "max_mireds": 454,
+          "supported_color_modes": [
+              "color_temp"
+          ],
+          "off_brightness": null,
+          "friendly_name": "IKEA TRADFRI bulb E27",
+          "supported_features": 43
+      }
+  },
   "light.ikea_tradfri_bulb_e27": {
-    "entity_id": "light.ikea_tradfri_bulb_e27",
-    "state": "unavailable",
-    "attributes": {
-      "min_mireds": 250,
-      "max_mireds": 454,
-      "supported_color_modes": [
-        "color_temp"
-      ],
-      "friendly_name": "IKEA TRADFRI bulb E27",
-      "supported_features": 43
-    },
-    "last_changed": "2021-11-08T07:39:36.441961+00:00",
-    "last_updated": "2021-11-08T07:40:04.657031+00:00",
-    "context": {
-      "id": "425d3b53b0e588879dbcabc2a4180beb",
-      "parent_id": null,
-      "user_id": null
-    }
+      "entity_id": "light.ikea_tradfri_bulb_e27",
+      "state": "on",
+      "attributes": {
+          "min_mireds": 250,
+          "max_mireds": 454,
+          "supported_color_modes": [
+              "color_temp"
+          ],
+          "color_mode": "color_temp",
+          "brightness": 59,
+          "color_temp": 301,
+          "hs_color": [
+              27.369,
+              48.786
+          ],
+          "rgb_color": [
+              255,
+              187,
+              130
+          ],
+          "xy_color": [
+              0.468,
+              0.377
+          ],
+          "off_brightness": null,
+          "friendly_name": "IKEA TRADFRI bulb E27",
+          "supported_features": 43
+      },
+      "last_changed": "2021-11-12T13:50:23.330661+00:00",
+      "last_updated": "2021-11-12T13:50:23.330661+00:00",
+      "context": {
+          "id": "b139385dbf1423607c85fe55bac474e1",
+          "parent_id": null,
+          "user_id": "2d837f254c9b480ebef1703baca2a824"
+      }
   },
   "media_player.sonos_support": {
     "entity_id": "media_player.sonos_support",
