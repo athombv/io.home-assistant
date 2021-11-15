@@ -10,23 +10,34 @@ class MyDevice extends Homey.Device {
     this.client = this.homey.app.getClient();
     this.deviceId = this.getData().id;
     this.capabilities = this.getCapabilities();
+    console.log('capabilities:', this.capabilities);
     this.capabilities.forEach(capabilityId => {
-      const entityId = [];// TODO this.getStore().
-      if (!entityId) return;
-
+      console.log(this.getStore());
       // TODO: Register Capability Listener
-
+      // Missing Capability Listener: light_temperature
       // TODO: Register Realtime Entity Update
-
+      this.registerCapabilityListener(capabilityId, async (value, opts) => {
+        this.log('value', value);
+        this.log('opts', opts);
+        // this.log("store: ", this.getStore());
+        // this.log("Store Keys: ", this.getStoreKeys());
+        // this.log("store Values: ", this.getStoreValue('capabilities'));
+        const data = {
+          device_id: this.getData().id // you can also turn on a device through its deviceId. Error message: message: 'must contain at least one of entity_id, device_id, area_id.'
+        }
+        this.log(data);
+        this.client.updateLight(value, data);
+      });
+      //TODO Make Light dimmable (e14 or the e27), they both work with 'onoff'
     });
 
     this.log('device initialized');
-    this.log('id: ', this.entityId);
+    this.log('id: ', this.deviceId);
     this.log('name: ', this.getName());
     this.log('class: ', this.getClass());
     this.log('capabilities: ', this.capabilities);
-
-    const entity = this.client.getEntity(this.entityId);
+    this.log('store: ', this.getStore());
+    const entity = this.client.getEntities(this.entityId);
     if (entity) {
       this.entityUpdate(entity);
     }
@@ -46,15 +57,8 @@ class MyDevice extends Homey.Device {
   entityUpdate(data) {
     console.log('updating capabilities');
     try {
-      this.capabilities.forEach(capability => {
-        //console.log(capability);
-        //Object.keys(WEATHER_CAPABILITIES).forEach(id => {
-        for (const [id, value] of Object.entries(HAUtil.ENTITY_CAPABILITY_MAP)) {
-          console.log(id);
-          if (data.attributes.device_class === id && capability === value) {
-            this.setCapabilityValue(capability, parseFloat(data.state)); //dont set other capabilities to null
-          }
-        }
+      this.capabilities.forEach(capabilityId => {
+        this.setCapabilityValue(capabilityId, parseFloat(data.state)); //dont set other capabilities to null
       });
     } catch (ex) {
       console.log('error', ex);
@@ -63,3 +67,15 @@ class MyDevice extends Homey.Device {
 }
 
 module.exports = MyDevice;
+
+/*
+send fired events from homey to home assistant (capability listener)
+
+add app icon
+
+add device icons
+
+issue: rgb light isnt working
+
+classes: dan weet homey ook of het een lamp is of niet
+*/
