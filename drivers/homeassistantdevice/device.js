@@ -12,18 +12,24 @@ class MyDevice extends Homey.Device {
     this.capabilities = this.getCapabilities();
     console.log('capabilities:', this.capabilities);
     this.capabilities.forEach(capabilityId => {
-      console.log(this.getStore());
+      console.log(capabilityId);
+
       // TODO: Register Capability Listener
       // Missing Capability Listener: light_temperature
       // TODO: Register Realtime Entity Update
       this.registerCapabilityListener(capabilityId, async (value, opts) => {
         this.log('value', value);
         this.log('opts', opts);
-        // this.log("store: ", this.getStore());
-        // this.log("Store Keys: ", this.getStoreKeys());
-        // this.log("store Values: ", this.getStoreValue('capabilities'));
         const data = {
           device_id: this.getData().id // you can also turn on a device through its deviceId. Error message: message: 'must contain at least one of entity_id, device_id, area_id.'
+        }
+        if (capabilityId == 'dim') {
+          data.brightness_pct = value * 100;
+        }
+        // homey value: between 1 and 0
+        // ha value: 250 ( cold) en 454 (warm)
+        if (capabilityId == 'light_temperature') {
+          data.color_temp = 204 * value + 250
         }
         this.log(data);
         this.client.updateLight(value, data);
@@ -53,12 +59,12 @@ class MyDevice extends Homey.Device {
   async onDeleted() {
     this.log('MyDevice has been deleted:', this.getName());
   }
-
-  entityUpdate(data) {
+  //TODO make async
+  async entityUpdate(data) {
     console.log('updating capabilities');
     try {
       this.capabilities.forEach(capabilityId => {
-        this.setCapabilityValue(capabilityId, parseFloat(data.state)); //dont set other capabilities to null
+        this.setCapabilityValue(capabilityId, parseFloat(data.state)); //dont set other capabilities to null   
       });
     } catch (ex) {
       console.log('error', ex);
