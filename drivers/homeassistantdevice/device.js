@@ -10,13 +10,14 @@ class MyDevice extends Homey.Device {
     this.client = this.homey.app.getClient();
     this.deviceId = this.getData().id;
     this.capabilities = this.getCapabilities();
-    console.log('capabilities:', this.capabilities);
     this.capabilities.forEach(capabilityId => {
       console.log(capabilityId);
-
       // TODO: Register Capability Listener
       // Missing Capability Listener: light_temperature
       // TODO: Register Realtime Entity Update
+      // the function from the websocket will listen to all events when they say 'state_changed', but you need to filter out when the entity_id of said changed state is IN the 'getStore()' then update capabilities
+      // i said it like this because then not only will it work for the lights, but also for the weather sensor.
+      // but how do you access the entityId IN capabilities IN store
       this.registerCapabilityListener(capabilityId, async (value, opts) => {
         this.log('value', value);
         this.log('opts', opts);
@@ -43,6 +44,7 @@ class MyDevice extends Homey.Device {
     this.log('class: ', this.getClass());
     this.log('capabilities: ', this.capabilities);
     this.log('store: ', this.getStore());
+
     const entity = this.client.getEntities(this.entityId);
     if (entity) {
       this.entityUpdate(entity);
