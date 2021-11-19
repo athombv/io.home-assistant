@@ -30,32 +30,29 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
       })
       .map(device => {
         const deviceClass = 'other';
-        let deviceCapabilities = [];
+        let deviceEntities = [];
         const deviceStore = {}; // capabilities: "", 
 
         device.entities.forEach(({ entity_id: entityId }) => {
           const entity = entities[entityId];
           if (!entity) return;
 
+          //TODO make 1 entity have 1 capability, if it needs more capabilities, duplicate entity
+          // if capability length != 1 -> getcapabilityfromentity
           const capabilityId = HAUtil.getCapabilityFromEntity(entity);
           // the light is 1 device with mutiple entities, already making capabilityId an entire array. when you want to push the capabilityId in deviceCapabilities, you get an array inside of an array
-          if (!capabilityId) return;
           // something is wrong here it executes the devicestore stuff as many times as that there are entities connected to said device -- ? possible issue, keep tracking it
           if (Array.isArray(capabilityId)) {
-            console.log("capabilityId is an array");
-            deviceCapabilities = deviceCapabilities.concat(capabilityId);
-          } else {
-            deviceCapabilities.push(capabilityId);
+            deviceEntities = deviceEntities.concat(capabilityId);
           }
-          //console.log(deviceCapabilities);
-          deviceStore.capabilities = deviceStore.capabilities || {};
-          deviceStore.capabilities[capabilityId] = { entityId };
+          deviceStore.deviceEntities = deviceStore.deviceEntities || {};
+          deviceStore.deviceEntities[entityId] = { capabilityId };
         });
         // TODO: deviceClass like blinds, windows, sensors etc.
 
         return {
           class: deviceClass,
-          capabilities: deviceCapabilities,
+          capabilities: deviceEntities,
           store: deviceStore,
           name: device.name,
           data: {
