@@ -2,15 +2,21 @@
   "id": "io.home-assistant",
   "version": "1.0.0",
   "compatibility": ">=5.0.0",
-  "platforms": ["local", "cloud"],
+  "platforms": [
+    "local",
+    "cloud"
+  ],
   "sdk": 3,
   "name": {
     "en": "Home Assistant"
   },
   "description": {
-    "en": "integration for the home assistant smarthome helper"
+    "en": "Integration for the open source smart home controller Home Assistant",
+    "nl": "Integratie voor de open source smarthome controller Home Assistant"
   },
-  "category": ["appliances"],
+  "category": [
+    "appliances"
+  ],
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
@@ -20,5 +26,6 @@
   "author": {
     "name": "Marleen Beekman",
     "email": "marleenbeekman@gmail.com"
-  }
+  },
+  "brandColor": "#00ccff"
 }
