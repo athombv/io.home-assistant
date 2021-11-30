@@ -94,7 +94,9 @@ class MyDevice extends Homey.Device {
           console.log("length: ", this.store.deviceEntities[key].capabilityId.length);
         } else if (this.store.deviceEntities[key] && this.store.deviceEntities[key].capabilityId) {
           console.log("Single capability detected");
-          this.setCapabilityValue(this.store.deviceEntities[key].capabilityId, parseFloat(entityData.entities[key].state))
+          if (entityData.entities[key].state == 'on') { this.setCapabilityValue(this.store.deviceEntities[key].capabilityId, true); }
+          else if (entityData.entities[key].state == 'off') { this.setCapabilityValue(this.store.deviceEntities[key].capabilityId, false); }
+          else { this.setCapabilityValue(this.store.deviceEntities[key].capabilityId, parseFloat(entityData.entities[key].state)) }
         }
       });
 
@@ -126,7 +128,9 @@ class MyDevice extends Homey.Device {
           })
         } else if (this.store.deviceEntities[data.entity_id] && this.store.deviceEntities[data.entity_id].capabilityId) {
           console.log("Setting value of sensor!");
-          this.setCapabilityValue(this.store.deviceEntities[data.entity_id].capabilityId, parseFloat(data.new_state.state));
+          if (data.new_state.state == 'on') { this.setCapabilityValue(this.store.deviceEntities[data.entity_id].capabilityId, true); }
+          else if (data.new_state.state == 'off') { this.setCapabilityValue(this.store.deviceEntities[data.entity_id].capabilityId, false); }
+          else { this.setCapabilityValue(this.store.deviceEntities[data.entity_id].capabilityId, parseFloat(data.new_state.state)); }
         }
       })
     }
