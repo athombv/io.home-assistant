@@ -47,7 +47,7 @@ class MyDevice extends Homey.Device {
     if (entities) {
       console.log("entities given");
       const entityData = { entities };
-      const entityName = Object.keys(entityData.entities);
+      //const entityName = Object.keys(entityData.entities);
       //console.log("names: ", entityName);
       console.log("Name device: ", this.getName());
 
@@ -68,6 +68,7 @@ class MyDevice extends Homey.Device {
                 } else if (entityData.entities[key].state == 'off') {
                   console.log("Setting state to off");
                   this.setCapabilityValue(id, false);
+                  this.setCapabilityValue('dim', 0);
                 }
                 break;
               case 'dim':
@@ -79,6 +80,7 @@ class MyDevice extends Homey.Device {
                 } else {
                   console.log("Light is off");
                   this.setCapabilityValue(id, 0);
+                  this.setCapabilityValue('onoff', false);
                 }
                 break;
               case 'light_temperature':
@@ -99,35 +101,33 @@ class MyDevice extends Homey.Device {
       // -- realtime event listener -- //
 
       this.client.on('state_changed', (data) => { // start listening to 'state_changed' events
-        this.capabilities.forEach(capabilityId => {
-          if (this.store.deviceEntities[data.entity_id] && this.store.deviceEntities[data.entity_id].capabilityId == capabilityId) { // doesnt work yet (does work with sensors again not with the array capabilities)
-            console.log("Capability requesting update: ", this.store.deviceEntities[data.entity_id].capabilityId);
-            switch (capabilityId) {
+        if (this.store.deviceEntities[data.entity_id] && this.store.deviceEntities[data.entity_id].capabilityId && Array.isArray(this.store.deviceEntities[data.entity_id].capabilityId)) {
+          const capabilityIds = this.store.deviceEntities[data.entity_id].capabilityId;
+          capabilityIds.forEach(id => {
+            switch (id) {
               case 'onoff':
-                if (data.new_state.state == 'on') {
-                  this.setCapabilityValue(capabilityId, true);
-                } else if (data.new_state.state == 'off') {
-                  this.setCapabilityValue(capabilityId, false);
-                } else {
-                  // do nothing
-                }
+                if (data.new_state.state == 'on') { this.setCapabilityValue(id, true); }
+                else if (data.new_state.state == 'off') { this.setCapabilityValue(id, false); this.setCapabilityValue('dim', 0); }
                 break;
               case 'dim':
+                console.log("setting dim value");
                 if (data.new_state.attributes && data.new_state.attributes.brightness) {
-                  const brightness = entityData.entities[key].attributes.brightness / 255; // max brightness = 255 , min brightness = 0
-                  this.setCapabilityValue(capabilityId, brightness);
+                  const brightness = data.new_state.attributes.brightness / 255;
+                  this.setCapabilityValue(id, brightness);
                 }
                 break;
               case 'light_temperature':
-                console.log('setting temperature');
+                const temperature = (data.new_state.attributes.color_temp - 250) / 204;
+                this.setCapabilityValue(id, temperature);
                 break;
               default:
-                console.log("Setting value of sensor...");
-                this.setCapabilityValue(capabilityId, parseFloat(data.new_state.state))
                 break;
             }
-          }
-        })
+          })
+        } else if (this.store.deviceEntities[data.entity_id] && this.store.deviceEntities[data.entity_id].capabilityId) {
+          console.log("Setting value of sensor!");
+          this.setCapabilityValue(this.store.deviceEntities[data.entity_id].capabilityId, parseFloat(data.new_state.state));
+        }
       })
     }
   }
