@@ -29,7 +29,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
         return true;
       })
       .map(device => {
-        const deviceClass = 'other';
+        // const deviceClass = 'other';
         let deviceEntities = [];
         const deviceStore = {}; // capabilities: "", 
         device.entities.forEach(({ entity_id: entityId }) => {
@@ -49,6 +49,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
           deviceStore.deviceEntities = deviceStore.deviceEntities || {};
           deviceStore.deviceEntities[entityId] = { capabilityId };
         });
+        const deviceClass = HAUtil.getClassFromCapabilities(deviceEntities);
         // TODO: deviceClass like blinds, windows, sensors etc.
         console.log("stored:", deviceStore);
         console.log("data: ", device.id);
