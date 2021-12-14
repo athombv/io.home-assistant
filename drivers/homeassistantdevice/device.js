@@ -33,7 +33,15 @@ class MyDevice extends Homey.Device {
         if (capabilityId == 'light_saturation') {
           data.hs_color = 100 * value;
         }
-        this.log(data);
+        if (capabilityId == 'speaker_playing') {
+          this.client.pausePlay(value, capabilityId, data);
+        }
+        if (capabilityId == 'volume_set') {
+          data.volume_level = value;
+          this.client.pausePlay(value, capabilityId, data);
+        }
+        //this.log(data);
+        //TODO ADD LISTENER TO PAUSE MUSIC FROM HOMEY AND TO FORWARD AND GO BACK
         this.client.updateLight(value, data);
       });
     });
@@ -47,8 +55,6 @@ class MyDevice extends Homey.Device {
     if (entities) {
       console.log("entities given");
       const entityData = { entities };
-      //const entityName = Object.keys(entityData.entities);
-      //console.log("names: ", entityName);
       console.log("Name device: ", this.getName());
 
       // -- Placing first time values in the capabilities -- // 
@@ -86,6 +92,37 @@ class MyDevice extends Homey.Device {
               case 'light_temperature':
                 console.log('setting temperature');
                 break;
+              case 'speaker_playing':
+                console.log("Setting true/false of speaker playing");
+                if (entityData.entities[key].state == 'paused') {
+                  console.log("Speaker not playing");
+                  this.setCapabilityValue(id, false);
+                } else if (entityData.entities[key].state == 'playing') {
+                  console.log("Speaker playing");
+                  this.setCapabilityValue(id, true);
+                }
+                break;
+              case 'speaker_artist':
+                console.log("Pasting Artist Name in capability");
+                this.setCapabilityValue(id, entityData.entities[key].attributes.media_artist);
+                break;
+              case 'speaker_album':
+                console.log("Pasting Artists album in capability");
+                this.setCapabilityValue(id, entityData.entities[key].attributes.media_album_name);
+                break;
+              case 'speaker_track':
+                console.log("Pasting speaker track name in capability");
+                this.setCapabilityValue(id, entityData.entities[key].attributes.media_title);
+                break;
+              case 'volume_mute':
+                console.log("Setting volume mute true/false");
+                this.setCapabilityValue(id, entityData.entities[key].attributes.is_volume_muted);
+                break;
+              case 'volume_set':
+                console.log("Setting volume level");
+                this.setCapabilityValue(id, parseFloat(entityData.entities[key].attributes.volume_level));
+                break;
+              // TODO WHEN A DEVICE HAS MORE THAN 1 CAPABILITY IT NEEDS TO BE ADDED TO THE SWITCH
               default:
                 console.log("meh");
                 break;
@@ -122,6 +159,37 @@ class MyDevice extends Homey.Device {
                 const temperature = (data.new_state.attributes.color_temp - 250) / 204;
                 this.setCapabilityValue(id, temperature);
                 break;
+              case 'speaker_playing':
+                console.log("Setting true/false of speaker playing");
+                if (data.new_state.state == 'paused') {
+                  console.log("Speaker not playing");
+                  this.setCapabilityValue(id, false);
+                } else if (data.new_state.state == 'playing') {
+                  console.log("Speaker playing");
+                  this.setCapabilityValue(id, true);
+                }
+                break;
+              case 'speaker_artist':
+                console.log("Changing Artist Name in capability");
+                this.setCapabilityValue(id, data.new_state.attributes.media_artist);
+                break;
+              case 'speaker_album':
+                console.log("Changing Artists album in capability");
+                this.setCapabilityValue(id, data.new_state.attributes.media_album_name);
+                break;
+              case 'speaker_track':
+                console.log("Changing speaker track name in capability");
+                this.setCapabilityValue(id, data.new_state.attributes.media_title);
+                break;
+              case 'volume_mute':
+                console.log("Changing volume mute to true/false");
+                this.setCapabilityValue(id, data.new_state.attributes.is_volume_muted);
+                break;
+              case 'volume_set':
+                console.log("Changing volume level");
+                this.setCapabilityValue(id, parseFloat(data.new_state.attributes.volume_level));
+                break;
+              //TODO ADD SPEAKER CAPABILITIES
               default:
                 break;
             }
@@ -158,6 +226,4 @@ add app icon
 add device icons
 
 issue: rgb light isnt working
-
-classes: dan weet homey ook of het een lamp is of niet
 */
