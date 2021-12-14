@@ -17,13 +17,12 @@ viewed in Home Assistant but won't be in your way with the Homey App.
 
 When you add a light to Home Assistant, this set up is long and then you even
 need to add it to a dashboard in order to control it. If you want to do more
-with it, you can use automations, scripts or scenes, to expand its
-possibilities. It is nice that you have done all that, and you will not lose
-those possibilities when you connect that same exact lamp to Homey, with this
-app, but Homey has already made an entire user interface for you, with the focus
-on accessibility, user friendliness and readability. With simply opening up
-Homey and with one tap on a button, that same light takes 2 or 3 less steps to
-turn on or off.
+with it, you can use automations, scripts or scenes.. It is nice that you have
+done all that, and you will not lose those possibilities when you connect that
+same exact lamp to Homey, with this app, but Homey has already made an entire
+user interface for you, with the focus on accessibility, user friendliness and
+readability. With simply opening up Homey and with one tap on a button, that
+same light takes 2 or 3 less steps to turn on or off.
 
 And, Home Assistant will still run your scripts, where it turns off all the
 lights at 9pm, because Homey and Home Assistant do not 'demand' things from each
@@ -42,6 +41,8 @@ WIP
 
 ## How it works in technical terms
 
+WIP
+
 # Done
 
 - Connect the Home Assistant instance using async code and using as little
@@ -58,19 +59,21 @@ WIP
   (note, show capabilities, values are yet not shown) (currently you cant read
   or get updates for their values due to missing code)
 - Added the capability to dim a light, change the temperature of said light
+- Added alarm capabilities and/or devices
+- Code for device Classes was added, needs more testing
+- Code for icon selection was added, needs .svg icons in folder
 
 ## To Do
 
-- Add Device Classes
-- Add a realtime event listener (to listen to the entities event / 'state
-  change' bus) [KEY FEATURE TO IMPLEMENT] - see WS of Home Assistant
+- Refine Device Classes
 - Add the ability to change RGB values and when a RGBW gets connected in its
   'color_temp' recognize in some way that it is a RGBW light (because the 'hs'
   color mode is missing and then add corresponding capabilities. This does come
   down to the 'state_changed' event bus)
 - See if it is possible to refine the code that recognizes light capabilities,
   and figure out a way to add the hue and saturation components
-- Add icons
-- Add Home Assistant correct blue color
+- Add more Icons
 - Change hardcoded connection to a connection set up process (where you enter a
   LLAT)
+- Fix bugs noted in Google Docs
+- Add media_player device and its capabilities
