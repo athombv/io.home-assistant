@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+
 const HAClient = require('./lib/HAClient');
 
 // TODO: Make dynamic from ManagerSettings
@@ -10,9 +11,12 @@ const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlYTIzMDk5YTMyMjE0
 module.exports = class HomeAssistantApp extends Homey.App {
 
   async onInit() {
+    this.homey.settings.set('host', address);
+    console.log(this.homey.settings.getKeys());
+    //console.log(this.homey.settings);
     this.client = new HAClient({
-      address,
-      token,
+      address, //this.host
+      token, //this.token
     });
   }
 

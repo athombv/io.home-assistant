@@ -12,7 +12,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
     const deviceRegistry = await connection.sendMessagePromise({ type: "config/device_registry/list" });
     const entityRegistry = await connection.sendMessagePromise({ type: "config/entity_registry/list" });
     const entities = await client.getEntities();
-    console.log(JSON.stringify(deviceRegistry, null, 4));
+    //console.log(JSON.stringify(deviceRegistry, null, 4));
     //console.log(JSON.stringify(entityRegistry, null, 4));
     return deviceRegistry
       .map(device => {
@@ -29,16 +29,12 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
         return true;
       })
       .map(device => {
-        // const deviceClass = 'other';
         let deviceEntities = [];
-        const deviceStore = {}; // capabilities: "", 
+        const deviceStore = {};
         device.entities.forEach(({ entity_id: entityId }) => {
           console.log("Entity ID: ", entityId);
           const entity = entities[entityId];
-          //console.log("entity:", entity);
           if (!entity) return;
-          console.log("test");
-          //TODO make 1 entity have 1 capability, if it needs more capabilities, duplicate entity
           // if capability length != 1 -> getcapabilityfromentity
           const capabilityId = HAUtil.getCapabilityFromEntity(entity);
           console.log("Capability: ", capabilityId);
@@ -50,14 +46,18 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
           deviceStore.deviceEntities[entityId] = { capabilityId };
         });
         const deviceClass = HAUtil.getClassFromCapabilities(deviceEntities);
+        const deviceIcon = `/icons/${deviceClass}.svg`;
         // TODO: deviceClass like blinds, windows, sensors etc.
         console.log("stored:", deviceStore);
         console.log("data: ", device.id);
+        console.log("Name of device: ", device.name);
+        //console.log("Device: ", device);
         return {
           class: deviceClass,
           capabilities: deviceEntities,
           store: deviceStore,
           name: device.name,
+          icon: deviceIcon,
           data: {
             id: device.id,
           },
@@ -70,3 +70,15 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
       })
   }
 }
+/*
+{
+      "id": "list_devices", 
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    },*/
