@@ -15,6 +15,9 @@
   },
   "pair": [
     {
+      "id": "connection"
+    },
+    {
       "id": "list_devices",
       "template": "list_devices",
       "navigation": {
@@ -24,6 +27,32 @@
     {
       "id": "add_devices",
       "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Configuration"
+      },
+      "children": [
+        {
+          "id": "address",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "token",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en" : "Home Assistant Token"
+          }
+        }
+      ]
     }
   ]
 }

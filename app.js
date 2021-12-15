@@ -11,7 +11,9 @@ const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlYTIzMDk5YTMyMjE0
 module.exports = class HomeAssistantApp extends Homey.App {
 
   async onInit() {
-    this.homey.settings.set('host', address);
+    this.homey.settings.set("host", address);
+    this.homey.settings.set("token", token);
+    this.settings = this.homey.settings.get('host') || {};
     console.log(this.homey.settings.getKeys());
     //console.log(this.homey.settings);
     this.client = new HAClient({

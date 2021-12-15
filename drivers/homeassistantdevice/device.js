@@ -189,7 +189,7 @@ class MyDevice extends Homey.Device {
                 console.log("Changing volume level");
                 this.setCapabilityValue(id, parseFloat(data.new_state.attributes.volume_level));
                 break;
-              //TODO ADD SPEAKER CAPABILITIES
+              //TODO CHANGE SO THAT NOT EVERY CAPABILITY CHANGES
               default:
                 break;
             }
