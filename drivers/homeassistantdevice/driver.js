@@ -70,15 +70,3 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
       })
   }
 }
-/*
-{
-      "id": "list_devices", 
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_devices"
-      }
-    },
-    {
-      "id": "add_devices",
-      "template": "add_devices"
-    },*/
