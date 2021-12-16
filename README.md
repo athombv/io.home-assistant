@@ -39,7 +39,7 @@ to Homey "Hey! The temperature has changed, I have this new value for you!"
 
 WIP
 
-## How it works in technical terms
+## How it works
 
 WIP
 
@@ -55,13 +55,21 @@ WIP
 - Connect a Home Assistant Light to Homey and then turn it on and off
 - Connect mutiple lights from Home Assistant to Homey and turn them on and off
   (confirm dynamic driver and device files) Connect a weather sensor (Aqara) and
-  show the capabilities of Humidity, Pressure, Temperature and Battery level
-  (note, show capabilities, values are yet not shown) (currently you cant read
-  or get updates for their values due to missing code)
+  show the capabilities and values of Humidity, Pressure, Temperature and
+  Battery level
 - Added the capability to dim a light, change the temperature of said light
-- Added alarm capabilities and/or devices
-- Code for device Classes was added, needs more testing
-- Code for icon selection was added, needs .svg icons in folder
+- Added alarm capabilities and corresponding device classes
+- Added a realtime event listener (listens to the event bus of Home Assistant)
+- Added code that pastes initial values in the capabilities, thus the are not
+  empty / null value capabilities anymore
+- Added a switch-case statement for devices, aka entities, which have multiple
+  capabilities. These are, for now, a light and a media_player device.
+-
+- Code for device Classes was added, needs more testing and refining
+- Code for icon selection was added and .svg icons are being added one by one
+- Media players added, but there is an unresolved promise bug in the code
+  (undefined is undefined but expecteda string)
+-
 
 ## To Do
 
@@ -72,8 +80,6 @@ WIP
   down to the 'state_changed' event bus)
 - See if it is possible to refine the code that recognizes light capabilities,
   and figure out a way to add the hue and saturation components
-- Add more Icons
 - Change hardcoded connection to a connection set up process (where you enter a
   LLAT)
 - Fix bugs noted in Google Docs
-- Add media_player device and its capabilities
