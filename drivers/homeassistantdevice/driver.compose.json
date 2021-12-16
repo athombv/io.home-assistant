@@ -14,9 +14,7 @@
     "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
   },
   "pair": [
-    {
-      "id": "connection"
-    },
+
     {
       "id": "list_devices",
       "template": "list_devices",

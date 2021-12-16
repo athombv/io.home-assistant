@@ -13,10 +13,16 @@ class MyDevice extends Homey.Device {
       // the function from the websocket will listen to all events when they say 'state_changed', but you need to filter out when the entity_id of said changed state is IN the 'getStore()' then update capabilities
       // i said it like this because then not only will it work for the lights, but also for the weather sensor.
       this.registerCapabilityListener(capabilityId, async (value, opts) => {
+        console.log("Capability:", capabilityId);
+        console.log("Class: ", this.getClass());
         this.log('value', value);
         this.log('opts', opts);
         const data = {
           device_id: this.getData().id // you can also turn on a device through its deviceId. Error message: message: 'must contain at least one of entity_id, device_id, area_id.'
+        }
+        if (capabilityId == 'onoff' && this.getClass() == "socket") {
+          console.log("Updating Socket");
+          this.client.updateLight(value, this.getClass(), data);
         }
         if (capabilityId == 'dim') {
           data.brightness_pct = value * 100; // brightness percentage
@@ -42,7 +48,7 @@ class MyDevice extends Homey.Device {
         }
         //this.log(data);
         //TODO ADD LISTENER TO PAUSE MUSIC FROM HOMEY AND TO FORWARD AND GO BACK
-        this.client.updateLight(value, data);
+        this.client.updateLight(value, this.getClass(), data);
       });
     });
     this.log("capabilities:", this.capabilities);
