@@ -32,22 +32,44 @@
   "drivers": [
     {
       "name": {
-        "en": "a device",
-        "nl": "een apparaat"
+        "en": "Home Assistant Device"
       },
       "class": "other",
       "connectivity": [
         "cloud"
       ],
-      "capabilities": [
-        "measure_temperature"
+      "platforms": [
+        "local",
+        "cloud"
       ],
+      "capabilities": [],
       "images": {
-        "small": "/drivers/homeassistantdevice/assets/images/small.png",
-        "large": "/drivers/homeassistantdevice/assets/images/large.png",
-        "xlarge": "/drivers/homeassistantdevice/assets/images/xlarge.png"
+        "small": "/drivers/hass-device/assets/images/small.png",
+        "large": "/drivers/hass-device/assets/images/large.png",
+        "xlarge": "/drivers/hass-device/assets/images/xlarge.png"
       },
       "pair": [
+        {
+          "id": "list_servers",
+          "template": "list_devices",
+          "navigation": {
+            "next": "select_server_loading"
+          },
+          "options": {
+            "singular": true
+          }
+        },
+        {
+          "id": "select_server_loading",
+          "template": "loading"
+        },
+        {
+          "id": "configure_server"
+        },
+        {
+          "id": "authenticate_server",
+          "template": "login_oauth2"
+        },
         {
           "id": "list_devices",
           "template": "list_devices",
@@ -60,33 +82,7 @@
           "template": "add_devices"
         }
       ],
-      "settings": [
-        {
-          "type": "group",
-          "label": {
-            "en": "Configuration"
-          },
-          "children": [
-            {
-              "id": "address",
-              "type": "text",
-              "value": "0.0.0.0",
-              "label": {
-                "en": "IP Address"
-              }
-            },
-            {
-              "id": "token",
-              "type": "text",
-              "value": "",
-              "label": {
-                "en": "Home Assistant Token"
-              }
-            }
-          ]
-        }
-      ],
-      "id": "homeassistantdevice"
+      "id": "hass-device"
     }
   ],
   "capabilities": {

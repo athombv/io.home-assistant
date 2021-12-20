@@ -1,1 +1,1 @@
-Control your devices connected to your Home Assistant with Homey. Install this app, go through a set up process to connect your Home Assistant instance to Homey (with a LLAT) and pair the devices you want. Currently, basic devices are supported such as sensors, lights, binary sensors (buttons/alarms etc.), media players (speakers, tv) and lights (non RGB ones).
+TODO

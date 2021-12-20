@@ -4,3 +4,7 @@ node_modules/
 .vscode/
 _testingAndVersions/
 lib/old/connectHome.js
+
+
+# Added by Homey CLI
+/.homeybuild/

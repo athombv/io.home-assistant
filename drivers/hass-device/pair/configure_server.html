@@ -1,0 +1,131 @@
+<style type="text/css">
+.server-wrap {
+  width: 100%;  
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.server-form {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0;
+  background: #EEEEEE;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 1em;
+}
+
+.server-form #server-protocol,
+.server-form #server-host,
+.server-form #server-port {
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+
+  padding: 5px;
+  box-sizing: border-box;
+
+  font-size: 14px;
+  font-weight: 400;
+  font-family: monospace;
+  color: black;
+}
+
+.server-protocol-wrap {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+  #server-protocol {
+    flex-shrink: 0;
+    line-height: 20px;
+  }
+
+.server-host-wrap {
+  flex-grow: 1;
+}
+  #server-host {
+    width: 100%;
+    border-left: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+}
+
+.server-port-wrap {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 50px;
+}
+  #server-port {
+    width: 100%;
+    flex-shrink: 0;
+    flex-grow: 0;
+
+    -moz-appearance: textfield;
+  }
+  #server-port::-webkit-outer-spin-button,
+  #server-port::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+#server-validate {
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+</style>
+
+<div class="server-wrap">
+  <div>
+    <p>Enter the address of your Home Assistant server.</p>
+    <div class="server-form">
+      <div class="server-protocol-wrap">
+        <select id="server-protocol" class="hy-nostyle">
+          <option value="http">http://</option>
+          <option value="https">https://</option>
+        </select>
+      </div>
+      <div class="server-host-wrap">
+        <input id="server-host" class="hy-nostyle" type="text" placeholder="192.168.1.100" />
+      </div>
+      <div class="server-port-wrap">
+        <input id="server-port" class="hy-nostyle" type="number" min="1" max="65535" value="8123" placeholder="Port" />
+      </div>
+    </div>
+  </div>
+
+  <div id="server-validate" class="hy-button hy-button-primary"><div class="icon"></div> Connect</div>
+</div>
+
+<script type="text/javascript">
+Homey.setTitle('Enter the IP');
+
+const $serverProtocol = document.getElementById('server-protocol');
+const $serverHost = document.getElementById('server-host');
+const $serverPort = document.getElementById('server-port');
+const $serverValidate = document.getElementById('server-validate');
+
+$serverValidate.addEventListener('click', () => {
+  const protocol = $serverProtocol.value;
+  const host = $serverHost.value;
+  const port = $serverPort.value;
+
+  Homey.emit('test_server', {
+    host,
+    port,
+    protocol,
+  })
+    .then(() => {
+      Homey.hideLoadingOverlay();
+      Homey.showView('authenticate_server');
+    })
+    .catch(err => {
+      Homey.hideLoadingOverlay();
+      Homey.alert(err);
+    });
+});
+</script>

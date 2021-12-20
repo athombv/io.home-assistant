@@ -2,15 +2,16 @@
   "name": "com.athombv.homeassistant",
   "version": "1.0.0",
   "main": "app.js",
-  "scripts": {
-    "build": "tsc"
-  },
   "dependencies": {
+    "form-data": "^4.0.0",
     "home-assistant-js-websocket": "^5.11.2",
+    "node-fetch": "^2.6.6",
+    "uuid": "^8.3.2",
     "ws": "^8.2.3"
   },
   "devDependencies": {
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.2.2",
-    "typescript": "^4.4.4"
+    "eslint": "^8.5.0",
+    "eslint-config-athom": "^3.0.1"
   }
 }
