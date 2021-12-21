@@ -39,7 +39,7 @@
       "template": "login_oauth2"
     },
     {
-      "id": "list_devices",
+      "id": "list_server_devices",
       "template": "list_devices",
       "navigation": {
         "next": "add_devices"
