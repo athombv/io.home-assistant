@@ -12,11 +12,14 @@ class MyDevice extends Homey.Device {
     this.capabilities.forEach(capabilityId => {
       // the function from the websocket will listen to all events when they say 'state_changed', but you need to filter out when the entity_id of said changed state is IN the 'getStore()' then update capabilities
       // i said it like this because then not only will it work for the lights, but also for the weather sensor.
+      this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], async (capabilityValues, capabilityOptions) => {
+        const data = {
+          device_id: this.getData().id,
+          hs_color: [capabilityValues.light_hue * 360, capabilityValues.light_saturation * 100]
+        }
+        this.client.updateLight(true, this.getClass(), data);
+      }, 250);
       this.registerCapabilityListener(capabilityId, async (value, opts) => {
-        console.log("Capability:", capabilityId);
-        console.log("Class: ", this.getClass());
-        this.log('value', value);
-        this.log('opts', opts);
         const data = {
           device_id: this.getData().id // you can also turn on a device through its deviceId. Error message: message: 'must contain at least one of entity_id, device_id, area_id.'
         }
@@ -27,17 +30,8 @@ class MyDevice extends Homey.Device {
         if (capabilityId == 'dim') {
           data.brightness_pct = value * 100; // brightness percentage
         }
-        // homey value: between 1 and 0
-        // ha value: 250 (cold) en 454 (warm)
         if (capabilityId == 'light_temperature') {
           data.color_temp = 204 * value + 250;
-        }
-        // TODO register mutiple capability listener
-        if (capabilityId == 'light_hue') {
-          data.hs_color = 360 * value;
-        }
-        if (capabilityId == 'light_saturation') {
-          data.hs_color = 100 * value;
         }
         if (capabilityId == 'speaker_playing') {
           this.client.pausePlay(value, capabilityId, data);
@@ -46,7 +40,6 @@ class MyDevice extends Homey.Device {
           data.volume_level = value;
           this.client.pausePlay(value, capabilityId, data);
         }
-        //this.log(data);
         //TODO ADD LISTENER TO PAUSE MUSIC FROM HOMEY AND TO FORWARD AND GO BACK
         this.client.updateLight(value, this.getClass(), data);
       });
@@ -87,7 +80,7 @@ class MyDevice extends Homey.Device {
                 console.log("setting dim value");
                 if (entityData.entities[key].attributes && entityData.entities[key].attributes.brightness) {
                   console.log("Light is on");
-                  const brightness = entityData.entities[key].attributes.brightness / 255; // max brightness = 255 , min brightness = 0
+                  const brightness = entityData.entities[key].attributes.brightness / 255;
                   this.setCapabilityValue(id, brightness);
                 } else {
                   console.log("Light is off");
@@ -130,7 +123,7 @@ class MyDevice extends Homey.Device {
                 break;
               // TODO WHEN A DEVICE HAS MORE THAN 1 CAPABILITY IT NEEDS TO BE ADDED TO THE SWITCH
               default:
-                console.log("meh");
+                console.log("Unknown capability");
                 break;
             }
           })
@@ -145,7 +138,7 @@ class MyDevice extends Homey.Device {
 
       // -- realtime event listener -- //
 
-      this.client.on('state_changed', (data) => { // start listening to 'state_changed' events
+      this.client.on('state_changed', (data) => {
         if (this.store.deviceEntities[data.entity_id] && this.store.deviceEntities[data.entity_id].capabilityId && Array.isArray(this.store.deviceEntities[data.entity_id].capabilityId)) {
           const capabilityIds = this.store.deviceEntities[data.entity_id].capabilityId;
           capabilityIds.forEach(id => {
@@ -197,6 +190,7 @@ class MyDevice extends Homey.Device {
                 break;
               //TODO CHANGE SO THAT NOT EVERY CAPABILITY CHANGES
               default:
+                console.log("Unknown capability");
                 break;
             }
           })
@@ -225,7 +219,6 @@ class MyDevice extends Homey.Device {
 module.exports = MyDevice;
 
 /*
-send fired events from homey to home assistant (capability listener)
 
 add app icon
 

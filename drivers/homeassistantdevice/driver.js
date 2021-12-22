@@ -47,11 +47,11 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
         });
         const deviceClass = HAUtil.getClassFromCapabilities(deviceEntities);
         const deviceIcon = `/icons/${deviceClass}.svg`;
-        // TODO: deviceClass like blinds, windows, sensors etc.
+
         console.log("stored:", deviceStore);
         console.log("data: ", device.id);
         console.log("Name of device: ", device.name);
-        //console.log("Device: ", device);
+
         return {
           class: deviceClass,
           capabilities: deviceEntities,
