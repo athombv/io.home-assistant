@@ -4,14 +4,15 @@ Homey integration for the home assistant smarthome helper
 
 Home Assistant is an open source software package for home automation. You can
 control all your devices from there, track things like notifcations, network
-traffic, statistics and more. Homey wants to offer the option to users to
-control devices in a simpler way, like from their phone. All you need to do is
-install this app on your Homey account, boot it up, be connected to the same
-(WiFi) network as your Home Assistant, fill in a short connection set up and
-then select what devices you want to control from your phone!
+traffic, statistics and more. Homey wants to offer the option for users to
+control devices in a simpler way, from their phone without setting up a Home
+Assistant Dashboard. All you need to do is install this app on your Homey
+account, boot it up, connect to the same (WiFi) network as your Home Assistant,
+fill in a connection setup and then select what devices you want to connect to
+your Homey!
 
-You can then also use Flows and Insights, giving you almost the same amount of
-control and tracking as Home Assistant. But, unnecessary things for some users,
+You can then use Flows and Insights, giving you almost the same amount of
+control and tracking as Home Assistant. But, Home Assistant specific controls,
 like a graph of network traffic or a dashboard of Binary sensors, can still be
 viewed in Home Assistant but won't be in your way with the Homey App.
 
@@ -33,11 +34,13 @@ turned on and just leave it at that. It works a little bit different the other
 way around, because Home Assistant lets Homey know what changed, because Homey
 is subscribed to the Home Assistant entities and listens to the states of Home
 Assistant devices. If a value has changed, ex. temperature, Home Assistant says
-to Homey "Hey! The temperature has changed, I have this new value for you!"
+to Homey "Hey! The temperature has changed, I have this new value for you!" or
+if a light is toggled on/off, Home Assistant gives the new state to Homey.
 
 ## How to install and set up
 
-WIP
+To use this application you need an active Home Assistant installation in your
+household. You also need a Homey Cloud account active.
 
 ## How it works
 
@@ -47,7 +50,7 @@ WIP
 
 - Connect the Home Assistant instance using async code and using as little
   traffic or connections as possible
-- Show a list of compatible devices (sensors, lights)
+- Show a list of compatible devices
 - Show devices that have 1 or more than 1 capability affiliated with them (and
   filter these when you want to add a device)
 - Store certain entity Ids, affiliated with the capabilities to use later on in
@@ -64,22 +67,12 @@ WIP
   empty / null value capabilities anymore
 - Added a switch-case statement for devices, aka entities, which have multiple
   capabilities. These are, for now, a light and a media_player device.
--
 - Code for device Classes was added, needs more testing and refining
 - Code for icon selection was added and .svg icons are being added one by one
 - Media players added, but there is an unresolved promise bug in the code
   (undefined is undefined but expecteda string)
--
 
 ## To Do
 
-- Refine Device Classes
-- Add the ability to change RGB values and when a RGBW gets connected in its
-  'color_temp' recognize in some way that it is a RGBW light (because the 'hs'
-  color mode is missing and then add corresponding capabilities. This does come
-  down to the 'state_changed' event bus)
-- See if it is possible to refine the code that recognizes light capabilities,
-  and figure out a way to add the hue and saturation components
-- Change hardcoded connection to a connection set up process (where you enter a
-  LLAT)
+- Refine Device Classes (add manufacturer)
 - Fix bugs noted in Google Docs

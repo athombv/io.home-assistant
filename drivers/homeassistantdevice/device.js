@@ -217,12 +217,3 @@ class MyDevice extends Homey.Device {
 }
 
 module.exports = MyDevice;
-
-/*
-
-add app icon
-
-add device icons
-
-issue: rgb light isnt working
-*/

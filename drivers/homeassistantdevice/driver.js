@@ -32,7 +32,6 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
         let deviceEntities = [];
         const deviceStore = {};
         device.entities.forEach(({ entity_id: entityId }) => {
-          console.log("Entity ID: ", entityId);
           const entity = entities[entityId];
           if (!entity) return;
           // if capability length != 1 -> getcapabilityfromentity
@@ -45,6 +44,9 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
           deviceStore.deviceEntities = deviceStore.deviceEntities || {};
           deviceStore.deviceEntities[entityId] = { capabilityId };
         });
+        const manufacturer = device.manufacturer;
+        console.log("Manu: ", manufacturer);
+        // if the deviceclass is motion and the manufacturer is IKEA of Sweden, select the IKEA motion sensor 
         const deviceClass = HAUtil.getClassFromCapabilities(deviceEntities);
         const deviceIcon = `/icons/${deviceClass}.svg`;
 
