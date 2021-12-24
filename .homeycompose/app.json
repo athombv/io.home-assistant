@@ -1,6 +1,6 @@
 {
   "id": "io.home-assistant",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "compatibility": ">=5.0.0",
   "platforms": [
     "local",
@@ -23,8 +23,9 @@
     "xlarge": "/assets/images/xlarge.png"
   },
   "author": {
-    "name": "Marleen Beekman",
-    "email": "marleenbeekman@gmail.com"
+    "name": "Athom B.V.",
+    "email": "support@athom.com"
   },
+  "support": "https://homey.app/support",
   "brandColor": "#00ccff"
 }
