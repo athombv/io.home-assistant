@@ -11,8 +11,7 @@
     "en": "Home Assistant"
   },
   "description": {
-    "en": "Integration for the open source smart home controller Home Assistant",
-    "nl": "Integratie voor de open source smarthome controller Home Assistant"
+    "en": "Make Switching Easier"
   },
   "category": [
     "appliances"
