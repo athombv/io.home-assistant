@@ -86,11 +86,18 @@
     }
   ],
   "capabilities": {
-    "measure_generic": {
+    "hass-number": {
+      "type": "number",
+      "title": {
+        "en": "Read-only Number"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "hass-string": {
       "type": "string",
       "title": {
-        "nl": "Waarde",
-        "en": "Value"
+        "en": "Read-only String"
       },
       "getable": true,
       "setable": false

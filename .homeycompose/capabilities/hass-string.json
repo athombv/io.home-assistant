@@ -1,0 +1,8 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Read-only String"
+  },
+  "getable": true,
+  "setable": false
+}

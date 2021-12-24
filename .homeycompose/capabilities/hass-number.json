@@ -1,0 +1,8 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Read-only Number"
+  },
+  "getable": true,
+  "setable": false
+}
