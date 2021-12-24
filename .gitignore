@@ -1,10 +1,5 @@
-env.json
-build/
-node_modules/
-.vscode/
-_testingAndVersions/
-lib/old/connectHome.js
-
+/env.json
+/node_modules
 
 # Added by Homey CLI
 /.homeybuild/
