@@ -7,5 +7,8 @@
   },
   "0.2.1": {
     "en": "Fixes Door, Occupancy and Openings alarm types."
+  },
+  "0.2.2": {
+    "en": "Fixes for On/Off capabilities."
   }
 }
