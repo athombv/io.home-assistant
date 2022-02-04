@@ -1,0 +1,20 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Problem",
+        "nl": "Probleem"
+    },
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "Problem detected",
+        "nl": "Probleem gedetecteerd"
+    },
+    "insightsTitleFalse": {
+        "en": "No problem detected",
+        "nl": "Geen probleem gedetecteerd"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false
+}

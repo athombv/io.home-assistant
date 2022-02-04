@@ -86,6 +86,165 @@
     }
   ],
   "capabilities": {
+    "alarm_charging": {
+      "type": "boolean",
+      "title": {
+        "en": "Charging",
+        "nl": "Oploaden"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Charging",
+        "nl": "Aan het opladen"
+      },
+      "insightsTitleFalse": {
+        "en": "Not charging",
+        "nl": "Niet aan het opladen"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_charging.svg",
+      "uiQuickAction": false
+    },
+    "alarm_occupancy": {
+      "type": "boolean",
+      "title": {
+        "en": "Occupancy",
+        "nl": "Bezetting"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_occupancy.svg",
+      "uiQuickAction": false
+    },
+    "alarm_plugged_in": {
+      "type": "boolean",
+      "title": {
+        "en": "Plugged in",
+        "nl": "Ingeplugd"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Plugged in",
+        "nl": "Ingeplugd"
+      },
+      "insightsTitleFalse": {
+        "en": "Unplugged",
+        "nl": "Niet aangesloten"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_charging.svg",
+      "uiQuickAction": false
+    },
+    "alarm_problem": {
+      "type": "boolean",
+      "title": {
+        "en": "Problem",
+        "nl": "Probleem"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Problem detected",
+        "nl": "Probleem gedetecteerd"
+      },
+      "insightsTitleFalse": {
+        "en": "No problem detected",
+        "nl": "Geen probleem gedetecteerd"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false
+    },
+    "alarm_running": {
+      "type": "boolean",
+      "title": {
+        "en": "Running",
+        "nl": "Draaiend"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Running",
+        "nl": "Draaiend"
+      },
+      "insightsTitleFalse": {
+        "en": "Not Running",
+        "nl": "Niet Draaiend"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false
+    },
+    "alarm_safety": {
+      "type": "boolean",
+      "title": {
+        "en": "Safety",
+        "nl": "Veiligheid"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Unsafe",
+        "nl": "Onveilig"
+      },
+      "insightsTitleFalse": {
+        "en": "Safe",
+        "nl": "Veilig"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false
+    },
+    "alarm_sound": {
+      "type": "boolean",
+      "title": {
+        "en": "Sound",
+        "nl": "Geluid"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Sound detected",
+        "nl": "Geluid gedetecteerd"
+      },
+      "insightsTitleFalse": {
+        "en": "No sound detected",
+        "nl": "Geluid gedetecteerd"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_sound.svg",
+      "uiQuickAction": false
+    },
+    "alarm_vibration": {
+      "type": "boolean",
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_vibration.svg",
+      "title": {
+        "en": "Vibration Alarm",
+        "nl": "Trillingsalarm"
+      },
+      "desc": {
+        "en": "Detected vibration",
+        "nl": "Gedetecteerde trilling"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Vibration alarm turned on",
+        "nl": "Trillings alarm ging af"
+      },
+      "insightsTitleFalse": {
+        "en": "Vibration alarm turned off",
+        "nl": "Trillings alarm ging uit"
+      }
+    },
     "hass-number": {
       "type": "number",
       "title": {
@@ -101,6 +260,109 @@
       },
       "getable": true,
       "setable": false
+    },
+    "measure_aqi": {
+      "type": "string",
+      "title": {
+        "en": "Air Quality Level",
+        "nl": "Luchtkwaliteit niveaus"
+      },
+      "getable": true,
+      "setable": false,
+      "desc": {
+        "en": "Air Quality Index",
+        "nl": "Luchtkwaliteit Index"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/measure_aqi.svg",
+      "uiQuickAction": false
+    },
+    "measure_pm1": {
+      "type": "number",
+      "title": {
+        "en": "PM1",
+        "nl": "PM1"
+      },
+      "chartType": "spline",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "µg/m3",
+        "nl": "µg/m3"
+      },
+      "insights": true,
+      "desc": {
+        "en": "Particulate matter (µg/m3)",
+        "nl": "Fijnstof (µg/m3)"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/measure_pm1.svg",
+      "uiQuickAction": false
+    },
+    "measure_pm10": {
+      "type": "number",
+      "title": {
+        "en": "PM10",
+        "nl": "PM10"
+      },
+      "chartType": "spline",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "µg/m3",
+        "nl": "µg/m3"
+      },
+      "insights": true,
+      "desc": {
+        "en": "Particulate matter (µg/m3)",
+        "nl": "Fijnstof (µg/m3)"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/measure_pm10.svg",
+      "uiQuickAction": false
+    },
+    "measure_signal_strength": {
+      "type": "number",
+      "title": {
+        "en": "Signal Strength",
+        "nl": "Signaal Sterkte"
+      },
+      "chartType": "spline",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "dBm",
+        "nl": "dBm"
+      },
+      "insights": true,
+      "desc": {
+        "en": "Signal Strength (dBm)",
+        "nl": "Signaal Sterkte (dBm)"
+      },
+      "uiComponent": "sensor",
+      "uiQuickAction": false
+    },
+    "measure_voc": {
+      "type": "number",
+      "title": {
+        "en": "VOC",
+        "nl": "VOC"
+      },
+      "chartType": "spline",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "ppb",
+        "nl": "ppb"
+      },
+      "insights": true,
+      "desc": {
+        "en": "Volatile Organic Compounds (ppb)",
+        "nl": "Vluchtige organische stoffen (ppb)"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/measure_voc.svg",
+      "uiQuickAction": false
     }
   }
 }

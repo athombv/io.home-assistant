@@ -1,0 +1,24 @@
+{
+    "type": "boolean",
+    "uiComponent": "sensor",
+    "icon": "/assets/capabilities/alarm_vibration.svg",
+    "title": {
+        "en": "Vibration Alarm",
+        "nl": "Trillingsalarm"
+    },
+    "desc": {
+        "en": "Detected vibration",
+        "nl": "Gedetecteerde trilling"
+    },
+    "getable": true,
+    "setable": false,
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "Vibration alarm turned on",
+        "nl": "Trillings alarm ging af"
+    },
+    "insightsTitleFalse": {
+        "en": "Vibration alarm turned off",
+        "nl": "Trillings alarm ging uit"
+    }
+}

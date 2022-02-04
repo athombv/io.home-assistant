@@ -1,0 +1,21 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Plugged in",
+        "nl": "Ingeplugd"
+    },
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "Plugged in",
+        "nl": "Ingeplugd"
+    },
+    "insightsTitleFalse": {
+        "en": "Unplugged",
+        "nl": "Niet aangesloten"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "icon": "/assets/capabilities/alarm_charging.svg",
+    "uiQuickAction": false
+}
