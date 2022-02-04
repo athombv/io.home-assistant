@@ -10,5 +10,8 @@
   },
   "0.2.2": {
     "en": "Fixes for On/Off capabilities."
+  },
+  "0.3.0": {
+    "en": "Added support for Home Assistant media_player entities. Fixed support for sensor and binary_sensor custom values. Fixed switching between light color modes."
   }
 }
