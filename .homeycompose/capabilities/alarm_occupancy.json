@@ -1,0 +1,12 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Occupancy",
+        "nl": "Bezetting"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "icon": "/assets/capabilities/alarm_occupancy.svg",
+    "uiQuickAction": false
+}

@@ -1,0 +1,20 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Safety",
+        "nl": "Veiligheid"
+    },
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "Unsafe",
+        "nl": "Onveilig"
+    },
+    "insightsTitleFalse": {
+        "en": "Safe",
+        "nl": "Veilig"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false
+}

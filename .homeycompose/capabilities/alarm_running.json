@@ -1,0 +1,20 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Running",
+        "nl": "Draaiend"
+    },
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "Running",
+        "nl": "Draaiend"
+    },
+    "insightsTitleFalse": {
+        "en": "Not Running",
+        "nl": "Niet Draaiend"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false
+}

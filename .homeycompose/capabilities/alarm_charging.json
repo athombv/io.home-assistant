@@ -1,0 +1,21 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Charging",
+        "nl": "Oploaden"
+    },
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "Charging",
+        "nl": "Aan het opladen"
+    },
+    "insightsTitleFalse": {
+        "en": "Not charging",
+        "nl": "Niet aan het opladen"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "icon": "/assets/capabilities/alarm_charging.svg",
+    "uiQuickAction": false
+}

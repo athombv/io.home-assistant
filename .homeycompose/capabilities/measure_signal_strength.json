@@ -1,0 +1,21 @@
+{
+    "type": "number",
+    "title": {
+        "en": "Signal Strength",
+        "nl": "Signaal Sterkte"
+    },
+    "chartType": "spline",
+    "getable": true,
+    "setable": false,
+    "units": {
+        "en": "dBm",
+        "nl": "dBm"
+    },
+    "insights": true,
+    "desc": {
+        "en": "Signal Strength (dBm)",
+        "nl": "Signaal Sterkte (dBm)"
+    },
+    "uiComponent": "sensor",
+    "uiQuickAction": false
+}

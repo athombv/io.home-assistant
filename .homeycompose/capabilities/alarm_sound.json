@@ -1,0 +1,21 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Sound",
+        "nl": "Geluid"
+    },
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "Sound detected",
+        "nl": "Geluid gedetecteerd"
+    },
+    "insightsTitleFalse": {
+        "en": "No sound detected",
+        "nl": "Geluid gedetecteerd"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "icon": "/assets/capabilities/alarm_sound.svg",
+    "uiQuickAction": false
+}

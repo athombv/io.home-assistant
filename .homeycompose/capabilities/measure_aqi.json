@@ -1,0 +1,16 @@
+{
+    "type": "string",
+    "title":{
+        "en":"Air Quality Level",
+        "nl":"Luchtkwaliteit niveaus"
+     },
+    "getable": true,
+    "setable": false,
+    "desc": {
+        "en": "Air Quality Index",
+        "nl": "Luchtkwaliteit Index"
+    },
+    "uiComponent": "sensor",
+    "icon": "/assets/capabilities/measure_aqi.svg",
+    "uiQuickAction": false
+}

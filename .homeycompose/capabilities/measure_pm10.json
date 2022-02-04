@@ -1,0 +1,22 @@
+{
+    "type": "number",
+    "title": {
+        "en": "PM10",
+        "nl": "PM10"
+    },
+    "chartType": "spline",
+    "getable": true,
+    "setable": false,
+    "units": {
+        "en": "µg/m3",
+        "nl": "µg/m3"
+    },
+    "insights": true,
+    "desc": {
+        "en": "Particulate matter (µg/m3)",
+        "nl": "Fijnstof (µg/m3)"
+    },
+    "uiComponent": "sensor",
+    "icon": "/assets/capabilities/measure_pm10.svg",
+    "uiQuickAction": false
+}
