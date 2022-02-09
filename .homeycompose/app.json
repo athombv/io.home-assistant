@@ -11,7 +11,8 @@
     "en": "Home Assistant"
   },
   "description": {
-    "en": "Make Switching Easier"
+    "en": "Connect your Home Assistant devices to Homey",
+    "nl": "Verbind je Home Assistant-apparaten met Homey"
   },
   "category": [
     "appliances"

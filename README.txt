@@ -1,5 +1,5 @@
-Many are switching from Home Assistant to Homey, and with good reason. Homey is easier to use, looks beautiful and supports many more brands & features.
+The Home Assistant App for Homey makes it easy for you to add Home Assistant integrations to Homey by connecting their devices.
 
-However, making the switch is quite some effort! Especially when you have quite a big smart home.
+Support for Home Assistant devices with light, sensor, binary_sensor and media_player entities.
 
-This app helps you smoothen the transition by controlling your existing Home Assistant devices from Homey. You can then migrate them over at your own pace.
+Please note that it is only possible to add entities which are part of a Home Assistant device, it is not possible to add separate entities.
