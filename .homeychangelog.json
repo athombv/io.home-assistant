@@ -16,5 +16,8 @@
   },
   "0.3.1": {
     "en": "Updated default icons for device classes."
+  },
+  "0.3.2": {
+    "en": "Added Dutch translations."
   }
 }
