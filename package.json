@@ -4,7 +4,7 @@
   "main": "app.js",
   "dependencies": {
     "form-data": "^4.0.0",
-    "home-assistant-js-websocket": "^5.11.2",
+    "home-assistant-js-websocket": "^4.5.0",
     "node-fetch": "^2.6.6",
     "uuid": "^8.3.2",
     "ws": "^8.2.3"
