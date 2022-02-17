@@ -77,6 +77,16 @@
   box-sizing: border-box;
   text-align: center;
 }
+
+.hy-url {
+  -webkit-appearance: none;
+  font-weight: 400;
+  color: #0082FA;
+  height: auto !important;
+  display: inline-block;
+  flex-shrink: 0;
+  text-decoration: underline;
+}
 </style>
 
 <div class="server-wrap">
@@ -96,6 +106,9 @@
         <input id="server-port" class="hy-nostyle" type="number" min="1" max="65535" value="8123" placeholder="Port" />
       </div>
     </div>
+    <br/>
+    <p>Homey needs to connect to your Home Assistant instance, either through a static local IP and port (Homey Pro), port forwarding or remote access through a proxy service.</p>
+    <p>For more information see also the documentation about <strong id="homeassistant-docs" class="hy-url">Remote access by Home Assistant</strong>.</p>
   </div>
 
   <div id="server-validate" class="hy-button hy-button-primary"><div class="icon"></div> Connect</div>
@@ -108,6 +121,8 @@ const $serverProtocol = document.getElementById('server-protocol');
 const $serverHost = document.getElementById('server-host');
 const $serverPort = document.getElementById('server-port');
 const $serverValidate = document.getElementById('server-validate');
+
+const $homeassistantDocs = document.getElementById('homeassistant-docs');
 
 $serverValidate.addEventListener('click', () => {
   const protocol = $serverProtocol.value;
@@ -127,5 +142,9 @@ $serverValidate.addEventListener('click', () => {
       Homey.hideLoadingOverlay();
       Homey.alert(err);
     });
+});
+
+$homeassistantDocs.addEventListener('click', () => {
+  Homey.popup('https://www.home-assistant.io/docs/configuration/remote/');
 });
 </script>
