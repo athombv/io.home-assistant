@@ -2,7 +2,7 @@
     "type": "boolean",
     "title": {
         "en": "Charging",
-        "nl": "Oploaden"
+        "nl": "Opladen"
     },
     "insights": true,
     "insightsTitleTrue": {
