@@ -25,5 +25,8 @@
   },
   "0.3.4": {
     "en": "Improved pairing instructions."
+  },
+  "0.4.0": {
+    "en": "Added support for Home Assistant devices with Cover entities."
   }
 }
