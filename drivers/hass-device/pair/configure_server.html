@@ -124,6 +124,16 @@ const $serverValidate = document.getElementById('server-validate');
 
 const $homeassistantDocs = document.getElementById('homeassistant-docs');
 
+$serverProtocol.addEventListener('change', () => {
+  const protocol = $serverProtocol.value;
+
+  if (protocol === 'https') {
+    $serverPort.value = '443';
+  } else if (protocol === 'http') {
+    $serverPort.value = '8123';
+  };
+});
+
 $serverValidate.addEventListener('click', () => {
   const protocol = $serverProtocol.value;
   const host = $serverHost.value;
