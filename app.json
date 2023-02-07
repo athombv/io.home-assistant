@@ -1120,6 +1120,15 @@
       "setable": true,
       "uiComponent": "slider"
     },
+    "hass-boolean": {
+      "type": "boolean",
+      "title": {
+        "en": "Read-only Boolean"
+      },
+      "zoneActivity": false,
+      "getable": true,
+      "setable": false
+    },
     "hass-number": {
       "type": "number",
       "title": {
