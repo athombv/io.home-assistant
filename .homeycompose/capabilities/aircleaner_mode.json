@@ -1,0 +1,39 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Mode"
+  },
+  "uiComponent": "picker",
+  "getable": true,
+  "setable": true,
+  "values": [
+    {
+      "id": "fan",
+      "title": {
+        "en": "Fan",
+        "nl": "Ventilator"
+      }
+    },
+    {
+      "id": "auto",
+      "title": {
+        "en": "Auto",
+        "nl": "Auto"
+      }
+    },
+    {
+      "id": "silent",
+      "title": {
+        "en": "Silent",
+        "nl": "Stil"
+      }
+    },
+    {
+      "id": "favorite",
+      "title": {
+        "en": "Favorite",
+        "nl": "Favoriet"
+      }
+    }
+  ]
+}

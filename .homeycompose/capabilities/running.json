@@ -1,0 +1,16 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Running",
+    "nl": "Actief"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": false,
+  "desc": {
+    "en": "Device is running",
+    "nl": "Apparaat is actief"
+  },
+  "uiComponent": "sensor",
+  "uiQuickAction": false
+}

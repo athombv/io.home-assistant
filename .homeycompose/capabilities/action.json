@@ -1,0 +1,17 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Action",
+    "nl": "Actie"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": false,
+  "desc": {
+    "en": "Button Action",
+    "nl": "Knop Actie"
+  },
+  "icon": "/assets/capabilities/action.svg",
+  "uiComponent": "sensor",
+  "uiQuickAction": false
+}

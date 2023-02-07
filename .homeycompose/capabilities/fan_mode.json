@@ -1,0 +1,26 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Mode",
+    "nl": "Modus"
+  },
+  "uiComponent": "picker",
+  "getable": true,
+  "setable": true,
+  "values": [
+    {
+      "id": "nature",
+      "title": {
+        "en": "Nature",
+        "nl": "Natuurlijk"
+      }
+    },
+    {
+      "id": "normal",
+      "title": {
+        "en": "Normal",
+        "nl": "Normaal"
+      }
+    }
+  ]
+}

@@ -1,0 +1,553 @@
+{
+  "triggers": [
+    {
+      "id": "action_changed",
+      "highlight": true,
+      "title": {
+        "en": "The button action has changed",
+        "nl": "De knop actie is veranderd"
+      },
+      "$filter": "capabilities=action",
+      "tokens": [
+        {
+          "name": "action",
+          "title": {
+            "en": "Action",
+            "nl": "Actie"
+          },
+          "type": "string",
+          "example": "pressed"
+        }
+      ]
+    },
+    {
+      "id": "alarm_charging_true",
+      "title": {
+        "en": "The charging alarm turned on",
+        "nl": "Het oplaad alarm gaat aan"
+      },
+      "$filter": "capabilities=alarm_charging"
+    },
+    {
+      "id": "alarm_charging_false",
+      "title": {
+        "en": "The charging alarm turned off",
+        "nl": "Het oplaad alarm gaat uit"
+      },
+      "$filter": "capabilities=alarm_charging"
+    },
+    {
+      "id": "alarm_occupancy_true",
+      "title": {
+        "en": "The occupancy alarm turned on",
+        "nl": "Het bezettings alarm gaat aan"
+      },
+      "$filter": "capabilities=alarm_occupancy"
+    },
+    {
+      "id": "alarm_occupancy_false",
+      "title": {
+        "en": "The occupancy alarm turned off",
+        "nl": "Het bezettings alarm gaat uit"
+      },
+      "$filter": "capabilities=alarm_occupancy"
+    },
+    {
+      "id": "alarm_plugged_in_true",
+      "title": {
+        "en": "The plugged in alarm turned on",
+        "nl": "Het ingeplugd alarm gaat aan"
+      },
+      "$filter": "capabilities=alarm_plugged_in"
+    },
+    {
+      "id": "alarm_plugged_in_false",
+      "title": {
+        "en": "The plugged in alarm turned off",
+        "nl": "Het ingeplugd alarm gaat uit"
+      },
+      "$filter": "capabilities=alarm_plugged_in"
+    },
+    {
+      "id": "alarm_problem_true",
+      "title": {
+        "en": "The problem alarm turned on",
+        "nl": "Het probleem alarm gaat aan"
+      },
+      "$filter": "capabilities=alarm_problem"
+    },
+    {
+      "id": "alarm_problem_false",
+      "title": {
+        "en": "The problem alarm turned off",
+        "nl": "Het probleem alarm gaat uit"
+      },
+      "$filter": "capabilities=alarm_problem"
+    },
+    {
+      "id": "alarm_running_true",
+      "title": {
+        "en": "The running alarm turned on",
+        "nl": "Het draaiend alarm gaat aan"
+      },
+      "$filter": "capabilities=alarm_running"
+    },
+    {
+      "id": "alarm_running_false",
+      "title": {
+        "en": "The running alarm turned off",
+        "nl": "Het draaiend alarm gaat uit"
+      },
+      "$filter": "capabilities=alarm_running"
+    },
+    {
+      "id": "alarm_safety_true",
+      "title": {
+        "en": "The safety alarm turned on",
+        "nl": "Het veiligheids alarm gaat aan"
+      },
+      "$filter": "capabilities=alarm_safety"
+    },
+    {
+      "id": "alarm_safety_false",
+      "title": {
+        "en": "The safety alarm turned off",
+        "nl": "Het veiligheids alarm gaat uit"
+      },
+      "$filter": "capabilities=alarm_safety"
+    },
+    {
+      "id": "alarm_sound_true",
+      "title": {
+        "en": "The sound alarm turned on",
+        "nl": "Het geluid alarm gaat aan"
+      },
+      "$filter": "capabilities=alarm_sound"
+    },
+    {
+      "id": "alarm_sound_false",
+      "title": {
+        "en": "The sound alarm turned off",
+        "nl": "Het geluid alarm gaat uit"
+      },
+      "$filter": "capabilities=alarm_sound"
+    },
+    {
+      "id": "alarm_vibration_true",
+      "title": {
+        "en": "The vibration alarm turned on",
+        "nl": "Het vibratie alarm gaat aan"
+      },
+      "$filter": "capabilities=alarm_vibration"
+    },
+    {
+      "id": "alarm_vibration_false",
+      "title": {
+        "en": "The vibration alarm turned off",
+        "nl": "Het vibratie alarm gaat uit"
+      },
+      "$filter": "capabilities=alarm_vibration"
+    },
+    {
+      "id": "aircleaner_mode_changed",
+      "title": {
+        "en": "Mode changed",
+        "nl": "Modus veranderd"
+      },
+      "titleFormatted": {
+        "en": "Mode changed to [[aircleaner_mode]].",
+        "nl": "Modus veranderd naar [[aircleaner_mode]]."
+      },
+      "$filter": "capabilities=aircleaner_mode",
+      "args": [
+        {
+          "name": "aircleaner_mode",
+          "title": {
+            "en": "Mode",
+            "nl": "Modus"
+          },
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "fan",
+              "title": {
+                "en": "Fan",
+                "nl": "Ventilator"
+              }
+            },
+            {
+              "id": "auto",
+              "title": {
+                "en": "Auto",
+                "nl": "Auto"
+              }
+            },
+            {
+              "id": "silent",
+              "title": {
+                "en": "Silent",
+                "nl": "Stil"
+              }
+            },
+            {
+              "id": "favorite",
+              "title": {
+                "en": "Favorite",
+                "nl": "Favorite"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fan_mode_changed",
+      "title": {
+        "en": "Mode changed",
+        "nl": "Modus veranderd"
+      },
+      "titleFormatted": {
+        "en": "Mode changed to [[fan_mode]].",
+        "nl": "Modus veranderd naar [[fan_mode]]."
+      },
+      "$filter": "capabilities=fan_mode",
+      "args": [
+        {
+          "name": "fan_mode",
+          "title": {
+            "en": "Mode",
+            "nl": "Modus"
+          },
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "normal",
+              "title": {
+                "en": "Normal",
+                "nl": "Normaal"
+              }
+            },
+            {
+              "id": "nature",
+              "title": {
+                "en": "Nature",
+                "nl": "Natuurlijk"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fan_oscillate_changed",
+      "title": {
+        "en": "Oscillation changed",
+        "nl": "Oscillatie veranderd"
+      },
+      "$filter": "capabilities=fan_oscillate",
+      "tokens": [
+        {
+          "name": "fan_oscillate",
+          "type": "boolean",
+          "title": {
+            "en": "Oscillate",
+            "nl": "Oscilleren"
+          },
+          "example": true
+        }
+      ]
+    },
+    {
+      "id": "fan_speed_changed",
+      "title": {
+        "en": "Speed changed",
+        "nl": "Snelheid veranderd"
+      },
+      "$filter": "capabilities=fan_speed",
+      "tokens": [
+        {
+          "name": "fan_speed",
+          "type": "number",
+          "title": {
+            "en": "Level",
+            "nl": "Niveau"
+          },
+          "example": 0.5
+        }
+      ]
+    },
+    {
+      "id": "measure_aqi_changed",
+      "title": {
+        "en": "The Air Quality Index (AQI) value has changed",
+        "nl": "De Luchtkwaliteit Index (LKI) waarde is veranderd"
+      },
+      "$filter": "capabilities=measure_aqi",
+      "tokens": [
+        {
+          "name": "measure_aqi",
+          "title": {
+            "en": "Air Quality Index",
+            "nl": "Luchtkwaliteit Index"
+          },
+          "type": "number",
+          "example": 60
+        }
+      ]
+    },
+    {
+      "id": "measure_pm1_changed",
+      "title": {
+        "en": "The PM1 value has changed",
+        "nl": "De PM1 waarde is veranderd"
+      },
+      "$filter": "capabilities=measure_pm1",
+      "tokens": [
+        {
+          "name": "measure_pm1",
+          "title": {
+            "en": "PM1",
+            "nl": "PM1"
+          },
+          "type": "number",
+          "example": 2
+        }
+      ]
+    },
+    {
+      "id": "measure_pm10_changed",
+      "title": {
+        "en": "The PM10 value has changed",
+        "nl": "De PM10 waarde is veranderd"
+      },
+      "$filter": "capabilities=measure_pm10",
+      "tokens": [
+        {
+          "name": "measure_pm10",
+          "title": {
+            "en": "PM10",
+            "nl": "PM10"
+          },
+          "type": "number",
+          "example": 2
+        }
+      ]
+    },
+    {
+      "id": "measure_signal_strength_changed",
+      "title": {
+        "en": "The signal strength value has changed",
+        "nl": "De signaal sterkte waarde is veranderd"
+      },
+      "$filter": "capabilities=measure_signal_strength",
+      "tokens": [
+        {
+          "name": "measure_signal_strength",
+          "title": {
+            "en": "Signal Strength",
+            "nl": "Signaal Sterkte"
+          },
+          "type": "number",
+          "example": -41
+        }
+      ]
+    },
+    {
+      "id": "measure_voc_changed",
+      "title": {
+        "en": "The VOC value has changed",
+        "nl": "De VOC waarde is veranderd"
+      },
+      "$filter": "capabilities=measure_voc",
+      "tokens": [
+        {
+          "name": "measure_voc",
+          "title": {
+            "en": "Volatile Organic Compounds",
+            "nl": "Vluchtige organische stoffen"
+          },
+          "type": "number",
+          "example": 120
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "id": "alarm_charging_is",
+      "title": {
+        "en": "The charging alarm is !{{on|off}}",
+        "nl": "Het oplaad alarm is !{{aan|uit}}"
+      },
+      "$filter": "capabilities=alarm_charging"
+    },
+    {
+      "id": "alarm_occupancy_is",
+      "title": {
+        "en": "The occupancy alarm is !{{on|off}}",
+        "nl": "Het bezettings alarm is !{{aan|uit}}"
+      },
+      "$filter": "capabilities=alarm_occupancy"
+    },
+    {
+      "id": "alarm_plugged_in_is",
+      "title": {
+        "en": "The plugged in alarm is !{{on|off}}",
+        "nl": "Het ingeplugd alarm is !{{aan|uit}}"
+      },
+      "$filter": "capabilities=alarm_plugged_in"
+    },
+    {
+      "id": "alarm_problem_is",
+      "title": {
+        "en": "The problem alarm is !{{on|off}}",
+        "nl": "Het probleem alarm is !{{aan|uit}}"
+      },
+      "$filter": "capabilities=alarm_problem"
+    },
+    {
+      "id": "alarm_running_is",
+      "title": {
+        "en": "The running alarm is !{{on|off}}",
+        "nl": "Het draaiend alarm is !{{aan|uit}}"
+      },
+      "$filter": "capabilities=alarm_running"
+    },
+    {
+      "id": "alarm_safety_is",
+      "title": {
+        "en": "The safety alarm is !{{on|off}}",
+        "nl": "Het veiligheids alarm is !{{aan|uit}}"
+      },
+      "$filter": "capabilities=alarm_safety"
+    },
+    {
+      "id": "alarm_sound_is",
+      "title": {
+        "en": "The sound alarm is !{{on|off}}",
+        "nl": "Het geluid alarm is !{{aan|uit}}"
+      },
+      "$filter": "capabilities=alarm_sound"
+    },
+    {
+      "id": "alarm_vibration_is",
+      "title": {
+        "en": "The vibration alarm is !{{on|off}}",
+        "nl": "Het vibratie alarm is !{{aan|uit}}"
+      },
+      "$filter": "capabilities=alarm_vibration"
+    }
+  ],
+  "actions": [
+    {
+      "id": "fan_speed_set",
+      "highlight": true,
+      "title": {
+        "en": "Change speed to",
+        "nl": "Verander snelheid naar"
+      },
+      "titleFormatted": {
+        "en": "Change speed to [[fan_speed]].",
+        "nl": "Verander snelheid naar [[fan_speed]]."
+      },
+      "$filter": "capabilities=fan_speed",
+      "args": [
+        {
+          "name": "fan_speed",
+          "type": "range",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "value": 0.5,
+          "label": "%",
+          "labelMultiplier": 100,
+          "labelDecimals": 0
+        }
+      ]
+    },
+    {
+      "id": "fan_mode_set",
+      "highlight": true,
+      "title": {
+        "en": "Change mode to",
+        "nl": "Verander modus naar"
+      },
+      "titleFormatted": {
+        "en": "Change mode to [[fan_mode]].",
+        "nl": "Verander modus naar [[fan_mode]]."
+      },
+      "$filter": "capabilities=fan_mode",
+      "args": [
+        {
+          "name": "fan_mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "normal",
+              "title": {
+                "en": "Normal",
+                "nl": "Normaal"
+              }
+            },
+            {
+              "id": "nature",
+              "title": {
+                "en": "Nature",
+                "nl": "Natuurlijk"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aircleaner_mode_set",
+      "highlight": true,
+      "title": {
+        "en": "Change mode to",
+        "nl": "Verander mode naar"
+      },
+      "titleFormatted": {
+        "en": "Change mode to [[aircleaner_mode]].",
+        "nl": "Verander modus naar [[aircleaner_mode]]."
+      },
+      "$filter": "capabilities=aircleaner_mode",
+      "args": [
+        {
+          "name": "aircleaner_mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "fan",
+              "title": {
+                "en": "Fan",
+                "nl": "Ventilator"
+              }
+            },
+            {
+              "id": "auto",
+              "title": {
+                "en": "Auto",
+                "nl": "Auto"
+              }
+            },
+            {
+              "id": "silent",
+              "title": {
+                "en": "Silent",
+                "nl": "Stil"
+              }
+            },
+            {
+              "id": "favorite",
+              "title": {
+                "en": "Favorite",
+                "nl": "Favorite"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
