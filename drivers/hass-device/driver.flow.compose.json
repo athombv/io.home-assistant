@@ -21,6 +21,26 @@
       ]
     },
     {
+      "id": "status_changed",
+      "highlight": true,
+      "title": {
+        "en": "The status has changed",
+        "nl": "De status is veranderd"
+      },
+      "$filter": "capabilities=status",
+      "tokens": [
+        {
+          "name": "status",
+          "title": {
+            "en": "Status",
+            "nl": "Status"
+          },
+          "type": "string",
+          "example": "idle"
+        }
+      ]
+    },
+    {
       "id": "alarm_charging_true",
       "title": {
         "en": "The charging alarm turned on",
@@ -155,8 +175,8 @@
         "nl": "Modus veranderd"
       },
       "titleFormatted": {
-        "en": "Mode changed to [[aircleaner_mode]].",
-        "nl": "Modus veranderd naar [[aircleaner_mode]]."
+        "en": "Mode changed to [[aircleaner_mode]]",
+        "nl": "Modus veranderd naar [[aircleaner_mode]]"
       },
       "$filter": "capabilities=aircleaner_mode",
       "args": [
@@ -207,8 +227,8 @@
         "nl": "Modus veranderd"
       },
       "titleFormatted": {
-        "en": "Mode changed to [[fan_mode]].",
-        "nl": "Modus veranderd naar [[fan_mode]]."
+        "en": "Mode changed to [[fan_mode]]",
+        "nl": "Modus veranderd naar [[fan_mode]]"
       },
       "$filter": "capabilities=fan_mode",
       "args": [
@@ -374,6 +394,60 @@
   ],
   "conditions": [
     {
+      "id": "action_is",
+      "highlight": true,
+      "title": {
+        "en": "The action is",
+        "nl": "De actie is"
+      },
+      "titleFormatted": {
+        "en": "The action is [[action]]",
+        "nl": "De actie is [[action]]"
+      },
+      "args": [
+        {
+          "type": "text",
+          "name": "action",
+          "title": {
+            "en": "Action",
+            "nl": "Actie"
+          },
+          "placeholder": {
+            "en": "pressed",
+            "nl": "ingedrukt"
+          }
+        }
+      ],
+      "$filter": "capabilities=action"
+    },
+    {
+      "id": "status_is",
+      "highlight": true,
+      "title": {
+        "en": "The status is",
+        "nl": "De status is"
+      },
+      "titleFormatted": {
+        "en": "The status is [[status]]",
+        "nl": "De status is [[status]]"
+      },
+      "args": [
+        {
+          "type": "text",
+          "name": "status",
+          "title": {
+            "en": "Status",
+            "nl": "Status"
+          },
+          "placeholder": {
+            "en": "idle",
+            "nl": "inactief"
+          }
+        }
+      ],
+      "$filter": "capabilities=status"
+    },
+    {
       "id": "alarm_charging_is",
       "title": {
         "en": "The charging alarm is !{{on|off}}",
@@ -447,8 +521,8 @@
         "nl": "Verander snelheid naar"
       },
       "titleFormatted": {
-        "en": "Change speed to [[fan_speed]].",
-        "nl": "Verander snelheid naar [[fan_speed]]."
+        "en": "Change speed to [[fan_speed]]",
+        "nl": "Verander snelheid naar [[fan_speed]]"
       },
       "$filter": "capabilities=fan_speed",
       "args": [
@@ -473,8 +547,8 @@
         "nl": "Verander modus naar"
       },
       "titleFormatted": {
-        "en": "Change mode to [[fan_mode]].",
-        "nl": "Verander modus naar [[fan_mode]]."
+        "en": "Change mode to [[fan_mode]]",
+        "nl": "Verander modus naar [[fan_mode]]"
       },
       "$filter": "capabilities=fan_mode",
       "args": [
@@ -508,8 +582,8 @@
         "nl": "Verander mode naar"
       },
       "titleFormatted": {
-        "en": "Change mode to [[aircleaner_mode]].",
-        "nl": "Verander modus naar [[aircleaner_mode]]."
+        "en": "Change mode to [[aircleaner_mode]]",
+        "nl": "Verander modus naar [[aircleaner_mode]]"
       },
       "$filter": "capabilities=aircleaner_mode",
       "args": [

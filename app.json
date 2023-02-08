@@ -59,6 +59,32 @@
         ]
       },
       {
+        "id": "status_changed",
+        "highlight": true,
+        "title": {
+          "en": "The status has changed",
+          "nl": "De status is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "status",
+            "title": {
+              "en": "Status",
+              "nl": "Status"
+            },
+            "type": "string",
+            "example": "idle"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=status"
+          }
+        ]
+      },
+      {
         "id": "alarm_charging_true",
         "title": {
           "en": "The charging alarm turned on",
@@ -289,8 +315,8 @@
           "nl": "Modus veranderd"
         },
         "titleFormatted": {
-          "en": "Mode changed to [[aircleaner_mode]].",
-          "nl": "Modus veranderd naar [[aircleaner_mode]]."
+          "en": "Mode changed to [[aircleaner_mode]]",
+          "nl": "Modus veranderd naar [[aircleaner_mode]]"
         },
         "args": [
           {
@@ -345,8 +371,8 @@
           "nl": "Modus veranderd"
         },
         "titleFormatted": {
-          "en": "Mode changed to [[fan_mode]].",
-          "nl": "Modus veranderd naar [[fan_mode]]."
+          "en": "Mode changed to [[fan_mode]]",
+          "nl": "Modus veranderd naar [[fan_mode]]"
         },
         "args": [
           {
@@ -558,6 +584,68 @@
     ],
     "conditions": [
       {
+        "id": "action_is",
+        "highlight": true,
+        "title": {
+          "en": "The action is",
+          "nl": "De actie is"
+        },
+        "titleFormatted": {
+          "en": "The action is [[action]]",
+          "nl": "De actie is [[action]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=action"
+          },
+          {
+            "type": "text",
+            "name": "action",
+            "title": {
+              "en": "Action",
+              "nl": "Actie"
+            },
+            "placeholder": {
+              "en": "pressed",
+              "nl": "ingedrukt"
+            }
+          }
+        ]
+      },
+      {
+        "id": "status_is",
+        "highlight": true,
+        "title": {
+          "en": "The status is",
+          "nl": "De status is"
+        },
+        "titleFormatted": {
+          "en": "The status is [[status]]",
+          "nl": "De status is [[status]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=status"
+          },
+          {
+            "type": "text",
+            "name": "status",
+            "title": {
+              "en": "Status",
+              "nl": "Status"
+            },
+            "placeholder": {
+              "en": "idle",
+              "nl": "inactief"
+            }
+          }
+        ]
+      },
+      {
         "id": "alarm_charging_is",
         "title": {
           "en": "The charging alarm is !{{on|off}}",
@@ -679,8 +767,8 @@
           "nl": "Verander snelheid naar"
         },
         "titleFormatted": {
-          "en": "Change speed to [[fan_speed]].",
-          "nl": "Verander snelheid naar [[fan_speed]]."
+          "en": "Change speed to [[fan_speed]]",
+          "nl": "Verander snelheid naar [[fan_speed]]"
         },
         "args": [
           {
@@ -709,8 +797,8 @@
           "nl": "Verander modus naar"
         },
         "titleFormatted": {
-          "en": "Change mode to [[fan_mode]].",
-          "nl": "Verander modus naar [[fan_mode]]."
+          "en": "Change mode to [[fan_mode]]",
+          "nl": "Verander modus naar [[fan_mode]]"
         },
         "args": [
           {
@@ -748,8 +836,8 @@
           "nl": "Verander mode naar"
         },
         "titleFormatted": {
-          "en": "Change mode to [[aircleaner_mode]].",
-          "nl": "Verander modus naar [[aircleaner_mode]]."
+          "en": "Change mode to [[aircleaner_mode]]",
+          "nl": "Verander modus naar [[aircleaner_mode]]"
         },
         "args": [
           {
@@ -1248,19 +1336,20 @@
       "icon": "/assets/capabilities/measure_voc.svg",
       "uiQuickAction": false
     },
-    "running": {
-      "type": "boolean",
+    "status": {
+      "type": "string",
       "title": {
-        "en": "Running",
-        "nl": "Actief"
+        "en": "Status",
+        "nl": "Status"
       },
       "getable": true,
       "setable": false,
       "insights": false,
       "desc": {
-        "en": "Device is running",
-        "nl": "Apparaat is actief"
+        "en": "Status",
+        "nl": "Status"
       },
+      "icon": "/assets/capabilities/status.svg",
       "uiComponent": "sensor",
       "uiQuickAction": false
     }
