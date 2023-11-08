@@ -34,5 +34,8 @@
   },
   "0.5.1": {
     "en": "Fixed possible undefined value"
+  },
+  "0.6.0": {
+    "en": "Added support for Fan and Vacuum devices, fixes an issue with missing flowcards and update Home Assistant logo."
   }
 }
