@@ -778,6 +778,10 @@
           },
           {
             "name": "fan_speed",
+            "title": {
+              "en": "Speed",
+              "nl": "Snelheid"
+            },
             "type": "range",
             "min": 0,
             "max": 1,
@@ -808,6 +812,10 @@
           },
           {
             "name": "fan_mode",
+            "title": {
+              "en": "Mode",
+              "nl": "Modus"
+            },
             "type": "dropdown",
             "values": [
               {
@@ -847,6 +855,10 @@
           },
           {
             "name": "aircleaner_mode",
+            "title": {
+              "en": "Mode",
+              "nl": "Modus"
+            },
             "type": "dropdown",
             "values": [
               {
