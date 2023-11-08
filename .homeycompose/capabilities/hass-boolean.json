@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Read-only Boolean"
+  },
+  "zoneActivity": false,
+  "getable": true,
+  "setable": false
+}

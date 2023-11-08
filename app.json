@@ -30,6 +30,859 @@
   },
   "support": "https://homey.app/support",
   "brandColor": "#00ccff",
+  "flow": {
+    "triggers": [
+      {
+        "id": "action_changed",
+        "highlight": true,
+        "title": {
+          "en": "The button action has changed",
+          "nl": "De knop actie is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "action",
+            "title": {
+              "en": "Action",
+              "nl": "Actie"
+            },
+            "type": "string",
+            "example": "pressed"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=action"
+          }
+        ]
+      },
+      {
+        "id": "status_changed",
+        "highlight": true,
+        "title": {
+          "en": "The status has changed",
+          "nl": "De status is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "status",
+            "title": {
+              "en": "Status",
+              "nl": "Status"
+            },
+            "type": "string",
+            "example": "idle"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=status"
+          }
+        ]
+      },
+      {
+        "id": "alarm_charging_true",
+        "title": {
+          "en": "The charging alarm turned on",
+          "nl": "Het oplaad alarm gaat aan"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_charging"
+          }
+        ]
+      },
+      {
+        "id": "alarm_charging_false",
+        "title": {
+          "en": "The charging alarm turned off",
+          "nl": "Het oplaad alarm gaat uit"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_charging"
+          }
+        ]
+      },
+      {
+        "id": "alarm_occupancy_true",
+        "title": {
+          "en": "The occupancy alarm turned on",
+          "nl": "Het bezettings alarm gaat aan"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_occupancy"
+          }
+        ]
+      },
+      {
+        "id": "alarm_occupancy_false",
+        "title": {
+          "en": "The occupancy alarm turned off",
+          "nl": "Het bezettings alarm gaat uit"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_occupancy"
+          }
+        ]
+      },
+      {
+        "id": "alarm_plugged_in_true",
+        "title": {
+          "en": "The plugged in alarm turned on",
+          "nl": "Het ingeplugd alarm gaat aan"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_plugged_in"
+          }
+        ]
+      },
+      {
+        "id": "alarm_plugged_in_false",
+        "title": {
+          "en": "The plugged in alarm turned off",
+          "nl": "Het ingeplugd alarm gaat uit"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_plugged_in"
+          }
+        ]
+      },
+      {
+        "id": "alarm_problem_true",
+        "title": {
+          "en": "The problem alarm turned on",
+          "nl": "Het probleem alarm gaat aan"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_problem"
+          }
+        ]
+      },
+      {
+        "id": "alarm_problem_false",
+        "title": {
+          "en": "The problem alarm turned off",
+          "nl": "Het probleem alarm gaat uit"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_problem"
+          }
+        ]
+      },
+      {
+        "id": "alarm_running_true",
+        "title": {
+          "en": "The running alarm turned on",
+          "nl": "Het draaiend alarm gaat aan"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_running"
+          }
+        ]
+      },
+      {
+        "id": "alarm_running_false",
+        "title": {
+          "en": "The running alarm turned off",
+          "nl": "Het draaiend alarm gaat uit"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_running"
+          }
+        ]
+      },
+      {
+        "id": "alarm_safety_true",
+        "title": {
+          "en": "The safety alarm turned on",
+          "nl": "Het veiligheids alarm gaat aan"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_safety"
+          }
+        ]
+      },
+      {
+        "id": "alarm_safety_false",
+        "title": {
+          "en": "The safety alarm turned off",
+          "nl": "Het veiligheids alarm gaat uit"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_safety"
+          }
+        ]
+      },
+      {
+        "id": "alarm_sound_true",
+        "title": {
+          "en": "The sound alarm turned on",
+          "nl": "Het geluid alarm gaat aan"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_sound"
+          }
+        ]
+      },
+      {
+        "id": "alarm_sound_false",
+        "title": {
+          "en": "The sound alarm turned off",
+          "nl": "Het geluid alarm gaat uit"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_sound"
+          }
+        ]
+      },
+      {
+        "id": "alarm_vibration_true",
+        "title": {
+          "en": "The vibration alarm turned on",
+          "nl": "Het vibratie alarm gaat aan"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_vibration"
+          }
+        ]
+      },
+      {
+        "id": "alarm_vibration_false",
+        "title": {
+          "en": "The vibration alarm turned off",
+          "nl": "Het vibratie alarm gaat uit"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_vibration"
+          }
+        ]
+      },
+      {
+        "id": "aircleaner_mode_changed",
+        "title": {
+          "en": "Mode changed",
+          "nl": "Modus veranderd"
+        },
+        "titleFormatted": {
+          "en": "Mode changed to [[aircleaner_mode]]",
+          "nl": "Modus veranderd naar [[aircleaner_mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=aircleaner_mode"
+          },
+          {
+            "name": "aircleaner_mode",
+            "title": {
+              "en": "Mode",
+              "nl": "Modus"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "fan",
+                "title": {
+                  "en": "Fan",
+                  "nl": "Ventilator"
+                }
+              },
+              {
+                "id": "auto",
+                "title": {
+                  "en": "Auto",
+                  "nl": "Auto"
+                }
+              },
+              {
+                "id": "silent",
+                "title": {
+                  "en": "Silent",
+                  "nl": "Stil"
+                }
+              },
+              {
+                "id": "favorite",
+                "title": {
+                  "en": "Favorite",
+                  "nl": "Favorite"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fan_mode_changed",
+        "title": {
+          "en": "Mode changed",
+          "nl": "Modus veranderd"
+        },
+        "titleFormatted": {
+          "en": "Mode changed to [[fan_mode]]",
+          "nl": "Modus veranderd naar [[fan_mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=fan_mode"
+          },
+          {
+            "name": "fan_mode",
+            "title": {
+              "en": "Mode",
+              "nl": "Modus"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "normal",
+                "title": {
+                  "en": "Normal",
+                  "nl": "Normaal"
+                }
+              },
+              {
+                "id": "nature",
+                "title": {
+                  "en": "Nature",
+                  "nl": "Natuurlijk"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fan_oscillate_changed",
+        "title": {
+          "en": "Oscillation changed",
+          "nl": "Oscillatie veranderd"
+        },
+        "tokens": [
+          {
+            "name": "fan_oscillate",
+            "type": "boolean",
+            "title": {
+              "en": "Oscillate",
+              "nl": "Oscilleren"
+            },
+            "example": true
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=fan_oscillate"
+          }
+        ]
+      },
+      {
+        "id": "fan_speed_changed",
+        "title": {
+          "en": "Speed changed",
+          "nl": "Snelheid veranderd"
+        },
+        "tokens": [
+          {
+            "name": "fan_speed",
+            "type": "number",
+            "title": {
+              "en": "Level",
+              "nl": "Niveau"
+            },
+            "example": 0.5
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=fan_speed"
+          }
+        ]
+      },
+      {
+        "id": "measure_aqi_changed",
+        "title": {
+          "en": "The Air Quality Index (AQI) value has changed",
+          "nl": "De Luchtkwaliteit Index (LKI) waarde is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_aqi",
+            "title": {
+              "en": "Air Quality Index",
+              "nl": "Luchtkwaliteit Index"
+            },
+            "type": "number",
+            "example": 60
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=measure_aqi"
+          }
+        ]
+      },
+      {
+        "id": "measure_pm1_changed",
+        "title": {
+          "en": "The PM1 value has changed",
+          "nl": "De PM1 waarde is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_pm1",
+            "title": {
+              "en": "PM1",
+              "nl": "PM1"
+            },
+            "type": "number",
+            "example": 2
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=measure_pm1"
+          }
+        ]
+      },
+      {
+        "id": "measure_pm10_changed",
+        "title": {
+          "en": "The PM10 value has changed",
+          "nl": "De PM10 waarde is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_pm10",
+            "title": {
+              "en": "PM10",
+              "nl": "PM10"
+            },
+            "type": "number",
+            "example": 2
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=measure_pm10"
+          }
+        ]
+      },
+      {
+        "id": "measure_signal_strength_changed",
+        "title": {
+          "en": "The signal strength value has changed",
+          "nl": "De signaal sterkte waarde is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_signal_strength",
+            "title": {
+              "en": "Signal Strength",
+              "nl": "Signaal Sterkte"
+            },
+            "type": "number",
+            "example": -41
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=measure_signal_strength"
+          }
+        ]
+      },
+      {
+        "id": "measure_voc_changed",
+        "title": {
+          "en": "The VOC value has changed",
+          "nl": "De VOC waarde is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_voc",
+            "title": {
+              "en": "Volatile Organic Compounds",
+              "nl": "Vluchtige organische stoffen"
+            },
+            "type": "number",
+            "example": 120
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=measure_voc"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "action_is",
+        "highlight": true,
+        "title": {
+          "en": "The action is",
+          "nl": "De actie is"
+        },
+        "titleFormatted": {
+          "en": "The action is [[action]]",
+          "nl": "De actie is [[action]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=action"
+          },
+          {
+            "type": "text",
+            "name": "action",
+            "title": {
+              "en": "Action",
+              "nl": "Actie"
+            },
+            "placeholder": {
+              "en": "pressed",
+              "nl": "ingedrukt"
+            }
+          }
+        ]
+      },
+      {
+        "id": "status_is",
+        "highlight": true,
+        "title": {
+          "en": "The status is",
+          "nl": "De status is"
+        },
+        "titleFormatted": {
+          "en": "The status is [[status]]",
+          "nl": "De status is [[status]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=status"
+          },
+          {
+            "type": "text",
+            "name": "status",
+            "title": {
+              "en": "Status",
+              "nl": "Status"
+            },
+            "placeholder": {
+              "en": "idle",
+              "nl": "inactief"
+            }
+          }
+        ]
+      },
+      {
+        "id": "alarm_charging_is",
+        "title": {
+          "en": "The charging alarm is !{{on|off}}",
+          "nl": "Het oplaad alarm is !{{aan|uit}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_charging"
+          }
+        ]
+      },
+      {
+        "id": "alarm_occupancy_is",
+        "title": {
+          "en": "The occupancy alarm is !{{on|off}}",
+          "nl": "Het bezettings alarm is !{{aan|uit}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_occupancy"
+          }
+        ]
+      },
+      {
+        "id": "alarm_plugged_in_is",
+        "title": {
+          "en": "The plugged in alarm is !{{on|off}}",
+          "nl": "Het ingeplugd alarm is !{{aan|uit}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_plugged_in"
+          }
+        ]
+      },
+      {
+        "id": "alarm_problem_is",
+        "title": {
+          "en": "The problem alarm is !{{on|off}}",
+          "nl": "Het probleem alarm is !{{aan|uit}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_problem"
+          }
+        ]
+      },
+      {
+        "id": "alarm_running_is",
+        "title": {
+          "en": "The running alarm is !{{on|off}}",
+          "nl": "Het draaiend alarm is !{{aan|uit}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_running"
+          }
+        ]
+      },
+      {
+        "id": "alarm_safety_is",
+        "title": {
+          "en": "The safety alarm is !{{on|off}}",
+          "nl": "Het veiligheids alarm is !{{aan|uit}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_safety"
+          }
+        ]
+      },
+      {
+        "id": "alarm_sound_is",
+        "title": {
+          "en": "The sound alarm is !{{on|off}}",
+          "nl": "Het geluid alarm is !{{aan|uit}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_sound"
+          }
+        ]
+      },
+      {
+        "id": "alarm_vibration_is",
+        "title": {
+          "en": "The vibration alarm is !{{on|off}}",
+          "nl": "Het vibratie alarm is !{{aan|uit}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_vibration"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "fan_speed_set",
+        "highlight": true,
+        "title": {
+          "en": "Change speed to",
+          "nl": "Verander snelheid naar"
+        },
+        "titleFormatted": {
+          "en": "Change speed to [[fan_speed]]",
+          "nl": "Verander snelheid naar [[fan_speed]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=fan_speed"
+          },
+          {
+            "name": "fan_speed",
+            "type": "range",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.5,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "fan_mode_set",
+        "highlight": true,
+        "title": {
+          "en": "Change mode to",
+          "nl": "Verander modus naar"
+        },
+        "titleFormatted": {
+          "en": "Change mode to [[fan_mode]]",
+          "nl": "Verander modus naar [[fan_mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=fan_mode"
+          },
+          {
+            "name": "fan_mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "normal",
+                "title": {
+                  "en": "Normal",
+                  "nl": "Normaal"
+                }
+              },
+              {
+                "id": "nature",
+                "title": {
+                  "en": "Nature",
+                  "nl": "Natuurlijk"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "aircleaner_mode_set",
+        "highlight": true,
+        "title": {
+          "en": "Change mode to",
+          "nl": "Verander mode naar"
+        },
+        "titleFormatted": {
+          "en": "Change mode to [[aircleaner_mode]]",
+          "nl": "Verander modus naar [[aircleaner_mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=aircleaner_mode"
+          },
+          {
+            "name": "aircleaner_mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "fan",
+                "title": {
+                  "en": "Fan",
+                  "nl": "Ventilator"
+                }
+              },
+              {
+                "id": "auto",
+                "title": {
+                  "en": "Auto",
+                  "nl": "Auto"
+                }
+              },
+              {
+                "id": "silent",
+                "title": {
+                  "en": "Silent",
+                  "nl": "Stil"
+                }
+              },
+              {
+                "id": "favorite",
+                "title": {
+                  "en": "Favorite",
+                  "nl": "Favorite"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "drivers": [
     {
       "name": {
@@ -43,6 +896,7 @@
         "local",
         "cloud"
       ],
+      "discovery": "home-assistant",
       "capabilities": [],
       "images": {
         "small": "/drivers/hass-device/assets/images/small.png",
@@ -87,6 +941,62 @@
     }
   ],
   "capabilities": {
+    "action": {
+      "type": "string",
+      "title": {
+        "en": "Action",
+        "nl": "Actie"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false,
+      "desc": {
+        "en": "Button Action",
+        "nl": "Knop Actie"
+      },
+      "icon": "/assets/capabilities/action.svg",
+      "uiComponent": "sensor",
+      "uiQuickAction": false
+    },
+    "aircleaner_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Mode"
+      },
+      "uiComponent": "picker",
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "fan",
+          "title": {
+            "en": "Fan",
+            "nl": "Ventilator"
+          }
+        },
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto",
+            "nl": "Auto"
+          }
+        },
+        {
+          "id": "silent",
+          "title": {
+            "en": "Silent",
+            "nl": "Stil"
+          }
+        },
+        {
+          "id": "favorite",
+          "title": {
+            "en": "Favorite",
+            "nl": "Favoriet"
+          }
+        }
+      ]
+    },
     "alarm_charging": {
       "type": "boolean",
       "title": {
@@ -246,6 +1156,67 @@
         "nl": "Trillings alarm ging uit"
       }
     },
+    "fan_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Mode",
+        "nl": "Modus"
+      },
+      "uiComponent": "picker",
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "nature",
+          "title": {
+            "en": "Nature",
+            "nl": "Natuurlijk"
+          }
+        },
+        {
+          "id": "normal",
+          "title": {
+            "en": "Normal",
+            "nl": "Normaal"
+          }
+        }
+      ]
+    },
+    "fan_oscillate": {
+      "type": "boolean",
+      "title": {
+        "en": "Oscillate",
+        "nl": "Oscilleren"
+      },
+      "icon": "/assets/capabilities/oscillate.svg",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "toggle"
+    },
+    "fan_speed": {
+      "type": "number",
+      "title": {
+        "en": "Fan speed",
+        "nl": "Ventilator snelheid"
+      },
+      "chartType": "stepLine",
+      "min": 0,
+      "max": 1,
+      "decimals": 2,
+      "units": "%",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider"
+    },
+    "hass-boolean": {
+      "type": "boolean",
+      "title": {
+        "en": "Read-only Boolean"
+      },
+      "zoneActivity": false,
+      "getable": true,
+      "setable": false
+    },
     "hass-number": {
       "type": "number",
       "title": {
@@ -364,6 +1335,33 @@
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/measure_voc.svg",
       "uiQuickAction": false
+    },
+    "status": {
+      "type": "string",
+      "title": {
+        "en": "Status",
+        "nl": "Status"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false,
+      "desc": {
+        "en": "Status",
+        "nl": "Status"
+      },
+      "icon": "/assets/capabilities/status.svg",
+      "uiComponent": "sensor",
+      "uiQuickAction": false
+    }
+  },
+  "discovery": {
+    "home-assistant": {
+      "type": "mdns-sd",
+      "mdns-sd": {
+        "name": "home-assistant",
+        "protocol": "tcp"
+      },
+      "id": "{{txt.uuid}}"
     }
   }
 }
