@@ -37,5 +37,8 @@
   },
   "0.6.0": {
     "en": "Added support for Fan and Vacuum devices, fixes an issue with missing flowcards and update Home Assistant logo."
+  },
+  "0.6.1": {
+    "en": "Fixed migration of switch device capablities."
   }
 }
