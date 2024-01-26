@@ -40,5 +40,8 @@
   },
   "0.6.1": {
     "en": "Fixed migration of switch device capablities."
+  },
+  "0.6.2": {
+    "en": "Fixes issues with migration of capabilities."
   }
 }
