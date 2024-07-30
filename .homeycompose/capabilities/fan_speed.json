@@ -2,7 +2,17 @@
   "type": "number",
   "title": {
     "en": "Fan speed",
-    "nl": "Ventilator snelheid"
+    "nl": "Ventilator snelheid",
+    "da": "Ventilatorhastighed",
+    "de": "Lüftergeschwindigkeit",
+    "es": "Velocidad del ventilador",
+    "fr": "Vitesse du ventilateur",
+    "it": "Velocità della ventola",
+    "no": "Viftehastighet",
+    "sv": "Fläkthastighet",
+    "pl": "Prędkość wentylatora",
+    "ru": "Скорость вентилятора",
+    "ko": "팬 속도"
   },
   "chartType": "stepLine",
   "min": 0,

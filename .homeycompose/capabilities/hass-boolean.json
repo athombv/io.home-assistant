@@ -1,7 +1,18 @@
 {
   "type": "boolean",
   "title": {
-    "en": "Read-only Boolean"
+    "en": "Read-only Boolean",
+    "nl": "Alleen-lezen Booleaan",
+    "da": "Skrivebeskyttet Boolesk",
+    "de": "Schreibgeschütztes Boolesch",
+    "es": "Booleano de solo lectura",
+    "fr": "Booléen en lecture seule",
+    "it": "Booleano di sola lettura",
+    "no": "Skrivebeskyttet Boolsk",
+    "sv": "Skrivskyddad Boolean",
+    "pl": "Tylko do odczytu Bool",
+    "ru": "Только для чтения Булев",
+    "ko": "읽기 전용 부울"
   },
   "zoneActivity": false,
   "getable": true,

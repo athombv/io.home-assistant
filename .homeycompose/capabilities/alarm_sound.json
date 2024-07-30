@@ -1,21 +1,51 @@
 {
-    "type": "boolean",
-    "title": {
-        "en": "Sound",
-        "nl": "Geluid"
-    },
-    "insights": true,
-    "insightsTitleTrue": {
-        "en": "Sound detected",
-        "nl": "Geluid gedetecteerd"
-    },
-    "insightsTitleFalse": {
-        "en": "No sound detected",
-        "nl": "Geluid gedetecteerd"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "icon": "/assets/capabilities/alarm_sound.svg",
-    "uiQuickAction": false
+  "type": "boolean",
+  "title": {
+    "en": "Sound",
+    "nl": "Geluid",
+    "da": "Lyd",
+    "de": "Ton",
+    "es": "Sonido",
+    "fr": "Son",
+    "it": "Suono",
+    "no": "Lyd",
+    "sv": "Ljud",
+    "pl": "Dźwięk",
+    "ru": "Звук",
+    "ko": "소리"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Sound detected",
+    "nl": "Geluid gedetecteerd",
+    "da": "Lyd opdaget",
+    "de": "Ton erkannt",
+    "es": "Sonido detectado",
+    "fr": "Son détecté",
+    "it": "Suono rilevato",
+    "no": "Lyd oppdaget",
+    "sv": "Ljud upptäckt",
+    "pl": "Wykryto dźwięk",
+    "ru": "Звук обнаружен",
+    "ko": "소리 감지됨"
+  },
+  "insightsTitleFalse": {
+    "en": "No sound detected",
+    "nl": "Geluid gedetecteerd",
+    "da": "Ingen lyd opdaget",
+    "de": "Kein Ton erkannt",
+    "es": "Ningún sonido detectado",
+    "fr": "Aucun son détecté",
+    "it": "Nessun suono rilevato",
+    "no": "Ingen lyd oppdaget",
+    "sv": "Inget ljud upptäckt",
+    "pl": "Nie wykryto dźwięku",
+    "ru": "Звук не обнаружен",
+    "ko": "소리 감지 안 됨"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_sound.svg",
+  "uiQuickAction": false
 }

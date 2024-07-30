@@ -1,22 +1,42 @@
 {
-    "type": "number",
-    "title": {
-        "en": "PM10",
-        "nl": "PM10"
-    },
-    "chartType": "spline",
-    "getable": true,
-    "setable": false,
-    "units": {
-        "en": "µg/m3",
-        "nl": "µg/m3"
-    },
-    "insights": true,
-    "desc": {
-        "en": "Particulate matter (µg/m3)",
-        "nl": "Fijnstof (µg/m3)"
-    },
-    "uiComponent": "sensor",
-    "icon": "/assets/capabilities/measure_pm10.svg",
-    "uiQuickAction": false
+  "type": "number",
+  "title": {
+    "en": "PM10",
+    "nl": "PM10"
+  },
+  "chartType": "spline",
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "µg/m3",
+    "nl": "µg/m3",
+    "da": "µg/m3",
+    "de": "µg/m3",
+    "es": "µg/m3",
+    "fr": "µg/m3",
+    "it": "µg/m3",
+    "no": "µg/m3",
+    "sv": "µg/m3",
+    "pl": "µg/m3",
+    "ru": "µg/m3",
+    "ko": "µg/m3"
+  },
+  "insights": true,
+  "desc": {
+    "en": "Particulate matter (µg/m3)",
+    "nl": "Fijnstof (µg/m3)",
+    "da": "Partikler (µg/m3)",
+    "de": "Feinstaub (µg/m3)",
+    "es": "Material particulado (µg/m3)",
+    "fr": "Matière particulaire (µg/m3)",
+    "it": "Materiale particolato (µg/m3)",
+    "no": "Partikler (µg/m3)",
+    "sv": "Partiklar (µg/m3)",
+    "pl": "Pył zawieszony (µg/m3)",
+    "ru": "Взвешенные частицы (µg/m3)",
+    "ko": "입자 물질 (µg/m3)"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/measure_pm10.svg",
+  "uiQuickAction": false
 }

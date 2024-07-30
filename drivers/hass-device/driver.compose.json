@@ -1,6 +1,17 @@
 {
   "name": {
-    "en": "Home Assistant Device"
+    "en": "Home Assistant Device",
+    "nl": "Home Assistant Apparaat",
+    "da": "Home Assistant Enhed",
+    "de": "Home Assistant Gerät",
+    "es": "Dispositivo de Home Assistant",
+    "fr": "Appareil Home Assistant",
+    "it": "Dispositivo Home Assistant",
+    "no": "Home Assistant Enhet",
+    "sv": "Home Assistant Enhet",
+    "pl": "Urządzenie Home Assistant",
+    "ru": "Устройство Home Assistant",
+    "ko": "홈 어시스턴트 장치"
   },
   "class": "other",
   "connectivity": [

@@ -2,7 +2,17 @@
   "type": "boolean",
   "title": {
     "en": "Oscillate",
-    "nl": "Oscilleren"
+    "nl": "Oscilleren",
+    "da": "Svinge",
+    "de": "Schwingen",
+    "es": "Oscilar",
+    "fr": "Osciller",
+    "it": "Oscillare",
+    "no": "Svinge",
+    "sv": "Svänga",
+    "pl": "Oscylować",
+    "ru": "Колебаться",
+    "ko": "진동시키다"
   },
   "icon": "/assets/capabilities/oscillate.svg",
   "getable": true,

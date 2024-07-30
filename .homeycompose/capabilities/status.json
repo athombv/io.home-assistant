@@ -2,14 +2,34 @@
   "type": "string",
   "title": {
     "en": "Status",
-    "nl": "Status"
+    "nl": "Status",
+    "da": "Status",
+    "de": "Status",
+    "es": "Estado",
+    "fr": "Statut",
+    "it": "Stato",
+    "no": "Status",
+    "sv": "Status",
+    "pl": "Status",
+    "ru": "Статус",
+    "ko": "상태"
   },
   "getable": true,
   "setable": false,
   "insights": false,
   "desc": {
     "en": "Status",
-    "nl": "Status"
+    "nl": "Status",
+    "da": "Status",
+    "de": "Status",
+    "es": "Estado",
+    "fr": "Statut",
+    "it": "Stato",
+    "no": "Status",
+    "sv": "Status",
+    "pl": "Status",
+    "ru": "Статус",
+    "ko": "상태"
   },
   "icon": "/assets/capabilities/status.svg",
   "uiComponent": "sensor",

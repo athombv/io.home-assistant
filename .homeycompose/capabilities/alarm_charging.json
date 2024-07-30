@@ -1,21 +1,51 @@
 {
-    "type": "boolean",
-    "title": {
-        "en": "Charging",
-        "nl": "Opladen"
-    },
-    "insights": true,
-    "insightsTitleTrue": {
-        "en": "Charging",
-        "nl": "Aan het opladen"
-    },
-    "insightsTitleFalse": {
-        "en": "Not charging",
-        "nl": "Niet aan het opladen"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "icon": "/assets/capabilities/alarm_charging.svg",
-    "uiQuickAction": false
+  "type": "boolean",
+  "title": {
+    "en": "Charging",
+    "nl": "Opladen",
+    "da": "Opladning",
+    "de": "Laden",
+    "es": "Cargando",
+    "fr": "Chargement",
+    "it": "Carica",
+    "no": "Lader",
+    "sv": "Laddar",
+    "pl": "Ładowanie",
+    "ru": "Зарядка",
+    "ko": "충전"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Charging",
+    "nl": "Aan het opladen",
+    "da": "Oplader",
+    "de": "Lädt",
+    "es": "Cargando",
+    "fr": "En charge",
+    "it": "In carica",
+    "no": "Lader",
+    "sv": "Laddar",
+    "pl": "Ładowanie",
+    "ru": "Зарядка",
+    "ko": "충전 중"
+  },
+  "insightsTitleFalse": {
+    "en": "Not charging",
+    "nl": "Niet aan het opladen",
+    "da": "Lader ikke",
+    "de": "Lädt nicht",
+    "es": "No está cargando",
+    "fr": "Non chargé",
+    "it": "Non in carica",
+    "no": "Lader ikke",
+    "sv": "Laddar inte",
+    "pl": "Nie ładuje",
+    "ru": "Не заряжается",
+    "ko": "충전 안됨"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_charging.svg",
+  "uiQuickAction": false
 }

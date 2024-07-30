@@ -2,14 +2,34 @@
   "type": "string",
   "title": {
     "en": "Action",
-    "nl": "Actie"
+    "nl": "Actie",
+    "da": "Handling",
+    "de": "Aktion",
+    "es": "Acción",
+    "fr": "Action",
+    "it": "Azione",
+    "no": "Handling",
+    "sv": "Åtgärd",
+    "pl": "Akcja",
+    "ru": "Действие",
+    "ko": "동작"
   },
   "getable": true,
   "setable": false,
   "insights": false,
   "desc": {
     "en": "Button Action",
-    "nl": "Knop Actie"
+    "nl": "Knop Actie",
+    "da": "Knap Handling",
+    "de": "Tastenaktion",
+    "es": "Acción de Botón",
+    "fr": "Action Bouton",
+    "it": "Azione Pulsante",
+    "no": "Knappehandling",
+    "sv": "Knappåtgärd",
+    "pl": "Akcja Przyciskiem",
+    "ru": "Кнопочное действие",
+    "ko": "버튼 동작"
   },
   "icon": "/assets/capabilities/action.svg",
   "uiComponent": "sensor",

@@ -1,7 +1,18 @@
 {
   "type": "number",
   "title": {
-    "en": "Read-only Number"
+    "en": "Read-only Number",
+    "nl": "Alleen-lezen Nummer",
+    "da": "Skrivebeskyttet Nummer",
+    "de": "Schreibgeschützte Nummer",
+    "es": "Número de solo lectura",
+    "fr": "Numéro en lecture seule",
+    "it": "Numero di Sola Lettura",
+    "no": "Skrivebeskyttet Nummer",
+    "sv": "Skrivskyddat Nummer",
+    "pl": "Numer Tylko do Odczytu",
+    "ru": "Номер Только для Чтения",
+    "ko": "읽기 전용 번호"
   },
   "getable": true,
   "setable": false

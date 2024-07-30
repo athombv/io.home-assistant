@@ -8,11 +8,32 @@
   ],
   "sdk": 3,
   "name": {
-    "en": "Home Assistant"
+    "en": "Home Assistant",
+    "nl": "Home Assistant",
+    "da": "Home Assistant",
+    "de": "Home Assistant",
+    "es": "Home Assistant",
+    "fr": "Home Assistant",
+    "it": "Home Assistant",
+    "no": "Home Assistant",
+    "sv": "Home Assistant",
+    "pl": "Home Assistant",
+    "ru": "Home Assistant",
+    "ko": "Home Assistant"
   },
   "description": {
     "en": "Connect your Home Assistant devices to Homey",
-    "nl": "Verbind je Home Assistant-apparaten met Homey"
+    "nl": "Verbind je Home Assistant-apparaten met Homey",
+    "da": "Tilslut dine Home Assistant-enheder til Homey",
+    "de": "Verbinde deine Home Assistant-Geräte mit Homey",
+    "es": "Conecta tus dispositivos de Home Assistant a Homey",
+    "fr": "Connectez vos appareils Home Assistant à Homey",
+    "it": "Collega i tuoi dispositivi Home Assistant a Homey",
+    "no": "Koble dine Home Assistant-enheter til Homey",
+    "sv": "Anslut dina Home Assistant-enheter till Homey",
+    "pl": "Połącz swoje urządzenia Home Assistant z Homey",
+    "ru": "Подключите свои устройства Home Assistant к Homey",
+    "ko": "Homey에 Home Assistant 장치를 연결하세요"
   },
   "category": [
     "appliances"

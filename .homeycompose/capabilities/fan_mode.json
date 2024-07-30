@@ -2,7 +2,17 @@
   "type": "enum",
   "title": {
     "en": "Mode",
-    "nl": "Modus"
+    "nl": "Modus",
+    "da": "Tilstand",
+    "de": "Modus",
+    "es": "Modo",
+    "fr": "Mode",
+    "it": "Modalità",
+    "no": "Modus",
+    "sv": "Läge",
+    "pl": "Tryb",
+    "ru": "Режим",
+    "ko": "모드"
   },
   "uiComponent": "picker",
   "getable": true,
@@ -12,14 +22,34 @@
       "id": "nature",
       "title": {
         "en": "Nature",
-        "nl": "Natuurlijk"
+        "nl": "Natuurlijk",
+        "da": "Natur",
+        "de": "Natur",
+        "es": "Naturaleza",
+        "fr": "Nature",
+        "it": "Natura",
+        "no": "Natur",
+        "sv": "Natur",
+        "pl": "Natura",
+        "ru": "Природа",
+        "ko": "자연"
       }
     },
     {
       "id": "normal",
       "title": {
         "en": "Normal",
-        "nl": "Normaal"
+        "nl": "Normaal",
+        "da": "Normal",
+        "de": "Normal",
+        "es": "Normal",
+        "fr": "Normal",
+        "it": "Normale",
+        "no": "Normal",
+        "sv": "Normal",
+        "pl": "Normalny",
+        "ru": "Нормальный",
+        "ko": "일반"
       }
     }
   ]
