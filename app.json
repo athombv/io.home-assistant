@@ -10,16 +10,17 @@
   "sdk": 3,
   "name": {
     "en": "Home Assistant",
-    "da": "Hjemme Assistent",
-    "de": "Heimassistent",
-    "es": "Asistente del Hogar",
-    "fr": "Assistant Maison",
-    "it": "Assistente Domestico",
-    "no": "Hjemmeassistent",
-    "sv": "Hembiträde",
-    "pl": "Asystent Domowy",
-    "ru": "Домашний Помощник",
-    "ko": "홈 어시스턴트"
+    "nl": "Home Assistant",
+    "da": "Home Assistant",
+    "de": "Home Assistant",
+    "es": "Home Assistant",
+    "fr": "Home Assistant",
+    "it": "Home Assistant",
+    "no": "Home Assistant",
+    "sv": "Home Assistant",
+    "pl": "Home Assistant",
+    "ru": "Home Assistant",
+    "ko": "Home Assistant"
   },
   "description": {
     "en": "Connect your Home Assistant devices to Homey",
