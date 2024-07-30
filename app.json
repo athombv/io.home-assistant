@@ -9,11 +9,31 @@
   ],
   "sdk": 3,
   "name": {
-    "en": "Home Assistant"
+    "en": "Home Assistant",
+    "da": "Hjemme Assistent",
+    "de": "Heimassistent",
+    "es": "Asistente del Hogar",
+    "fr": "Assistant Maison",
+    "it": "Assistente Domestico",
+    "no": "Hjemmeassistent",
+    "sv": "Hembiträde",
+    "pl": "Asystent Domowy",
+    "ru": "Домашний Помощник",
+    "ko": "홈 어시스턴트"
   },
   "description": {
     "en": "Connect your Home Assistant devices to Homey",
-    "nl": "Verbind je Home Assistant-apparaten met Homey"
+    "nl": "Verbind je Home Assistant-apparaten met Homey",
+    "da": "Tilslut dine Home Assistant-enheder til Homey",
+    "de": "Verbinde deine Home Assistant-Geräte mit Homey",
+    "es": "Conecta tus dispositivos de Home Assistant a Homey",
+    "fr": "Connectez vos appareils Home Assistant à Homey",
+    "it": "Collega i tuoi dispositivi Home Assistant a Homey",
+    "no": "Koble dine Home Assistant-enheter til Homey",
+    "sv": "Anslut dina Home Assistant-enheter till Homey",
+    "pl": "Połącz swoje urządzenia Home Assistant z Homey",
+    "ru": "Подключите свои устройства Home Assistant к Homey",
+    "ko": "Homey에 Home Assistant 장치를 연결하세요"
   },
   "category": [
     "appliances"
@@ -898,7 +918,18 @@
   "drivers": [
     {
       "name": {
-        "en": "Home Assistant Device"
+        "en": "Home Assistant Device",
+        "nl": "Home Assistant Apparaat",
+        "da": "Home Assistant Enhed",
+        "de": "Home Assistant Gerät",
+        "es": "Dispositivo de Home Assistant",
+        "fr": "Appareil Home Assistant",
+        "it": "Dispositivo Home Assistant",
+        "no": "Home Assistant Enhet",
+        "sv": "Home Assistant Enhet",
+        "pl": "Urządzenie Home Assistant",
+        "ru": "Устройство Home Assistant",
+        "ko": "홈 어시스턴트 장치"
       },
       "class": "other",
       "connectivity": [
@@ -957,14 +988,34 @@
       "type": "string",
       "title": {
         "en": "Action",
-        "nl": "Actie"
+        "nl": "Actie",
+        "da": "Handling",
+        "de": "Aktion",
+        "es": "Acción",
+        "fr": "Action",
+        "it": "Azione",
+        "no": "Handling",
+        "sv": "Åtgärd",
+        "pl": "Akcja",
+        "ru": "Действие",
+        "ko": "동작"
       },
       "getable": true,
       "setable": false,
       "insights": false,
       "desc": {
         "en": "Button Action",
-        "nl": "Knop Actie"
+        "nl": "Knop Actie",
+        "da": "Knap Handling",
+        "de": "Tastenaktion",
+        "es": "Acción de Botón",
+        "fr": "Action Bouton",
+        "it": "Azione Pulsante",
+        "no": "Knappehandling",
+        "sv": "Knappåtgärd",
+        "pl": "Akcja Przyciskiem",
+        "ru": "Кнопочное действие",
+        "ko": "버튼 동작"
       },
       "icon": "/assets/capabilities/action.svg",
       "uiComponent": "sensor",
@@ -973,7 +1024,17 @@
     "aircleaner_mode": {
       "type": "enum",
       "title": {
-        "en": "Mode"
+        "en": "Mode",
+        "da": "Tilstand",
+        "de": "Modus",
+        "es": "Modo",
+        "fr": "Mode",
+        "it": "Modalità",
+        "no": "Modus",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드"
       },
       "uiComponent": "picker",
       "getable": true,
@@ -983,28 +1044,68 @@
           "id": "fan",
           "title": {
             "en": "Fan",
-            "nl": "Ventilator"
+            "nl": "Ventilator",
+            "da": "Blæser",
+            "de": "Ventilator",
+            "es": "Ventilador",
+            "fr": "Ventilateur",
+            "it": "Ventilatore",
+            "no": "Vifte",
+            "sv": "Fläkt",
+            "pl": "Wentylator",
+            "ru": "Вентилятор",
+            "ko": "팬"
           }
         },
         {
           "id": "auto",
           "title": {
             "en": "Auto",
-            "nl": "Auto"
+            "nl": "Auto",
+            "da": "Automatisk",
+            "de": "Automatisch",
+            "es": "Auto",
+            "fr": "Automatique",
+            "it": "Automatico",
+            "no": "Auto",
+            "sv": "Auto",
+            "pl": "Automatyczny",
+            "ru": "Авто",
+            "ko": "자동"
           }
         },
         {
           "id": "silent",
           "title": {
             "en": "Silent",
-            "nl": "Stil"
+            "nl": "Stil",
+            "da": "Stille",
+            "de": "Leise",
+            "es": "Silencio",
+            "fr": "Silencieux",
+            "it": "Silenzioso",
+            "no": "Stille",
+            "sv": "Tyst",
+            "pl": "Cichy",
+            "ru": "Тихий",
+            "ko": "조용한"
           }
         },
         {
           "id": "favorite",
           "title": {
             "en": "Favorite",
-            "nl": "Favoriet"
+            "nl": "Favoriet",
+            "da": "Favorit",
+            "de": "Favorit",
+            "es": "Favorito",
+            "fr": "Préféré",
+            "it": "Preferito",
+            "no": "Favoritt",
+            "sv": "Favorit",
+            "pl": "Ulubiony",
+            "ru": "Любимое",
+            "ko": "즐겨찾기"
           }
         }
       ]
@@ -1013,16 +1114,46 @@
       "type": "boolean",
       "title": {
         "en": "Charging",
-        "nl": "Opladen"
+        "nl": "Opladen",
+        "da": "Opladning",
+        "de": "Laden",
+        "es": "Cargando",
+        "fr": "Chargement",
+        "it": "Carica",
+        "no": "Lader",
+        "sv": "Laddar",
+        "pl": "Ładowanie",
+        "ru": "Зарядка",
+        "ko": "충전"
       },
       "insights": true,
       "insightsTitleTrue": {
         "en": "Charging",
-        "nl": "Aan het opladen"
+        "nl": "Aan het opladen",
+        "da": "Oplader",
+        "de": "Lädt",
+        "es": "Cargando",
+        "fr": "En charge",
+        "it": "In carica",
+        "no": "Lader",
+        "sv": "Laddar",
+        "pl": "Ładowanie",
+        "ru": "Зарядка",
+        "ko": "충전 중"
       },
       "insightsTitleFalse": {
         "en": "Not charging",
-        "nl": "Niet aan het opladen"
+        "nl": "Niet aan het opladen",
+        "da": "Lader ikke",
+        "de": "Lädt nicht",
+        "es": "No está cargando",
+        "fr": "Non chargé",
+        "it": "Non in carica",
+        "no": "Lader ikke",
+        "sv": "Laddar inte",
+        "pl": "Nie ładuje",
+        "ru": "Не заряжается",
+        "ko": "충전 안됨"
       },
       "getable": true,
       "setable": false,
@@ -1034,7 +1165,17 @@
       "type": "boolean",
       "title": {
         "en": "Occupancy",
-        "nl": "Bezetting"
+        "nl": "Bezetting",
+        "da": "Belægning",
+        "de": "Belegung",
+        "es": "Ocupación",
+        "fr": "Occupation",
+        "it": "Occupazione",
+        "no": "Beboelse",
+        "sv": "Beläggning",
+        "pl": "Zajętość",
+        "ru": "Занятость",
+        "ko": "점유"
       },
       "getable": true,
       "setable": false,
@@ -1046,16 +1187,46 @@
       "type": "boolean",
       "title": {
         "en": "Plugged in",
-        "nl": "Ingeplugd"
+        "nl": "Ingeplugd",
+        "da": "Tilsluttet",
+        "de": "Eingesteckt",
+        "es": "Conectado",
+        "fr": "Branche",
+        "it": "Collegato",
+        "no": "Tilkoblet",
+        "sv": "Ansluten",
+        "pl": "Podłączony",
+        "ru": "Подключен",
+        "ko": "플러그 인"
       },
       "insights": true,
       "insightsTitleTrue": {
         "en": "Plugged in",
-        "nl": "Ingeplugd"
+        "nl": "Ingeplugd",
+        "da": "Tilsluttet",
+        "de": "Eingesteckt",
+        "es": "Conectado",
+        "fr": "Branche",
+        "it": "Collegato",
+        "no": "Tilkoblet",
+        "sv": "Ansluten",
+        "pl": "Podłączony",
+        "ru": "Подключен",
+        "ko": "플러그 인"
       },
       "insightsTitleFalse": {
         "en": "Unplugged",
-        "nl": "Niet aangesloten"
+        "nl": "Niet aangesloten",
+        "da": "Frakoblet",
+        "de": "Ausgesteckt",
+        "es": "Desconectado",
+        "fr": "Débranché",
+        "it": "Scollegato",
+        "no": "Frakoblet",
+        "sv": "Urkopplad",
+        "pl": "Odłączony",
+        "ru": "Отключен",
+        "ko": "플러그를 뽑은"
       },
       "getable": true,
       "setable": false,
@@ -1067,16 +1238,46 @@
       "type": "boolean",
       "title": {
         "en": "Problem",
-        "nl": "Probleem"
+        "nl": "Probleem",
+        "da": "Problem",
+        "de": "Problem",
+        "es": "Problema",
+        "fr": "Problème",
+        "it": "Problema",
+        "no": "Problem",
+        "sv": "Problem",
+        "pl": "Problem",
+        "ru": "Проблема",
+        "ko": "문제"
       },
       "insights": true,
       "insightsTitleTrue": {
         "en": "Problem detected",
-        "nl": "Probleem gedetecteerd"
+        "nl": "Probleem gedetecteerd",
+        "da": "Problem opdaget",
+        "de": "Problem erkannt",
+        "es": "Problema detectado",
+        "fr": "Problème détecté",
+        "it": "Problema rilevato",
+        "no": "Problem oppdaget",
+        "sv": "Problem upptäckt",
+        "pl": "Problem wykryty",
+        "ru": "Проблема обнаружена",
+        "ko": "문제 감지됨"
       },
       "insightsTitleFalse": {
         "en": "No problem detected",
-        "nl": "Geen probleem gedetecteerd"
+        "nl": "Geen probleem gedetecteerd",
+        "da": "Intet problem opdaget",
+        "de": "Kein Problem erkannt",
+        "es": "No se detectó problema",
+        "fr": "Aucun problème détecté",
+        "it": "Nessun problema rilevato",
+        "no": "Ingen problem oppdaget",
+        "sv": "Inget problem upptäckt",
+        "pl": "Nie wykryto problemu",
+        "ru": "Проблем не обнаружено",
+        "ko": "문제 발견되지 않음"
       },
       "getable": true,
       "setable": false,
@@ -1087,16 +1288,46 @@
       "type": "boolean",
       "title": {
         "en": "Running",
-        "nl": "Draaiend"
+        "nl": "Draaiend",
+        "da": "Kører",
+        "de": "Läuft",
+        "es": "Corriendo",
+        "fr": "En cours",
+        "it": "In esecuzione",
+        "no": "Kjører",
+        "sv": "Kör",
+        "pl": "Biegnie",
+        "ru": "Запущено",
+        "ko": "실행 중"
       },
       "insights": true,
       "insightsTitleTrue": {
         "en": "Running",
-        "nl": "Draaiend"
+        "nl": "Draaiend",
+        "da": "Kører",
+        "de": "Läuft",
+        "es": "Corriendo",
+        "fr": "En cours",
+        "it": "In esecuzione",
+        "no": "Kjører",
+        "sv": "Kör",
+        "pl": "Biegnie",
+        "ru": "Запущено",
+        "ko": "실행 중"
       },
       "insightsTitleFalse": {
         "en": "Not Running",
-        "nl": "Niet Draaiend"
+        "nl": "Niet Draaiend",
+        "da": "Kører ikke",
+        "de": "Läuft nicht",
+        "es": "No corriendo",
+        "fr": "Pas en cours",
+        "it": "Non in esecuzione",
+        "no": "Kjører ikke",
+        "sv": "Kör inte",
+        "pl": "Nie biegnie",
+        "ru": "Не запущено",
+        "ko": "실행되지 않음"
       },
       "getable": true,
       "setable": false,
@@ -1107,16 +1338,46 @@
       "type": "boolean",
       "title": {
         "en": "Safety",
-        "nl": "Veiligheid"
+        "nl": "Veiligheid",
+        "da": "Sikkerhed",
+        "de": "Sicherheit",
+        "es": "Seguridad",
+        "fr": "Sécurité",
+        "it": "Sicurezza",
+        "no": "Sikkerhet",
+        "sv": "Säkerhet",
+        "pl": "Bezpieczeństwo",
+        "ru": "Безопасность",
+        "ko": "안전"
       },
       "insights": true,
       "insightsTitleTrue": {
         "en": "Unsafe",
-        "nl": "Onveilig"
+        "nl": "Onveilig",
+        "da": "Usikker",
+        "de": "Unsicher",
+        "es": "Inseguro",
+        "fr": "Dangereux",
+        "it": "Non sicuro",
+        "no": "Utrygg",
+        "sv": "Osäker",
+        "pl": "Niebezpieczny",
+        "ru": "Небезопасно",
+        "ko": "안전하지 않음"
       },
       "insightsTitleFalse": {
         "en": "Safe",
-        "nl": "Veilig"
+        "nl": "Veilig",
+        "da": "Sikker",
+        "de": "Sicher",
+        "es": "Seguro",
+        "fr": "Sûr",
+        "it": "Sicuro",
+        "no": "Trygg",
+        "sv": "Säker",
+        "pl": "Bezpieczny",
+        "ru": "Безопасно",
+        "ko": "안전"
       },
       "getable": true,
       "setable": false,
@@ -1127,16 +1388,46 @@
       "type": "boolean",
       "title": {
         "en": "Sound",
-        "nl": "Geluid"
+        "nl": "Geluid",
+        "da": "Lyd",
+        "de": "Ton",
+        "es": "Sonido",
+        "fr": "Son",
+        "it": "Suono",
+        "no": "Lyd",
+        "sv": "Ljud",
+        "pl": "Dźwięk",
+        "ru": "Звук",
+        "ko": "소리"
       },
       "insights": true,
       "insightsTitleTrue": {
         "en": "Sound detected",
-        "nl": "Geluid gedetecteerd"
+        "nl": "Geluid gedetecteerd",
+        "da": "Lyd opdaget",
+        "de": "Ton erkannt",
+        "es": "Sonido detectado",
+        "fr": "Son détecté",
+        "it": "Suono rilevato",
+        "no": "Lyd oppdaget",
+        "sv": "Ljud upptäckt",
+        "pl": "Wykryto dźwięk",
+        "ru": "Звук обнаружен",
+        "ko": "소리 감지됨"
       },
       "insightsTitleFalse": {
         "en": "No sound detected",
-        "nl": "Geluid gedetecteerd"
+        "nl": "Geluid gedetecteerd",
+        "da": "Ingen lyd opdaget",
+        "de": "Kein Ton erkannt",
+        "es": "Ningún sonido detectado",
+        "fr": "Aucun son détecté",
+        "it": "Nessun suono rilevato",
+        "no": "Ingen lyd oppdaget",
+        "sv": "Inget ljud upptäckt",
+        "pl": "Nie wykryto dźwięku",
+        "ru": "Звук не обнаружен",
+        "ko": "소리 감지 안 됨"
       },
       "getable": true,
       "setable": false,
@@ -1150,29 +1441,79 @@
       "icon": "/assets/capabilities/alarm_vibration.svg",
       "title": {
         "en": "Vibration Alarm",
-        "nl": "Trillingsalarm"
+        "nl": "Trillingsalarm",
+        "da": "Vibrationsalarm",
+        "de": "Vibrationsalarm",
+        "es": "Alarma de vibración",
+        "fr": "Alarme de vibration",
+        "it": "Allarme di vibrazione",
+        "no": "Vibrasjonsalarm",
+        "sv": "Vibrationslarm",
+        "pl": "Alarm wibracyjny",
+        "ru": "Сигнализация вибрации",
+        "ko": "진동 경고"
       },
       "desc": {
         "en": "Detected vibration",
-        "nl": "Gedetecteerde trilling"
+        "nl": "Gedetecteerde trilling",
+        "da": "Registreret vibration",
+        "de": "Erkannte Vibration",
+        "es": "Vibración detectada",
+        "fr": "Vibration détectée",
+        "it": "Vibrazione rilevata",
+        "no": "Oppdaget vibrasjon",
+        "sv": "Upptäckt vibration",
+        "pl": "Wykryto wibracje",
+        "ru": "Обнаружена вибрация",
+        "ko": "감지된 진동"
       },
       "getable": true,
       "setable": false,
       "insights": true,
       "insightsTitleTrue": {
         "en": "Vibration alarm turned on",
-        "nl": "Trillings alarm ging af"
+        "nl": "Trillings alarm ging af",
+        "da": "Vibrationsalarmen er slået til",
+        "de": "Vibrationsalarm eingeschaltet",
+        "es": "Alarma de vibración activada",
+        "fr": "Alarme de vibration activée",
+        "it": "Allarme di vibrazione attivato",
+        "no": "Vibrasjonsalarmen er på",
+        "sv": "Vibrationslarm aktiverat",
+        "pl": "Wibracyjny alarm włączony",
+        "ru": "Вибрационная сигнализация включена",
+        "ko": "진동 경고가 켜졌습니다"
       },
       "insightsTitleFalse": {
         "en": "Vibration alarm turned off",
-        "nl": "Trillings alarm ging uit"
+        "nl": "Trillings alarm ging uit",
+        "da": "Vibrationsalarmen er slået fra",
+        "de": "Vibrationsalarm ausgeschaltet",
+        "es": "Alarma de vibración desactivada",
+        "fr": "Alarme de vibration désactivée",
+        "it": "Allarme di vibrazione disattivato",
+        "no": "Vibrasjonsalarmen er av",
+        "sv": "Vibrationslarm avaktiverat",
+        "pl": "Wibracyjny alarm wyłączony",
+        "ru": "Вибрационная сигнализация выключена",
+        "ko": "진동 경고가 꺼졌습니다"
       }
     },
     "fan_mode": {
       "type": "enum",
       "title": {
         "en": "Mode",
-        "nl": "Modus"
+        "nl": "Modus",
+        "da": "Tilstand",
+        "de": "Modus",
+        "es": "Modo",
+        "fr": "Mode",
+        "it": "Modalità",
+        "no": "Modus",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드"
       },
       "uiComponent": "picker",
       "getable": true,
@@ -1182,14 +1523,34 @@
           "id": "nature",
           "title": {
             "en": "Nature",
-            "nl": "Natuurlijk"
+            "nl": "Natuurlijk",
+            "da": "Natur",
+            "de": "Natur",
+            "es": "Naturaleza",
+            "fr": "Nature",
+            "it": "Natura",
+            "no": "Natur",
+            "sv": "Natur",
+            "pl": "Natura",
+            "ru": "Природа",
+            "ko": "자연"
           }
         },
         {
           "id": "normal",
           "title": {
             "en": "Normal",
-            "nl": "Normaal"
+            "nl": "Normaal",
+            "da": "Normal",
+            "de": "Normal",
+            "es": "Normal",
+            "fr": "Normal",
+            "it": "Normale",
+            "no": "Normal",
+            "sv": "Normal",
+            "pl": "Normalny",
+            "ru": "Нормальный",
+            "ko": "일반"
           }
         }
       ]
@@ -1198,7 +1559,17 @@
       "type": "boolean",
       "title": {
         "en": "Oscillate",
-        "nl": "Oscilleren"
+        "nl": "Oscilleren",
+        "da": "Svinge",
+        "de": "Schwingen",
+        "es": "Oscilar",
+        "fr": "Osciller",
+        "it": "Oscillare",
+        "no": "Svinge",
+        "sv": "Svänga",
+        "pl": "Oscylować",
+        "ru": "Колебаться",
+        "ko": "진동시키다"
       },
       "icon": "/assets/capabilities/oscillate.svg",
       "getable": true,
@@ -1209,7 +1580,17 @@
       "type": "number",
       "title": {
         "en": "Fan speed",
-        "nl": "Ventilator snelheid"
+        "nl": "Ventilator snelheid",
+        "da": "Ventilatorhastighed",
+        "de": "Lüftergeschwindigkeit",
+        "es": "Velocidad del ventilador",
+        "fr": "Vitesse du ventilateur",
+        "it": "Velocità della ventola",
+        "no": "Viftehastighet",
+        "sv": "Fläkthastighet",
+        "pl": "Prędkość wentylatora",
+        "ru": "Скорость вентилятора",
+        "ko": "팬 속도"
       },
       "chartType": "stepLine",
       "min": 0,
@@ -1223,7 +1604,18 @@
     "hass-boolean": {
       "type": "boolean",
       "title": {
-        "en": "Read-only Boolean"
+        "en": "Read-only Boolean",
+        "nl": "Alleen-lezen Booleaan",
+        "da": "Skrivebeskyttet Boolesk",
+        "de": "Schreibgeschütztes Boolesch",
+        "es": "Booleano de solo lectura",
+        "fr": "Booléen en lecture seule",
+        "it": "Booleano di sola lettura",
+        "no": "Skrivebeskyttet Boolsk",
+        "sv": "Skrivskyddad Boolean",
+        "pl": "Tylko do odczytu Bool",
+        "ru": "Только для чтения Булев",
+        "ko": "읽기 전용 부울"
       },
       "zoneActivity": false,
       "getable": true,
@@ -1232,7 +1624,18 @@
     "hass-number": {
       "type": "number",
       "title": {
-        "en": "Read-only Number"
+        "en": "Read-only Number",
+        "nl": "Alleen-lezen Nummer",
+        "da": "Skrivebeskyttet Nummer",
+        "de": "Schreibgeschützte Nummer",
+        "es": "Número de solo lectura",
+        "fr": "Numéro en lecture seule",
+        "it": "Numero di Sola Lettura",
+        "no": "Skrivebeskyttet Nummer",
+        "sv": "Skrivskyddat Nummer",
+        "pl": "Numer Tylko do Odczytu",
+        "ru": "Номер Только для Чтения",
+        "ko": "읽기 전용 번호"
       },
       "getable": true,
       "setable": false
@@ -1240,7 +1643,18 @@
     "hass-string": {
       "type": "string",
       "title": {
-        "en": "Read-only String"
+        "en": "Read-only String",
+        "nl": "Alleen-lezen String",
+        "da": "Skrivebeskyttet streng",
+        "de": "Schreibgeschützter String",
+        "es": "Cadena de solo lectura",
+        "fr": "Chaîne en lecture seule",
+        "it": "Stringa di sola lettura",
+        "no": "Skrivebeskyttet streng",
+        "sv": "Skrivskyddad sträng",
+        "pl": "Tylko do odczytu String",
+        "ru": "Строка только для чтения",
+        "ko": "읽기 전용 문자열"
       },
       "getable": true,
       "setable": false
@@ -1249,13 +1663,33 @@
       "type": "string",
       "title": {
         "en": "Air Quality Level",
-        "nl": "Luchtkwaliteit niveaus"
+        "nl": "Luchtkwaliteit niveaus",
+        "da": "Luftkvalitetsniveau",
+        "de": "Luftqualitätsstufe",
+        "es": "Nivel de calidad del aire",
+        "fr": "Niveau de qualité de l'air",
+        "it": "Livello di qualità dell'aria",
+        "no": "Luftkvalitetsnivå",
+        "sv": "Luftkvalitetsnivå",
+        "pl": "Poziom jakości powietrza",
+        "ru": "Уровень качества воздуха",
+        "ko": "대기 질 수준"
       },
       "getable": true,
       "setable": false,
       "desc": {
         "en": "Air Quality Index",
-        "nl": "Luchtkwaliteit Index"
+        "nl": "Luchtkwaliteit Index",
+        "da": "Luftkvalitetsindeks",
+        "de": "Luftqualitätsindex",
+        "es": "Índice de calidad del aire",
+        "fr": "Indice de qualité de l'air",
+        "it": "Indice di qualità dell'aria",
+        "no": "Luftkvalitetsindeks",
+        "sv": "Luftkvalitetsindex",
+        "pl": "Indeks jakości powietrza",
+        "ru": "Индекс качества воздуха",
+        "ko": "대기 질 지수"
       },
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/measure_aqi.svg",
@@ -1272,12 +1706,32 @@
       "setable": false,
       "units": {
         "en": "µg/m3",
-        "nl": "µg/m3"
+        "nl": "µg/m3",
+        "da": "µg/m3",
+        "de": "µg/m3",
+        "es": "µg/m3",
+        "fr": "µg/m3",
+        "it": "µg/m3",
+        "no": "µg/m3",
+        "sv": "µg/m3",
+        "pl": "µg/m3",
+        "ru": "µg/m3",
+        "ko": "µg/m3"
       },
       "insights": true,
       "desc": {
         "en": "Particulate matter (µg/m3)",
-        "nl": "Fijnstof (µg/m3)"
+        "nl": "Fijnstof (µg/m3)",
+        "da": "Partikler (µg/m3)",
+        "de": "Partikel (µg/m3)",
+        "es": "Partículas (µg/m3)",
+        "fr": "Particules (µg/m3)",
+        "it": "Particolato (µg/m3)",
+        "no": "Partikler (µg/m3)",
+        "sv": "Partiklar (µg/m3)",
+        "pl": "Cząstki (µg/m3)",
+        "ru": "Частицы (µg/m3)",
+        "ko": "미세먼지 (µg/m3)"
       },
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/measure_pm1.svg",
@@ -1294,12 +1748,32 @@
       "setable": false,
       "units": {
         "en": "µg/m3",
-        "nl": "µg/m3"
+        "nl": "µg/m3",
+        "da": "µg/m3",
+        "de": "µg/m3",
+        "es": "µg/m3",
+        "fr": "µg/m3",
+        "it": "µg/m3",
+        "no": "µg/m3",
+        "sv": "µg/m3",
+        "pl": "µg/m3",
+        "ru": "µg/m3",
+        "ko": "µg/m3"
       },
       "insights": true,
       "desc": {
         "en": "Particulate matter (µg/m3)",
-        "nl": "Fijnstof (µg/m3)"
+        "nl": "Fijnstof (µg/m3)",
+        "da": "Partikler (µg/m3)",
+        "de": "Feinstaub (µg/m3)",
+        "es": "Material particulado (µg/m3)",
+        "fr": "Matière particulaire (µg/m3)",
+        "it": "Materiale particolato (µg/m3)",
+        "no": "Partikler (µg/m3)",
+        "sv": "Partiklar (µg/m3)",
+        "pl": "Pył zawieszony (µg/m3)",
+        "ru": "Взвешенные частицы (µg/m3)",
+        "ko": "입자 물질 (µg/m3)"
       },
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/measure_pm10.svg",
@@ -1309,19 +1783,49 @@
       "type": "number",
       "title": {
         "en": "Signal Strength",
-        "nl": "Signaal Sterkte"
+        "nl": "Signaal Sterkte",
+        "da": "Signalstyrke",
+        "de": "Signalstärke",
+        "es": "Intensidad de señal",
+        "fr": "Puissance du signal",
+        "it": "Intensità del segnale",
+        "no": "Signalstyrke",
+        "sv": "Signalstyrka",
+        "pl": "Siła sygnału",
+        "ru": "Уровень сигнала",
+        "ko": "신호 강도"
       },
       "chartType": "spline",
       "getable": true,
       "setable": false,
       "units": {
         "en": "dBm",
-        "nl": "dBm"
+        "nl": "dBm",
+        "da": "dBm",
+        "de": "dBm",
+        "es": "dBm",
+        "fr": "dBm",
+        "it": "dBm",
+        "no": "dBm",
+        "sv": "dBm",
+        "pl": "dBm",
+        "ru": "дБм",
+        "ko": "dBm"
       },
       "insights": true,
       "desc": {
         "en": "Signal Strength (dBm)",
-        "nl": "Signaal Sterkte (dBm)"
+        "nl": "Signaal Sterkte (dBm)",
+        "da": "Signalstyrke (dBm)",
+        "de": "Signalstärke (dBm)",
+        "es": "Intensidad de señal (dBm)",
+        "fr": "Puissance du signal (dBm)",
+        "it": "Intensità del segnale (dBm)",
+        "no": "Signalstyrke (dBm)",
+        "sv": "Signalstyrka (dBm)",
+        "pl": "Siła sygnału (dBm)",
+        "ru": "Уровень сигнала (дБм)",
+        "ko": "신호 강도 (dBm)"
       },
       "uiComponent": "sensor",
       "uiQuickAction": false
@@ -1330,19 +1834,49 @@
       "type": "number",
       "title": {
         "en": "VOC",
-        "nl": "VOC"
+        "nl": "VOC",
+        "da": "VOC",
+        "de": "VOC",
+        "es": "VOC",
+        "fr": "VOC",
+        "it": "VOC",
+        "no": "VOC",
+        "sv": "VOC",
+        "pl": "VOC",
+        "ru": "VOC",
+        "ko": "VOC"
       },
       "chartType": "spline",
       "getable": true,
       "setable": false,
       "units": {
         "en": "ppb",
-        "nl": "ppb"
+        "nl": "ppb",
+        "da": "ppb",
+        "de": "ppb",
+        "es": "ppb",
+        "fr": "ppb",
+        "it": "ppb",
+        "no": "ppb",
+        "sv": "ppb",
+        "pl": "ppb",
+        "ru": "ppb",
+        "ko": "ppb"
       },
       "insights": true,
       "desc": {
         "en": "Volatile Organic Compounds (ppb)",
-        "nl": "Vluchtige organische stoffen (ppb)"
+        "nl": "Vluchtige organische stoffen (ppb)",
+        "da": "Flygtige organiske forbindelser (ppb)",
+        "de": "Flüchtige organische Verbindungen (ppb)",
+        "es": "Compuestos Orgánicos Volátiles (ppb)",
+        "fr": "Composés Organiques Volatils (ppb)",
+        "it": "Composti Organici Volatili (ppb)",
+        "no": "Flyktige organiske forbindelser (ppb)",
+        "sv": "Flyktiga organiska föreningar (ppb)",
+        "pl": "Lotne związki organiczne (ppb)",
+        "ru": "Летучие органические соединения (ppb)",
+        "ko": "휘발성 유기 화합물 (ppb)"
       },
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/measure_voc.svg",
@@ -1352,14 +1886,34 @@
       "type": "string",
       "title": {
         "en": "Status",
-        "nl": "Status"
+        "nl": "Status",
+        "da": "Status",
+        "de": "Status",
+        "es": "Estado",
+        "fr": "Statut",
+        "it": "Stato",
+        "no": "Status",
+        "sv": "Status",
+        "pl": "Status",
+        "ru": "Статус",
+        "ko": "상태"
       },
       "getable": true,
       "setable": false,
       "insights": false,
       "desc": {
         "en": "Status",
-        "nl": "Status"
+        "nl": "Status",
+        "da": "Status",
+        "de": "Status",
+        "es": "Estado",
+        "fr": "Statut",
+        "it": "Stato",
+        "no": "Status",
+        "sv": "Status",
+        "pl": "Status",
+        "ru": "Статус",
+        "ko": "상태"
       },
       "icon": "/assets/capabilities/status.svg",
       "uiComponent": "sensor",

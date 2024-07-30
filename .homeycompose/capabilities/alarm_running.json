@@ -1,20 +1,50 @@
 {
-    "type": "boolean",
-    "title": {
-        "en": "Running",
-        "nl": "Draaiend"
-    },
-    "insights": true,
-    "insightsTitleTrue": {
-        "en": "Running",
-        "nl": "Draaiend"
-    },
-    "insightsTitleFalse": {
-        "en": "Not Running",
-        "nl": "Niet Draaiend"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false
+  "type": "boolean",
+  "title": {
+    "en": "Running",
+    "nl": "Draaiend",
+    "da": "Kører",
+    "de": "Läuft",
+    "es": "Corriendo",
+    "fr": "En cours",
+    "it": "In esecuzione",
+    "no": "Kjører",
+    "sv": "Kör",
+    "pl": "Biegnie",
+    "ru": "Запущено",
+    "ko": "실행 중"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Running",
+    "nl": "Draaiend",
+    "da": "Kører",
+    "de": "Läuft",
+    "es": "Corriendo",
+    "fr": "En cours",
+    "it": "In esecuzione",
+    "no": "Kjører",
+    "sv": "Kör",
+    "pl": "Biegnie",
+    "ru": "Запущено",
+    "ko": "실행 중"
+  },
+  "insightsTitleFalse": {
+    "en": "Not Running",
+    "nl": "Niet Draaiend",
+    "da": "Kører ikke",
+    "de": "Läuft nicht",
+    "es": "No corriendo",
+    "fr": "Pas en cours",
+    "it": "Non in esecuzione",
+    "no": "Kjører ikke",
+    "sv": "Kör inte",
+    "pl": "Nie biegnie",
+    "ru": "Не запущено",
+    "ko": "실행되지 않음"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false
 }

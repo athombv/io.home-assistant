@@ -1,22 +1,52 @@
 {
-    "type": "number",
-    "title": {
-        "en": "VOC",
-        "nl": "VOC"
-    },
-    "chartType": "spline",
-    "getable": true,
-    "setable": false,
-    "units": {
-        "en": "ppb",
-        "nl": "ppb"
-    },
-    "insights": true,
-    "desc": {
-        "en": "Volatile Organic Compounds (ppb)",
-        "nl": "Vluchtige organische stoffen (ppb)"
-    },
-    "uiComponent": "sensor",
-    "icon": "/assets/capabilities/measure_voc.svg",
-    "uiQuickAction": false
+  "type": "number",
+  "title": {
+    "en": "VOC",
+    "nl": "VOC",
+    "da": "VOC",
+    "de": "VOC",
+    "es": "VOC",
+    "fr": "VOC",
+    "it": "VOC",
+    "no": "VOC",
+    "sv": "VOC",
+    "pl": "VOC",
+    "ru": "VOC",
+    "ko": "VOC"
+  },
+  "chartType": "spline",
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "ppb",
+    "nl": "ppb",
+    "da": "ppb",
+    "de": "ppb",
+    "es": "ppb",
+    "fr": "ppb",
+    "it": "ppb",
+    "no": "ppb",
+    "sv": "ppb",
+    "pl": "ppb",
+    "ru": "ppb",
+    "ko": "ppb"
+  },
+  "insights": true,
+  "desc": {
+    "en": "Volatile Organic Compounds (ppb)",
+    "nl": "Vluchtige organische stoffen (ppb)",
+    "da": "Flygtige organiske forbindelser (ppb)",
+    "de": "Flüchtige organische Verbindungen (ppb)",
+    "es": "Compuestos Orgánicos Volátiles (ppb)",
+    "fr": "Composés Organiques Volatils (ppb)",
+    "it": "Composti Organici Volatili (ppb)",
+    "no": "Flyktige organiske forbindelser (ppb)",
+    "sv": "Flyktiga organiska föreningar (ppb)",
+    "pl": "Lotne związki organiczne (ppb)",
+    "ru": "Летучие органические соединения (ppb)",
+    "ko": "휘발성 유기 화합물 (ppb)"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/measure_voc.svg",
+  "uiQuickAction": false
 }

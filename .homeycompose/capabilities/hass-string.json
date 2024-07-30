@@ -1,7 +1,18 @@
 {
   "type": "string",
   "title": {
-    "en": "Read-only String"
+    "en": "Read-only String",
+    "nl": "Alleen-lezen String",
+    "da": "Skrivebeskyttet streng",
+    "de": "Schreibgeschützter String",
+    "es": "Cadena de solo lectura",
+    "fr": "Chaîne en lecture seule",
+    "it": "Stringa di sola lettura",
+    "no": "Skrivebeskyttet streng",
+    "sv": "Skrivskyddad sträng",
+    "pl": "Tylko do odczytu String",
+    "ru": "Строка только для чтения",
+    "ko": "읽기 전용 문자열"
   },
   "getable": true,
   "setable": false

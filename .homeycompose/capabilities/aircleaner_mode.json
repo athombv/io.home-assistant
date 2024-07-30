@@ -1,7 +1,17 @@
 {
   "type": "enum",
   "title": {
-    "en": "Mode"
+    "en": "Mode",
+    "da": "Tilstand",
+    "de": "Modus",
+    "es": "Modo",
+    "fr": "Mode",
+    "it": "Modalità",
+    "no": "Modus",
+    "sv": "Läge",
+    "pl": "Tryb",
+    "ru": "Режим",
+    "ko": "모드"
   },
   "uiComponent": "picker",
   "getable": true,
@@ -11,28 +21,68 @@
       "id": "fan",
       "title": {
         "en": "Fan",
-        "nl": "Ventilator"
+        "nl": "Ventilator",
+        "da": "Blæser",
+        "de": "Ventilator",
+        "es": "Ventilador",
+        "fr": "Ventilateur",
+        "it": "Ventilatore",
+        "no": "Vifte",
+        "sv": "Fläkt",
+        "pl": "Wentylator",
+        "ru": "Вентилятор",
+        "ko": "팬"
       }
     },
     {
       "id": "auto",
       "title": {
         "en": "Auto",
-        "nl": "Auto"
+        "nl": "Auto",
+        "da": "Automatisk",
+        "de": "Automatisch",
+        "es": "Auto",
+        "fr": "Automatique",
+        "it": "Automatico",
+        "no": "Auto",
+        "sv": "Auto",
+        "pl": "Automatyczny",
+        "ru": "Авто",
+        "ko": "자동"
       }
     },
     {
       "id": "silent",
       "title": {
         "en": "Silent",
-        "nl": "Stil"
+        "nl": "Stil",
+        "da": "Stille",
+        "de": "Leise",
+        "es": "Silencio",
+        "fr": "Silencieux",
+        "it": "Silenzioso",
+        "no": "Stille",
+        "sv": "Tyst",
+        "pl": "Cichy",
+        "ru": "Тихий",
+        "ko": "조용한"
       }
     },
     {
       "id": "favorite",
       "title": {
         "en": "Favorite",
-        "nl": "Favoriet"
+        "nl": "Favoriet",
+        "da": "Favorit",
+        "de": "Favorit",
+        "es": "Favorito",
+        "fr": "Préféré",
+        "it": "Preferito",
+        "no": "Favoritt",
+        "sv": "Favorit",
+        "pl": "Ulubiony",
+        "ru": "Любимое",
+        "ko": "즐겨찾기"
       }
     }
   ]

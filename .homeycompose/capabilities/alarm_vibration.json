@@ -1,24 +1,64 @@
 {
-    "type": "boolean",
-    "uiComponent": "sensor",
-    "icon": "/assets/capabilities/alarm_vibration.svg",
-    "title": {
-        "en": "Vibration Alarm",
-        "nl": "Trillingsalarm"
-    },
-    "desc": {
-        "en": "Detected vibration",
-        "nl": "Gedetecteerde trilling"
-    },
-    "getable": true,
-    "setable": false,
-    "insights": true,
-    "insightsTitleTrue": {
-        "en": "Vibration alarm turned on",
-        "nl": "Trillings alarm ging af"
-    },
-    "insightsTitleFalse": {
-        "en": "Vibration alarm turned off",
-        "nl": "Trillings alarm ging uit"
-    }
+  "type": "boolean",
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_vibration.svg",
+  "title": {
+    "en": "Vibration Alarm",
+    "nl": "Trillingsalarm",
+    "da": "Vibrationsalarm",
+    "de": "Vibrationsalarm",
+    "es": "Alarma de vibración",
+    "fr": "Alarme de vibration",
+    "it": "Allarme di vibrazione",
+    "no": "Vibrasjonsalarm",
+    "sv": "Vibrationslarm",
+    "pl": "Alarm wibracyjny",
+    "ru": "Сигнализация вибрации",
+    "ko": "진동 경고"
+  },
+  "desc": {
+    "en": "Detected vibration",
+    "nl": "Gedetecteerde trilling",
+    "da": "Registreret vibration",
+    "de": "Erkannte Vibration",
+    "es": "Vibración detectada",
+    "fr": "Vibration détectée",
+    "it": "Vibrazione rilevata",
+    "no": "Oppdaget vibrasjon",
+    "sv": "Upptäckt vibration",
+    "pl": "Wykryto wibracje",
+    "ru": "Обнаружена вибрация",
+    "ko": "감지된 진동"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Vibration alarm turned on",
+    "nl": "Trillings alarm ging af",
+    "da": "Vibrationsalarmen er slået til",
+    "de": "Vibrationsalarm eingeschaltet",
+    "es": "Alarma de vibración activada",
+    "fr": "Alarme de vibration activée",
+    "it": "Allarme di vibrazione attivato",
+    "no": "Vibrasjonsalarmen er på",
+    "sv": "Vibrationslarm aktiverat",
+    "pl": "Wibracyjny alarm włączony",
+    "ru": "Вибрационная сигнализация включена",
+    "ko": "진동 경고가 켜졌습니다"
+  },
+  "insightsTitleFalse": {
+    "en": "Vibration alarm turned off",
+    "nl": "Trillings alarm ging uit",
+    "da": "Vibrationsalarmen er slået fra",
+    "de": "Vibrationsalarm ausgeschaltet",
+    "es": "Alarma de vibración desactivada",
+    "fr": "Alarme de vibration désactivée",
+    "it": "Allarme di vibrazione disattivato",
+    "no": "Vibrasjonsalarmen er av",
+    "sv": "Vibrationslarm avaktiverat",
+    "pl": "Wibracyjny alarm wyłączony",
+    "ru": "Вибрационная сигнализация выключена",
+    "ko": "진동 경고가 꺼졌습니다"
+  }
 }

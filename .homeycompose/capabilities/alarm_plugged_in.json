@@ -1,21 +1,51 @@
 {
-    "type": "boolean",
-    "title": {
-        "en": "Plugged in",
-        "nl": "Ingeplugd"
-    },
-    "insights": true,
-    "insightsTitleTrue": {
-        "en": "Plugged in",
-        "nl": "Ingeplugd"
-    },
-    "insightsTitleFalse": {
-        "en": "Unplugged",
-        "nl": "Niet aangesloten"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "icon": "/assets/capabilities/alarm_charging.svg",
-    "uiQuickAction": false
+  "type": "boolean",
+  "title": {
+    "en": "Plugged in",
+    "nl": "Ingeplugd",
+    "da": "Tilsluttet",
+    "de": "Eingesteckt",
+    "es": "Conectado",
+    "fr": "Branche",
+    "it": "Collegato",
+    "no": "Tilkoblet",
+    "sv": "Ansluten",
+    "pl": "Podłączony",
+    "ru": "Подключен",
+    "ko": "플러그 인"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Plugged in",
+    "nl": "Ingeplugd",
+    "da": "Tilsluttet",
+    "de": "Eingesteckt",
+    "es": "Conectado",
+    "fr": "Branche",
+    "it": "Collegato",
+    "no": "Tilkoblet",
+    "sv": "Ansluten",
+    "pl": "Podłączony",
+    "ru": "Подключен",
+    "ko": "플러그 인"
+  },
+  "insightsTitleFalse": {
+    "en": "Unplugged",
+    "nl": "Niet aangesloten",
+    "da": "Frakoblet",
+    "de": "Ausgesteckt",
+    "es": "Desconectado",
+    "fr": "Débranché",
+    "it": "Scollegato",
+    "no": "Frakoblet",
+    "sv": "Urkopplad",
+    "pl": "Odłączony",
+    "ru": "Отключен",
+    "ko": "플러그를 뽑은"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_charging.svg",
+  "uiQuickAction": false
 }

@@ -1,21 +1,51 @@
 {
-    "type": "number",
-    "title": {
-        "en": "Signal Strength",
-        "nl": "Signaal Sterkte"
-    },
-    "chartType": "spline",
-    "getable": true,
-    "setable": false,
-    "units": {
-        "en": "dBm",
-        "nl": "dBm"
-    },
-    "insights": true,
-    "desc": {
-        "en": "Signal Strength (dBm)",
-        "nl": "Signaal Sterkte (dBm)"
-    },
-    "uiComponent": "sensor",
-    "uiQuickAction": false
+  "type": "number",
+  "title": {
+    "en": "Signal Strength",
+    "nl": "Signaal Sterkte",
+    "da": "Signalstyrke",
+    "de": "Signalstärke",
+    "es": "Intensidad de señal",
+    "fr": "Puissance du signal",
+    "it": "Intensità del segnale",
+    "no": "Signalstyrke",
+    "sv": "Signalstyrka",
+    "pl": "Siła sygnału",
+    "ru": "Уровень сигнала",
+    "ko": "신호 강도"
+  },
+  "chartType": "spline",
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "dBm",
+    "nl": "dBm",
+    "da": "dBm",
+    "de": "dBm",
+    "es": "dBm",
+    "fr": "dBm",
+    "it": "dBm",
+    "no": "dBm",
+    "sv": "dBm",
+    "pl": "dBm",
+    "ru": "дБм",
+    "ko": "dBm"
+  },
+  "insights": true,
+  "desc": {
+    "en": "Signal Strength (dBm)",
+    "nl": "Signaal Sterkte (dBm)",
+    "da": "Signalstyrke (dBm)",
+    "de": "Signalstärke (dBm)",
+    "es": "Intensidad de señal (dBm)",
+    "fr": "Puissance du signal (dBm)",
+    "it": "Intensità del segnale (dBm)",
+    "no": "Signalstyrke (dBm)",
+    "sv": "Signalstyrka (dBm)",
+    "pl": "Siła sygnału (dBm)",
+    "ru": "Уровень сигнала (дБм)",
+    "ko": "신호 강도 (dBm)"
+  },
+  "uiComponent": "sensor",
+  "uiQuickAction": false
 }

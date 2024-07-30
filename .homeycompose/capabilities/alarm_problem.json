@@ -1,20 +1,50 @@
 {
-    "type": "boolean",
-    "title": {
-        "en": "Problem",
-        "nl": "Probleem"
-    },
-    "insights": true,
-    "insightsTitleTrue": {
-        "en": "Problem detected",
-        "nl": "Probleem gedetecteerd"
-    },
-    "insightsTitleFalse": {
-        "en": "No problem detected",
-        "nl": "Geen probleem gedetecteerd"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false
+  "type": "boolean",
+  "title": {
+    "en": "Problem",
+    "nl": "Probleem",
+    "da": "Problem",
+    "de": "Problem",
+    "es": "Problema",
+    "fr": "Problème",
+    "it": "Problema",
+    "no": "Problem",
+    "sv": "Problem",
+    "pl": "Problem",
+    "ru": "Проблема",
+    "ko": "문제"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Problem detected",
+    "nl": "Probleem gedetecteerd",
+    "da": "Problem opdaget",
+    "de": "Problem erkannt",
+    "es": "Problema detectado",
+    "fr": "Problème détecté",
+    "it": "Problema rilevato",
+    "no": "Problem oppdaget",
+    "sv": "Problem upptäckt",
+    "pl": "Problem wykryty",
+    "ru": "Проблема обнаружена",
+    "ko": "문제 감지됨"
+  },
+  "insightsTitleFalse": {
+    "en": "No problem detected",
+    "nl": "Geen probleem gedetecteerd",
+    "da": "Intet problem opdaget",
+    "de": "Kein Problem erkannt",
+    "es": "No se detectó problema",
+    "fr": "Aucun problème détecté",
+    "it": "Nessun problema rilevato",
+    "no": "Ingen problem oppdaget",
+    "sv": "Inget problem upptäckt",
+    "pl": "Nie wykryto problemu",
+    "ru": "Проблем не обнаружено",
+    "ko": "문제 발견되지 않음"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false
 }

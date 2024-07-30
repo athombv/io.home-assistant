@@ -1,12 +1,22 @@
 {
-    "type": "boolean",
-    "title": {
-        "en": "Occupancy",
-        "nl": "Bezetting"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "icon": "/assets/capabilities/alarm_occupancy.svg",
-    "uiQuickAction": false
+  "type": "boolean",
+  "title": {
+    "en": "Occupancy",
+    "nl": "Bezetting",
+    "da": "Belægning",
+    "de": "Belegung",
+    "es": "Ocupación",
+    "fr": "Occupation",
+    "it": "Occupazione",
+    "no": "Beboelse",
+    "sv": "Beläggning",
+    "pl": "Zajętość",
+    "ru": "Занятость",
+    "ko": "점유"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_occupancy.svg",
+  "uiQuickAction": false
 }
