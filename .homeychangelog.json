@@ -49,5 +49,8 @@
   },
   "0.7.0": {
     "en": "Added translations."
+  },
+  "0.7.1": {
+    "en": "Fixed issue where devices would sometimes remain unavailable after pairing"
   }
 }
