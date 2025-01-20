@@ -52,5 +52,8 @@
   },
   "0.7.1": {
     "en": "Fixed issue where devices would sometimes remain unavailable after pairing"
+  },
+  "0.7.2": {
+    "en": "Fixed possible error during pairing"
   }
 }
