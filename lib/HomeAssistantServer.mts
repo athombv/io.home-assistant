@@ -1,34 +1,30 @@
-'use strict';
+// @ts-nocheck
 
-const Homey = require('homey');
-const Hass = require('home-assistant-js-websocket');
-const ws = require('ws');
-const fetch = require('node-fetch');
-const FormData = require('form-data');
+import Homey from 'homey';
 
-// Bind modules to global scope for `home-assistant-js-websocket` package.
-global.WebSocket = ws;
-global.fetch = fetch;
-global.FormData = FormData;
+import {
+  Auth,
+  Connection,
+  createConnection,
+  type HassEntities,
+  type HassEntity,
+  subscribeEntities,
+} from 'home-assistant-js-websocket';
 
-module.exports = class HomeAssistantServer extends Homey.SimpleClass {
+export default class HomeAssistantServer extends Homey.SimpleClass {
+  private connection: Promise<Connection> | null = null;
+  private entities: Promise<HassEntities> | null = null;
+  private _states: HassEntity[] = [];
 
-  constructor({
-    homey,
-    token,
-    protocol,
-    host,
-    port = '8123',
-    name = 'Home Assistant',
-  }) {
+  constructor(
+    private protocol: string,
+    private host: string,
+    private port = '8123',
+    private name = 'Home Assistant',
+    private token: string,
+    private homey,
+  ) {
     super();
-
-    this.homey = homey;
-    this.token = token;
-    this.protocol = protocol;
-    this.name = name;
-    this.host = host;
-    this.port = port;
 
     if (!this.protocol) {
       throw new Error('Missing Protocol');
@@ -58,14 +54,17 @@ module.exports = class HomeAssistantServer extends Homey.SimpleClass {
     if (!this.connection) {
       this.connection = Promise.resolve().then(async () => {
         // Create Auth
-        const auth = new Hass.Auth({
+        const auth = new Auth({
           hassUrl: `${this.protocol}://${this.host}:${this.port}`,
           access_token: this.token,
-          expires: new Date(new Date().getTime() + 1e11),
+          expires: new Date().getTime() + 1e11,
+          clientId: 'https://callback.athom.com',
+          expires_in: Infinity,
+          refresh_token: '',
         });
 
         // Create Connection
-        const connection = await Hass.createConnection({ auth });
+        const connection = await createConnection({ auth });
         this.log('Connected');
 
         // Subscribe to events
@@ -78,25 +77,26 @@ module.exports = class HomeAssistantServer extends Homey.SimpleClass {
         return connection;
       });
     }
+
     return this.connection;
   }
 
-  onEventStateChanged = event => {
+  onEventStateChanged = (event: any) => {
     const { data } = event;
     this.emit('state_changed', data);
 
     if (typeof data.entity_id === 'string') {
       this.emit(`state_changed_entity:${data.entity_id}`, data.new_state);
     }
-  }
+  };
 
   async getEntities() {
     if (!this.entities) {
       this.entities = Promise.resolve().then(async () => {
         const connection = await this.getConnection();
         return new Promise((resolve, reject) => {
-          Hass.subscribeEntities(connection, entities => {
-            this.entities = entities;
+          subscribeEntities(connection, entities => {
+            // this.entities = entities;
             resolve(entities);
           });
         });
@@ -105,7 +105,7 @@ module.exports = class HomeAssistantServer extends Homey.SimpleClass {
     return this.entities;
   }
 
-  async getEntityState({ entityId }) {
+  async getEntityState(entityId: string) {
     if (!this._states) {
       await this.getConnection();
     }
@@ -123,6 +123,11 @@ module.exports = class HomeAssistantServer extends Homey.SimpleClass {
     domain,
     service,
     serviceData,
+  }: {
+    target: string;
+    domain: string;
+    service: string;
+    serviceData: any;
   }) {
     const connection = await this.getConnection();
     await connection.sendMessagePromise({
@@ -167,5 +172,4 @@ module.exports = class HomeAssistantServer extends Homey.SimpleClass {
   //     }
   //   }
   // }
-
-};
+}

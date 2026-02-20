@@ -1,15 +1,24 @@
-'use strict';
+// @ts-nocheck
 
-const fetch = require('node-fetch');
-const Hass = require('home-assistant-js-websocket');
+import { createConnection, getAuth } from 'home-assistant-js-websocket';
+import Homey from 'homey';
+import type HomeAssistantApp from './HomeAssistantApp.mjs';
+import {
+  ENTITY_ALARM_CAPABILITY_MAP,
+  ENTITY_COVER_CLASS_MAP,
+  ENTITY_COVER_SUPPORTED_FEATURES,
+  ENTITY_FAN_SUPPORTED_FEATURES,
+  ENTITY_MEDIAPLAYER_CLASS_MAP,
+  ENTITY_SENSOR_CAPABILITY_MAP,
+  ENTITY_SPEAKER_SUPPORTED_FEATURES,
+  ENTITY_VACUUM_SUPPORTED_FEATURES,
+} from './HomeAssistantConstants.mjs';
+import { getFormattedDate } from './HomeAssistantUtil.mjs';
 
-const Homey = require('homey');
-const HomeAssistantConstants = require('./HomeAssistantConstants');
+export default class HomeAssistantDriver extends Homey.Driver {
 
-module.exports = class HomeAssistantDriver extends Homey.Driver {
-
-  onInit() {
-    super.onInit();
+  async onInit() {
+    await super.onInit();
 
     // Init Action Cards
     this.homey.flow
@@ -152,21 +161,21 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
           Promise.resolve()
             .then(async () => {
               // Swap authCode for a Regular Access Token
-              const hassAuth = await Hass.getAuth({
+              const hassAuth = await getAuth({
                 hassUrl,
                 clientId,
                 authCode,
               });
 
               // Create WebSocket Connection
-              const hassConnection = await Hass.createConnection({
+              const hassConnection = await createConnection({
                 auth: hassAuth,
               });
 
               // Create a Long-Lived Access Token
               const hassConnectionLongLivedAccessToken = await hassConnection.sendMessagePromise({
                 type: 'auth/long_lived_access_token',
-                client_name: `Homey (Created at ${new Date()})`,
+                client_name: `Homey (Created at ${getFormattedDate()})`,
                 client_icon: 'https://etc.athom.com/logo/transparent/256.png',
                 lifespan: 3650,
               });
@@ -188,7 +197,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
               });
 
               // Create & Save Server
-              currentServerId = await this.homey.app.createServer({
+              currentServerId = await (this.homey.app as HomeAssistantApp).createServer({
                 name: config.location_name,
                 host: server.host,
                 port: server.port,
@@ -205,7 +214,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
     };
 
     const onListServers = async () => {
-      const servers = await this.homey.app.getServers();
+      const servers = await (this.homey.app as HomeAssistantApp).getServers();
       const discoveryResults = this.onDiscoveryResults();
 
       const serverPaths = Object.entries(servers).map(([serverId, server]) => `${server.protocol}://${server.host}:${server.port}`);
@@ -244,7 +253,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
     };
 
     const onListServerDevices = async () => {
-      const server = await this.homey.app.getServer(currentServerId);
+      const server = await (this.homey.app as HomeAssistantApp).getServer(currentServerId);
       const connection = await server.getConnection();
       const deviceRegistry = await connection.sendMessagePromise({
         type: 'config/device_registry/list',
@@ -480,7 +489,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
                   const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
 
                   for (const [key, value] of Object.entries(
-                    HomeAssistantConstants.ENTITY_FAN_SUPPORTED_FEATURES,
+                    ENTITY_FAN_SUPPORTED_FEATURES,
                   )) {
                     // Check if the key is part of the supported features binary value.
                     if (supportedFeatures & key) {
@@ -555,7 +564,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
 
                 if (entity.instance.attributes) {
                   const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
-                  for (const [key, value] of Object.entries(HomeAssistantConstants.ENTITY_VACUUM_SUPPORTED_FEATURES)) {
+                  for (const [key, value] of Object.entries(ENTITY_VACUUM_SUPPORTED_FEATURES)) {
                     // Check if the key is part of the supported features binary value.
                     if (supportedFeatures & key) {
                       console.log('capabilityId', value, entityId);
@@ -579,7 +588,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
                   const capabilityId = entity.instance.attributes[
                     'device_class'
                   ]
-                    ? HomeAssistantConstants.ENTITY_SENSOR_CAPABILITY_MAP[
+                    ? ENTITY_SENSOR_CAPABILITY_MAP[
                       entity.instance.attributes['device_class']
                     ]
                     : null;
@@ -662,7 +671,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
                   const capabilityId = entity.instance.attributes[
                     'device_class'
                   ]
-                    ? HomeAssistantConstants.ENTITY_ALARM_CAPABILITY_MAP[
+                    ? ENTITY_ALARM_CAPABILITY_MAP[
                       entity.instance.attributes['device_class']
                     ]
                     : null;
@@ -696,7 +705,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
               if (entityId.startsWith('media_player.')) {
                 const mediaType = entity.instance.attributes
                   && entity.instance.attributes['device_class']
-                  ? HomeAssistantConstants.ENTITY_MEDIAPLAYER_CLASS_MAP[
+                  ? ENTITY_MEDIAPLAYER_CLASS_MAP[
                     entity.instance.attributes['device_class']
                   ]
                   : 'speaker';
@@ -737,7 +746,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
                   const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
 
                   for (const [key, value] of Object.entries(
-                    HomeAssistantConstants.ENTITY_SPEAKER_SUPPORTED_FEATURES,
+                    ENTITY_SPEAKER_SUPPORTED_FEATURES,
                   )) {
                     // Check if the key is part of the supported features binary value.
                     if (supportedFeatures & key) {
@@ -756,7 +765,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
               // https://developers.home-assistant.io/docs/core/entity/binary-sensor
               if (entityId.startsWith('cover.')) {
                 const coveringType = entity.instance.attributes['device_class']
-                  ? HomeAssistantConstants.ENTITY_COVER_CLASS_MAP[
+                  ? ENTITY_COVER_CLASS_MAP[
                     entity.instance.attributes['device_class']
                   ]
                   : 'windowcoverings';
@@ -791,7 +800,7 @@ module.exports = class HomeAssistantDriver extends Homey.Driver {
                   const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
 
                   for (const [key, value] of Object.entries(
-                    HomeAssistantConstants.ENTITY_COVER_SUPPORTED_FEATURES,
+                    ENTITY_COVER_SUPPORTED_FEATURES,
                   )) {
                     // Check if the key is part of the supported features binary value.
                     if (supportedFeatures & key) {

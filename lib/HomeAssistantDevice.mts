@@ -1,21 +1,28 @@
-'use strict';
+// @ts-nocheck
 
-const Homey = require('homey');
-const HomeAssistantUtil = require('./HomeAssistantUtil');
-const HomeAssistantConstants = require('./HomeAssistantConstants');
+import Homey from 'homey';
+import type HomeAssistantApp from './HomeAssistantApp.mjs';
+import { ENTITY_ALARM_CAPABILITY_MAP } from './HomeAssistantConstants.mjs';
+import { getNativeAppSuggestion } from './HomeAssistantUtil.mjs';
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 const CAPABILITY_ONOFF = 'onoff';
-module.exports = class HomeAssistantDevice extends Homey.Device {
+
+export default class HomeAssistantDevice extends Homey.Device {
+
+  private server;
+  private hassUrl;
+  private image;
+  private imageUrl;
 
   onInit = async () => {
-    super.onInit();
+    await super.onInit();
     // Get Server
     const { serverId } = this.getData();
-    this.server = await this.homey.app.getServer(serverId);
+    this.server = await (this.homey.app as HomeAssistantApp).getServer(serverId);
     this.server.getConnection().catch(err => {
       this.setUnavailable(err).catch(this.error);
     });
@@ -37,7 +44,7 @@ module.exports = class HomeAssistantDevice extends Homey.Device {
     const entityIds = this.getEntityIds();
     entityIds.forEach(entityId => {
       // Initial sync
-      this.server.getEntityState({ entityId })
+      this.server.getEntityState(entityId)
         .then(async entityState => {
           await this.onEntityState({
             entityId,
@@ -214,12 +221,12 @@ module.exports = class HomeAssistantDevice extends Homey.Device {
 
     const { platform } = this.homey;
 
-    const nativeAppSuggestion = HomeAssistantUtil.getNativeAppSuggestion({
+    const nativeAppSuggestion = getNativeAppSuggestion(
       manufacturer,
       model,
       identifiers,
       platform,
-    });
+    );
 
     if (nativeAppSuggestion) {
       setTimeout(() => {
@@ -282,7 +289,7 @@ module.exports = class HomeAssistantDevice extends Homey.Device {
 
   setBinarySensorState = (deviceClass, entityId, state) => {
     const capabilityId = deviceClass
-      ? HomeAssistantConstants.ENTITY_ALARM_CAPABILITY_MAP[deviceClass]
+      ? ENTITY_ALARM_CAPABILITY_MAP[deviceClass]
       : null;
 
     if (this.hasCapability(capabilityId)) {
@@ -317,7 +324,7 @@ module.exports = class HomeAssistantDevice extends Homey.Device {
     return value === this.getCapabilityValue(capabilityId);
   }
 
-  onCapabilityOnOff = async (value, options, capabilityId) => {
+  onCapabilityOnOff = async (value, options, capabilityId?: string) => {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'onoff' });
     const domain = entityId.split('.')[0]; // TODO: I'm not sure this always works!
 
@@ -407,7 +414,7 @@ module.exports = class HomeAssistantDevice extends Homey.Device {
     });
   }
 
-  onCapabilitySpeakerPlaying = async (value, options, capabilityId) => {
+  onCapabilitySpeakerPlaying = async (value, options, capabilityId?: string) => {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_playing' });
     const domain = entityId.split('.')[0];
 
@@ -480,7 +487,7 @@ module.exports = class HomeAssistantDevice extends Homey.Device {
     });
   }
 
-  onCapabilityVolumeSet = async (value, options, capabilityId) => {
+  onCapabilityVolumeSet = async (value, options, capabilityId?: string) => {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'volume_set' });
     const domain = entityId.split('.')[0];
 
@@ -496,7 +503,7 @@ module.exports = class HomeAssistantDevice extends Homey.Device {
     });
   }
 
-  onCapabilityVolumeMute = async (value, options, capabilityId) => {
+  onCapabilityVolumeMute = async (value, options, capabilityId?: string) => {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'volume_mute' });
     const domain = entityId.split('.')[0];
 
@@ -852,11 +859,11 @@ module.exports = class HomeAssistantDevice extends Homey.Device {
           });
 
           if (this.hasCapability(capabilityId)) {
-            let capabilityValue = entityState['state'];
+            let capabilityValue: any = entityState['state'];
             if (capabilityId.startsWith('measure_')
               || capabilityId.startsWith('meter_')
               || capabilityId.startsWith('hass-number.')) {
-              capabilityValue = parseFloat(capabilityValue, 10);
+              capabilityValue = parseFloat(capabilityValue);
               // Convert temperature to Celsius
               if (capabilityId.includes('measure_temperature')) {
                 if (entityState.attributes['unit_of_measurement'] === 'K') {

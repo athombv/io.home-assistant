@@ -1,10 +1,11 @@
-'use strict';
+// @ts-nocheck
 
-const Homey = require('homey');
-const HomeAssistantUtil = require('./HomeAssistantUtil');
-const HomeAssistantServer = require('./HomeAssistantServer');
+import Homey from 'homey';
+import { v4 } from 'uuid';
+import HomeAssistantServer from './HomeAssistantServer.mjs';
 
-module.exports = class HomeAssistantApp extends Homey.App {
+export default class HomeAssistantApp extends Homey.App {
+  private __servers;
 
   async onInit() {
     this.__servers = {
@@ -18,17 +19,17 @@ module.exports = class HomeAssistantApp extends Homey.App {
       // Some configs have an empty port.
       // During test_server, this wasn't validated because `https://<ip>:` seems to work...
       // Based on the protocol, we fallback to the default port for http/https.
-      if (serverConfig.port === '') {
-        if (serverConfig.protocol === 'http') {
-          serverConfig.port = '80';
+      if ((serverConfig as any).port === '') {
+        if ((serverConfig as any).protocol === 'http') {
+          (serverConfig as any).port = '80';
         }
 
-        if (serverConfig.protocol === 'https') {
-          serverConfig.port = '443';
+        if ((serverConfig as any).protocol === 'https') {
+          (serverConfig as any).port = '443';
         }
 
         // Save the fixed server config
-        await this.homey.settings.set('servers', serverConfigs);
+        this.homey.settings.set('servers', serverConfigs);
       }
 
       await this.getServer(serverId).catch(this.error);
@@ -47,14 +48,14 @@ module.exports = class HomeAssistantApp extends Homey.App {
         throw new Error(`Invalid Server ID: ${serverId}`);
       }
 
-      this.__servers[serverId] = new HomeAssistantServer({
-        protocol: serverConfig.protocol,
-        host: serverConfig.host,
-        port: serverConfig.port,
-        name: serverConfig.name,
-        token: serverConfig.token,
-        homey: this.homey,
-      });
+      this.__servers[serverId] = new HomeAssistantServer(
+        serverConfig.protocol,
+        serverConfig.host,
+        serverConfig.port,
+        serverConfig.name,
+        serverConfig.token,
+        this.homey,
+      );
       this.__servers[serverId].on('__log', (...props) => this.log(`[HomeAssistantServer:${serverId}]`, ...props));
       this.__servers[serverId].on('__error', (...props) => this.error(`[HomeAssistantServer:${serverId}]`, ...props));
     }
@@ -93,7 +94,8 @@ module.exports = class HomeAssistantApp extends Homey.App {
       throw new Error('Invalid Token');
     }
 
-    const serverId = HomeAssistantUtil.uuid();
+    // todo: use home assistant instance id
+    const serverId = v4();
     const serverConfigs = await this.homey.settings.get('servers') || {};
     serverConfigs[serverId] = {
       protocol,
@@ -102,8 +104,8 @@ module.exports = class HomeAssistantApp extends Homey.App {
       name,
       token,
     };
-    await this.homey.settings.set('servers', serverConfigs);
+    this.homey.settings.set('servers', serverConfigs);
     return serverId;
   }
 
-};
+}
