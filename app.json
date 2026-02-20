@@ -940,7 +940,6 @@
         "local",
         "cloud"
       ],
-      "discovery": "home-assistant",
       "capabilities": [],
       "images": {
         "small": "/drivers/hass-device/assets/images/small.png",

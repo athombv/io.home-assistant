@@ -21,7 +21,6 @@
     "local",
     "cloud"
   ],
-  "discovery": "home-assistant",
   "capabilities": [],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
