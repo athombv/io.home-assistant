@@ -11,12 +11,9 @@
     "prettier-check": "prettier . --check"
   },
   "dependencies": {
-    "form-data": "^4.0.5",
     "home-assistant-js-websocket": "^9.6.0",
-    "node-fetch": "^3.3.2",
     "source-map-support": "0.5.21",
-    "uuid": "^13.0.0",
-    "ws": "^8.19.0"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.9",
