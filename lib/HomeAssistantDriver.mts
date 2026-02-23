@@ -12,51 +12,13 @@ import {
   ENTITY_SPEAKER_SUPPORTED_FEATURES,
   ENTITY_VACUUM_SUPPORTED_FEATURES,
 } from './HomeAssistantConstants.mjs';
+import type {
+  HomeAssistantDeviceRegistry,
+  HomeAssistantEntityRegistry,
+  HomeyHomeAssistantDeviceOption,
+  HomeyHomeyAssistantPairingServer,
+} from './HomeAssistantTypes.mjs';
 import { getFormattedDate, titleCase } from './HomeAssistantUtil.mjs';
-
-type PairSession = Homey.Driver.PairSession;
-type HomeyHomeyAssistantPairingServer = {
-  protocol: string;
-  host: string;
-  port: string;
-  name: string;
-};
-type HomeyHomeAssistantDeviceOption = {
-  name: string;
-  data: {
-    deviceId: string;
-    serverId: string;
-  };
-  store: {
-    manufacturer: string | null;
-    model: string | null;
-    identifiers: string[];
-  };
-  class: string | undefined;
-  iconOverride: string | undefined;
-  capabilities: string[];
-  capabilitiesOptions: Record<
-    string,
-    {
-      entityId: string;
-    } & Record<string, unknown>
-  >;
-};
-type HomeAssistantDeviceRegistry = Array<{
-  id: string;
-  identifiers: string[];
-  name_by_user?: string | null;
-  name: string;
-  manufacturer?: string | null;
-  model?: string|null;
-  model_id?: string|null;
-  entry_type: 'service' | null
-}>;
-type HomeAssistantEntityRegistry = Array<{
-  id: number;
-  device_id: string | null;
-  entity_id: string;
-}>;
 
 export default class HomeAssistantDriver extends Homey.Driver {
   async onInit(): Promise<void> {
@@ -121,7 +83,7 @@ export default class HomeAssistantDriver extends Homey.Driver {
     return discoveryStrategy.getDiscoveryResults() as Record<string, DiscoveryResultMDNSSD>;
   };
 
-  async onPair(socket: PairSession): Promise<void> {
+  async onPair(socket: Homey.Driver.PairSession): Promise<void> {
     const servers: Record<string, HomeyHomeyAssistantPairingServer | null> = {
       new: null,
     };

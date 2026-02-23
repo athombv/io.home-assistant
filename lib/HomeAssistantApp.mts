@@ -1,14 +1,7 @@
 import Homey from 'homey';
 import { v4 } from 'uuid';
 import HomeAssistantServer from './HomeAssistantServer.mjs';
-
-type HomeyHomeAssistantServerConfig = {
-  name: string;
-  host: string;
-  port: string;
-  protocol: string;
-  token: string;
-};
+import type { HomeyHomeAssistantServerConfig } from './HomeAssistantTypes.mjs';
 
 export default class HomeAssistantApp extends Homey.App {
   private __servers: Record<string, HomeAssistantServer> = {};
