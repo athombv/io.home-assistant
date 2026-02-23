@@ -10,8 +10,16 @@ export default class HomeAssistantDevice extends Homey.Device {
   private hassUrl!: string;
   private image?: Homey.Image;
   private imageUrl?: string;
+  private entityIds: string[] = [];
+  private entityStateChangedHandler: Record<string, (entityState: HassEntity) => void> = {};
 
-  onInit = async (): Promise<void> => {
+  async onUninit(): Promise<void> {
+    this.entityIds.forEach(entityId => {
+      this.server.off(`state_changed_entity:${entityId}`, this.entityStateChangedHandler[entityId]);
+    });
+  }
+
+  async onInit(): Promise<void> {
     await super.onInit();
     // Get Server
     const { serverId } = this.getData();
@@ -34,8 +42,8 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     // Register Entity Event Listeners
-    const entityIds = this.getEntityIds();
-    entityIds.forEach(entityId => {
+    this.entityIds = this.getEntityIds();
+    this.entityIds.forEach(entityId => {
       // Initial sync
       this.server
         .getEntityState(entityId)
@@ -48,13 +56,14 @@ export default class HomeAssistantDevice extends Homey.Device {
         .catch(this.error);
 
       // Live Syncs
-      this.server.on(`state_changed_entity:${entityId}`, entityState => {
+      this.entityStateChangedHandler[entityId] = (entityState): void => {
         this.log('Entity State:', JSON.stringify(entityState));
         this.onEntityState({
           entityId,
           entityState,
         }).catch(this.error);
-      });
+      };
+      this.server.on(`state_changed_entity:${entityId}`, this.entityStateChangedHandler[entityId]);
 
       const deviceClass = entityId.split('.')[0];
 
