@@ -1,3 +1,5 @@
+import type { HassEntity } from 'home-assistant-js-websocket';
+
 export type HomeyHomeyAssistantPairingServer = {
   protocol: string;
   host: string;
@@ -8,6 +10,13 @@ export type HomeyHomeyAssistantPairingServer = {
 export type HomeyHomeAssistantServerConfig = {
   token: string;
 } & HomeyHomeyAssistantPairingServer;
+
+export type ProcessedHomeAssistantEntity = {
+  instance: HassEntity;
+} & HomeAssistantEntity;
+export type ProcessedHomeAssistantDevice = HomeAssistantDevice & {
+  entities: Array<ProcessedHomeAssistantEntity>;
+};
 
 export type HomeyHomeAssistantDeviceOption = {
   name: string;
@@ -31,7 +40,7 @@ export type HomeyHomeAssistantDeviceOption = {
   >;
 };
 
-export type HomeAssistantDeviceRegistry = Array<{
+type HomeAssistantDevice = {
   id: string;
   identifiers: string[];
   name_by_user?: string | null;
@@ -40,10 +49,12 @@ export type HomeAssistantDeviceRegistry = Array<{
   model?: string | null;
   model_id?: string | null;
   entry_type: 'service' | null;
-}>;
+};
+export type HomeAssistantDeviceRegistry = Array<HomeAssistantDevice>;
 
-export type HomeAssistantEntityRegistry = Array<{
+type HomeAssistantEntity = {
   id: number;
   device_id: string | null;
   entity_id: string;
-}>;
+};
+export type HomeAssistantEntityRegistry = Array<HomeAssistantEntity>;

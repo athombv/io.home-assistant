@@ -1,7 +1,7 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
 import Homey from 'homey';
+import BinarySensorEntityMapper from './HomeAssistant/EntityMapper/BinarySensorEntityMapper.mjs';
 import type HomeAssistantApp from './HomeAssistantApp.mjs';
-import { ENTITY_ALARM_CAPABILITY_MAP } from './HomeAssistantConstants.mjs';
 import type HomeAssistantServer from './HomeAssistantServer.mjs';
 import { capitalizeFirstLetter, getNativeAppSuggestion } from './HomeAssistantUtil.mjs';
 
@@ -283,11 +283,7 @@ export default class HomeAssistantDevice extends Homey.Device {
   };
 
   setBinarySensorState = (deviceClass: string | undefined, entityId: string, state: unknown): void => {
-    let capabilityId: string | null = null;
-    if (deviceClass && deviceClass in ENTITY_ALARM_CAPABILITY_MAP) {
-      capabilityId = ENTITY_ALARM_CAPABILITY_MAP[deviceClass as keyof typeof ENTITY_ALARM_CAPABILITY_MAP];
-    }
-
+    const capabilityId = BinarySensorEntityMapper.getCapabilityId(deviceClass);
     if (!capabilityId) {
       this.error('No capability found for', deviceClass, entityId);
       return;
