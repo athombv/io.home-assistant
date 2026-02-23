@@ -1,6 +1,7 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
 import Homey from 'homey';
 import BinarySensorEntityMapper from './HomeAssistant/EntityMapper/BinarySensorEntityMapper.mjs';
+import { convertUnits } from './HomeAssistant/HaUnitConverter.mjs';
 import type HomeAssistantApp from './HomeAssistantApp.mjs';
 import type HomeAssistantServer from './HomeAssistantServer.mjs';
 import { capitalizeFirstLetter, getNativeAppSuggestion } from './HomeAssistantUtil.mjs';
@@ -701,8 +702,9 @@ export default class HomeAssistantDevice extends Homey.Device {
 
             onOffCapabilities.forEach(capabilityId => {
               const capabilityOptions = this.getCapabilityOptions(capabilityId);
-              if (capabilityOptions.entityId === entityId)
+              if (capabilityOptions.entityId === entityId) {
                 this.setCapabilityValue(capabilityId, true).catch(this.error);
+              }
             });
           }
           this.setAvailable().catch(this.error);
@@ -718,8 +720,9 @@ export default class HomeAssistantDevice extends Homey.Device {
 
             onOffCapabilities.forEach(capabilityId => {
               const capabilityOptions = this.getCapabilityOptions(capabilityId);
-              if (capabilityOptions.entityId === entityId)
+              if (capabilityOptions.entityId === entityId) {
                 this.setCapabilityValue(capabilityId, false).catch(this.error);
+              }
             });
           }
           this.setAvailable().catch(this.error);
@@ -856,6 +859,9 @@ export default class HomeAssistantDevice extends Homey.Device {
             } else if (capabilityId.startsWith('hass-boolean.')) {
               capabilityValue = !!capabilityValue;
             }
+
+            // Convert the units
+            capabilityValue = convertUnits(this, capabilityId, entityState, capabilityValue);
 
             this.setAvailable().catch(this.error);
             this.setCapabilityValue(capabilityId, capabilityValue).catch(this.error);

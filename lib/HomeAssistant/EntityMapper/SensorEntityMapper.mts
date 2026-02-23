@@ -75,6 +75,7 @@ const CAPABILITY_MAP: Partial<Record<SensorDeviceClass, string>> = {
   [SensorDeviceClass.CO]: 'measure_co',
   [SensorDeviceClass.CURRENT]: 'measure_current',
   [SensorDeviceClass.ENERGY]: 'meter_power',
+  [SensorDeviceClass.FREQUENCY]: 'measure_frequency',
   [SensorDeviceClass.GAS]: 'meter_gas',
   [SensorDeviceClass.HUMIDITY]: 'measure_humidity',
   [SensorDeviceClass.ILLUMINANCE]: 'measure_luminance',
@@ -113,6 +114,7 @@ export default class SensorEntityMapper implements EntityMapper {
     let capabilityId = deviceClass ? CAPABILITY_MAP[deviceClass as SensorDeviceClass] : null;
     const capabilityOptions: (typeof homeyDevice.capabilitiesOptions)[string] = {
       entityId,
+      ha_unit: entity.instance.attributes['unit_of_measurement'] || null,
     };
 
     if (capabilityId) {
