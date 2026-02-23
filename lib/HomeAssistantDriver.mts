@@ -12,7 +12,7 @@ import {
   ENTITY_SPEAKER_SUPPORTED_FEATURES,
   ENTITY_VACUUM_SUPPORTED_FEATURES,
 } from './HomeAssistantConstants.mjs';
-import { getFormattedDate } from './HomeAssistantUtil.mjs';
+import { getFormattedDate, titleCase } from './HomeAssistantUtil.mjs';
 
 type PairSession = Homey.Driver.PairSession;
 type HomeyHomeyAssistantPairingServer = {
@@ -285,17 +285,6 @@ export default class HomeAssistantDriver extends Homey.Driver {
         type: 'config/entity_registry/list',
       })) as HomeAssistantEntityRegistry;
       const entities = await server.getEntities();
-
-      const titleCase = (str: string): string => {
-        const splitStr = str?.toLowerCase().split(' ');
-        for (let i = 0; i < splitStr.length; i++) {
-          // You do not need to check if i is larger than splitStr length, as your for does that for you
-          // Assign it back to the array
-          splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-        }
-        // Directly return the joined string
-        return splitStr.join(' ');
-      };
 
       // this.log('deviceRegistry', JSON.stringify(deviceRegistry));
       // this.log('entityRegistry', JSON.stringify(entityRegistry));
