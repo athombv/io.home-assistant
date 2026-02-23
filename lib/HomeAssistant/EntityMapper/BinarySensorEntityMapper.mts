@@ -2,7 +2,6 @@ import type { HomeyHomeAssistantDeviceOption, ProcessedHomeAssistantEntity } fro
 import type { EntityMapper } from '../HaDeviceEntityMapper.mjs';
 
 const CAPABILITY_MAP = {
-  outlet: 'onoff',
   // On means low, Off means normal : "True when battery is low"
   battery: 'alarm_battery',
   // On means charging, Off means not charging : ?
@@ -31,6 +30,8 @@ const CAPABILITY_MAP = {
   moving: 'alarm_generic',
   // On means occupied, Off means not occupied (clear) : ?
   occupancy: 'alarm_occupancy',
+  // On means on, Off means off
+  outlet: 'onoff',
   // On means open, Off means closed : ?
   opening: 'alarm_contact',
   // On means plugged in, Off means unplugged : ?

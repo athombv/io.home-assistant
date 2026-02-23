@@ -2,9 +2,9 @@ import type { ProcessedHomeAssistantEntity, HomeyHomeAssistantDeviceOption } fro
 import type { EntityMapper } from '../HaDeviceEntityMapper.mjs';
 
 const CLASS_MAP = {
-  tv: 'tv',
-  speaker: 'speaker',
   receiver: 'amplifier',
+  speaker: 'speaker',
+  tv: 'tv',
 };
 
 const SPEAKER_SUPPORTED_FEATURES = {
