@@ -64,15 +64,15 @@ export default class HomeAssistantDriver extends Homey.Driver {
 
     // Init Action Cards
     this.homey.flow.getActionCard('fan_speed_set').registerRunListener(async args => {
-      args.device.onCapabilityFanSpeedSet(args['fan_speed']);
+      return args.device.onCapabilityFanSpeedSet(args['fan_speed']);
     });
 
     this.homey.flow.getActionCard('fan_mode_set').registerRunListener(async args => {
-      args.device.onCapabilityFanModeSet(args['fan_mode']);
+      return args.device.onCapabilityFanModeSet(args['fan_mode']);
     });
 
     this.homey.flow.getActionCard('aircleaner_mode_set').registerRunListener(async args => {
-      args.device.onCapabilityAirCleanerModeSet(args['aircleaner_mode']);
+      return args.device.onCapabilityAirCleanerModeSet(args['aircleaner_mode']);
     });
 
     this.homey.flow.getConditionCard('action_is').registerRunListener(async args => {
