@@ -2,8 +2,8 @@ export function getNativeAppSuggestion(
   manufacturer = '',
   model = '',
   identifiers: string[] = [],
-  platform = undefined,
-) {
+  platform?: string,
+): string | null {
   identifiers = identifiers.flat();
 
   if (typeof manufacturer !== 'string') {
@@ -248,4 +248,8 @@ export function getFormattedDate(): string {
 
 export function padNumber(value: number, length: number = 2): string {
   return String(value).padStart(length, '0');
+}
+
+export function capitalizeFirstLetter(string: string): string {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

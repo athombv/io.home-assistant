@@ -1,6 +1,5 @@
-// @ts-nocheck
-
-import { createConnection, getAuth } from 'home-assistant-js-websocket';
+import { createConnection, getAuth, type HassConfig } from 'home-assistant-js-websocket';
+import type { DiscoveryResultMDNSSD } from 'homey';
 import Homey from 'homey';
 import type HomeAssistantApp from './HomeAssistantApp.mjs';
 import {
@@ -15,110 +14,127 @@ import {
 } from './HomeAssistantConstants.mjs';
 import { getFormattedDate } from './HomeAssistantUtil.mjs';
 
-export default class HomeAssistantDriver extends Homey.Driver {
+type PairSession = Homey.Driver.PairSession;
+type HomeyHomeyAssistantPairingServer = {
+  protocol: string;
+  host: string;
+  port: string;
+  name: string;
+};
+type HomeyHomeAssistantDeviceOption = {
+  name: string;
+  data: {
+    deviceId: string;
+    serverId: string;
+  };
+  store: {
+    manufacturer: string | null;
+    model: string | null;
+    identifiers: string[];
+  };
+  class: string | undefined;
+  iconOverride: string | undefined;
+  capabilities: string[];
+  capabilitiesOptions: Record<
+    string,
+    {
+      entityId: string;
+    } & Record<string, unknown>
+  >;
+};
+type HomeAssistantDeviceRegistry = Array<{
+  id: string;
+  identifiers: string[];
+  name_by_user?: string | null;
+  name: string;
+  manufacturer?: string | null;
+  model?: string|null;
+  model_id?: string|null;
+  entry_type: 'service' | null
+}>;
+type HomeAssistantEntityRegistry = Array<{
+  id: number;
+  device_id: string | null;
+  entity_id: string;
+}>;
 
-  async onInit() {
+export default class HomeAssistantDriver extends Homey.Driver {
+  async onInit(): Promise<void> {
     await super.onInit();
 
     // Init Action Cards
-    this.homey.flow
-      .getActionCard('fan_speed_set')
-      .registerRunListener(async args => {
-        args.device.onCapabilityFanSpeedSet(args['fan_speed']);
-      });
+    this.homey.flow.getActionCard('fan_speed_set').registerRunListener(async args => {
+      args.device.onCapabilityFanSpeedSet(args['fan_speed']);
+    });
 
-    this.homey.flow
-      .getActionCard('fan_mode_set')
-      .registerRunListener(async args => {
-        args.device.onCapabilityFanModeSet(args['fan_mode']);
-      });
+    this.homey.flow.getActionCard('fan_mode_set').registerRunListener(async args => {
+      args.device.onCapabilityFanModeSet(args['fan_mode']);
+    });
 
-    this.homey.flow
-      .getActionCard('aircleaner_mode_set')
-      .registerRunListener(async args => {
-        args.device.onCapabilityAirCleanerModeSet(args['aircleaner_mode']);
-      });
+    this.homey.flow.getActionCard('aircleaner_mode_set').registerRunListener(async args => {
+      args.device.onCapabilityAirCleanerModeSet(args['aircleaner_mode']);
+    });
 
-    this.homey.flow
-      .getConditionCard('action_is')
-      .registerRunListener(async args => {
-        return args.device.isValueRunListener(args.action, 'action');
-      });
+    this.homey.flow.getConditionCard('action_is').registerRunListener(async args => {
+      return args.device.isValueRunListener(args.action, 'action');
+    });
 
-    this.homey.flow
-      .getConditionCard('status_is')
-      .registerRunListener(async args => {
-        return args.device.isValueRunListener(args.status, 'status');
-      });
+    this.homey.flow.getConditionCard('status_is').registerRunListener(async args => {
+      return args.device.isValueRunListener(args.status, 'status');
+    });
 
-    this.homey.flow
-      .getConditionCard('alarm_charging_is')
-      .registerRunListener(async args => {
-        return args.device.isOnRunListener('alarm_charging');
-      });
+    this.homey.flow.getConditionCard('alarm_charging_is').registerRunListener(async args => {
+      return args.device.isOnRunListener('alarm_charging');
+    });
 
-    this.homey.flow
-      .getConditionCard('alarm_occupancy_is')
-      .registerRunListener(async args => {
-        return args.device.isOnRunListener('alarm_occupancy');
-      });
+    this.homey.flow.getConditionCard('alarm_occupancy_is').registerRunListener(async args => {
+      return args.device.isOnRunListener('alarm_occupancy');
+    });
 
-    this.homey.flow
-      .getConditionCard('alarm_plugged_in_is')
-      .registerRunListener(async args => {
-        return args.device.isOnRunListener('alarm_plugged_in');
-      });
+    this.homey.flow.getConditionCard('alarm_plugged_in_is').registerRunListener(async args => {
+      return args.device.isOnRunListener('alarm_plugged_in');
+    });
 
-    this.homey.flow
-      .getConditionCard('alarm_problem_is')
-      .registerRunListener(async args => {
-        return args.device.isOnRunListener('alarm_problem');
-      });
+    this.homey.flow.getConditionCard('alarm_problem_is').registerRunListener(async args => {
+      return args.device.isOnRunListener('alarm_problem');
+    });
 
-    this.homey.flow
-      .getConditionCard('alarm_running_is')
-      .registerRunListener(async args => {
-        return args.device.isOnRunListener('alarm_running');
-      });
+    this.homey.flow.getConditionCard('alarm_running_is').registerRunListener(async args => {
+      return args.device.isOnRunListener('alarm_running');
+    });
 
-    this.homey.flow
-      .getConditionCard('alarm_safety_is')
-      .registerRunListener(async args => {
-        return args.device.isOnRunListener('alarm_safety');
-      });
+    this.homey.flow.getConditionCard('alarm_safety_is').registerRunListener(async args => {
+      return args.device.isOnRunListener('alarm_safety');
+    });
 
-    this.homey.flow
-      .getConditionCard('alarm_sound_is')
-      .registerRunListener(async args => {
-        return args.device.isOnRunListener('alarm_sound');
-      });
+    this.homey.flow.getConditionCard('alarm_sound_is').registerRunListener(async args => {
+      return args.device.isOnRunListener('alarm_sound');
+    });
 
-    this.homey.flow
-      .getConditionCard('alarm_vibration_is')
-      .registerRunListener(async args => {
-        return args.device.isOnRunListener('alarm_vibration');
-      });
+    this.homey.flow.getConditionCard('alarm_vibration_is').registerRunListener(async args => {
+      return args.device.isOnRunListener('alarm_vibration');
+    });
   }
 
-  onDiscoveryResults = () => {
+  onDiscoveryResults = (): Record<string, DiscoveryResultMDNSSD> => {
     const discoveryStrategy = this.homey.discovery.getStrategy('home-assistant');
-    return discoveryStrategy.getDiscoveryResults();
+    return discoveryStrategy.getDiscoveryResults() as Record<string, DiscoveryResultMDNSSD>;
   };
 
-  async onPair(socket) {
-    const servers = {
+  async onPair(socket: PairSession): Promise<void> {
+    const servers: Record<string, HomeyHomeyAssistantPairingServer | null> = {
       new: null,
     };
 
     let currentViewId = 'list_servers';
-    let currentServerId = null;
+    let currentServerId: string | null = null;
 
-    const onViewSelectServerLoading = async () => {
+    const onViewSelectServerLoading = async (): Promise<void> => {
       if (currentServerId === 'new') {
         return socket.showView('configure_server');
       }
 
-      if (currentServerId.startsWith('mdns:')) {
+      if (currentServerId?.startsWith('mdns:')) {
         currentServerId = currentServerId.replace('mdns:', '');
         const discoveryResults = this.onDiscoveryResults();
         const server = discoveryResults[currentServerId];
@@ -136,11 +152,15 @@ export default class HomeAssistantDriver extends Homey.Driver {
       return socket.showView('list_server_devices');
     };
 
-    const onViewConfigureServer = async () => {
+    const onViewConfigureServer = async (): Promise<void> => {
       // ...
     };
 
-    const onViewAuthenticateServer = async () => {
+    const onViewAuthenticateServer = async (): Promise<void> => {
+      if (!currentServerId) {
+        return;
+      }
+
       const server = servers[currentServerId];
       if (!server) {
         throw new Error(`Invalid Server: ${currentServerId}`);
@@ -150,9 +170,7 @@ export default class HomeAssistantDriver extends Homey.Driver {
       const clientId = 'https://callback.athom.com';
       const redirectUri = 'https://callback.athom.com/oauth2/callback';
       const authorizationUrl = `${hassUrl}/auth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
-      const callback = await this.homey.cloud.createOAuth2Callback(
-        authorizationUrl,
-      );
+      const callback = await this.homey.cloud.createOAuth2Callback(authorizationUrl);
       callback
         .on('url', url => {
           socket.emit('url', url).catch(this.error);
@@ -181,31 +199,31 @@ export default class HomeAssistantDriver extends Homey.Driver {
               });
 
               // Close WebSocket Connection
-              await hassConnection.close();
+              hassConnection.close();
 
               // Revoke Regular Access Token
               await hassAuth.revoke();
 
               // Fetch server config
-              const config = await Promise.resolve().then(async () => {
+              const config: HassConfig = await Promise.resolve().then(async () => {
                 const res = await fetch(`${hassUrl}/api/config`, {
                   headers: {
                     Authorization: `Bearer ${hassConnectionLongLivedAccessToken}`,
                   },
                 });
-                return res.json();
+                return (await res.json()) as HassConfig;
               });
 
               // Create & Save Server
-              currentServerId = await (this.homey.app as HomeAssistantApp).createServer({
-                name: config.location_name,
-                host: server.host,
-                port: server.port,
-                protocol: server.protocol,
-                token: hassConnectionLongLivedAccessToken,
-              });
+              currentServerId = await (this.homey.app as HomeAssistantApp).createServer(
+                config.location_name,
+                server.host,
+                server.port,
+                server.protocol,
+                hassConnectionLongLivedAccessToken,
+              );
             })
-            .then(() => socket.emit('authorized'))
+            .then(() => socket.emit('authorized', true))
             .catch(err => {
               this.error(err);
               socket.emit('error', err.message || err.toString());
@@ -213,11 +231,11 @@ export default class HomeAssistantDriver extends Homey.Driver {
         });
     };
 
-    const onListServers = async () => {
+    const onListServers = async (): Promise<Array<{ name: string; data: { id: string } }>> => {
       const servers = await (this.homey.app as HomeAssistantApp).getServers();
       const discoveryResults = this.onDiscoveryResults();
 
-      const serverPaths = Object.entries(servers).map(([serverId, server]) => `${server.protocol}://${server.host}:${server.port}`);
+      const serverPaths = Object.values(servers).map(server => `${server.protocol}://${server.host}:${server.port}`);
 
       return [
         // Existing Servers
@@ -229,11 +247,11 @@ export default class HomeAssistantDriver extends Homey.Driver {
         })),
 
         // mDNS Servers
-        ...Object.entries(discoveryResults)
-        // You would expect that this filter can be done based on server id of the stored servers, but that is a random
-        // v4 uuid that doesn't match the Home assistant one...
-          .filter(([serverId, server]) => !serverPaths.includes(`http://${server.address}:${server.port}`))
-          .map(([serverId, server]) => {
+        ...Object.values(discoveryResults)
+          // You would expect that this filter can be done based on server id of the stored servers, but that is a random
+          // v4 uuid that doesn't match the Home assistant one...
+          .filter(server => !serverPaths.includes(`http://${server.address}:${server.port}`))
+          .map(server => {
             return {
               name: `${server.name} (http://${server.address}:${server.port})`,
               data: {
@@ -252,18 +270,23 @@ export default class HomeAssistantDriver extends Homey.Driver {
       ];
     };
 
-    const onListServerDevices = async () => {
-      const server = await (this.homey.app as HomeAssistantApp).getServer(currentServerId);
+    const onListServerDevices = async (): Promise<HomeyHomeAssistantDeviceOption[]> => {
+      if (!currentServerId) {
+        throw new Error('Current server identifier not available');
+      }
+      const listServerId = currentServerId;
+
+      const server = await (this.homey.app as HomeAssistantApp).getServer(listServerId);
       const connection = await server.getConnection();
-      const deviceRegistry = await connection.sendMessagePromise({
+      const deviceRegistry = (await connection.sendMessagePromise({
         type: 'config/device_registry/list',
-      });
-      const entityRegistry = await connection.sendMessagePromise({
+      })) as HomeAssistantDeviceRegistry;
+      const entityRegistry = (await connection.sendMessagePromise({
         type: 'config/entity_registry/list',
-      });
+      })) as HomeAssistantEntityRegistry;
       const entities = await server.getEntities();
 
-      const titleCase = str => {
+      const titleCase = (str: string): string => {
         const splitStr = str?.toLowerCase().split(' ');
         for (let i = 0; i < splitStr.length; i++) {
           // You do not need to check if i is larger than splitStr length, as your for does that for you
@@ -274,9 +297,9 @@ export default class HomeAssistantDriver extends Homey.Driver {
         return splitStr.join(' ');
       };
 
-      // console.log('deviceRegistry', deviceRegistry)
-      // console.log('entityRegistry', entityRegistry)
-      // console.log('entities', entities)
+      // this.log('deviceRegistry', JSON.stringify(deviceRegistry));
+      // this.log('entityRegistry', JSON.stringify(entityRegistry));
+      // this.log('entities', JSON.stringify(entities));
 
       return (
         deviceRegistry
@@ -303,18 +326,18 @@ export default class HomeAssistantDriver extends Homey.Driver {
           .map(homeAssistantDevice => {
             // this.log(JSON.stringify(homeAssistantDevice, false, 2));
 
-            const homeyDevice = {
+            const homeyDevice: HomeyHomeAssistantDeviceOption = {
               name:
                 typeof homeAssistantDevice.name_by_user === 'string'
                   ? homeAssistantDevice.name_by_user
                   : homeAssistantDevice.name,
               data: {
                 deviceId: homeAssistantDevice.id,
-                serverId: currentServerId,
+                serverId: listServerId,
               },
               store: {
-                manufacturer: homeAssistantDevice.manufacturer,
-                model: homeAssistantDevice.model,
+                manufacturer: homeAssistantDevice.manufacturer ?? null,
+                model: homeAssistantDevice.model ?? null,
                 identifiers: homeAssistantDevice.identifiers,
               },
               class: undefined,
@@ -336,35 +359,32 @@ export default class HomeAssistantDriver extends Homey.Driver {
               // Set friendly name without the device name.
               let friendlyName = entity.instance.attributes['friendly_name'];
               if (
-                friendlyName
-                && friendlyName.length > 0
-                && homeyDevice.name
-                && homeyDevice.name.length > 0
-                && friendlyName.startsWith(homeyDevice.name)
+                friendlyName &&
+                friendlyName.length > 0 &&
+                homeyDevice.name &&
+                homeyDevice.name.length > 0 &&
+                friendlyName.startsWith(homeyDevice.name)
               ) {
-                friendlyName = titleCase(friendlyName.slice(homeyDevice.name.length))
-                  || friendlyName;
+                friendlyName = titleCase(friendlyName.slice(homeyDevice.name.length)) || friendlyName;
               }
 
               // Is this entity a Light?
               // https://developers.home-assistant.io/docs/core/entity/light/
               if (entityId.startsWith('light.')) {
                 // If the Home Assistant device contains light entities, this should be the main class of the Home Device.
-                homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor'
-                  ? homeyDevice.class
-                  : 'light';
-                homeyDevice.iconOverride = homeyDevice.iconOverride && homeyDevice.class !== 'sensor'
-                  ? homeyDevice.iconOverride
-                  : 'light-bulb';
+                homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : 'light';
+                homeyDevice.iconOverride =
+                  homeyDevice.iconOverride && homeyDevice.class !== 'sensor' ? homeyDevice.iconOverride : 'light-bulb';
 
                 const supportedColorModes = entity.instance.attributes['supported_color_modes'] ?? [];
 
                 // Check if a light supports any of the supported color modes.
-                const lightSupportsColorChanging = supportedColorModes.includes('hs')
-                  || supportedColorModes.includes('rgb')
-                  || supportedColorModes.includes('rgbw')
-                  || supportedColorModes.includes('rgbww')
-                  || supportedColorModes.includes('xy');
+                const lightSupportsColorChanging =
+                  supportedColorModes.includes('hs') ||
+                  supportedColorModes.includes('rgb') ||
+                  supportedColorModes.includes('rgbw') ||
+                  supportedColorModes.includes('rgbww') ||
+                  supportedColorModes.includes('xy');
 
                 // Is this device a Light that can turn on/off?
                 if (typeof entity.instance.state === 'string') {
@@ -377,10 +397,10 @@ export default class HomeAssistantDriver extends Homey.Driver {
                   // Is this device a Light that can change brightness?
                   // This includes not only brightness but also all other modes which allow dimming.
                   if (
-                    supportedColorModes.includes('brightness')
-                    || supportedColorModes.includes('color_temp')
-                    || supportedColorModes.includes('white')
-                    || lightSupportsColorChanging
+                    supportedColorModes.includes('brightness') ||
+                    supportedColorModes.includes('color_temp') ||
+                    supportedColorModes.includes('white') ||
+                    lightSupportsColorChanging
                   ) {
                     homeyDevice.capabilities.push('dim');
                     homeyDevice.capabilitiesOptions['dim'] = homeyDevice.capabilitiesOptions['dim'] || {};
@@ -390,11 +410,9 @@ export default class HomeAssistantDriver extends Homey.Driver {
                   // Is this device a Light that can change color temperature?
                   if (supportedColorModes.includes('color_temp')) {
                     homeyDevice.capabilities.push('light_temperature');
-                    homeyDevice.capabilitiesOptions['light_temperature'] = homeyDevice.capabilitiesOptions['light_temperature']
-                      || {};
-                    homeyDevice.capabilitiesOptions[
-                      'light_temperature'
-                    ].entityId = entityId;
+                    homeyDevice.capabilitiesOptions['light_temperature'] =
+                      homeyDevice.capabilitiesOptions['light_temperature'] || {};
+                    homeyDevice.capabilitiesOptions['light_temperature'].entityId = entityId;
                   }
 
                   // Is this device a Light that can change color?
@@ -404,17 +422,13 @@ export default class HomeAssistantDriver extends Homey.Driver {
                     homeyDevice.capabilitiesOptions['light_hue'].entityId = entityId;
 
                     homeyDevice.capabilities.push('light_saturation');
-                    homeyDevice.capabilitiesOptions['light_saturation'] = homeyDevice.capabilitiesOptions['light_saturation'] || {};
-                    homeyDevice.capabilitiesOptions[
-                      'light_saturation'
-                    ].entityId = entityId;
+                    homeyDevice.capabilitiesOptions['light_saturation'] =
+                      homeyDevice.capabilitiesOptions['light_saturation'] || {};
+                    homeyDevice.capabilitiesOptions['light_saturation'].entityId = entityId;
                   }
 
                   // Set light_mode if both color & temperature are supported
-                  if (
-                    supportedColorModes.includes('color_temp')
-                    && lightSupportsColorChanging
-                  ) {
+                  if (supportedColorModes.includes('color_temp') && lightSupportsColorChanging) {
                     // homeyDevice.capabilities.push('light_temperature');
                     // homeyDevice.capabilitiesOptions['light_temperature'] = homeyDevice.capabilitiesOptions['light_temperature'] || {};
                     // homeyDevice.capabilitiesOptions['light_temperature'].entityId = entityId;
@@ -440,43 +454,35 @@ export default class HomeAssistantDriver extends Homey.Driver {
               // https://developers.home-assistant.io/docs/core/entity/switch/
               if (entityId.startsWith('switch.')) {
                 // If the Home Assistant device contains switch entities, socket should be the main class of the Home Device.
-                homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor'
-                  ? homeyDevice.class
-                  : 'socket';
-                homeyDevice.iconOverride = homeyDevice.iconOverride && homeyDevice.class !== 'sensor'
-                  ? homeyDevice.iconOverride
-                  : 'plug';
+                homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : 'socket';
+                homeyDevice.iconOverride =
+                  homeyDevice.iconOverride && homeyDevice.class !== 'sensor' ? homeyDevice.iconOverride : 'plug';
 
-                const currentOnOffCapabilities = homeyDevice.capabilities.filter((item, index) => {
+                const currentOnOffCapabilities = homeyDevice.capabilities.filter(item => {
                   return item.startsWith('onoff');
                 });
 
                 // Is this Home Assistant Entity a known Homey Capability?
-                const entityIdWithoutSwitch = entityId.substring(
-                  'switch.'.length,
-                );
+                const entityIdWithoutSwitch = entityId.substring('switch.'.length);
 
-                const capabilityId = (currentOnOffCapabilities.length > 0 || !['sensor', 'plug', 'socket'].includes(homeyDevice.class))
-                  ? `onoff.${currentOnOffCapabilities.length}`
-                  : 'onoff';
+                const capabilityId =
+                  currentOnOffCapabilities.length > 0 || !['sensor', 'plug', 'socket'].includes(homeyDevice.class)
+                    ? `onoff.${currentOnOffCapabilities.length}`
+                    : 'onoff';
 
                 homeyDevice.capabilities.push(capabilityId);
                 homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-                homeyDevice.capabilitiesOptions[capabilityId].title = friendlyName
-                  || entity.instance.attributes['device_class']
-                  || entityIdWithoutSwitch;
+                homeyDevice.capabilitiesOptions[capabilityId].title =
+                  friendlyName || entity.instance.attributes['device_class'] || entityIdWithoutSwitch;
                 homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
               }
 
               // Is this entity a Fan?
               // https://www.home-assistant.io/integrations/fan/
               if (entityId.startsWith('fan.')) {
-                homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor'
-                  ? homeyDevice.class
-                  : 'fan';
-                homeyDevice.iconOverride = homeyDevice.iconOverride && homeyDevice.class !== 'sensor'
-                  ? homeyDevice.iconOverride
-                  : 'fan';
+                homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : 'fan';
+                homeyDevice.iconOverride =
+                  homeyDevice.iconOverride && homeyDevice.class !== 'sensor' ? homeyDevice.iconOverride : 'fan';
 
                 // Is this device a Fan that can turn on/off?
                 if (typeof entity.instance.state === 'string') {
@@ -488,59 +494,43 @@ export default class HomeAssistantDriver extends Homey.Driver {
                 if (entity.instance.attributes) {
                   const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
 
-                  for (const [key, value] of Object.entries(
-                    ENTITY_FAN_SUPPORTED_FEATURES,
-                  )) {
+                  for (const [key, value] of Object.entries(ENTITY_FAN_SUPPORTED_FEATURES)) {
                     // Check if the key is part of the supported features binary value.
-                    if (supportedFeatures & key) {
+                    if (supportedFeatures & Number(key)) {
                       value.forEach(capabilityId => {
                         if (capabilityId === 'fan_mode') {
                           if (
-                            entity.instance.attributes['preset_modes'].every(
-                              mode => ['nature', 'normal'].includes(
-                                mode?.toLowerCase(),
-                              ),
+                            entity.instance.attributes['preset_modes'].every((mode?: string) =>
+                              ['nature', 'normal'].includes(mode?.toLowerCase() ?? ''),
                             )
                           ) {
                             // Check if fan preset mode contains Nature and Normal.
                             homeyDevice.capabilities.push('fan_mode');
-                            homeyDevice.capabilitiesOptions['fan_mode'] = homeyDevice.capabilitiesOptions['fan_mode'] || {};
-                            homeyDevice.capabilitiesOptions[
-                              'fan_mode'
-                            ].entityId = entityId;
+                            homeyDevice.capabilitiesOptions['fan_mode'] =
+                              homeyDevice.capabilitiesOptions['fan_mode'] || {};
+                            homeyDevice.capabilitiesOptions['fan_mode'].entityId = entityId;
                           } else if (
-                            entity.instance.attributes['preset_modes'].every(
-                              mode => ['fan', 'auto', 'silent', 'favorite'].includes(
-                                mode?.toLowerCase(),
-                              ),
+                            entity.instance.attributes['preset_modes'].every((mode?: string) =>
+                              ['fan', 'auto', 'silent', 'favorite'].includes(mode?.toLowerCase() ?? ''),
                             )
                           ) {
                             // Check if fan preset mode contains Fan, Auto, Silent and Favorite.
                             homeyDevice.capabilities.push('aircleaner_mode');
-                            homeyDevice.capabilitiesOptions['aircleaner_mode'] = homeyDevice.capabilitiesOptions[
-                              'aircleaner_mode'
-                            ] || {};
-                            homeyDevice.capabilitiesOptions[
-                              'aircleaner_mode'
-                            ].entityId = entityId;
+                            homeyDevice.capabilitiesOptions['aircleaner_mode'] =
+                              homeyDevice.capabilitiesOptions['aircleaner_mode'] || {};
+                            homeyDevice.capabilitiesOptions['aircleaner_mode'].entityId = entityId;
                           }
                         } else {
                           homeyDevice.capabilities.push(capabilityId);
-                          homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-                          homeyDevice.capabilitiesOptions[
-                            capabilityId
-                          ].entityId = entityId;
+                          homeyDevice.capabilitiesOptions[capabilityId] =
+                            homeyDevice.capabilitiesOptions[capabilityId] || {};
+                          homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
 
                           if (capabilityId === 'fan_speed') {
-                            homeyDevice.capabilitiesOptions[
-                              capabilityId
-                            ].min = 0;
-                            homeyDevice.capabilitiesOptions[
-                              capabilityId
-                            ].max = 1;
-                            homeyDevice.capabilitiesOptions[capabilityId].step = Math.floor(
-                              entity.instance.attributes['percentage_step'],
-                            ) / 100; // A bit of a hack because of rounding errors.
+                            homeyDevice.capabilitiesOptions[capabilityId].min = 0;
+                            homeyDevice.capabilitiesOptions[capabilityId].max = 1;
+                            homeyDevice.capabilitiesOptions[capabilityId].step =
+                              Math.floor(entity.instance.attributes['percentage_step']) / 100; // A bit of a hack because of rounding errors.
                           }
                         }
                       });
@@ -552,8 +542,12 @@ export default class HomeAssistantDriver extends Homey.Driver {
               // Is this entity a Vacuum?
               // https://www.home-assistant.io/integrations/vacuum/
               if (entityId.startsWith('vacuum.')) {
-                homeyDevice.class = (homeyDevice.class && homeyDevice.class !== 'sensor') ? homeyDevice.class : 'vacuumcleaner';
-                homeyDevice.iconOverride = (homeyDevice.iconOverride && homeyDevice.class !== 'sensor') ? homeyDevice.iconOverride : 'vacuum-cleaner';
+                homeyDevice.class =
+                  homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : 'vacuumcleaner';
+                homeyDevice.iconOverride =
+                  homeyDevice.iconOverride && homeyDevice.class !== 'sensor'
+                    ? homeyDevice.iconOverride
+                    : 'vacuum-cleaner';
 
                 // Is this device a Vacuum that can turn on/off?
                 if (typeof entity.instance.state === 'string') {
@@ -566,11 +560,12 @@ export default class HomeAssistantDriver extends Homey.Driver {
                   const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
                   for (const [key, value] of Object.entries(ENTITY_VACUUM_SUPPORTED_FEATURES)) {
                     // Check if the key is part of the supported features binary value.
-                    if (supportedFeatures & key) {
+                    if (supportedFeatures & Number(key)) {
                       console.log('capabilityId', value, entityId);
                       value.forEach(capabilityId => {
                         homeyDevice.capabilities.push(capabilityId);
-                        homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
+                        homeyDevice.capabilitiesOptions[capabilityId] =
+                          homeyDevice.capabilitiesOptions[capabilityId] || {};
                         homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
                       });
                     }
@@ -585,12 +580,10 @@ export default class HomeAssistantDriver extends Homey.Driver {
 
                 if (entity.instance.attributes) {
                   // Is this Home Assistant Entity a known Homey Capability?
-                  const capabilityId = entity.instance.attributes[
-                    'device_class'
-                  ]
+                  const capabilityId = entity.instance.attributes['device_class']
                     ? ENTITY_SENSOR_CAPABILITY_MAP[
-                      entity.instance.attributes['device_class']
-                    ]
+                        entity.instance.attributes['device_class'] as keyof typeof ENTITY_SENSOR_CAPABILITY_MAP
+                      ]
                     : null;
 
                   if (capabilityId) {
@@ -601,57 +594,41 @@ export default class HomeAssistantDriver extends Homey.Driver {
                     homeyDevice.capabilities.push('action');
                     homeyDevice.capabilitiesOptions['action'] = homeyDevice.capabilitiesOptions['action'] || {};
                     homeyDevice.capabilitiesOptions['action'].entityId = entityId;
-                  } else if (
-                    entityId.endsWith('_power_outage_count')
-                    || entityId.endsWith('_motor_state')
-                  ) {
+                  } else if (entityId.endsWith('_power_outage_count') || entityId.endsWith('_motor_state')) {
                     // ignore!
-                  } else if (
-                    entityId.endsWith('_noise')
-                    && entity.instance.attributes.unit_of_measurement === 'dB'
-                  ) {
+                  } else if (entityId.endsWith('_noise') && entity.instance.attributes.unit_of_measurement === 'dB') {
                     homeyDevice.capabilities.push('measure_noise');
-                    homeyDevice.capabilitiesOptions['measure_noise'] = homeyDevice.capabilitiesOptions['measure_noise'] || {};
+                    homeyDevice.capabilitiesOptions['measure_noise'] =
+                      homeyDevice.capabilitiesOptions['measure_noise'] || {};
                     homeyDevice.capabilitiesOptions['measure_noise'].entityId = entityId;
-                  } else if (
-                    entityId.endsWith('_rain')
-                    && entity.instance.attributes.unit_of_measurement === 'mm'
-                  ) {
+                  } else if (entityId.endsWith('_rain') && entity.instance.attributes.unit_of_measurement === 'mm') {
                     homeyDevice.capabilities.push('measure_rain');
-                    homeyDevice.capabilitiesOptions['measure_rain'] = homeyDevice.capabilitiesOptions['measure_rain'] || {};
+                    homeyDevice.capabilitiesOptions['measure_rain'] =
+                      homeyDevice.capabilitiesOptions['measure_rain'] || {};
                     homeyDevice.capabilitiesOptions['measure_rain'].entityId = entityId;
                   } else if (
-                    entityId.endsWith('_wind_strength')
-                    && entity.instance.attributes.unit_of_measurement === 'km/h'
+                    entityId.endsWith('_wind_strength') &&
+                    entity.instance.attributes.unit_of_measurement === 'km/h'
                   ) {
                     homeyDevice.capabilities.push('measure_wind_strength');
-                    homeyDevice.capabilitiesOptions['measure_wind_strength'] = homeyDevice.capabilitiesOptions[
-                      'measure_wind_strength'
-                    ] || {};
-                    homeyDevice.capabilitiesOptions[
-                      'measure_wind_strength'
-                    ].entityId = entityId;
+                    homeyDevice.capabilitiesOptions['measure_wind_strength'] =
+                      homeyDevice.capabilitiesOptions['measure_wind_strength'] || {};
+                    homeyDevice.capabilitiesOptions['measure_wind_strength'].entityId = entityId;
                   } else if (entityId.endsWith('_status')) {
                     homeyDevice.capabilities.push('status');
                     homeyDevice.capabilitiesOptions['status'] = homeyDevice.capabilitiesOptions['status'] || {};
                     homeyDevice.capabilitiesOptions['status'].entityId = entityId;
                   } else {
-                    const entityIdWithoutSensor = entityId.substring(
-                      'sensor.'.length,
-                    );
-                    const capabilityType = entity.instance.attributes[
-                      'unit_of_measurement'
-                    ]
-                      ? 'number'
-                      : 'string';
+                    const entityIdWithoutSensor = entityId.substring('sensor.'.length);
+                    const capabilityType = entity.instance.attributes['unit_of_measurement'] ? 'number' : 'string';
                     const capabilityId = `hass-${capabilityType}.${entityIdWithoutSensor}`;
 
                     homeyDevice.capabilities.push(capabilityId);
                     homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-                    homeyDevice.capabilitiesOptions[capabilityId].title = friendlyName
-                      || entity.instance.attributes['device_class']
-                      || entityIdWithoutSensor;
-                    homeyDevice.capabilitiesOptions[capabilityId].units = entity.instance.attributes['unit_of_measurement'] || null;
+                    homeyDevice.capabilitiesOptions[capabilityId].title =
+                      friendlyName || entity.instance.attributes['device_class'] || entityIdWithoutSensor;
+                    homeyDevice.capabilitiesOptions[capabilityId].units =
+                      entity.instance.attributes['unit_of_measurement'] || null;
                     homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
                   }
                 }
@@ -663,17 +640,12 @@ export default class HomeAssistantDriver extends Homey.Driver {
                 homeyDevice.class = homeyDevice.class || 'sensor';
 
                 // Ignore Binary Sensors of type "update"
-                if (
-                  entity.instance.attributes
-                  && entity.instance.attributes['device_class'] !== 'update'
-                ) {
+                if (entity.instance.attributes && entity.instance.attributes['device_class'] !== 'update') {
                   // Is this Home Assistant Entity a known Homey Capability?
-                  const capabilityId = entity.instance.attributes[
-                    'device_class'
-                  ]
+                  const capabilityId = entity.instance.attributes['device_class']
                     ? ENTITY_ALARM_CAPABILITY_MAP[
-                      entity.instance.attributes['device_class']
-                    ]
+                        entity.instance.attributes['device_class'] as keyof typeof ENTITY_ALARM_CAPABILITY_MAP
+                      ]
                     : null;
 
                   if (capabilityId === 'smoke' || capabilityId === 'heat') {
@@ -685,16 +657,13 @@ export default class HomeAssistantDriver extends Homey.Driver {
                     homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
                     homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
                   } else {
-                    const entityIdWithoutSensor = entityId.substring(
-                      'binary_sensor.'.length,
-                    );
+                    const entityIdWithoutSensor = entityId.substring('binary_sensor.'.length);
                     const capabilityType = 'boolean';
                     const capabilityId = `hass-${capabilityType}.${entityIdWithoutSensor}`;
                     homeyDevice.capabilities.push(capabilityId);
                     homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-                    homeyDevice.capabilitiesOptions[capabilityId].title = friendlyName
-                      || entity.instance.attributes['device_class']
-                      || entityIdWithoutSensor;
+                    homeyDevice.capabilitiesOptions[capabilityId].title =
+                      friendlyName || entity.instance.attributes['device_class'] || entityIdWithoutSensor;
                     homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
                   }
                 }
@@ -703,20 +672,15 @@ export default class HomeAssistantDriver extends Homey.Driver {
               // Is this entity a Media Player?
               // https://developers.home-assistant.io/docs/core/entity/media-player
               if (entityId.startsWith('media_player.')) {
-                const mediaType = entity.instance.attributes
-                  && entity.instance.attributes['device_class']
-                  ? ENTITY_MEDIAPLAYER_CLASS_MAP[
-                    entity.instance.attributes['device_class']
-                  ]
-                  : 'speaker';
-                homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor'
-                  ? homeyDevice.class
-                  : mediaType;
+                const mediaType =
+                  entity.instance.attributes && entity.instance.attributes['device_class']
+                    ? ENTITY_MEDIAPLAYER_CLASS_MAP[
+                        entity.instance.attributes['device_class'] as keyof typeof ENTITY_MEDIAPLAYER_CLASS_MAP
+                      ]
+                    : 'speaker';
+                homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : mediaType;
 
-                if (
-                  !homeyDevice.iconOverride
-                  || homeyDevice.class === 'sensor'
-                ) {
+                if (!homeyDevice.iconOverride || homeyDevice.class === 'sensor') {
                   switch (mediaType) {
                     case 'tv':
                       homeyDevice.iconOverride = 'tv';
@@ -736,23 +700,21 @@ export default class HomeAssistantDriver extends Homey.Driver {
                 if (entity.instance.attributes) {
                   if (typeof entity.instance.state === 'string') {
                     homeyDevice.capabilities.push('speaker_playing');
-                    homeyDevice.capabilitiesOptions['speaker_playing'] = homeyDevice.capabilitiesOptions['speaker_playing'] || {};
+                    homeyDevice.capabilitiesOptions['speaker_playing'] =
+                      homeyDevice.capabilitiesOptions['speaker_playing'] || {};
                     homeyDevice.capabilitiesOptions['speaker_playing'].title = friendlyName || entityId;
-                    homeyDevice.capabilitiesOptions[
-                      'speaker_playing'
-                    ].entityId = entityId;
+                    homeyDevice.capabilitiesOptions['speaker_playing'].entityId = entityId;
                   }
 
                   const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
 
-                  for (const [key, value] of Object.entries(
-                    ENTITY_SPEAKER_SUPPORTED_FEATURES,
-                  )) {
+                  for (const [key, value] of Object.entries(ENTITY_SPEAKER_SUPPORTED_FEATURES)) {
                     // Check if the key is part of the supported features binary value.
-                    if (supportedFeatures & key) {
+                    if (supportedFeatures & Number(key)) {
                       value.forEach(capabilityId => {
                         homeyDevice.capabilities.push(capabilityId);
-                        homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
+                        homeyDevice.capabilitiesOptions[capabilityId] =
+                          homeyDevice.capabilitiesOptions[capabilityId] || {};
                         homeyDevice.capabilitiesOptions[capabilityId].title = friendlyName || entityId;
                         homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
                       });
@@ -766,17 +728,13 @@ export default class HomeAssistantDriver extends Homey.Driver {
               if (entityId.startsWith('cover.')) {
                 const coveringType = entity.instance.attributes['device_class']
                   ? ENTITY_COVER_CLASS_MAP[
-                    entity.instance.attributes['device_class']
-                  ]
+                      entity.instance.attributes['device_class'] as keyof typeof ENTITY_COVER_CLASS_MAP
+                    ]
                   : 'windowcoverings';
-                homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor'
-                  ? homeyDevice.class
-                  : coveringType;
+                homeyDevice.class =
+                  homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : coveringType;
 
-                if (
-                  !homeyDevice.iconOverride
-                  || homeyDevice.class === 'sensor'
-                ) {
+                if (!homeyDevice.iconOverride || homeyDevice.class === 'sensor') {
                   switch (coveringType) {
                     case 'sunshade':
                       homeyDevice.iconOverride = 'sunshade2';
@@ -799,14 +757,13 @@ export default class HomeAssistantDriver extends Homey.Driver {
                 if (entity.instance.attributes) {
                   const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
 
-                  for (const [key, value] of Object.entries(
-                    ENTITY_COVER_SUPPORTED_FEATURES,
-                  )) {
+                  for (const [key, value] of Object.entries(ENTITY_COVER_SUPPORTED_FEATURES)) {
                     // Check if the key is part of the supported features binary value.
-                    if (supportedFeatures & key) {
+                    if (supportedFeatures & Number(key)) {
                       value.forEach(capabilityId => {
                         homeyDevice.capabilities.push(capabilityId);
-                        homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
+                        homeyDevice.capabilitiesOptions[capabilityId] =
+                          homeyDevice.capabilitiesOptions[capabilityId] || {};
                         homeyDevice.capabilitiesOptions[capabilityId].title = friendlyName || entityId;
                         homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
                       });
@@ -815,12 +772,10 @@ export default class HomeAssistantDriver extends Homey.Driver {
 
                   if (coveringType === 'garagedoor') {
                     homeyDevice.capabilities.push('garagedoor_closed');
-                    homeyDevice.capabilitiesOptions['garagedoor_closed'] = homeyDevice.capabilitiesOptions['garagedoor_closed']
-                      || {};
+                    homeyDevice.capabilitiesOptions['garagedoor_closed'] =
+                      homeyDevice.capabilitiesOptions['garagedoor_closed'] || {};
                     homeyDevice.capabilitiesOptions['garagedoor_closed'].title = friendlyName || entityId;
-                    homeyDevice.capabilitiesOptions[
-                      'garagedoor_closed'
-                    ].entityId = entityId;
+                    homeyDevice.capabilitiesOptions['garagedoor_closed'].entityId = entityId;
                   }
                 }
               }
@@ -838,11 +793,12 @@ export default class HomeAssistantDriver extends Homey.Driver {
           // Filter devices
           .filter(homeyDevice => {
             // Filter devices without capabilities
-            if (!homeyDevice.capabilities.length) return false;
+            if (!homeyDevice.capabilities.length) {
+              return false;
+            }
 
             // Filter devices without name
-            if (!homeyDevice.name) return false;
-            return true;
+            return !!homeyDevice.name;
           })
       );
     };
@@ -864,15 +820,12 @@ export default class HomeAssistantDriver extends Homey.Driver {
     });
 
     socket.setHandler('test_server', async ({ host, port, protocol }) => {
-      const url = protocol === 'http'
-        ? `http://${host}:${port}`
-        : `https://${host}:${port}`;
+      const url = protocol === 'http' ? `http://${host}:${port}` : `https://${host}:${port}`;
       const res = await fetch(url);
       const body = await res.text();
+
       if (!body.includes('Home Assistant')) {
-        throw new Error(
-          'Server responded, but does not seem to be a Home Assistant server?',
-        );
+        throw new Error('Server responded, but does not seem to be a Home Assistant server?');
       }
 
       if (typeof protocol !== 'string') {
@@ -887,11 +840,15 @@ export default class HomeAssistantDriver extends Homey.Driver {
         throw new Error('Invalid Port');
       }
 
+      if (!currentServerId) {
+        throw new Error('Server ID not set');
+      }
+
       servers[currentServerId] = {
         protocol,
         host,
         port,
-        name: null,
+        name: 'Home Assistant',
       };
     });
 
@@ -918,5 +875,4 @@ export default class HomeAssistantDriver extends Homey.Driver {
   //   //console.log(JSON.stringify(deviceRegistry, null, 4));
   //   //console.log(JSON.stringify(entityRegistry, null, 4));
   // }
-
-};
+}
