@@ -1,6 +1,3 @@
-import type { StateChangedEvent } from 'home-assistant-js-websocket';
-import Homey from 'homey';
-
 import {
   Auth,
   Connection,
@@ -8,13 +5,17 @@ import {
   type HassEntities,
   type HassEntity,
   type HassServiceTarget,
+  type StateChangedEvent,
   subscribeEntities,
 } from 'home-assistant-js-websocket';
+import Homey from 'homey';
 
 export default class HomeAssistantServer extends Homey.SimpleClass {
   private connection: Promise<Connection> | null;
-  private entities: Promise<HassEntities> | null;
-  private _states: HassEntity[];
+
+  private entitiesSubscriptionPromiseResolver?: (() => void) | null;
+  private readonly entitiesSubscriptionPromise: Promise<void>;
+  private entities: HassEntities = {};
 
   constructor(
     public readonly name: string = 'Home Assistant',
@@ -24,10 +25,6 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
     public readonly token: string,
   ) {
     super();
-
-    this.connection = null;
-    this.entities = null;
-    this._states = [];
 
     if (!this.protocol) {
       throw new Error('Missing Protocol');
@@ -46,7 +43,11 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
     }
 
     this.connection = null;
-    this.entities = null;
+
+    this.entitiesSubscriptionPromiseResolver = null;
+    this.entitiesSubscriptionPromise = new Promise(resolve => {
+      this.entitiesSubscriptionPromiseResolver = resolve;
+    });
   }
 
   async init(): Promise<void> {
@@ -55,7 +56,7 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
 
   async getConnection(): Promise<Connection> {
     if (!this.connection) {
-      this.connection = Promise.resolve().then(async () => {
+      this.connection = (async (): Promise<Connection> => {
         // Create Auth
         const auth = new Auth({
           hassUrl: `${this.protocol}://${this.host}:${this.port}`,
@@ -72,13 +73,19 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
 
         // Subscribe to events
         await connection.subscribeEvents(this.onEventStateChanged, 'state_changed');
-        this._states = await connection.sendMessagePromise({ type: 'get_states' });
 
         // Subscribe to entities
-        // await connection.subscribeEntities(console.log);
+        subscribeEntities(connection, entities => {
+          this.entities = entities;
+
+          if (this.entitiesSubscriptionPromiseResolver) {
+            this.entitiesSubscriptionPromiseResolver();
+            this.entitiesSubscriptionPromiseResolver = null;
+          }
+        });
 
         return connection;
-      });
+      })();
     }
 
     return this.connection;
@@ -88,32 +95,20 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
     const { data } = event;
     this.emit('state_changed', data);
 
-    if (typeof data.entity_id === 'string') {
+    if (data.entity_id) {
       this.emit(`state_changed_entity:${data.entity_id}`, data.new_state);
     }
   };
 
   async getEntities(): Promise<HassEntities> {
-    if (!this.entities) {
-      this.entities = Promise.resolve().then(async () => {
-        const connection = await this.getConnection();
-        return new Promise(resolve => {
-          subscribeEntities(connection, entities => {
-            // this.entities = entities;
-            resolve(entities);
-          });
-        });
-      });
-    }
+    await this.getConnection();
+    await this.entitiesSubscriptionPromise;
+
     return this.entities;
   }
 
   async getEntityState(entityId: string): Promise<HassEntity> {
-    if (!this._states) {
-      await this.getConnection();
-    }
-
-    const entityState = this._states.find(state => state.entity_id === entityId);
+    const entityState = (await this.getEntities())[entityId];
     if (!entityState) {
       throw new Error(`Invalid Entity State: ${entityId}`);
     }
@@ -141,38 +136,4 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
       service_data: serviceData,
     });
   }
-
-  // async updateLight(on, deviceClass, data) {
-  //   const connection = await this.getConnection(); //domain "switch"
-  //   if (connection) {
-  //     if (deviceClass == 'socket') {
-  //       Hass.callService(connection, "switch", on ? "turn_on" : "turn_off", data)
-  //         .catch((error) => {
-  //           console.log("error: ", error);
-  //         });
-  //     } else {
-  //       Hass.callService(connection, "light", on ? "turn_on" : "turn_off", data)
-  //         .catch((error) => {
-  //           console.log("error:", error);
-  //         });
-  //     }
-
-  //   }
-  // }
-  // async pausePlay(on, capability, data) {
-  //   const connection = await this.getConnection();
-  //   if (connection) {
-  //     if (capability == "speaker_playing") {
-  //       Hass.callService(connection, "media_player", on ? "media_play" : "media_pause", data)
-  //         .catch((error) => {
-  //           console.log("Error: ", error);
-  //         });
-  //     } else if (capability == "volume_set") {
-  //       Hass.callService(connection, "media_player", "volume_set", data)
-  //         .catch((error) => {
-  //           console.log("Error: ", error);
-  //         });
-  //     }
-  //   }
-  // }
 }
