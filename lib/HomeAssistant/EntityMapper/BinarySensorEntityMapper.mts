@@ -36,24 +36,25 @@ export enum BinarySensorDeviceClass {
 const CAPABILITY_MAP: Partial<Record<BinarySensorDeviceClass, string>> = {
   [BinarySensorDeviceClass.BATTERY]: 'alarm_battery',
   [BinarySensorDeviceClass.BATTERY_CHARGING]: 'alarm_charging', // todo: custom_capability
-  [BinarySensorDeviceClass.COLD]: 'alarm_generic',
-  [BinarySensorDeviceClass.CONNECTIVITY]: 'onoff',
-  [BinarySensorDeviceClass.DOOR]: 'alarm_contact', // ?
+  [BinarySensorDeviceClass.CO]: 'alarm_co',
+  [BinarySensorDeviceClass.COLD]: 'alarm_cold',
+  [BinarySensorDeviceClass.CONNECTIVITY]: 'alarm_connectivity',
+  [BinarySensorDeviceClass.DOOR]: 'alarm_contact',
   [BinarySensorDeviceClass.GARAGE_DOOR]: 'garagedoor_closed',
-  [BinarySensorDeviceClass.GAS]: 'alarm_co2', // ?
+  [BinarySensorDeviceClass.GAS]: 'alarm_gas',
   [BinarySensorDeviceClass.HEAT]: 'alarm_heat',
-  [BinarySensorDeviceClass.LIGHT]: 'alarm_generic',
+  [BinarySensorDeviceClass.LIGHT]: 'alarm_light',
   [BinarySensorDeviceClass.LOCK]: 'locked',
-  [BinarySensorDeviceClass.MOISTURE]: 'alarm_water',
+  [BinarySensorDeviceClass.MOISTURE]: 'alarm_moisture',
   [BinarySensorDeviceClass.MOTION]: 'alarm_motion',
   [BinarySensorDeviceClass.MOVING]: 'alarm_generic',
   [BinarySensorDeviceClass.OCCUPANCY]: 'alarm_occupancy',
-  [BinarySensorDeviceClass.OPENING]: 'alarm_contact',
+  [BinarySensorDeviceClass.OPENING]: 'alarm_open',
   [BinarySensorDeviceClass.PLUG]: 'alarm_plugged_in', // todo: custom_capability
-  [BinarySensorDeviceClass.POWER]: 'onoff',
-  [BinarySensorDeviceClass.PRESENCE]: 'alarm_motion',
+  [BinarySensorDeviceClass.POWER]: 'alarm_power',
+  [BinarySensorDeviceClass.PRESENCE]: 'alarm_presence',
   [BinarySensorDeviceClass.PROBLEM]: 'alarm_problem', // todo: custom_capability
-  [BinarySensorDeviceClass.RUNNING]: 'alarm_generic',
+  [BinarySensorDeviceClass.RUNNING]: 'alarm_running',
   [BinarySensorDeviceClass.SAFETY]: 'alarm_safety', // todo: custom_capability
   [BinarySensorDeviceClass.SMOKE]: 'alarm_smoke',
   [BinarySensorDeviceClass.SOUND]: 'alarm_sound', // todo: custom_capability
