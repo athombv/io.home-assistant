@@ -1,20 +1,30 @@
 import type { HomeyHomeAssistantDeviceOption, ProcessedHomeAssistantEntity } from '../../HomeAssistantTypes.mjs';
-import type { EntityMapper } from '../HaDeviceEntityMapper.mjs';
+import HaDeviceEntityMapper, { type EntityMapper } from '../HaDeviceEntityMapper.mjs';
 
-const SUPPORTED_FEATURES = {
-  // 1: ['onoff'], // Turn On
-  // 2: ['onoff'], // Turn Off
-  // 4: [''], // Pause
-  // 8: [''], // Stop
-  // 16: [''], // Return Home
-  // 32: [''], // Fan Speed
-  128: ['vacuumcleaner_state'], // Status
-  // 256: [''], // Send Command
-  // 512: [''], // Locate
-  // 1024: [''], // Clean Spot
-  // 2048: [''], // Map
-  // 4096: [''], // State
-  // 8192: [''], // Start
+/** Entity features as defined by Home Assistant in `VacuumEntityFeature` */
+export enum VacuumEntityFeature {
+  /** @deprecated not supported by StateVacuumEntity */
+  TURN_ON = 1,
+  /** @deprecated not supported by StateVacuumEntity */
+  TURN_OFF = 2,
+  PAUSE = 4,
+  STOP = 8,
+  RETURN_HOME = 16,
+  FAN_SPEED = 32,
+  BATTERY = 64,
+  /** @deprecated not supported by StateVacuumEntity */
+  STATUS = 128,
+  SEND_COMMAND = 256,
+  LOCATE = 512,
+  CLEAN_SPOT = 1024,
+  MAP = 2048,
+  STATE = 4096, // Must be set by vacuum platforms derived from StateVacuumEntity
+  START = 8192,
+  CLEAN_AREA = 16384,
+}
+
+const SUPPORTED_FEATURES: Partial<Record<VacuumEntityFeature, string[]>> = {
+  [VacuumEntityFeature.STATUS]: ['vacuumcleaner_state'], // Status
 };
 
 /**
@@ -29,28 +39,22 @@ export default class VacuumEntityMapper implements EntityMapper {
     entityId: string,
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,
+    friendlyName: string | undefined,
   ): void {
     homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : 'vacuumcleaner';
     homeyDevice.iconOverride =
       homeyDevice.iconOverride && homeyDevice.class !== 'sensor' ? homeyDevice.iconOverride : 'vacuum-cleaner';
+
     if (typeof entity.instance.state === 'string') {
       homeyDevice.capabilities.push('onoff');
       homeyDevice.capabilitiesOptions['onoff'] = homeyDevice.capabilitiesOptions['onoff'] || {};
       homeyDevice.capabilitiesOptions['onoff'].entityId = entityId;
     }
-    if (entity.instance.attributes) {
-      const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
-      for (const [key, value] of Object.entries(SUPPORTED_FEATURES)) {
-        // Check if the key is part of the supported features binary value.
-        if (supportedFeatures & Number(key)) {
-          console.log('capabilityId', value, entityId);
-          value.forEach(capabilityId => {
-            homeyDevice.capabilities.push(capabilityId);
-            homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-            homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
-          });
-        }
-      }
+
+    if (!entity.instance.attributes) {
+      return;
     }
+
+    HaDeviceEntityMapper.mapFeatureMask(entityId, entity, homeyDevice, friendlyName, SUPPORTED_FEATURES);
   }
 }
