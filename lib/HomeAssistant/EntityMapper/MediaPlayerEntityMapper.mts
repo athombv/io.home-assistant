@@ -43,6 +43,7 @@ const SUPPORTED_FEATURES: Partial<Record<MediaPlayerEntityFeature, string[]>> = 
   [MediaPlayerEntityFeature.PREVIOUS_TRACK]: ['speaker_prev'],
   [MediaPlayerEntityFeature.NEXT_TRACK]: ['speaker_next'],
   [MediaPlayerEntityFeature.VOLUME_STEP]: ['volume_up', 'volume_down'],
+  [MediaPlayerEntityFeature.STOP]: ['speaker_stop'],
   [MediaPlayerEntityFeature.PLAY]: ['speaker_playing'],
   [MediaPlayerEntityFeature.SHUFFLE_SET]: ['speaker_shuffle'],
   [MediaPlayerEntityFeature.REPEAT_SET]: ['speaker_repeat'],

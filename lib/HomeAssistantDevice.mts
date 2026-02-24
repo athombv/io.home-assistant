@@ -134,6 +134,12 @@ export default class HomeAssistantDevice extends Homey.Device {
       this.registerCapabilityListener('speaker_shuffle', this.onCapabilityShuffleSet);
     }
 
+    if (this.hasCapability('speaker_stop')) {
+      this.registerCapabilityListener('speaker_stop', async (value, options) => {
+        await this.onCapabilitySpeakerService('media_stop', options, 'speaker_stop');
+      });
+    }
+
     // Volume Capabilities
     if (this.hasCapability('volume_up')) {
       this.registerCapabilityListener('volume_up', async (value, options: unknown) => {
