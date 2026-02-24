@@ -23,8 +23,19 @@ export enum VacuumEntityFeature {
   CLEAN_AREA = 16384,
 }
 
+/** Vacuum states as defined by Home Assistant in `VacuumActivity` */
+export enum VacuumActivity {
+  CLEANING = 'cleaning',
+  DOCKED = 'docked',
+  IDLE = 'idle',
+  PAUSED = 'paused',
+  RETURNING = 'returning',
+  ERROR = 'error',
+}
+
 const SUPPORTED_FEATURES: Partial<Record<VacuumEntityFeature, string[]>> = {
-  [VacuumEntityFeature.STATUS]: ['vacuumcleaner_state'], // Status
+  [VacuumEntityFeature.STATUS]: ['vacuumcleaner_state'],
+  [VacuumEntityFeature.STATE]: ['vacuumcleaner_state'],
 };
 
 /**

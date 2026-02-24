@@ -1,6 +1,7 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
 import Homey from 'homey';
 import BinarySensorEntityMapper from './HomeAssistant/EntityMapper/BinarySensorEntityMapper.mjs';
+import { VacuumActivity } from './HomeAssistant/EntityMapper/VacuumEntityMapper.mjs';
 import { convertUnits } from './HomeAssistant/HaUnitConverter.mjs';
 import type HomeAssistantApp from './HomeAssistantApp.mjs';
 import type HomeAssistantServer from './HomeAssistantServer.mjs';
@@ -772,7 +773,8 @@ export default class HomeAssistantDevice extends Homey.Device {
           this.setAvailable().catch(this.error);
           break;
         }
-        case 'paused': {
+        case 'paused':
+        case VacuumActivity.PAUSED: {
           if (this.hasCapability('speaker_playing')) {
             this.setCapabilityValue('speaker_playing', false).catch(this.error);
           } else if (this.hasCapability('vacuumcleaner_state')) {
@@ -796,7 +798,8 @@ export default class HomeAssistantDevice extends Homey.Device {
           break;
         }
         case 'open':
-        case 'closed': {
+        case 'closed':
+        case VacuumActivity.IDLE: {
           if (this.hasCapability('windowcoverings_state')) {
             this.setCapabilityValue('windowcoverings_state', 'idle').catch(this.error);
           }
@@ -810,14 +813,16 @@ export default class HomeAssistantDevice extends Homey.Device {
           this.setAvailable().catch(this.error);
           break;
         }
-        case 'cleaning': {
+        case 'cleaning':
+        case VacuumActivity.CLEANING: {
           if (this.hasCapability('vacuumcleaner_state')) {
             this.setCapabilityValue('vacuumcleaner_state', 'cleaning').catch(this.error);
           }
           this.setAvailable().catch(this.error);
           break;
         }
-        case 'docked': {
+        case 'docked':
+        case VacuumActivity.DOCKED: {
           if (this.hasCapability('vacuumcleaner_state')) {
             this.setCapabilityValue('vacuumcleaner_state', 'docked').catch(this.error);
           }
@@ -825,7 +830,9 @@ export default class HomeAssistantDevice extends Homey.Device {
           break;
         }
         case 'returning':
-        case 'error': {
+        case 'error':
+        case VacuumActivity.RETURNING:
+        case VacuumActivity.ERROR: {
           if (this.hasCapability('vacuumcleaner_state')) {
             this.setCapabilityValue('vacuumcleaner_state', 'stopped').catch(this.error);
           }
