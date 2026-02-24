@@ -1,32 +1,57 @@
-import type { ProcessedHomeAssistantEntity, HomeyHomeAssistantDeviceOption } from '../../HomeAssistantTypes.mjs';
-import type { EntityMapper } from '../HaDeviceEntityMapper.mjs';
+import type { HomeyHomeAssistantDeviceOption, ProcessedHomeAssistantEntity } from '../../HomeAssistantTypes.mjs';
+import HaDeviceEntityMapper, { type EntityMapper } from '../HaDeviceEntityMapper.mjs';
 
-const CLASS_MAP = {
-  receiver: 'amplifier',
-  speaker: 'speaker',
-  tv: 'tv',
+/** Entity features as defined by Home Assistant in `MediaPlayerEntityFeature` */
+export enum MediaPlayerEntityFeature {
+  PAUSE = 1,
+  SEEK = 2,
+  VOLUME_SET = 4,
+  VOLUME_MUTE = 8,
+  PREVIOUS_TRACK = 16,
+  NEXT_TRACK = 32,
+  // 64 is not used
+  TURN_ON = 128,
+  TURN_OFF = 256,
+  PLAY_MEDIA = 512,
+  VOLUME_STEP = 1024,
+  SELECT_SOURCE = 2048,
+  STOP = 4096,
+  CLEAR_PLAYLIST = 8192,
+  PLAY = 16384,
+  SHUFFLE_SET = 32768,
+  SELECT_SOUND_MODE = 65536,
+  BROWSE_MEDIA = 131072,
+  REPEAT_SET = 262144,
+  GROUPING = 524288,
+  MEDIA_ANNOUNCE = 1048576,
+  MEDIA_ENQUEUE = 2097152,
+  SEARCH_MEDIA = 4194304,
+}
+
+/** Device classes as defined by Home Assistant in `MediaPlayerDeviceClass` */
+export enum MediaPlayerDeviceClass {
+  TV = 'tv',
+  SPEAKER = 'speaker',
+  RECEIVER = 'receiver',
+}
+
+const SUPPORTED_FEATURES: Partial<Record<MediaPlayerEntityFeature, string[]>> = {
+  [MediaPlayerEntityFeature.PAUSE]: ['speaker_playing', 'speaker_track', 'speaker_artist', 'speaker_album'],
+  [MediaPlayerEntityFeature.SEEK]: ['speaker_position', 'speaker_duration'],
+  [MediaPlayerEntityFeature.VOLUME_SET]: ['volume_set'],
+  [MediaPlayerEntityFeature.VOLUME_MUTE]: ['volume_mute'],
+  [MediaPlayerEntityFeature.PREVIOUS_TRACK]: ['speaker_prev'],
+  [MediaPlayerEntityFeature.NEXT_TRACK]: ['speaker_next'],
+  [MediaPlayerEntityFeature.VOLUME_STEP]: ['volume_up', 'volume_down'],
+  [MediaPlayerEntityFeature.PLAY]: ['speaker_playing'],
+  [MediaPlayerEntityFeature.SHUFFLE_SET]: ['speaker_shuffle'],
+  [MediaPlayerEntityFeature.REPEAT_SET]: ['speaker_repeat'],
 };
 
-const SPEAKER_SUPPORTED_FEATURES = {
-  1: ['speaker_playing', 'speaker_track', 'speaker_artist', 'speaker_album'],
-  2: ['speaker_position', 'speaker_duration'],
-  4: ['volume_set'],
-  8: ['volume_mute'],
-  16: ['speaker_prev'],
-  32: ['speaker_next'],
-  // 128: ['onoff'], // Turn Off
-  // 256: ['onoff'], // Turn On
-  // 512: 'play_media', // TODO: Not supported by Homey yet
-  1024: ['volume_up', 'volume_down'],
-  // 2048: 'select_source', // TODO: Not supported by Homey yet
-  // 4096: 'speaker_stop', // TODO: Not supported by Homey yet
-  // 8192: 'clear_playlist', // TODO: Not supported by Homey yet
-  16384: ['speaker_playing'],
-  32768: ['speaker_shuffle'],
-  // 65536: 'select_sound_mode', // TODO: Not supported by Homey yet
-  // 131072: 'browse_media', // TODO: Not supported by Homey yet
-  262144: ['speaker_repeat'],
-  // 524288: 'grouping', // TODO: Not supported by Homey yet
+const CLASS_MAP: Record<MediaPlayerDeviceClass, string> = {
+  [MediaPlayerDeviceClass.RECEIVER]: 'amplifier',
+  [MediaPlayerDeviceClass.SPEAKER]: 'speaker',
+  [MediaPlayerDeviceClass.TV]: 'tv',
 };
 
 /**
@@ -43,10 +68,13 @@ export default class MediaPlayerEntityMapper implements EntityMapper {
     homeyDevice: HomeyHomeAssistantDeviceOption,
     friendlyName: string | undefined,
   ): void {
-    const mediaType =
-      entity.instance.attributes && entity.instance.attributes['device_class']
-        ? CLASS_MAP[entity.instance.attributes['device_class'] as keyof typeof CLASS_MAP]
-        : 'speaker';
+    if (!entity.instance.attributes) {
+      return;
+    }
+
+    const deviceClass = entity.instance.attributes['device_class'] ?? null;
+    const mediaType = this.getMediaType(deviceClass);
+
     homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : mediaType;
 
     if (!homeyDevice.iconOverride || homeyDevice.class === 'sensor') {
@@ -66,27 +94,21 @@ export default class MediaPlayerEntityMapper implements EntityMapper {
       }
     }
 
-    if (entity.instance.attributes) {
-      if (typeof entity.instance.state === 'string') {
-        homeyDevice.capabilities.push('speaker_playing');
-        homeyDevice.capabilitiesOptions['speaker_playing'] = homeyDevice.capabilitiesOptions['speaker_playing'] || {};
-        homeyDevice.capabilitiesOptions['speaker_playing'].title = friendlyName || entityId;
-        homeyDevice.capabilitiesOptions['speaker_playing'].entityId = entityId;
-      }
+    // Always add playing capability
+    homeyDevice.capabilities.push('speaker_playing');
+    homeyDevice.capabilitiesOptions['speaker_playing'] = homeyDevice.capabilitiesOptions['speaker_playing'] || {};
+    homeyDevice.capabilitiesOptions['speaker_playing'].title = friendlyName || entityId;
+    homeyDevice.capabilitiesOptions['speaker_playing'].entityId = entityId;
 
-      const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
+    HaDeviceEntityMapper.mapFeatureMask(entityId, entity, homeyDevice, friendlyName, SUPPORTED_FEATURES);
+  }
 
-      for (const [key, value] of Object.entries(SPEAKER_SUPPORTED_FEATURES)) {
-        // Check if the key is part of the supported features binary value.
-        if (supportedFeatures & Number(key)) {
-          value.forEach(capabilityId => {
-            homeyDevice.capabilities.push(capabilityId);
-            homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-            homeyDevice.capabilitiesOptions[capabilityId].title = friendlyName || entityId;
-            homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
-          });
-        }
-      }
+  private getMediaType(deviceClass: string | null): string {
+    let mediaType: string | null = null;
+    if (deviceClass) {
+      mediaType = CLASS_MAP[deviceClass as MediaPlayerDeviceClass] ?? null;
     }
+
+    return mediaType ?? 'speaker';
   }
 }
