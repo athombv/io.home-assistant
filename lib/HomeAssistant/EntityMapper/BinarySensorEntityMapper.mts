@@ -78,29 +78,33 @@ export default class BinarySensorEntityMapper implements EntityMapper {
     friendlyName: string | undefined,
   ): void {
     homeyDevice.class = homeyDevice.class || 'sensor';
-    if (entity.instance.attributes && entity.instance.attributes['device_class'] !== 'update') {
-      // Is this Home Assistant Entity a known Homey Capability?
-      const capabilityId = BinarySensorEntityMapper.getCapabilityId(entity.instance.attributes['device_class']);
-
-      if (capabilityId === 'smoke' || capabilityId === 'heat') {
-        homeyDevice.iconOverride = 'smoke-detector';
-      }
-
-      if (capabilityId) {
-        homeyDevice.capabilities.push(capabilityId);
-        homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-        homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
-      } else {
-        const entityIdWithoutSensor = entityId.substring('binary_sensor.'.length);
-        const capabilityType = 'boolean';
-        const capabilityId = `hass-${capabilityType}.${entityIdWithoutSensor}`;
-        homeyDevice.capabilities.push(capabilityId);
-        homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-        homeyDevice.capabilitiesOptions[capabilityId].title =
-          friendlyName || entity.instance.attributes['device_class'] || entityIdWithoutSensor;
-        homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
-      }
+    if (!entity.instance.attributes) {
+      return;
     }
+
+    const deviceClass = entity.instance.attributes['device_class'];
+    if (deviceClass === BinarySensorDeviceClass.UPDATE) {
+      return;
+    }
+
+    let capabilityId = BinarySensorEntityMapper.getCapabilityId(deviceClass);
+    const capabilityOptions: (typeof homeyDevice.capabilitiesOptions)[string] = {
+      entityId,
+    };
+
+    if (capabilityId) {
+      // Known capabilities
+    } else {
+      const entityIdWithoutSensor = entityId.substring('binary_sensor.'.length);
+      const capabilityType = 'boolean';
+      capabilityId = `hass-${capabilityType}.${entityIdWithoutSensor}`;
+
+      capabilityOptions.title = friendlyName || deviceClass || entityIdWithoutSensor;
+    }
+
+    // Configure the capability
+    homeyDevice.capabilities.push(capabilityId);
+    homeyDevice.capabilitiesOptions[capabilityId] = capabilityOptions;
   }
 
   static getCapabilityId(deviceClass: string | undefined): string | null {
