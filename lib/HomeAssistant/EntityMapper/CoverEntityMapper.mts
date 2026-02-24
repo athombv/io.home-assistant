@@ -1,28 +1,51 @@
 import type { HomeyHomeAssistantDeviceOption, ProcessedHomeAssistantEntity } from '../../HomeAssistantTypes.mjs';
-import type { EntityMapper } from '../HaDeviceEntityMapper.mjs';
+import HaDeviceEntityMapper, { type EntityMapper } from '../HaDeviceEntityMapper.mjs';
 
-const CLASS_MAP = {
-  awning: 'sunshade',
-  blind: 'blinds',
-  curtain: 'curtain',
-  damper: 'windowcoverings',
-  door: 'garagedoor',
-  garage: 'garagedoor',
-  gate: 'garagedoor',
-  shade: 'sunshade',
-  shutter: 'windowcoverings',
-  window: 'windowcoverings',
+/** Entity features as defined by Home Assistant in `CoverEntityFeature` */
+export enum CoverEntityFeature {
+  OPEN = 1,
+  CLOSE = 2,
+  SET_POSITION = 4,
+  STOP = 8,
+  OPEN_TILT = 16,
+  CLOSE_TILT = 32,
+  STOP_TILT = 64,
+  SET_TILT_POSITION = 128,
+}
+
+/** Device classes as defined by Home Assistant in `CoverDeviceClass` */
+export enum CoverDeviceClass {
+  AWNING = 'awning',
+  BLIND = 'blind',
+  CURTAIN = 'curtain',
+  DAMPER = 'damper',
+  DOOR = 'door',
+  GARAGE = 'garage',
+  GATE = 'gate',
+  SHADE = 'shade',
+  SHUTTER = 'shutter',
+  WINDOW = 'window',
+}
+
+const CLASS_MAP: Record<CoverDeviceClass, string> = {
+  [CoverDeviceClass.AWNING]: 'sunshade',
+  [CoverDeviceClass.BLIND]: 'blinds',
+  [CoverDeviceClass.CURTAIN]: 'curtain',
+  [CoverDeviceClass.DAMPER]: 'windowcoverings',
+  [CoverDeviceClass.DOOR]: 'garagedoor',
+  [CoverDeviceClass.GARAGE]: 'garagedoor',
+  [CoverDeviceClass.GATE]: 'garagedoor',
+  [CoverDeviceClass.SHADE]: 'sunshade',
+  [CoverDeviceClass.SHUTTER]: 'windowcoverings',
+  [CoverDeviceClass.WINDOW]: 'windowcoverings',
 };
 
-const SUPPORTED_FEATURES = {
-  1: ['windowcoverings_state'], // Open
-  // 2: ['windowcoverings_state'], // Close: Disabled since Homey has no seperate cabability for close.
-  4: ['windowcoverings_set'],
-  // 8: ['windowcoverings_state'], // Stop: Disabled since Homey has no seperate cabability for stop.
-  16: ['windowcoverings_tilt_up'], // Open Tilt
-  32: ['windowcoverings_tilt_down'], // Close Tilt
-  // 64: [''], // Stop Tilt // TODO: Not supported by Homey yet
-  128: ['windowcoverings_tilt_set'], // Set Tilt Position
+const SUPPORTED_FEATURES: Partial<Record<CoverEntityFeature, string[]>> = {
+  [CoverEntityFeature.OPEN]: ['windowcoverings_state'], // Open
+  [CoverEntityFeature.SET_POSITION]: ['windowcoverings_set'],
+  [CoverEntityFeature.OPEN_TILT]: ['windowcoverings_tilt_up'], // Open Tilt
+  [CoverEntityFeature.CLOSE_TILT]: ['windowcoverings_tilt_down'], // Close Tilt
+  [CoverEntityFeature.SET_TILT_POSITION]: ['windowcoverings_tilt_set'], // Set Tilt Position
 };
 
 /**
@@ -39,9 +62,13 @@ export default class CoverEntityMapper implements EntityMapper {
     homeyDevice: HomeyHomeAssistantDeviceOption,
     friendlyName: string | undefined,
   ): void {
-    const coveringType = entity.instance.attributes['device_class']
-      ? CLASS_MAP[entity.instance.attributes['device_class'] as keyof typeof CLASS_MAP]
-      : 'windowcoverings';
+    if (!entity.instance.attributes) {
+      return;
+    }
+
+    const deviceClass = entity.instance.attributes['device_class'] ?? null;
+    const coveringType = this.getCoveringType(deviceClass);
+
     homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : coveringType;
 
     if (!homeyDevice.iconOverride || homeyDevice.class === 'sensor') {
@@ -64,28 +91,21 @@ export default class CoverEntityMapper implements EntityMapper {
       }
     }
 
-    if (entity.instance.attributes) {
-      const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
+    HaDeviceEntityMapper.mapFeatureMask(entityId, entity, homeyDevice, friendlyName, SUPPORTED_FEATURES);
 
-      for (const [key, value] of Object.entries(SUPPORTED_FEATURES)) {
-        // Check if the key is part of the supported features binary value.
-        if (supportedFeatures & Number(key)) {
-          value.forEach(capabilityId => {
-            homeyDevice.capabilities.push(capabilityId);
-            homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-            homeyDevice.capabilitiesOptions[capabilityId].title = friendlyName || entityId;
-            homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
-          });
-        }
-      }
-
-      if (coveringType === 'garagedoor') {
-        homeyDevice.capabilities.push('garagedoor_closed');
-        homeyDevice.capabilitiesOptions['garagedoor_closed'] =
-          homeyDevice.capabilitiesOptions['garagedoor_closed'] || {};
-        homeyDevice.capabilitiesOptions['garagedoor_closed'].title = friendlyName || entityId;
-        homeyDevice.capabilitiesOptions['garagedoor_closed'].entityId = entityId;
-      }
+    if (coveringType === 'garagedoor') {
+      homeyDevice.capabilities.push('garagedoor_closed');
+      homeyDevice.capabilitiesOptions['garagedoor_closed'] = homeyDevice.capabilitiesOptions['garagedoor_closed'] || {};
+      homeyDevice.capabilitiesOptions['garagedoor_closed'].title = friendlyName || entityId;
+      homeyDevice.capabilitiesOptions['garagedoor_closed'].entityId = entityId;
     }
+  }
+
+  private getCoveringType(deviceClass: string | null): string {
+    let coveringType: string | null = null;
+    if (deviceClass) {
+      coveringType = CLASS_MAP[deviceClass as CoverDeviceClass] ?? null;
+    }
+    return coveringType ?? 'windowcoverings';
   }
 }
