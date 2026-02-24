@@ -24,162 +24,473 @@ export function convertUnits(device: Homey.Device, capabilityId: string, entityS
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type UnitConverter = (unit: string, newValue: any) => any;
+type UnitConverter = (unit: string, value: any) => any;
 const converters: Record<string, UnitConverter> = {
-  measure_current: convertCurrentUnit,
-  measure_frequency: convertHzUnit,
-  measure_power: convertPowerUnit,
-  measure_pressure: convertPressureUnit,
-  measure_voltage: convertVoltageUnit,
-  meter_gas: convertVolumeUnit,
-  meter_power: convertEnergyUnit,
+  measure_current: convertCurrent, // A
+  measure_data_rate: convertDataRate, // b/s
+  measure_data_size: convertDataSize, // bytes
+  measure_distance: convertDistance, // m
+  measure_frequency: convertFrequency, // Hz
+  measure_o3: convertO3, // μg/m³
+  measure_co: convertCO, // ppm
+  measure_power: convertPower, // W
+  measure_pressure: convertPressure, // mbar
+  measure_so2: convertSO2, // μg/m³
+  measure_speed: convertSpeedMs, // m/s
+  measure_voltage: convertVoltage, // V
+  measure_content_volume: convertVolumeL, // L
+  measure_rain: convertRain, // mm
+  measure_rain_intensity: convertRainIntensity, // mm/h
+  measure_water: convertWaterFlow, // L/min
+  measure_weight: convertWeight, // g
+  measure_wind_strength: convertSpeedKmh, // km/h
+  meter_gas: convertGas, // m³
+  meter_power: convertEnergy, // kWh
+  meter_water: convertWater, // m³
 };
 
 function getConverter(capabilityId: string): UnitConverter {
-  return converters[capabilityId] ?? ((_, newValue): UnitConverter => newValue);
+  return converters[capabilityId] ?? ((_, value): UnitConverter => value);
 }
 
-function convertCurrentUnit(unit: string, newValue: number): number {
+function convertDataRate(unit: string, value: number): number {
+  switch (unit) {
+    // --- SI bit-based ---
+    case 'bit/s':
+      return value; // base unit
+    case 'kbit/s':
+      return value * 1_000; // 1 kb/s = 1,000 bit/s
+    case 'Mbit/s':
+      return value * 1_000_000; // 1 Mb/s = 1,000,000 bit/s
+    case 'Gbit/s':
+      return value * 1_000_000_000; // 1 Gb/s = 1,000,000,000 bit/s
+
+    // --- SI byte-based (1 byte = 8 bits) ---
+    case 'B/s':
+      return value * 8; // 1 B/s = 8 bit/s
+    case 'kB/s':
+      return value * 1_000 * 8; // 1 kB/s = 8,000 bit/s
+    case 'MB/s':
+      return value * 1_000_000 * 8; // 1 MB/s = 8,000,000 bit/s
+    case 'GB/s':
+      return value * 1_000_000_000 * 8; // 1 GB/s = 8,000,000,000 bit/s
+
+    // --- IEC binary byte-based ---
+    case 'KiB/s':
+      return value * 1_024 * 8; // 1 KiB/s = 8,192 bit/s
+    case 'MiB/s':
+      return value * 1_024 * 1_024 * 8; // 1 MiB/s = 8,388,608 bit/s
+    case 'GiB/s':
+      return value * 1_024 * 1_024 * 1_024 * 8; // 1 GiB/s = 8,589,934,592 bit/s
+
+    default:
+      return value;
+  }
+}
+
+// Converts a data size to bits (base unit).
+function convertDataSize(unit: string, value: number): number {
+  switch (unit) {
+    // --- SI bit-based (decimal, 10^3) ---
+    case 'bit':
+      return value; // base unit
+    case 'kbit':
+      return value * 1_000;
+    case 'Mbit':
+      return value * 1_000_000;
+    case 'Gbit':
+      return value * 1_000_000_000;
+
+    // --- SI byte-based (decimal, 10^3). 1 byte = 8 bits ---
+    case 'B':
+      return value * 8;
+    case 'kB':
+      return value * 1_000 * 8;
+    case 'MB':
+      return value * 1_000_000 * 8;
+    case 'GB':
+      return value * 1_000_000_000 * 8;
+    case 'TB':
+      return value * 1_000_000_000_000 * 8;
+    case 'PB':
+      return value * 1_000_000_000_000_000 * 8;
+
+    // --- IEC byte-based (binary, 2^10). 1 byte = 8 bits ---
+    case 'KiB':
+      return value * 1_024 * 8;
+    case 'MiB':
+      return value * 1_024 ** 2 * 8;
+    case 'GiB':
+      return value * 1_024 ** 3 * 8;
+    case 'TiB':
+      return value * 1_024 ** 4 * 8;
+    case 'PiB':
+      return value * 1_024 ** 5 * 8;
+
+    default:
+      return value;
+  }
+}
+
+function convertConcentrationToMicroGram(unit: string, value: number, ppbFactor: number): number {
+  switch (unit) {
+    case 'ppb':
+      return value * ppbFactor;
+    case 'ppm':
+      return value * ppbFactor * 1_000;
+    case 'μg/m³':
+      return value;
+    default:
+      return value;
+  }
+}
+
+function convertConcentrationToPpm(unit: string, value: number, ppbFactor: number): number {
+  switch (unit) {
+    case 'ppb':
+      return value * 1_000;
+    case 'ppm':
+      return value;
+    case 'μg/m³':
+      return value / ppbFactor;
+    case 'mg/m³':
+      return (value / ppbFactor) * 1000;
+    default:
+      return value;
+  }
+}
+
+function convertCO(unit: string, value: number): number {
+  if (unit === 'ppm') {
+    return value;
+  }
+
+  return convertConcentrationToPpm(unit, value, 1.15);
+}
+
+function convertDistance(unit: string, value: number): number {
+  switch (unit) {
+    case 'mm':
+      return value / 1_000;
+    case 'cm':
+      return value / 100;
+    case 'm':
+      return value;
+    case 'km':
+      return value * 1_000;
+    case 'in':
+      return value * 0.0254;
+    case 'ft':
+      return value * 0.3048;
+    case 'yd':
+      return value * 0.9144;
+    case 'mi':
+      return value * 1609.344;
+    default:
+      return value;
+  }
+}
+
+function convertO3(unit: string, value: number): number {
+  if (unit === 'μg/m³') {
+    return value;
+  }
+
+  return convertConcentrationToMicroGram(unit, value, 1.96);
+}
+
+function convertSO2(unit: string, value: number): number {
+  if (unit === 'μg/m³') {
+    return value;
+  }
+
+  return convertConcentrationToMicroGram(unit, value, 2.62);
+}
+
+function convertCurrent(unit: string, value: number): number {
   switch (unit) {
     case 'A':
-      return newValue;
+      return value;
     case 'mA':
-      return newValue / 1000;
+      return value / 1000;
     default:
-      return newValue;
+      return value;
   }
 }
 
-function convertEnergyUnit(unit: string, newValue: number): number {
+function convertEnergy(unit: string, value: number): number {
   switch (unit) {
     case 'J':
-      return convertEnergyUnit('MJ', newValue / 1_000_000);
+      return convertEnergy('MJ', value / 1_000_000);
     case 'kJ':
-      return convertEnergyUnit('MJ', newValue / 1_000);
+      return convertEnergy('MJ', value / 1_000);
     case 'MJ':
-      return newValue / 3.6;
+      return value / 3.6;
     case 'GJ':
-      return convertEnergyUnit('MJ', newValue * 1_000);
+      return convertEnergy('MJ', value * 1_000);
     case 'mWh':
-      return newValue * 1_000_000;
+      return value * 1_000_000;
     case 'Wh':
-      return newValue * 1_000;
+      return value * 1_000;
     case 'kWh':
-      return newValue;
+      return value;
     case 'MWh':
-      return newValue / 1_000;
+      return value / 1_000;
     case 'GWh':
-      return newValue * 1_000_000;
+      return value * 1_000_000;
     case 'TWh':
-      return newValue * 1_000_000_000;
+      return value * 1_000_000_000;
     case 'cal':
-      return convertEnergyUnit('Mcal', newValue / 1_000_000);
+      return convertEnergy('Mcal', value / 1_000_000);
     case 'kcal':
-      return convertEnergyUnit('Mcal', newValue / 1000);
+      return convertEnergy('Mcal', value / 1000);
     case 'Mcal':
-      return newValue * 1.162222;
+      return value * 1.162222;
     case 'Gcal':
-      return convertEnergyUnit('Mcal', newValue * 1_000);
+      return convertEnergy('Mcal', value * 1_000);
     default:
-      return newValue;
+      return value;
   }
 }
 
-function convertHzUnit(unit: string, newValue: number): number {
+function convertFrequency(unit: string, value: number): number {
   switch (unit) {
     case 'Hz':
-      return newValue;
+      return value;
     case 'kHz':
-      return newValue * 1_000;
+      return value * 1_000;
     case 'MHz':
-      return newValue * 1_000_000;
+      return value * 1_000_000;
     case 'GHz':
-      return newValue * 1_000_000_000;
+      return value * 1_000_000_000;
     default:
-      return newValue;
+      return value;
   }
 }
 
-function convertPowerUnit(unit: string, newValue: number): number {
+function convertPower(unit: string, value: number): number {
   switch (unit) {
     case 'mW':
-      return newValue / 1_000;
+      return value / 1_000;
     case 'W':
-      return newValue;
+      return value;
     case 'kW':
-      return newValue * 1_000;
+      return value * 1_000;
     case 'MW':
-      return newValue * 1_000_000;
+      return value * 1_000_000;
     case 'GW':
-      return newValue * 1_000_000_000;
+      return value * 1_000_000_000;
     case 'TW':
-      return newValue * 1_000_000_000_000;
+      return value * 1_000_000_000_000;
     case 'BTU/h':
-      return newValue * 0.2930710702;
+      return value * 0.2930710702;
     default:
-      return newValue;
+      return value;
   }
 }
 
-function convertPressureUnit(unit: string, newValue: number): number {
+function convertPressure(unit: string, value: number): number {
   switch (unit) {
     case 'mbar':
-      return newValue;
+      return value;
     case 'cbar':
-      return newValue * 10;
+      return value * 10;
     case 'bar':
-      return newValue * 1_000;
+      return value * 1_000;
     case 'mPa':
-      return newValue / 100_000;
+      return value / 100_000;
     case 'Pa':
-      return newValue / 100;
+      return value / 100;
     case 'hPa':
-      return newValue;
+      return value;
     case 'kPa':
-      return newValue * 10;
+      return value * 10;
     case 'inHg':
-      return newValue * 33.8639;
+      return value * 33.8639;
     case 'psi':
-      return newValue * 68.9476;
+      return value * 68.9476;
     case 'inH₂O':
-      return newValue * 2.4884;
+      return value * 2.4884;
     default:
-      return newValue;
+      return value;
   }
 }
 
-function convertVoltageUnit(unit: string, newValue: number): number {
+function convertSpeedKmh(unit: string, value: number): number {
+  if (unit === 'km/h') {
+    return value;
+  }
+
+  return convertSpeedMs(unit, value) * 3.6;
+}
+
+function convertSpeedMs(unit: string, value: number): number {
+  switch (unit) {
+    case 'mm/d':
+      return value / 86_400_000;
+    case 'mm/h':
+      return value / 3_600_000;
+    case 'm/s':
+      return value;
+    case 'km/h':
+      return value / 3.6;
+    case 'mm/s':
+      return value / 1_000;
+    case 'in/d':
+      return value / 3_392_640;
+    case 'in/h':
+      return value / 141_732;
+    case 'in/s':
+      return value * 0.0254;
+    case 'ft/s':
+      return value / 3.281;
+    case 'mph':
+      return value / 2.237;
+    case 'kn':
+      return value * 0.5144;
+    case 'Beaufort':
+      return 0.836 * Math.pow(value, 1.5);
+    default:
+      return value;
+  }
+}
+
+function convertVoltage(unit: string, value: number): number {
   switch (unit) {
     case 'V':
-      return newValue;
+      return value;
     case 'mV':
-      return newValue / 1_000;
+      return value / 1_000;
     case 'μV':
-      return newValue / 1_000_000;
+      return value / 1_000_000;
     case 'kV':
-      return newValue * 1_000;
+      return value * 1_000;
     case 'MV':
-      return newValue * 1_000_000;
+      return value * 1_000_000;
     default:
-      return newValue;
+      return value;
   }
 }
 
-function convertVolumeUnit(unit: string, newValue: number): number {
+function convertGas(unit: string, value: number): number {
+  if (unit === 'm³') {
+    return value;
+  }
+  return convertVolumeM3(unit, value);
+}
+
+function convertWater(unit: string, value: number): number {
+  if (unit === 'm³') {
+    return value;
+  }
+  return convertVolumeM3(unit, value);
+}
+
+function convertVolumeL(unit: string, value: number): number {
+  if (unit === 'L') {
+    return value;
+  }
+
+  return convertGas(unit, value) * 1_000;
+}
+
+function convertVolumeM3(unit: string, value: number): number {
   switch (unit) {
     case 'L':
-      return newValue / 1_000;
+      return value / 1_000;
     case 'm³':
-      return newValue;
+      return value;
     case 'ft³':
-      return newValue / 35.31469989;
+      return value / 35.31469989;
     case 'CCF':
-      return newValue * 2.832;
+      return value * 2.832;
     case 'MCF':
-      return newValue * 28.317;
+      return value * 28.317;
     case 'gal':
-      return newValue * 3.78541;
+      return value * 3.78541;
     default:
-      return newValue;
+      return value;
+  }
+}
+
+function convertWaterFlow(unit: string, value: number): number {
+  switch (unit) {
+    case 'L/min':
+      return value; // base unit
+
+    // --- Liter-based ---
+    case 'L/s':
+      return value * 60; // 1 L/s = 60 L/min
+    case 'L/h':
+      return value / 60; // 1 L/h = 1/60 L/min
+    case 'mL/s':
+      return (value / 1000) * 60; // mL/s → L/s → L/min
+
+    // --- Cubic meter-based ---
+    case 'm³/s':
+      return value * 1000 * 60; // m³/s → L/s → L/min
+    case 'm³/min':
+      return value * 1000; // m³/min = 1000 L/min
+    case 'm³/h':
+      return value * (1000 / 60); // m³/h → L/h → L/min
+
+    // --- Imperial ---
+    case 'ft³/min': // cubic feet per minute
+      return value * 28.316846592; // ft³/min = 28.316846592 L/min
+
+    case 'gal/min': // US gallon/min
+      return value * 3.785411784; // directly L/min
+
+    case 'gal/d': // US gallon/day
+      return (value * 3.785411784) / 1440; // 1440 min/day
+
+    default:
+      return value;
+  }
+}
+
+function convertWeight(unit: string, value: number): number {
+  switch (unit) {
+    case 'μg':
+      return value / 1_000_000;
+    case 'mg':
+      return value / 1_000;
+    case 'g':
+      return value;
+    case 'kg':
+      return value * 1_000;
+    case 'oz':
+      return value * 28.3495;
+    case 'lb':
+      return value * 453.592;
+    default:
+      return value;
+  }
+}
+
+function convertRain(unit: string, value: number): number {
+  switch (unit) {
+    case 'cm':
+      return value * 1_000;
+    case 'mm':
+      return value;
+    case 'in':
+      return value * 25.4;
+    default:
+      return value;
+  }
+}
+function convertRainIntensity(unit: string, value: number): number {
+  switch (unit) {
+    case 'mm/d':
+      return value / 24;
+    case 'mm/h':
+      return value;
+    case 'in/d':
+      return (value * 25.4) / 24;
+    case 'in/h':
+      return value * 25.4;
+    default:
+      return value;
   }
 }

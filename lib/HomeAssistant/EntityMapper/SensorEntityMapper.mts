@@ -74,20 +74,38 @@ const CAPABILITY_MAP: Partial<Record<SensorDeviceClass, string>> = {
   [SensorDeviceClass.CO2]: 'measure_co2',
   [SensorDeviceClass.CO]: 'measure_co',
   [SensorDeviceClass.CURRENT]: 'measure_current',
+  [SensorDeviceClass.DATA_RATE]: 'measure_data_rate',
+  [SensorDeviceClass.DATA_SIZE]: 'measure_data_size',
+  [SensorDeviceClass.DISTANCE]: 'measure_distance',
   [SensorDeviceClass.ENERGY]: 'meter_power',
   [SensorDeviceClass.FREQUENCY]: 'measure_frequency',
   [SensorDeviceClass.GAS]: 'meter_gas',
   [SensorDeviceClass.HUMIDITY]: 'measure_humidity',
   [SensorDeviceClass.ILLUMINANCE]: 'measure_luminance',
+  [SensorDeviceClass.MOISTURE]: 'measure_moisture',
+  [SensorDeviceClass.MONETARY]: 'measure_monetary',
+  [SensorDeviceClass.OZONE]: 'measure_o3',
+  [SensorDeviceClass.PH]: 'measure_ph',
   [SensorDeviceClass.PM1]: 'measure_pm1', // todo: custom capability
   [SensorDeviceClass.PM10]: 'measure_pm10', // todo: custom capability
   [SensorDeviceClass.PM25]: 'measure_pm25',
   [SensorDeviceClass.POWER]: 'measure_power',
+  [SensorDeviceClass.PRECIPITATION]: 'measure_rain',
+  [SensorDeviceClass.PRECIPITATION_INTENSITY]: 'measure_rain_intensity',
   [SensorDeviceClass.PRESSURE]: 'measure_pressure',
   [SensorDeviceClass.SIGNAL_STRENGTH]: 'measure_signal_strength', // todo: custom capability
+  [SensorDeviceClass.SOUND_PRESSURE]: 'measure_noise',
+  [SensorDeviceClass.SPEED]: 'measure_speed',
+  [SensorDeviceClass.SULPHUR_DIOXIDE]: 'level_so2',
   [SensorDeviceClass.TEMPERATURE]: 'measure_temperature',
   [SensorDeviceClass.VOLATILE_ORGANIC_COMPOUNDS]: 'measure_voc', // todo: custom capability
   [SensorDeviceClass.VOLTAGE]: 'measure_voltage',
+  [SensorDeviceClass.VOLUME]: 'measure_content_volume',
+  [SensorDeviceClass.VOLUME_FLOW_RATE]: 'measure_water',
+  [SensorDeviceClass.WATER]: 'meter_water',
+  [SensorDeviceClass.WEIGHT]: 'measure_weight',
+  [SensorDeviceClass.WIND_DIRECTION]: 'measure_wind_angle',
+  [SensorDeviceClass.WIND_SPEED]: 'measure_wind_strength',
 };
 
 /**
@@ -118,17 +136,35 @@ export default class SensorEntityMapper implements EntityMapper {
     };
 
     if (capabilityId) {
-      // Known capability
+      // Known capabilities
+
+      // Set other unit for measure noise when not dB
+      if (
+        capabilityId === 'measure_noise' &&
+        entity.instance.attributes['unit_of_measurement'] &&
+        entity.instance.attributes['unit_of_measurement'] !== 'dB'
+      ) {
+        capabilityOptions.unit = entity.instance.attributes['unit_of_measurement'];
+      }
+
+      // Use unit of measurement for money directly
+      if (capabilityId === 'measure_monetary' && entity.instance.attributes['unit_of_measurement']) {
+        capabilityOptions.units = entity.instance.attributes['unit_of_measurement'];
+      }
+
     } else if (entity.instance.attributes.action !== undefined) {
       capabilityId = 'action';
     } else if (entityId.endsWith('_power_outage_count') || entityId.endsWith('_motor_state')) {
       // ignore!
       return;
-    } else if (entityId.endsWith('_noise') && entity.instance.attributes.unit_of_measurement === 'dB') {
+    } else if (entityId.endsWith('_noise')) {
       capabilityId = 'measure_noise';
-    } else if (entityId.endsWith('_rain') && entity.instance.attributes.unit_of_measurement === 'mm') {
+      capabilityOptions.units = entity.instance.attributes.unit_of_measurement || 'dB';
+    } else if (entityId.endsWith('_rain')) {
+      // Keep case for BC reasons
       capabilityId = 'measure_rain';
-    } else if (entityId.endsWith('_wind_strength') && entity.instance.attributes.unit_of_measurement === 'km/h') {
+    } else if (entityId.endsWith('_wind_strength')) {
+      // Keep case for BC reasons
       capabilityId = 'measure_wind_strength';
     } else if (entityId.endsWith('_status')) {
       capabilityId = 'status';
