@@ -1,7 +1,7 @@
 {
   "id": "io.home-assistant",
   "version": "0.7.2",
-  "compatibility": ">=12.2.0",
+  "compatibility": ">=12.11.0",
   "platforms": [
     "local",
     "cloud"
