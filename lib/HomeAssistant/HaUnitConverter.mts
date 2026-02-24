@@ -50,7 +50,7 @@ const converters: Record<string, UnitConverter> = {
 };
 
 function getConverter(capabilityId: string): UnitConverter {
-  return converters[capabilityId] ?? ((_, value): UnitConverter => value);
+  return converters[capabilityId] ?? ((_, value): unknown => value);
 }
 
 function convertDataRate(unit: string, value: number): number {

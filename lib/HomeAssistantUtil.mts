@@ -241,7 +241,7 @@ export function getFormattedDate(): string {
   const day = padNumber(date.getDate());
   const hours = padNumber(date.getHours());
   const minutes = padNumber(date.getMinutes());
-  const seconds = padNumber(date.getMinutes());
+  const seconds = padNumber(date.getSeconds());
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }

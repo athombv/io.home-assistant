@@ -73,8 +73,6 @@ export default class LightEntityMapper implements EntityMapper {
       // homeyDevice.capabilitiesOptions['light_saturation'].entityId = entityId;
 
       homeyDevice.capabilities.push('light_mode');
-
-      homeyDevice.capabilities.push('light_mode');
       homeyDevice.capabilitiesOptions['light_mode'] = homeyDevice.capabilitiesOptions['light_mode'] || {};
       homeyDevice.capabilitiesOptions['light_mode'].entityId = entityId;
     }
