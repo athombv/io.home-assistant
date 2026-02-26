@@ -148,7 +148,7 @@ function convertConcentrationToMicroGram(unit: string, value: number, ppbFactor:
 function convertConcentrationToPpm(unit: string, value: number, ppbFactor: number): number {
   switch (unit) {
     case 'ppb':
-      return value * 1_000;
+      return value / 1_000;
     case 'ppm':
       return value;
     case 'μg/m³':
@@ -237,9 +237,9 @@ function convertEnergy(unit: string, value: number): number {
     case 'MWh':
       return value / 1_000;
     case 'GWh':
-      return value * 1_000_000;
+      return value / 1_000_000;
     case 'TWh':
-      return value * 1_000_000_000;
+      return value / 1_000_000_000;
     case 'cal':
       return convertEnergy('Mcal', value / 1_000_000);
     case 'kcal':
@@ -471,7 +471,7 @@ function convertWeight(unit: string, value: number): number {
 function convertRain(unit: string, value: number): number {
   switch (unit) {
     case 'cm':
-      return value * 1_000;
+      return value * 10;
     case 'mm':
       return value;
     case 'in':
