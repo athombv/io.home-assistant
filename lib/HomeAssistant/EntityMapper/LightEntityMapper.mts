@@ -45,11 +45,13 @@ export default class LightEntityMapper implements EntityMapper {
       homeyDevice.capabilitiesOptions['dim'] = homeyDevice.capabilitiesOptions['dim'] || {};
       homeyDevice.capabilitiesOptions['dim'].entityId = entityId;
     }
+
     if (supportedColorModes.includes('color_temp')) {
       homeyDevice.capabilities.push('light_temperature');
       homeyDevice.capabilitiesOptions['light_temperature'] = homeyDevice.capabilitiesOptions['light_temperature'] || {};
       homeyDevice.capabilitiesOptions['light_temperature'].entityId = entityId;
     }
+
     if (lightSupportsColorChanging) {
       homeyDevice.capabilities.push('light_hue');
       homeyDevice.capabilitiesOptions['light_hue'] = homeyDevice.capabilitiesOptions['light_hue'] || {};
@@ -59,19 +61,8 @@ export default class LightEntityMapper implements EntityMapper {
       homeyDevice.capabilitiesOptions['light_saturation'] = homeyDevice.capabilitiesOptions['light_saturation'] || {};
       homeyDevice.capabilitiesOptions['light_saturation'].entityId = entityId;
     }
+
     if (supportedColorModes.includes('color_temp') && lightSupportsColorChanging) {
-      // homeyDevice.capabilities.push('light_temperature');
-      // homeyDevice.capabilitiesOptions['light_temperature'] = homeyDevice.capabilitiesOptions['light_temperature'] || {};
-      // homeyDevice.capabilitiesOptions['light_temperature'].entityId = entityId;
-
-      // homeyDevice.capabilities.push('light_hue');
-      // homeyDevice.capabilitiesOptions['light_hue'] = homeyDevice.capabilitiesOptions['light_hue'] || {};
-      // homeyDevice.capabilitiesOptions['light_hue'].entityId = entityId;
-
-      // homeyDevice.capabilities.push('light_saturation');
-      // homeyDevice.capabilitiesOptions['light_saturation'] = homeyDevice.capabilitiesOptions['light_saturation'] || {};
-      // homeyDevice.capabilitiesOptions['light_saturation'].entityId = entityId;
-
       homeyDevice.capabilities.push('light_mode');
       homeyDevice.capabilitiesOptions['light_mode'] = homeyDevice.capabilitiesOptions['light_mode'] || {};
       homeyDevice.capabilitiesOptions['light_mode'].entityId = entityId;

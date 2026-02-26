@@ -370,15 +370,4 @@ export default class HomeAssistantDriver extends Homey.Driver {
       currentServerId = server[0].data.id;
     });
   }
-
-  // async onPairListDevices() {
-  //   const client = this.homey.app.getClient();
-  //   const connection = await client.getConnection();
-
-  //   const deviceRegistry = await connection.sendMessagePromise({ type: "config/device_registry/list" });
-  //   const entityRegistry = await connection.sendMessagePromise({ type: "config/entity_registry/list" });
-  //   const entities = await client.getEntities();
-  //   //console.log(JSON.stringify(deviceRegistry, null, 4));
-  //   //console.log(JSON.stringify(entityRegistry, null, 4));
-  // }
 }
