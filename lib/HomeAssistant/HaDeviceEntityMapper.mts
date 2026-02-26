@@ -1,5 +1,9 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
-import type { HomeyHomeAssistantDeviceOption, ProcessedHomeAssistantDevice, ProcessedHomeAssistantEntity } from '../HomeAssistantTypes.mjs';
+import type {
+  HomeyHomeAssistantDeviceOption,
+  ProcessedHomeAssistantDevice,
+  ProcessedHomeAssistantEntity,
+} from '../HomeAssistantTypes.mjs';
 import { titleCase } from '../HomeAssistantUtil.mjs';
 import BinarySensorEntityMapper from './EntityMapper/BinarySensorEntityMapper.mjs';
 import CoverEntityMapper from './EntityMapper/CoverEntityMapper.mjs';
@@ -74,7 +78,7 @@ export default class HaDeviceEntityMapper {
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,
     friendlyName: string | undefined,
-    features: Partial<Record<number, string[]>>
+    features: Partial<Record<number, string[]>>,
   ): void {
     const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
 
@@ -83,9 +87,10 @@ export default class HaDeviceEntityMapper {
       if (supportedFeatures & Number(key)) {
         (value ?? []).forEach(capabilityId => {
           homeyDevice.capabilities.push(capabilityId);
-          homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-          homeyDevice.capabilitiesOptions[capabilityId].title = friendlyName || entityId;
-          homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
+          homeyDevice.capabilitiesOptions[capabilityId] = {
+            title: friendlyName || entityId,
+            entityId: entityId,
+          };
         });
       }
     }

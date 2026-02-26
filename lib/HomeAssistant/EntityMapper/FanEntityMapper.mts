@@ -68,8 +68,7 @@ export default class FanEntityMapper implements EntityMapper {
             }
           } else {
             homeyDevice.capabilities.push(capabilityId);
-            homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-            homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
+            homeyDevice.capabilitiesOptions[capabilityId] = {entityId};
 
             if (capabilityId === 'fan_speed') {
               homeyDevice.capabilitiesOptions[capabilityId].min = 0;

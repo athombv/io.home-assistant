@@ -26,10 +26,11 @@ export default class SwitchEntityMapper implements EntityMapper {
       currentOnOffCapabilities.length > 0 || !['sensor', 'plug', 'socket'].includes(homeyDevice.class)
         ? `onoff.${currentOnOffCapabilities.length}`
         : 'onoff';
+
     homeyDevice.capabilities.push(capabilityId);
-    homeyDevice.capabilitiesOptions[capabilityId] = homeyDevice.capabilitiesOptions[capabilityId] || {};
-    homeyDevice.capabilitiesOptions[capabilityId].title =
-      friendlyName || entity.instance.attributes['device_class'] || entityIdWithoutSwitch;
-    homeyDevice.capabilitiesOptions[capabilityId].entityId = entityId;
+    homeyDevice.capabilitiesOptions[capabilityId] = {
+      entityId,
+      title: friendlyName || entity.instance.attributes['device_class'] || entityIdWithoutSwitch,
+    };
   }
 }
