@@ -9,7 +9,6 @@ import { capitalizeFirstLetter, getNativeAppSuggestion } from './HomeAssistantUt
 
 export default class HomeAssistantDevice extends Homey.Device {
   private server!: HomeAssistantServer;
-  private hassUrl!: string;
   private image?: Homey.Image;
   private imageUrl?: string;
   private entityIds: string[] = [];
@@ -29,8 +28,6 @@ export default class HomeAssistantDevice extends Homey.Device {
     this.server.getConnection().catch(err => {
       this.setUnavailable(err).catch(this.error);
     });
-
-    this.hassUrl = `${this.server.protocol}://${this.server.host}:${this.server.port}`;
 
     // On Off Capability Migration
     if (this.getOnOffCapabilities().length === 1) {
@@ -763,7 +760,7 @@ export default class HomeAssistantDevice extends Homey.Device {
           if (this.imageUrl !== entityState.attributes.entity_picture) {
             this.imageUrl = entityState.attributes.entity_picture;
             try {
-              this.image?.setUrl(this.hassUrl + this.imageUrl);
+              this.image?.setUrl(this.server.hassUrl + this.imageUrl);
               this.image?.update().catch(this.error);
             } catch (err) {
               this.error(err);

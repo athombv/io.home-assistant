@@ -12,6 +12,10 @@ import type {
 } from './HomeAssistantTypes.mjs';
 import { getFormattedDate } from './HomeAssistantUtil.mjs';
 
+function getMDNSHassUrl(server: DiscoveryResultMDNSSD): string {
+  return `http://${server.address}:${server.port}`;
+}
+
 export default class HomeAssistantDriver extends Homey.Driver {
   async onInit(): Promise<void> {
     await super.onInit();
@@ -189,12 +193,12 @@ export default class HomeAssistantDriver extends Homey.Driver {
       const servers = await (this.homey.app as HomeAssistantApp).getServers();
       const discoveryResults = this.onDiscoveryResults();
 
-      const serverPaths = Object.values(servers).map(server => `${server.protocol}://${server.host}:${server.port}`);
+      const serverPaths = Object.values(servers).map(server => server.hassUrl);
 
       return [
         // Existing Servers
         ...Object.entries(servers).map(([serverId, server]) => ({
-          name: `${server.name} (${server.protocol}://${server.host}:${server.port})`,
+          name: `${server.name} (${server.hassUrl})`,
           data: {
             id: serverId,
           },
@@ -207,7 +211,7 @@ export default class HomeAssistantDriver extends Homey.Driver {
           .filter(server => !serverPaths.includes(`http://${server.address}:${server.port}`))
           .map(server => {
             return {
-              name: `${server.name} (http://${server.address}:${server.port})`,
+              name: `${server.name} (${getMDNSHassUrl(server)})`,
               data: {
                 id: `mdns:${server.id}`,
               },

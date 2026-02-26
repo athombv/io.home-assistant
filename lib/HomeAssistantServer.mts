@@ -59,7 +59,7 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
       this.connection = (async (): Promise<Connection> => {
         // Create Auth
         const auth = new Auth({
-          hassUrl: `${this.protocol}://${this.host}:${this.port}`,
+          hassUrl: this.hassUrl,
           access_token: this.token,
           expires: new Date().getTime() + 1e11,
           clientId: 'https://callback.athom.com',
@@ -89,6 +89,10 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
     }
 
     return this.connection;
+  }
+
+  public get hassUrl(): string {
+    return `${this.protocol}://${this.host}:${this.port}`;
   }
 
   onEventStateChanged = (event: StateChangedEvent): void => {
