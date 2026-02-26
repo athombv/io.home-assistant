@@ -771,6 +771,7 @@ export default class HomeAssistantDevice extends Homey.Device {
           break;
         }
         case 'paused':
+        case VacuumActivity.IDLE:
         case VacuumActivity.PAUSED: {
           if (this.hasCapability('speaker_playing')) {
             this.setCapabilityValue('speaker_playing', false).catch(this.error);
@@ -795,8 +796,7 @@ export default class HomeAssistantDevice extends Homey.Device {
           break;
         }
         case 'open':
-        case 'closed':
-        case VacuumActivity.IDLE: {
+        case 'closed': {
           if (this.hasCapability('windowcoverings_state')) {
             this.setCapabilityValue('windowcoverings_state', 'idle').catch(this.error);
           }
