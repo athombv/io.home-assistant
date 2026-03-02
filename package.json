@@ -1,20 +1,29 @@
 {
-  "name": "com.athombv.homeassistant",
+  "name": "io.homeassistant",
   "version": "1.0.0",
-  "main": "app.js",
-  "dependencies": {
-    "form-data": "^4.0.0",
-    "home-assistant-js-websocket": "^4.5.0",
-    "node-fetch": "^2.6.6",
-    "uuid": "^8.3.2",
-    "ws": "^8.2.3"
+  "main": "app.mts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint",
+    "fix": "eslint --fix",
+    "validate": "homey app validate --level=verified",
+    "prettier": "prettier . --write",
+    "prettier-check": "prettier . --check"
   },
-  "engines": {
-    "node": "12"
+  "dependencies": {
+    "home-assistant-js-websocket": "^9.6.0",
+    "source-map-support": "0.5.21",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.2.2",
-    "eslint": "^8.5.0",
-    "eslint-config-athom": "^3.0.1"
+    "@tsconfig/node20": "^20.1.9",
+    "@types/homey": "npm:homey-apps-sdk-v3-types@0.3.6",
+    "@types/node": "20.14.1",
+    "@types/source-map-support": "0.5.10",
+    "eslint": "9.39.3",
+    "eslint-config-prettier": "10.1.8",
+    "prettier": "3.5.3",
+    "typescript": "5.5.4",
+    "typescript-eslint": "8.56.0"
   }
 }

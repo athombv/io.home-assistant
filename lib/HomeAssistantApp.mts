@@ -1,18 +1,16 @@
-'use strict';
+import Homey from 'homey';
+import { v4 } from 'uuid';
+import HomeAssistantServer from './HomeAssistantServer.mjs';
+import type { HomeyHomeAssistantServerConfig } from './HomeAssistantTypes.mjs';
 
-const Homey = require('homey');
-const HomeAssistantUtil = require('./HomeAssistantUtil');
-const HomeAssistantServer = require('./HomeAssistantServer');
+export default class HomeAssistantApp extends Homey.App {
+  private __servers: Record<string, HomeAssistantServer> = {};
 
-module.exports = class HomeAssistantApp extends Homey.App {
-
-  async onInit() {
-    this.__servers = {
-      // [serverId]: HomeAssistantServer
-    };
+  async onInit(): Promise<void> {
+    this.__servers = {};
 
     // Initialize all servers
-    const serverConfigs = await this.homey.settings.get('servers') || {};
+    const serverConfigs = await this.getServerConfigs();
     for (const [serverId, serverConfig] of Object.entries(serverConfigs)) {
       // Migration:
       // Some configs have an empty port.
@@ -28,33 +26,32 @@ module.exports = class HomeAssistantApp extends Homey.App {
         }
 
         // Save the fixed server config
-        await this.homey.settings.set('servers', serverConfigs);
+        this.homey.settings.set('servers', serverConfigs);
       }
 
       await this.getServer(serverId).catch(this.error);
     }
   }
 
-  async getServers() {
+  async getServers(): Promise<Record<string, HomeAssistantServer>> {
     return this.__servers;
   }
 
-  async getServer(serverId) {
+  async getServer(serverId: string): Promise<HomeAssistantServer> {
     if (!this.__servers[serverId]) {
-      const serverConfigs = await this.homey.settings.get('servers') || {};
+      const serverConfigs = await this.getServerConfigs();
       const serverConfig = serverConfigs[serverId];
       if (!serverConfig) {
         throw new Error(`Invalid Server ID: ${serverId}`);
       }
 
-      this.__servers[serverId] = new HomeAssistantServer({
-        protocol: serverConfig.protocol,
-        host: serverConfig.host,
-        port: serverConfig.port,
-        name: serverConfig.name,
-        token: serverConfig.token,
-        homey: this.homey,
-      });
+      this.__servers[serverId] = new HomeAssistantServer(
+        serverConfig.name,
+        serverConfig.protocol,
+        serverConfig.host,
+        serverConfig.port,
+        serverConfig.token,
+      );
       this.__servers[serverId].on('__log', (...props) => this.log(`[HomeAssistantServer:${serverId}]`, ...props));
       this.__servers[serverId].on('__error', (...props) => this.error(`[HomeAssistantServer:${serverId}]`, ...props));
     }
@@ -62,13 +59,7 @@ module.exports = class HomeAssistantApp extends Homey.App {
     return this.__servers[serverId];
   }
 
-  async createServer({
-    protocol,
-    host,
-    port,
-    name,
-    token,
-  }) {
+  async createServer(name: unknown, host: unknown, port: unknown, protocol: unknown, token: unknown): Promise<string> {
     if (typeof protocol !== 'string') {
       throw new Error('Invalid Protocol');
     }
@@ -93,8 +84,9 @@ module.exports = class HomeAssistantApp extends Homey.App {
       throw new Error('Invalid Token');
     }
 
-    const serverId = HomeAssistantUtil.uuid();
-    const serverConfigs = await this.homey.settings.get('servers') || {};
+    // todo: use home assistant instance id
+    const serverId = v4();
+    const serverConfigs = await this.getServerConfigs();
     serverConfigs[serverId] = {
       protocol,
       host,
@@ -102,8 +94,11 @@ module.exports = class HomeAssistantApp extends Homey.App {
       name,
       token,
     };
-    await this.homey.settings.set('servers', serverConfigs);
+    this.homey.settings.set('servers', serverConfigs);
     return serverId;
   }
 
-};
+  private async getServerConfigs(): Promise<Record<string, HomeyHomeAssistantServerConfig>> {
+    return (await this.homey.settings.get('servers')) || {};
+  }
+}
