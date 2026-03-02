@@ -26,6 +26,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     const { serverId } = this.getData();
     this.server = await (this.homey.app as HomeAssistantApp).getServer(serverId);
     this.server.getConnection().catch(err => {
+      this.error('Failed to get connection', err);
       this.setUnavailable(err).catch(this.error);
     });
 
