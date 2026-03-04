@@ -55,5 +55,8 @@
   },
   "0.7.2": {
     "en": "Fixed possible error during pairing"
+  },
+  "1.0.0": {
+    "en": "Added support for new capabilities, improved mDNS discovery, improved unit conversion, fixed several bugs."
   }
 }
