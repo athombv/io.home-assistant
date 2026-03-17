@@ -23,23 +23,13 @@ export enum VacuumEntityFeature {
   CLEAN_AREA = 16384,
 }
 
-/** Vacuum states as defined by Home Assistant in `VacuumActivity` */
-export enum VacuumActivity {
-  CLEANING = 'cleaning',
-  DOCKED = 'docked',
-  IDLE = 'idle',
-  PAUSED = 'paused',
-  RETURNING = 'returning',
-  ERROR = 'error',
-}
-
 const SUPPORTED_FEATURES: Partial<Record<VacuumEntityFeature, string[]>> = {
   [VacuumEntityFeature.STATUS]: ['vacuumcleaner_state'],
   [VacuumEntityFeature.STATE]: ['vacuumcleaner_state'],
 };
 
 /**
- * Mapper for vacuum entities. See https://www.home-assistant.io/integrations/vacuum/.
+ * Mapper for vacuum entities. See https://developers.home-assistant.io/docs/core/entity/vacuum.
  */
 export default class VacuumEntityMapper implements EntityMapper {
   supportsEntityId(entityId: string): boolean {
@@ -56,11 +46,9 @@ export default class VacuumEntityMapper implements EntityMapper {
     homeyDevice.iconOverride =
       homeyDevice.iconOverride && homeyDevice.class !== 'sensor' ? homeyDevice.iconOverride : 'vacuum-cleaner';
 
-    if (typeof entity.instance.state === 'string') {
-      homeyDevice.capabilities.push('onoff');
-      homeyDevice.capabilitiesOptions['onoff'] = homeyDevice.capabilitiesOptions['onoff'] || {};
-      homeyDevice.capabilitiesOptions['onoff'].entityId = entityId;
-    }
+    homeyDevice.capabilities.push('onoff');
+    homeyDevice.capabilitiesOptions['onoff'] = homeyDevice.capabilitiesOptions['onoff'] || {};
+    homeyDevice.capabilitiesOptions['onoff'].entityId = entityId;
 
     if (!entity.instance.attributes) {
       return;

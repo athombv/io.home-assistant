@@ -1,4 +1,3 @@
-import type { HassEntity } from 'home-assistant-js-websocket';
 import type {
   HomeyHomeAssistantDeviceOption,
   ProcessedHomeAssistantDevice,

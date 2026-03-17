@@ -18,7 +18,7 @@ const SUPPORTED_FEATURES: Partial<Record<FanEntityFeature, string[]>> = {
 };
 
 /**
- * Mapper for fan entities. See https://www.home-assistant.io/integrations/fan/.
+ * Mapper for fan entities. See https://developers.home-assistant.io/docs/core/entity/fan.
  */
 export default class FanEntityMapper implements EntityMapper {
   supportsEntityId(entityId: string): boolean {
@@ -30,11 +30,9 @@ export default class FanEntityMapper implements EntityMapper {
     homeyDevice.iconOverride =
       homeyDevice.iconOverride && homeyDevice.class !== 'sensor' ? homeyDevice.iconOverride : 'fan';
 
-    if (typeof entity.instance.state === 'string') {
-      homeyDevice.capabilities.push('onoff');
-      homeyDevice.capabilitiesOptions['onoff'] = homeyDevice.capabilitiesOptions['onoff'] || {};
-      homeyDevice.capabilitiesOptions['onoff'].entityId = entityId;
-    }
+    homeyDevice.capabilities.push('onoff');
+    homeyDevice.capabilitiesOptions['onoff'] = homeyDevice.capabilitiesOptions['onoff'] || {};
+    homeyDevice.capabilitiesOptions['onoff'].entityId = entityId;
 
     if (!entity.instance.attributes) {
       return;

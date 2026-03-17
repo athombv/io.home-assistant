@@ -1,27 +1,20 @@
-import type { HassEntity } from 'home-assistant-js-websocket';
 import Homey from 'homey';
-import BinarySensorEntityMapper from './HomeAssistant/EntityMapper/BinarySensorEntityMapper.mjs';
-import { VacuumActivity } from './HomeAssistant/EntityMapper/VacuumEntityMapper.mjs';
-import { convertUnits } from './HomeAssistant/HaUnitConverter.mjs';
+import { HaEntityStateUpdateHandler } from './HomeAssistant/HaEntityStateUpdateHandler.mjs';
 import type HomeAssistantApp from './HomeAssistantApp.mjs';
 import type HomeAssistantServer from './HomeAssistantServer.mjs';
 import { capitalizeFirstLetter, getNativeAppSuggestion } from './HomeAssistantUtil.mjs';
 
 export default class HomeAssistantDevice extends Homey.Device {
   private server!: HomeAssistantServer;
-  private image?: Homey.Image;
-  private imageUrl?: string;
-  private entityIds: string[] = [];
-  private entityStateChangedHandler: Record<string, (entityState: HassEntity) => void> = {};
+  private stateUpdateHandler?: HaEntityStateUpdateHandler;
 
   async onUninit(): Promise<void> {
-    this.entityIds.forEach(entityId => {
-      this.server.off(`state_changed_entity:${entityId}`, this.entityStateChangedHandler[entityId]);
-    });
+    this.stateUpdateHandler?.unInit();
   }
 
   async onInit(): Promise<void> {
     await super.onInit();
+
     // Get Server
     const { serverId } = this.getData();
     this.server = await (this.homey.app as HomeAssistantApp).getServer(serverId);
@@ -41,40 +34,9 @@ export default class HomeAssistantDevice extends Homey.Device {
       }
     }
 
-    // Register Entity Event Listeners
-    this.entityIds = this.getEntityIds();
-    this.entityIds.forEach(entityId => {
-      // Initial sync
-      this.server
-        .getEntityState(entityId)
-        .then(async entityState => {
-          await this.onEntityState({
-            entityId,
-            entityState,
-          });
-        })
-        .catch(this.error);
-
-      // Live Syncs
-      this.entityStateChangedHandler[entityId] = (entityState): void => {
-        this.log('Entity State:', JSON.stringify(entityState));
-        this.onEntityState({
-          entityId,
-          entityState,
-        }).catch(this.error);
-      };
-      this.server.on(`state_changed_entity:${entityId}`, this.entityStateChangedHandler[entityId]);
-
-      const deviceClass = entityId.split('.')[0];
-
-      if (deviceClass === 'media_player') {
-        this.homey.images.createImage().then(image => {
-          this.image = image;
-          this.image.setUrl(null as unknown as string);
-          return this.setAlbumArtImage(this.image);
-        });
-      }
-    });
+    // Register HA entity state update handler
+    this.stateUpdateHandler = new HaEntityStateUpdateHandler(this, this.server);
+    await this.stateUpdateHandler.init();
 
     // Register Capability Listeners
     // Light / Switch Capabilities
@@ -254,30 +216,16 @@ export default class HomeAssistantDevice extends Homey.Device {
 
   getEntityId = ({ capabilityId }: { capabilityId: string }): string => {
     if (!this.hasCapability(capabilityId)) {
-      throw new Error(`Invalid Capability: ${capabilityId}`);
+      throw new Error(`Invalid capability: ${capabilityId}`);
     }
 
     const capabilityOptions = this.getCapabilityOptions(capabilityId);
     const { entityId } = capabilityOptions;
     if (!entityId) {
-      throw new Error(`Invalid Entity ID For Capability: ${capabilityId}`);
+      throw new Error(`Invalid entity ID for capability: ${capabilityId}`);
     }
 
     return entityId;
-  };
-
-  getEntityIds = (): string[] => {
-    const entityIds: string[] = [];
-    const capabilities = this.getCapabilities();
-    for (const capabilityId of capabilities) {
-      const { entityId } = this.getCapabilityOptions(capabilityId);
-      if (entityId) {
-        if (!entityIds.includes(entityId)) {
-          entityIds.push(entityId);
-        }
-      }
-    }
-    return entityIds;
   };
 
   getOnOffCapabilities = (): string[] => {
@@ -286,30 +234,6 @@ export default class HomeAssistantDevice extends Homey.Device {
     return capabilities.filter(item => {
       return item.startsWith('onoff.');
     });
-  };
-
-  setBinarySensorState = (deviceClass: string | undefined, entityId: string, state: unknown): void => {
-    const capabilityId = BinarySensorEntityMapper.getCapabilityId(deviceClass);
-    if (!capabilityId) {
-      this.error('No capability found for', deviceClass, entityId);
-      return;
-    }
-
-    if (this.hasCapability(capabilityId)) {
-      this.setCapabilityValue(capabilityId, state).catch(this.error);
-    } else {
-      const capabilities = this.getCapabilities();
-      const capabilityId = capabilities.find(capabilityId => {
-        const capabilityOptions = this.getCapabilityOptions(capabilityId);
-        return capabilityOptions.entityId === entityId;
-      });
-
-      if (capabilityId && this.hasCapability(capabilityId)) {
-        if (capabilityId.startsWith('hass-boolean.') || capabilityId.startsWith('alarm_')) {
-          this.setCapabilityValue(capabilityId, state).catch(this.error);
-        }
-      }
-    }
   };
 
   /*
@@ -369,18 +293,23 @@ export default class HomeAssistantDevice extends Homey.Device {
   };
 
   onCapabilityLightTemperature = async (value: number): Promise<void> => {
-    if (this.hasCapability('light_mode')) this.setCapabilityValue('light_mode', 'temperature');
+    if (this.hasCapability('light_mode')) {
+      await this.setCapabilityValue('light_mode', 'temperature');
+    }
 
     const entityId = this.getEntityId({ capabilityId: 'dim' });
+    const temperatureOptions = this.getCapabilityOptions('light_temperature');
+    const min = temperatureOptions.min_color_temp_kelvin ?? 2000;
+    const max = temperatureOptions.max_color_temp_kelvin ?? 6500;
 
     await this.server.callService({
       domain: 'light',
       target: {
         entity_id: entityId,
       },
-      service: value > 0 ? 'turn_on' : 'turn_off',
+      service: 'turn_on',
       serviceData: {
-        color_temp: value > 0 ? 153 + value * (500 - 153) : undefined,
+        color_temp_kelvin: min + (1 - value) * (max - min),
       },
     });
   };
@@ -451,7 +380,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_repeat' });
     const domain = entityId.split('.')[0];
 
-    let repeat = 'off';
+    let repeat: string;
     switch (value) {
       case 'track':
         repeat = 'one';
@@ -654,332 +583,6 @@ export default class HomeAssistantDevice extends Homey.Device {
         },
         service,
       });
-    }
-  };
-
-  /*
-   * Entity Event
-   */
-
-  onEntityState = async ({ entityId, entityState }: { entityId: string; entityState: HassEntity }): Promise<void> => {
-    // 'EntityState.state'
-    if (typeof entityState['state'] === 'string') {
-      if (entityState.attributes.volume_level && this.hasCapability('volume_set')) {
-        if (this.getCapabilityValue('volume_set') !== entityState.attributes.volume_level) {
-          this.setCapabilityValue('volume_set', entityState.attributes.volume_level).catch(this.error);
-        }
-      }
-
-      if (entityState.attributes.is_volume_muted && this.hasCapability('volume_mute')) {
-        if (this.getCapabilityValue('volume_mute') !== entityState.attributes.is_volume_muted) {
-          this.setCapabilityValue('volume_mute', entityState.attributes.is_volume_muted).catch(this.error);
-        }
-      }
-
-      if (entityState.attributes.shuffle && this.hasCapability('speaker_shuffle')) {
-        if (this.getCapabilityValue('speaker_shuffle') !== entityState.attributes.shuffle) {
-          this.setCapabilityValue('speaker_shuffle', entityState.attributes.shuffle).catch(this.error);
-        }
-      }
-
-      if (entityState.attributes.repeat && this.hasCapability('speaker_repeat')) {
-        switch (entityState.attributes.repeat) {
-          case 'one':
-            this.setCapabilityValue('speaker_repeat', 'track').catch(this.error);
-            break;
-          case 'all':
-            this.setCapabilityValue('speaker_repeat', 'playlist').catch(this.error);
-            break;
-          default:
-            this.setCapabilityValue('speaker_repeat', 'none').catch(this.error);
-            break;
-        }
-      }
-
-      switch (entityState['state']) {
-        case 'on': {
-          if (this.hasCapability('onoff')) {
-            this.setCapabilityValue('onoff', true).catch(this.error);
-          } else if (entityId.startsWith('binary_sensor') && entityState.attributes) {
-            this.setBinarySensorState(entityState.attributes['device_class'], entityId, true);
-          } else {
-            const onOffCapabilities = this.getOnOffCapabilities();
-
-            onOffCapabilities.forEach(capabilityId => {
-              const capabilityOptions = this.getCapabilityOptions(capabilityId);
-              if (capabilityOptions.entityId === entityId) {
-                this.setCapabilityValue(capabilityId, true).catch(this.error);
-              }
-            });
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'off': {
-          if (this.hasCapability('onoff')) {
-            this.setCapabilityValue('onoff', false).catch(this.error);
-          } else if (entityId.startsWith('binary_sensor') && entityState.attributes) {
-            this.setBinarySensorState(entityState.attributes['device_class'], entityId, false);
-          } else {
-            const onOffCapabilities = this.getOnOffCapabilities();
-
-            onOffCapabilities.forEach(capabilityId => {
-              const capabilityOptions = this.getCapabilityOptions(capabilityId);
-              if (capabilityOptions.entityId === entityId) {
-                this.setCapabilityValue(capabilityId, false).catch(this.error);
-              }
-            });
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'playing': {
-          if (this.hasCapability('speaker_playing')) {
-            this.setCapabilityValue('speaker_playing', true).catch(this.error);
-          }
-
-          if (entityState.attributes.media_title && this.hasCapability('speaker_track')) {
-            this.setCapabilityValue('speaker_track', entityState.attributes.media_title).catch(this.error);
-          }
-
-          if (entityState.attributes.media_artist && this.hasCapability('speaker_artist')) {
-            this.setCapabilityValue('speaker_artist', entityState.attributes.media_artist).catch(this.error);
-          }
-
-          if (entityState.attributes.media_album_name && this.hasCapability('speaker_album')) {
-            this.setCapabilityValue('speaker_album', entityState.attributes.media_album_name).catch(this.error);
-          }
-
-          if (entityState.attributes.media_position && this.hasCapability('speaker_position')) {
-            this.setCapabilityValue('speaker_position', entityState.attributes.media_position).catch(this.error);
-          }
-
-          if (entityState.attributes.media_duration && this.hasCapability('speaker_duration')) {
-            this.setCapabilityValue('speaker_duration', entityState.attributes.media_duration).catch(this.error);
-          }
-
-          if (this.imageUrl !== entityState.attributes.entity_picture) {
-            this.imageUrl = entityState.attributes.entity_picture;
-            try {
-              this.image?.setUrl(this.server.hassUrl + this.imageUrl);
-              this.image?.update().catch(this.error);
-            } catch (err) {
-              this.error(err);
-            }
-          }
-
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'paused':
-        case VacuumActivity.IDLE:
-        case VacuumActivity.PAUSED: {
-          if (this.hasCapability('speaker_playing')) {
-            this.setCapabilityValue('speaker_playing', false).catch(this.error);
-          } else if (this.hasCapability('vacuumcleaner_state')) {
-            this.setCapabilityValue('vacuumcleaner_state', 'stopped').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'opening': {
-          if (this.hasCapability('windowcoverings_state')) {
-            this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'closing': {
-          if (this.hasCapability('windowcoverings_state')) {
-            this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'open':
-        case 'closed': {
-          if (this.hasCapability('windowcoverings_state')) {
-            this.setCapabilityValue('windowcoverings_state', 'idle').catch(this.error);
-          }
-
-          if (entityState['state'] === 'closed' && this.hasCapability('windowcoverings_closed')) {
-            this.setCapabilityValue('windowcoverings_closed', true).catch(this.error);
-          } else if (entityState['state'] === 'open' && this.hasCapability('windowcoverings_closed')) {
-            this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
-          }
-
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'cleaning':
-        case VacuumActivity.CLEANING: {
-          if (this.hasCapability('vacuumcleaner_state')) {
-            this.setCapabilityValue('vacuumcleaner_state', 'cleaning').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'docked':
-        case VacuumActivity.DOCKED: {
-          if (this.hasCapability('vacuumcleaner_state')) {
-            this.setCapabilityValue('vacuumcleaner_state', 'docked').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'returning':
-        case 'error':
-        case VacuumActivity.RETURNING:
-        case VacuumActivity.ERROR: {
-          if (this.hasCapability('vacuumcleaner_state')) {
-            this.setCapabilityValue('vacuumcleaner_state', 'stopped').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'unavailable': {
-          this.setUnavailable().catch(this.error);
-          break;
-        }
-        default: {
-          const capabilities = this.getCapabilities();
-          const capabilityId = capabilities.find(capabilityId => {
-            const capabilityOptions = this.getCapabilityOptions(capabilityId);
-            return capabilityOptions.entityId === entityId;
-          });
-
-          if (capabilityId && this.hasCapability(capabilityId)) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            let capabilityValue: any = entityState['state'];
-            if (
-              capabilityId.startsWith('measure_') ||
-              capabilityId.startsWith('meter_') ||
-              capabilityId.startsWith('hass-number.')
-            ) {
-              capabilityValue = parseFloat(capabilityValue);
-              // Convert temperature to Celsius
-              if (capabilityId.includes('measure_temperature')) {
-                if (entityState.attributes['unit_of_measurement'] === 'K') {
-                  capabilityValue = capabilityValue - 273.15;
-                } else if (entityState.attributes['unit_of_measurement'] === '°F') {
-                  capabilityValue = ((capabilityValue - 32) * 5) / 9;
-                }
-              }
-            } else if (capabilityId.startsWith('hass-string.')) {
-              capabilityValue = capabilityValue.toString();
-            } else if (capabilityId.startsWith('hass-boolean.')) {
-              capabilityValue = !!capabilityValue;
-            }
-
-            // Convert the units
-            capabilityValue = convertUnits(this, capabilityId, entityState, capabilityValue);
-
-            this.setAvailable().catch(this.error);
-            this.setCapabilityValue(capabilityId, capabilityValue).catch(this.error);
-          } else {
-            this.log(`Unknown EntityState.state: ${entityState['state']}`);
-          }
-          break;
-        }
-      }
-    }
-
-    // EntityState.attributes
-    if (entityState.attributes) {
-      // EntityState.attributes.color_mode
-      if (typeof entityState.attributes['color_mode'] === 'string') {
-        switch (entityState.attributes['color_mode']) {
-          case 'color_temp': {
-            if (this.hasCapability('light_mode')) {
-              this.setCapabilityValue('light_mode', 'temperature').catch(this.error);
-            }
-            break;
-          }
-          case 'xy':
-          case 'rgb': {
-            if (this.hasCapability('light_mode')) {
-              this.setCapabilityValue('light_mode', 'color').catch(this.error);
-            }
-            break;
-          }
-          default: {
-            this.log(`Unknown EntityState.attributes.color_mode: ${entityState.attributes['color_mode']}`);
-            break;
-          }
-        }
-      }
-      // EntityState.attributes.preset_modes
-      if (typeof entityState.attributes['preset_modes'] === 'object') {
-        if (this.hasCapability('fan_mode')) {
-          this.setCapabilityValue('fan_mode', entityState.attributes['preset_mode']?.toLowerCase() ?? null).catch(
-            this.error,
-          );
-        } else if (this.hasCapability('aircleaner_mode')) {
-          this.setCapabilityValue(
-            'aircleaner_mode',
-            entityState.attributes['preset_mode']?.toLowerCase() ?? null,
-          ).catch(this.error);
-        }
-      }
-    }
-
-    // EntityState.attributes.brightness
-    if (typeof entityState.attributes['brightness'] === 'number') {
-      if (this.hasCapability('dim')) {
-        this.setCapabilityValue('dim', entityState.attributes['brightness'] / 255).catch(this.error);
-      }
-    }
-
-    // EntityState.attributes.hs_color
-    if (Array.isArray(entityState.attributes['hs_color'])) {
-      const [hue, saturation] = entityState.attributes['hs_color'];
-
-      if (this.hasCapability('light_hue')) {
-        this.setCapabilityValue('light_hue', hue / 360).catch(this.error);
-      }
-
-      if (this.hasCapability('light_saturation')) {
-        this.setCapabilityValue('light_saturation', saturation / 100).catch(this.error);
-      }
-    }
-
-    // EntityState.attributes.color_temp
-    if (typeof entityState.attributes['color_temp'] === 'number') {
-      const min = typeof entityState.attributes['min_mireds'] === 'number' ? entityState.attributes['min_mireds'] : 153;
-
-      const max = typeof entityState.attributes['max_mireds'] === 'number' ? entityState.attributes['max_mireds'] : 500;
-
-      if (this.hasCapability('light_temperature')) {
-        this.setCapabilityValue('light_temperature', (entityState.attributes['color_temp'] - min) / (max - min)).catch(
-          this.error,
-        );
-      }
-    }
-
-    // EntityState.attributes.current_position
-    if (typeof entityState.attributes['current_position'] === 'number') {
-      if (this.hasCapability('windowcoverings_set')) {
-        this.setCapabilityValue('windowcoverings_set', entityState.attributes['current_position'] / 100).catch(
-          this.error,
-        );
-      }
-    }
-
-    // EntityState.attributes.current_position
-    if (typeof entityState.attributes['current_tilt_position'] === 'number') {
-      if (this.hasCapability('windowcoverings_tilt_set')) {
-        this.setCapabilityValue(
-          'windowcoverings_tilt_set',
-          entityState.attributes['current_tilt_position'] / 100,
-        ).catch(this.error);
-      }
-    }
-
-    // EntityState.attributes.current_position
-    if (typeof entityState.attributes['percentage'] === 'number') {
-      if (this.hasCapability('fan_speed')) {
-        this.setCapabilityValue('fan_speed', entityState.attributes['percentage'] / 100).catch(this.error);
-      }
     }
   };
 }

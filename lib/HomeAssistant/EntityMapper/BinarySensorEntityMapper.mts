@@ -96,8 +96,7 @@ export default class BinarySensorEntityMapper implements EntityMapper {
       // Known capabilities
     } else {
       const entityIdWithoutSensor = entityId.substring('binary_sensor.'.length);
-      const capabilityType = 'boolean';
-      capabilityId = `hass-${capabilityType}.${entityIdWithoutSensor}`;
+      capabilityId = `hass-boolean.${entityIdWithoutSensor}`;
 
       capabilityOptions.title = friendlyName || deviceClass || entityIdWithoutSensor;
     }
