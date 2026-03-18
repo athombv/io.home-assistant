@@ -74,7 +74,7 @@ export default class MediaPlayerEntityStateUpdateHandler extends AbstractEntityS
         if (this.image && this.imageUrl !== entityState.attributes.entity_picture) {
           this.imageUrl = entityState.attributes.entity_picture;
           this.image.setUrl(this.server.hassUrl + this.imageUrl);
-          this.image.update().catch(this.error);
+          this.image.update().catch(this.error.bind(this));
         }
 
         break;
@@ -94,7 +94,7 @@ export default class MediaPlayerEntityStateUpdateHandler extends AbstractEntityS
       // Create image object when not yet exists
       const image = await this.device.homey.images.createImage();
       image.setUrl(null as unknown as string);
-      await this.device.setAlbumArtImage(image).catch(this.error);
+      await this.device.setAlbumArtImage(image).catch(this.error.bind(this));
       this.image = image;
     } catch (error) {
       this.error(`Failed to create image: ${error}`);

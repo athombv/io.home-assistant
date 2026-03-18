@@ -58,11 +58,11 @@ export class HaEntityStateUpdateHandler {
       this.server
         .getEntityState(entityId)
         .then(async entityState => await this.onEntityState(entityId, entityState))
-        .catch(this.error);
+        .catch(this.error.bind(this));
 
       // Live updates
       this.entityStateChangedHandler[entityId] = (entityState): void =>
-        void this.onEntityState(entityId, entityState).catch(this.error);
+        void this.onEntityState(entityId, entityState).catch(this.error.bind(this));
       this.server.on(`state_changed_entity:${entityId}`, this.entityStateChangedHandler[entityId]);
     }
   }
@@ -82,7 +82,7 @@ export class HaEntityStateUpdateHandler {
       // Entity value is unavailable
       this.log(`Entity ${entityId} is marked unavailable`);
       for (const capability of capabilities) {
-        this.device.setCapabilityValue(capability, null).catch(this.error);
+        this.device.setCapabilityValue(capability, null).catch(this.error.bind(this));
       }
       return;
     }

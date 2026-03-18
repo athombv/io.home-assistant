@@ -94,7 +94,7 @@ export default class LightEntityStateUpdateHandler extends AbstractEntityStateUp
       }
 
       if (optionsChanged) {
-        this.device.setCapabilityOptions('light_temperature', temperatureOptions).catch(this.error);
+        this.device.setCapabilityOptions('light_temperature', temperatureOptions).catch(this.error.bind(this));
       }
 
       this.setCapabilityValueIfExists(

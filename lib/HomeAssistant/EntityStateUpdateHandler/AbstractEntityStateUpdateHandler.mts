@@ -36,7 +36,7 @@ export default abstract class AbstractEntityStateUpdateHandler implements Entity
       return;
     }
 
-    this.device.setCapabilityValue(capabilityId, value).catch(this.error);
+    this.device.setCapabilityValue(capabilityId, value).catch(this.error.bind(this));
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,7 +45,7 @@ export default abstract class AbstractEntityStateUpdateHandler implements Entity
       return;
     }
 
-    this.device.setCapabilityValue(capabilityId, value).catch(this.error);
+    this.device.setCapabilityValue(capabilityId, value).catch(this.error.bind(this));
   }
 
   protected mapAttributesToCapability(entityState: HassEntity, attributeMap: AttributeValueMapper): void {
