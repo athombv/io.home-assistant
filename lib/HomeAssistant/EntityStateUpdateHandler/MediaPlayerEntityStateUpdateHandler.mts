@@ -46,14 +46,14 @@ const playingAttributeMap: AttributeValueMapper = [
  * Entity update handler for media_player entities. See https://developers.home-assistant.io/docs/core/entity/media-player.
  */
 export default class MediaPlayerEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('media_player.');
   }
 
   private image?: Homey.Image;
   private imageUrl?: string;
 
-  async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity): Promise<void> {
     this.mapAttributesToCapability(entityState, attributeMap);
 
     switch (entityState.state) {

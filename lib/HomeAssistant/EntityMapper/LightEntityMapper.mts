@@ -6,11 +6,11 @@ import type { EntityMapper } from '../HaDeviceEntityMapper.mjs';
  * Mapper for light entities. See https://developers.home-assistant.io/docs/core/entity/light/.
  */
 export default class LightEntityMapper implements EntityMapper {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('light.');
   }
 
-  map(
+  public map(
     entityId: string,
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,
@@ -49,8 +49,10 @@ export default class LightEntityMapper implements EntityMapper {
       homeyDevice.capabilities.push('light_temperature');
       homeyDevice.capabilitiesOptions['light_temperature'] = homeyDevice.capabilitiesOptions['light_temperature'] || {};
       homeyDevice.capabilitiesOptions['light_temperature'].entityId = entityId;
-      homeyDevice.capabilitiesOptions['light_temperature'].max_color_temp_kelvin = entity.instance.attributes.max_color_temp_kelvin ?? 6500;
-      homeyDevice.capabilitiesOptions['light_temperature'].min_color_temp_kelvin = entity.instance.attributes.min_color_temp_kelvin ?? 2000;
+      homeyDevice.capabilitiesOptions['light_temperature'].max_color_temp_kelvin =
+        entity.instance.attributes.max_color_temp_kelvin ?? 6500;
+      homeyDevice.capabilitiesOptions['light_temperature'].min_color_temp_kelvin =
+        entity.instance.attributes.min_color_temp_kelvin ?? 2000;
     }
 
     if (lightSupportsColorChanging) {

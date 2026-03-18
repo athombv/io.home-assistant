@@ -12,6 +12,7 @@ export default tseslint.config(
     ignores: ['node_modules', '.homeybuild'],
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/explicit-member-accessibility': 'error',
       // Mark as warning to not block during dev work, and allow with description
       '@typescript-eslint/ban-ts-comment': [
         'warn',

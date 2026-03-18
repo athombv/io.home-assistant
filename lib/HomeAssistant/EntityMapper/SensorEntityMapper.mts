@@ -112,11 +112,11 @@ const CAPABILITY_MAP: Partial<Record<SensorDeviceClass, string>> = {
  * Mapper for sensor entities. See https://developers.home-assistant.io/docs/core/entity/sensor/.
  */
 export default class SensorEntityMapper implements EntityMapper {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('sensor.');
   }
 
-  map(
+  public map(
     entityId: string,
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,
@@ -151,7 +151,6 @@ export default class SensorEntityMapper implements EntityMapper {
       if (capabilityId === 'measure_monetary' && entity.instance.attributes['unit_of_measurement']) {
         capabilityOptions.units = entity.instance.attributes['unit_of_measurement'];
       }
-
     } else if (entity.instance.attributes.action !== undefined) {
       capabilityId = 'action';
     } else if (entityId.endsWith('_power_outage_count') || entityId.endsWith('_motor_state')) {

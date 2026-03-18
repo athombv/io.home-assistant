@@ -5,11 +5,11 @@ import type { EntityMapper } from '../HaDeviceEntityMapper.mjs';
  * Mapper for switch entities. See https://developers.home-assistant.io/docs/core/entity/switch/.
  */
 export default class SwitchEntityMapper implements EntityMapper {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('switch.');
   }
 
-  map(
+  public map(
     entityId: string,
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,

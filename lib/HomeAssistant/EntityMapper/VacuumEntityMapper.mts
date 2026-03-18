@@ -32,11 +32,11 @@ const SUPPORTED_FEATURES: Partial<Record<VacuumEntityFeature, string[]>> = {
  * Mapper for vacuum entities. See https://developers.home-assistant.io/docs/core/entity/vacuum.
  */
 export default class VacuumEntityMapper implements EntityMapper {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('vacuum.');
   }
 
-  map(
+  public map(
     entityId: string,
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,

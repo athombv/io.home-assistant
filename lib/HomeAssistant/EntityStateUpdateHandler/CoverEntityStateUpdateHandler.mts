@@ -22,11 +22,11 @@ const attributeMap: AttributeValueMapper = [
  * Entity update handler for cover entities. See https://developers.home-assistant.io/docs/core/entity/cover.
  */
 export default class CoverEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('cover.');
   }
 
-  async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity): Promise<void> {
     switch (entityState.state) {
       case CoverState.CLOSED:
         this.setCapabilityValueIfExists('windowcoverings_state', 'idle');

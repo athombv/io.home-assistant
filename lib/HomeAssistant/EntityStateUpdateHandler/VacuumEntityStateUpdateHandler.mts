@@ -15,11 +15,11 @@ export enum VacuumActivity {
  * Entity update handler for vacuum entities. See https://developers.home-assistant.io/docs/core/entity/vacuum.
  */
 export default class VacuumEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('vacuum.');
   }
 
-  async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity): Promise<void> {
     let newState;
     switch (entityState.state) {
       case VacuumActivity.IDLE:

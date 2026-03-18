@@ -4,11 +4,11 @@ import AbstractEntityStateUpdateHandler from './AbstractEntityStateUpdateHandler
 const invertedCapabilities: string[] = ['alarm_connectivity', 'garagedoor_closed', 'locked', 'windowcoverings_closed'];
 
 export default class BinarySensorEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('binary_sensor.');
   }
 
-  async handle(entityState: HassEntity, capabilities: string[]): Promise<void> {
+  public async handle(entityState: HassEntity, capabilities: string[]): Promise<void> {
     const capability = this.ensureSingleCapability(capabilities);
     if (!capability) {
       return;

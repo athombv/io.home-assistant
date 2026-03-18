@@ -22,17 +22,21 @@ type FlowDeviceArgs = {
 };
 
 export default class HomeAssistantDriver extends Homey.Driver {
-  async onInit(): Promise<void> {
+  public async onInit(): Promise<void> {
     await super.onInit();
 
     // Init Action Cards
-    this.homey.flow.getActionCard('fan_speed_set').registerRunListener(async (args: FlowDeviceArgs & {fan_speed: number}) => {
-      return args.device.triggerCapabilityListener('fan_speed', args.fan_speed);
-    });
+    this.homey.flow
+      .getActionCard('fan_speed_set')
+      .registerRunListener(async (args: FlowDeviceArgs & { fan_speed: number }) => {
+        return args.device.triggerCapabilityListener('fan_speed', args.fan_speed);
+      });
 
-    this.homey.flow.getActionCard('fan_mode_set').registerRunListener(async (args: FlowDeviceArgs & { fan_mode: string }) => {
-      return args.device.triggerCapabilityListener('fan_mode', args.fan_mode);
-    });
+    this.homey.flow
+      .getActionCard('fan_mode_set')
+      .registerRunListener(async (args: FlowDeviceArgs & { fan_mode: string }) => {
+        return args.device.triggerCapabilityListener('fan_mode', args.fan_mode);
+      });
 
     this.homey.flow
       .getActionCard('aircleaner_mode_set')
@@ -40,13 +44,17 @@ export default class HomeAssistantDriver extends Homey.Driver {
         return args.device.triggerCapabilityListener('aircleaner_mode', args.aircleaner_mode);
       });
 
-    this.homey.flow.getConditionCard('action_is').registerRunListener(async (args: FlowDeviceArgs & {action: string}) => {
-      return args.device.isValueRunListener(args.action, 'action');
-    });
+    this.homey.flow
+      .getConditionCard('action_is')
+      .registerRunListener(async (args: FlowDeviceArgs & { action: string }) => {
+        return args.device.isValueRunListener(args.action, 'action');
+      });
 
-    this.homey.flow.getConditionCard('status_is').registerRunListener(async (args: FlowDeviceArgs & {status: string}) => {
-      return args.device.isValueRunListener(args.status, 'status');
-    });
+    this.homey.flow
+      .getConditionCard('status_is')
+      .registerRunListener(async (args: FlowDeviceArgs & { status: string }) => {
+        return args.device.isValueRunListener(args.status, 'status');
+      });
 
     this.homey.flow.getConditionCard('alarm_charging_is').registerRunListener(async (args: FlowDeviceArgs) => {
       return args.device.isOnRunListener('alarm_charging');
@@ -81,12 +89,12 @@ export default class HomeAssistantDriver extends Homey.Driver {
     });
   }
 
-  onDiscoveryResults = (): Record<string, DiscoveryResultMDNSSD> => {
+  public onDiscoveryResults = (): Record<string, DiscoveryResultMDNSSD> => {
     const discoveryStrategy = this.homey.discovery.getStrategy('home-assistant');
     return discoveryStrategy.getDiscoveryResults() as Record<string, DiscoveryResultMDNSSD>;
   };
 
-  async onPair(socket: Homey.Driver.PairSession): Promise<void> {
+  public async onPair(socket: Homey.Driver.PairSession): Promise<void> {
     const servers: Record<string, HomeyHomeyAssistantPairingServer | null> = {
       new: null,
     };

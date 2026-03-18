@@ -6,7 +6,7 @@ import type { HomeyHomeAssistantServerConfig } from './HomeAssistantTypes.mjs';
 export default class HomeAssistantApp extends Homey.App {
   private __servers: Record<string, HomeAssistantServer> = {};
 
-  async onInit(): Promise<void> {
+  public async onInit(): Promise<void> {
     this.__servers = {};
 
     // Initialize all servers
@@ -33,11 +33,11 @@ export default class HomeAssistantApp extends Homey.App {
     }
   }
 
-  async getServers(): Promise<Record<string, HomeAssistantServer>> {
+  public async getServers(): Promise<Record<string, HomeAssistantServer>> {
     return this.__servers;
   }
 
-  async getServer(serverId: string): Promise<HomeAssistantServer> {
+  public async getServer(serverId: string): Promise<HomeAssistantServer> {
     if (!this.__servers[serverId]) {
       const serverConfigs = await this.getServerConfigs();
       const serverConfig = serverConfigs[serverId];
@@ -59,7 +59,13 @@ export default class HomeAssistantApp extends Homey.App {
     return this.__servers[serverId];
   }
 
-  async createServer(name: unknown, host: unknown, port: unknown, protocol: unknown, token: unknown): Promise<string> {
+  public async createServer(
+    name: unknown,
+    host: unknown,
+    port: unknown,
+    protocol: unknown,
+    token: unknown,
+  ): Promise<string> {
     if (typeof protocol !== 'string') {
       throw new Error('Invalid Protocol');
     }

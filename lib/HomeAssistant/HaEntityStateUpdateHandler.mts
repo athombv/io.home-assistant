@@ -22,7 +22,7 @@ export class HaEntityStateUpdateHandler {
 
   private readonly handlers: EntityStateUpdateHandler[] = [];
 
-  constructor(
+  public constructor(
     private device: HomeAssistantDevice,
     private server: HomeAssistantServer,
   ) {

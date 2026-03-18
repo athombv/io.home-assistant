@@ -17,7 +17,7 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
   private readonly entitiesSubscriptionPromise: Promise<void>;
   private entities: HassEntities = {};
 
-  constructor(
+  public constructor(
     public readonly name: string = 'Home Assistant',
     public readonly protocol: string,
     public readonly host: string,

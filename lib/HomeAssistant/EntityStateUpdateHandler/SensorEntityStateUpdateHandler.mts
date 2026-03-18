@@ -6,11 +6,11 @@ import AbstractEntityStateUpdateHandler from './AbstractEntityStateUpdateHandler
  * Entity update handler for sensor entities. See https://developers.home-assistant.io/docs/core/entity/sensor/.
  */
 export default class SensorEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('sensor.');
   }
 
-  async handle(entityState: HassEntity, capabilities: string[]): Promise<void> {
+  public async handle(entityState: HassEntity, capabilities: string[]): Promise<void> {
     const capability = this.ensureSingleCapability(capabilities);
     if (!capability) {
       return;
@@ -18,11 +18,7 @@ export default class SensorEntityStateUpdateHandler extends AbstractEntityStateU
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let capabilityValue: any = entityState.state;
-    if (
-      capability.startsWith('measure_') ||
-      capability.startsWith('meter_') ||
-      capability.startsWith('hass-number.')
-    ) {
+    if (capability.startsWith('measure_') || capability.startsWith('meter_') || capability.startsWith('hass-number.')) {
       capabilityValue = parseFloat(capabilityValue);
 
       // Convert temperature to Celsius

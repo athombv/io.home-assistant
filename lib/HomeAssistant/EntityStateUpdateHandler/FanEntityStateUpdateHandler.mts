@@ -11,11 +11,11 @@ const attributeMap: AttributeValueMapper = [
  * Entity update handler for fan entities. See https://developers.home-assistant.io/docs/core/entity/fan.
  */
 export default class FanEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('fan.');
   }
 
-  async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity): Promise<void> {
     this.mapAttributesToCapability(entityState, attributeMap);
     this.handleOnOff(entityState, 'onoff');
   }

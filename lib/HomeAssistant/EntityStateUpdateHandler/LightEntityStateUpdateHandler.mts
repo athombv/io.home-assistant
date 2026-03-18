@@ -22,11 +22,11 @@ const attributeMap: AttributeValueMapper = [
  * Entity update handler for light entities. See https://developers.home-assistant.io/docs/core/entity/light/.
  */
 export default class LightEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('light.');
   }
 
-  async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity): Promise<void> {
     this.handleOnOff(entityState, 'onoff');
     this.mapAttributesToCapability(entityState, attributeMap);
 

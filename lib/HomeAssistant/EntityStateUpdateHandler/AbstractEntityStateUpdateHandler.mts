@@ -11,14 +11,14 @@ export type AttributeValueMapper = Array<{
 }>;
 
 export default abstract class AbstractEntityStateUpdateHandler implements EntityStateUpdateHandler {
-  constructor(
+  public constructor(
     protected device: HomeAssistantDevice,
     protected server: HomeAssistantServer,
   ) {}
 
-  abstract supportsEntityId(entityId: string): boolean;
+  public abstract supportsEntityId(entityId: string): boolean;
 
-  abstract handle(entityState: HassEntity, capabilities: string[]): Promise<void>;
+  public abstract handle(entityState: HassEntity, capabilities: string[]): Promise<void>;
 
   protected hasCapability(capabilityId: string): boolean {
     return this.device.hasCapability(capabilityId);
