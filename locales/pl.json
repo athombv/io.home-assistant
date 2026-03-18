@@ -1,3 +1,4 @@
 {
+  "allEntitiesUnavailable": "Urządzenie wydaje się być niedostępne w Home Assistant",
   "nativeAppSuggestion": "Dobre wieści! To urządzenie działa również bezpośrednio z Homey. Wyszukaj __appName__ w Homey App Store."
 }

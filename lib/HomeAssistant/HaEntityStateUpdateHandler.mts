@@ -18,6 +18,7 @@ export interface EntityStateUpdateHandler {
 export class HaEntityStateUpdateHandler {
   private entityIdToCapabilityMap: Record<string, string[]> = {};
   private entityIds: Set<string> = new Set();
+  private unavailableEntityIds: Set<string> = new Set();
   private entityStateChangedHandler: Record<string, (entityState: HassEntity) => void> = {};
 
   private readonly handlers: EntityStateUpdateHandler[] = [];
@@ -81,10 +82,22 @@ export class HaEntityStateUpdateHandler {
     if (entityState.state === 'unavailable') {
       // Entity value is unavailable
       this.log(`Entity ${entityId} is marked unavailable`);
+      this.unavailableEntityIds.add(entityId);
       for (const capability of capabilities) {
         this.device.setCapabilityValue(capability, null).catch(this.error.bind(this));
       }
+
+      if (this.unavailableEntityIds.size === this.entityIds.size) {
+        // All entities are unavailable, mark the device as unavailable
+        await this.device.setUnavailable(this.device.homey.__('allEntitiesUnavailable')).catch(this.error.bind(this));
+      }
+
       return;
+    }
+
+    this.unavailableEntityIds.delete(entityId);
+    if (!this.device.getAvailable()) {
+      await this.device.setAvailable().catch(this.error.bind(this));
     }
 
     // Loop through the available handlers
