@@ -8,11 +8,11 @@ export default class HomeAssistantDevice extends Homey.Device {
   private server!: HomeAssistantServer;
   private stateUpdateHandler?: HaEntityStateUpdateHandler;
 
-  async onUninit(): Promise<void> {
+  public async onUninit(): Promise<void> {
     this.stateUpdateHandler?.unInit();
   }
 
-  async onInit(): Promise<void> {
+  public async onInit(): Promise<void> {
     await super.onInit();
 
     // Get Server
@@ -41,13 +41,11 @@ export default class HomeAssistantDevice extends Homey.Device {
     // Register Capability Listeners
     // Light / Switch Capabilities
     if (this.hasCapability('onoff')) {
-      this.registerCapabilityListener('onoff', this.onCapabilityOnOff);
+      this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
     }
 
     // Extra onoff Capabilities
-    const onoffCapabilities = this.getOnOffCapabilities();
-
-    onoffCapabilities.forEach(capabilityId => {
+    this.getOnOffCapabilities().forEach(capabilityId => {
       this.registerCapabilityListener(capabilityId, async (value, options) => {
         await this.onCapabilityOnOff(value, options, capabilityId);
       });
@@ -55,71 +53,74 @@ export default class HomeAssistantDevice extends Homey.Device {
 
     // Light Capabilities
     if (this.hasCapability('dim')) {
-      this.registerCapabilityListener('dim', this.onCapabilityDim);
+      this.registerCapabilityListener('dim', this.onCapabilityDim.bind(this));
     }
 
     if (this.hasCapability('light_hue') && this.hasCapability('light_saturation')) {
-      this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSaturation);
+      this.registerMultipleCapabilityListener(
+        ['light_hue', 'light_saturation'],
+        this.onCapabilityLightHueSaturation.bind(this),
+      );
     }
 
     if (this.hasCapability('light_temperature')) {
-      this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature);
+      this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
     }
 
     if (this.hasCapability('light_mode')) {
-      this.registerCapabilityListener('light_mode', this.onCapabilityLightMode);
+      this.registerCapabilityListener('light_mode', this.onCapabilityLightMode.bind(this));
     }
 
     // Speaker Capabilities
     if (this.hasCapability('speaker_playing')) {
-      this.registerCapabilityListener('speaker_playing', this.onCapabilitySpeakerPlaying);
+      this.registerCapabilityListener('speaker_playing', this.onCapabilitySpeakerPlaying.bind(this));
     }
 
     if (this.hasCapability('speaker_next')) {
-      this.registerCapabilityListener('speaker_next', async (value, options) => {
+      this.registerCapabilityListener('speaker_next', async (_, options) => {
         await this.onCapabilitySpeakerService('media_next_track', options, 'speaker_next');
       });
     }
 
     if (this.hasCapability('speaker_prev')) {
-      this.registerCapabilityListener('speaker_prev', async (value, options) => {
+      this.registerCapabilityListener('speaker_prev', async (_, options) => {
         await this.onCapabilitySpeakerService('media_previous_track', options, 'speaker_prev');
       });
     }
 
     if (this.hasCapability('speaker_repeat')) {
-      this.registerCapabilityListener('speaker_repeat', this.onCapabilityRepeatSet);
+      this.registerCapabilityListener('speaker_repeat', this.onCapabilityRepeatSet.bind(this));
     }
 
     if (this.hasCapability('speaker_shuffle')) {
-      this.registerCapabilityListener('speaker_shuffle', this.onCapabilityShuffleSet);
+      this.registerCapabilityListener('speaker_shuffle', this.onCapabilityShuffleSet.bind(this));
     }
 
     if (this.hasCapability('speaker_stop')) {
-      this.registerCapabilityListener('speaker_stop', async (value, options) => {
+      this.registerCapabilityListener('speaker_stop', async (_, options) => {
         await this.onCapabilitySpeakerService('media_stop', options, 'speaker_stop');
       });
     }
 
     // Volume Capabilities
     if (this.hasCapability('volume_up')) {
-      this.registerCapabilityListener('volume_up', async (value, options: unknown) => {
+      this.registerCapabilityListener('volume_up', async (_, options: unknown) => {
         await this.onCapabilitySpeakerService('volume_up', options, 'volume_up');
       });
     }
 
     if (this.hasCapability('volume_down')) {
-      this.registerCapabilityListener('volume_down', async (value, options) => {
+      this.registerCapabilityListener('volume_down', async (_, options) => {
         await this.onCapabilitySpeakerService('volume_down', options, 'volume_down');
       });
     }
 
     if (this.hasCapability('volume_set')) {
-      this.registerCapabilityListener('volume_set', this.onCapabilityVolumeSet);
+      this.registerCapabilityListener('volume_set', this.onCapabilityVolumeSet.bind(this));
     }
 
     if (this.hasCapability('volume_mute')) {
-      this.registerCapabilityListener('volume_mute', this.onCapabilityVolumeMute);
+      this.registerCapabilityListener('volume_mute', this.onCapabilityVolumeMute.bind(this));
     }
 
     // Windowcoverings Capabilities
@@ -143,7 +144,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     if (this.hasCapability('windowcoverings_tilt_set')) {
-      this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityCoveringTiltSet);
+      this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityCoveringTiltSet.bind(this));
     }
 
     if (this.hasCapability('windowcoverings_closed')) {
@@ -153,7 +154,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     if (this.hasCapability('windowcoverings_set')) {
-      this.registerCapabilityListener('windowcoverings_set', this.onCapabilityCoveringSet);
+      this.registerCapabilityListener('windowcoverings_set', this.onCapabilityCoveringSet.bind(this));
     }
 
     if (this.hasCapability('garagedoor_closed')) {
@@ -163,23 +164,23 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     if (this.hasCapability('fan_speed')) {
-      this.registerCapabilityListener('fan_speed', this.onCapabilityFanSpeedSet);
+      this.registerCapabilityListener('fan_speed', this.onCapabilityFanSpeedSet.bind(this));
     }
 
     if (this.hasCapability('fan_oscillate')) {
-      this.registerCapabilityListener('fan_oscillate', this.onCapabilityFanOscillateSet);
+      this.registerCapabilityListener('fan_oscillate', this.onCapabilityFanOscillateSet.bind(this));
     }
 
     if (this.hasCapability('fan_mode')) {
-      this.registerCapabilityListener('fan_mode', this.onCapabilityFanModeSet);
+      this.registerCapabilityListener('fan_mode', this.onCapabilityFanModeSet.bind(this));
     }
 
     if (this.hasCapability('aircleaner_mode')) {
-      this.registerCapabilityListener('aircleaner_mode', this.onCapabilityAirCleanerModeSet);
+      this.registerCapabilityListener('aircleaner_mode', this.onCapabilityAirCleanerModeSet.bind(this));
     }
 
     if (this.hasCapability('vacuumcleaner_state')) {
-      this.registerCapabilityListener('vacuumcleaner_state', this.onCapabilityVacuumCleanerStateSet);
+      this.registerCapabilityListener('vacuumcleaner_state', this.onCapabilityVacuumCleanerStateSet.bind(this));
     }
 
     // Set Warning if Homey support this device natively for a better experience.
@@ -203,7 +204,7 @@ export default class HomeAssistantDevice extends Homey.Device {
   /*
    * Helper methods
    */
-  getCoverServiceId = (value: string): string => {
+  private getCoverServiceId(value: string): string {
     switch (value) {
       case 'up':
         return 'open_cover';
@@ -212,9 +213,9 @@ export default class HomeAssistantDevice extends Homey.Device {
       default:
         return 'stop_cover';
     }
-  };
+  }
 
-  getEntityId = ({ capabilityId }: { capabilityId: string }): string => {
+  private getEntityId({ capabilityId }: { capabilityId: string }): string {
     if (!this.hasCapability(capabilityId)) {
       throw new Error(`Invalid capability: ${capabilityId}`);
     }
@@ -226,29 +227,28 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     return entityId;
-  };
+  }
 
-  getOnOffCapabilities = (): string[] => {
+  private getOnOffCapabilities(): string[] {
     return this.getCapabilities().filter(item => item.startsWith('onoff.'));
-  };
+  }
 
   /*
    * Capability Listeners
    */
-
-  isOnRunListener = async (capabilityId: string): Promise<void> => {
+  public async isOnRunListener(capabilityId: string): Promise<void> {
     return this.getCapabilityValue(capabilityId);
-  };
+  }
 
-  isValueRunListener = async (value: unknown, capabilityId: string): Promise<unknown> => {
+  public async isValueRunListener(value: unknown, capabilityId: string): Promise<unknown> {
     if (!value) {
       return false;
     }
 
     return value === this.getCapabilityValue(capabilityId);
-  };
+  }
 
-  onCapabilityOnOff = async (value: unknown, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityOnOff(value: unknown, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'onoff' });
     const domain = entityId.split('.')[0]; // TODO: I'm not sure this always works!
 
@@ -263,9 +263,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         service: value ? 'turn_on' : 'turn_off',
       });
     }
-  };
+  }
 
-  onCapabilityDim = async (value: number): Promise<void> => {
+  private async onCapabilityDim(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'dim' });
 
     await this.server.callService({
@@ -278,17 +278,17 @@ export default class HomeAssistantDevice extends Homey.Device {
         brightness: value > 0 ? value * 255 : undefined,
       },
     });
-  };
+  }
 
-  onCapabilityLightMode = async (value: string): Promise<void> => {
+  private async onCapabilityLightMode(value: string): Promise<void> {
     if (value === 'color') {
       await this.triggerCapabilityListener('light_hue', this.getCapabilityValue('light_hue'));
     } else if (value === 'temperature') {
       await this.triggerCapabilityListener('light_temperature', this.getCapabilityValue('light_temperature'));
     }
-  };
+  }
 
-  onCapabilityLightTemperature = async (value: number): Promise<void> => {
+  private async onCapabilityLightTemperature(value: number): Promise<void> {
     if (this.hasCapability('light_mode')) {
       await this.setCapabilityValue('light_mode', 'temperature');
     }
@@ -308,12 +308,12 @@ export default class HomeAssistantDevice extends Homey.Device {
         color_temp_kelvin: min + (1 - value) * (max - min),
       },
     });
-  };
+  }
 
-  onCapabilityLightHueSaturation = async ({
+  private async onCapabilityLightHueSaturation({
     light_hue: hue = this.getCapabilityValue('light_hue'),
     light_saturation: sat = this.getCapabilityValue('light_saturation'),
-  }): Promise<void> => {
+  }): Promise<void> {
     if (this.hasCapability('light_mode')) this.setCapabilityValue('light_mode', 'color');
 
     const entityId = this.getEntityId({ capabilityId: 'dim' });
@@ -328,9 +328,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         hs_color: [hue * 360, sat * 100],
       },
     });
-  };
+  }
 
-  onCapabilitySpeakerPlaying = async (value: boolean, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilitySpeakerPlaying(value: boolean, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_playing' });
     const domain = entityId.split('.')[0];
 
@@ -341,9 +341,9 @@ export default class HomeAssistantDevice extends Homey.Device {
       },
       service: value ? 'media_play' : 'media_pause',
     });
-  };
+  }
 
-  onCapabilitySpeakerService = async (value: string, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilitySpeakerService(value: string, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'onoff' });
     const domain = entityId.split('.')[0];
 
@@ -354,9 +354,9 @@ export default class HomeAssistantDevice extends Homey.Device {
       },
       service: value,
     });
-  };
+  }
 
-  onCapabilityShuffleSet = async (value: boolean, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityShuffleSet(value: boolean, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_shuffle' });
     const domain = entityId.split('.')[0];
 
@@ -370,9 +370,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         shuffle: value,
       },
     });
-  };
+  }
 
-  onCapabilityRepeatSet = async (value: string, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityRepeatSet(value: string, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_repeat' });
     const domain = entityId.split('.')[0];
 
@@ -399,9 +399,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         repeat,
       },
     });
-  };
+  }
 
-  onCapabilityVolumeSet = async (value: number, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityVolumeSet(value: number, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'volume_set' });
     const domain = entityId.split('.')[0];
 
@@ -415,9 +415,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         volume_level: value,
       },
     });
-  };
+  }
 
-  onCapabilityVolumeMute = async (value: boolean, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityVolumeMute(value: boolean, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'volume_mute' });
     const domain = entityId.split('.')[0];
 
@@ -431,9 +431,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         is_volume_muted: value,
       },
     });
-  };
+  }
 
-  onCapabilityCoveringService = async (value: string, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityCoveringService(value: string, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'windowcoverings_state' });
     const domain = entityId.split('.')[0];
 
@@ -444,9 +444,9 @@ export default class HomeAssistantDevice extends Homey.Device {
       },
       service: value,
     });
-  };
+  }
 
-  onCapabilityCoveringSet = async (value: number): Promise<void> => {
+  private async onCapabilityCoveringSet(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'windowcoverings_set' });
 
     await this.server.callService({
@@ -459,9 +459,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         position: value > 0 ? value * 100 : 0,
       },
     });
-  };
+  }
 
-  onCapabilityCoveringTiltSet = async (value: number): Promise<void> => {
+  private async onCapabilityCoveringTiltSet(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'windowcoverings_tilt_set' });
 
     await this.server.callService({
@@ -474,9 +474,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         tilt_position: value > 0 ? value * 100 : 0,
       },
     });
-  };
+  }
 
-  onCapabilityFanSpeedSet = async (value: number): Promise<void> => {
+  private async onCapabilityFanSpeedSet(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'fan_speed' });
 
     await this.server.callService({
@@ -499,9 +499,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         },
       });
     }
-  };
+  }
 
-  onCapabilityFanOscillateSet = async (value: unknown): Promise<void> => {
+  private async onCapabilityFanOscillateSet(value: unknown): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'fan_oscillate' });
 
     await this.server.callService({
@@ -514,9 +514,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         oscillating: !!value,
       },
     });
-  };
+  }
 
-  onCapabilityFanModeSet = async (value?: string): Promise<void> => {
+  private async onCapabilityFanModeSet(value?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'fan_mode' });
 
     await this.server.callService({
@@ -529,9 +529,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         preset_mode: value && capitalizeFirstLetter(value),
       },
     });
-  };
+  }
 
-  onCapabilityAirCleanerModeSet = async (value?: string): Promise<void> => {
+  private async onCapabilityAirCleanerModeSet(value?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'aircleaner_mode' });
 
     await this.server.callService({
@@ -544,9 +544,9 @@ export default class HomeAssistantDevice extends Homey.Device {
         preset_mode: value && capitalizeFirstLetter(value),
       },
     });
-  };
+  }
 
-  onCapabilityVacuumCleanerStateSet = async (value: string): Promise<void> => {
+  private async onCapabilityVacuumCleanerStateSet(value: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'vacuumcleaner_state' });
 
     let service;
@@ -580,5 +580,5 @@ export default class HomeAssistantDevice extends Homey.Device {
         service,
       });
     }
-  };
+  }
 }
