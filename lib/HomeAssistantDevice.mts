@@ -236,7 +236,7 @@ export default class HomeAssistantDevice extends Homey.Device {
   /*
    * Capability Listeners
    */
-  public async isOnRunListener(capabilityId: string): Promise<void> {
+  public async isOnRunListener(capabilityId: string): Promise<unknown> {
     return this.getCapabilityValue(capabilityId);
   }
 

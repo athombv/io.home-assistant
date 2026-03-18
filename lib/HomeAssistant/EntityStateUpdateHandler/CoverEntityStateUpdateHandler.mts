@@ -53,6 +53,6 @@ export default class CoverEntityStateUpdateHandler extends AbstractEntityStateUp
         break;
     }
 
-    this.mapAttributesToCapability(entityState, attributeMap);;
+    this.mapAttributesToCapability(entityState, attributeMap);
   }
 }

@@ -69,7 +69,7 @@ export default class LightEntityStateUpdateHandler extends AbstractEntityStateUp
       }
     }
 
-    if (typeof entityState.attributes.color_temp_kelvin === 'number') {
+    if (typeof entityState.attributes.color_temp_kelvin === 'number' && this.hasCapability('light_temperature')) {
       const temperatureOptions = this.device.getCapabilityOptions('light_temperature');
 
       const min =
@@ -97,10 +97,7 @@ export default class LightEntityStateUpdateHandler extends AbstractEntityStateUp
         this.device.setCapabilityOptions('light_temperature', temperatureOptions).catch(this.error.bind(this));
       }
 
-      this.setCapabilityValueIfExists(
-        'light_temperature',
-        1 - ((entityState.attributes.color_temp_kelvin - min) / (max - min)),
-      );
+      this.setCapabilityValue('light_temperature', 1 - (entityState.attributes.color_temp_kelvin - min) / (max - min));
     }
   }
 }

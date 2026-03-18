@@ -20,6 +20,7 @@ export default tseslint.config(
         },
       ],
       semi: [2, 'always'],
+      'no-extra-semi': ['error'],
     },
   },
 );
