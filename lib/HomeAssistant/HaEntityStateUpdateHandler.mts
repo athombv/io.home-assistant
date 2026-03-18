@@ -61,10 +61,8 @@ export class HaEntityStateUpdateHandler {
         .catch(this.error);
 
       // Live updates
-      this.entityStateChangedHandler[entityId] = (entityState): void => {
-        this.log('Entity state update:', JSON.stringify(entityState));
-        this.onEntityState(entityId, entityState).catch(this.error);
-      };
+      this.entityStateChangedHandler[entityId] = (entityState): void =>
+        void this.onEntityState(entityId, entityState).catch(this.error);
       this.server.on(`state_changed_entity:${entityId}`, this.entityStateChangedHandler[entityId]);
     }
   }
@@ -76,6 +74,8 @@ export class HaEntityStateUpdateHandler {
   }
 
   private async onEntityState(entityId: string, entityState: HassEntity): Promise<void> {
+    this.log('Handling entity state:', JSON.stringify(entityState));
+
     const capabilities = this.entityIdToCapabilityMap[entityId] ?? [];
 
     if (entityState.state === 'unavailable') {
