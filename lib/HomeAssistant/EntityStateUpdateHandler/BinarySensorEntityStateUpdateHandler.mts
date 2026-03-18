@@ -1,6 +1,8 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
 import AbstractEntityStateUpdateHandler from './AbstractEntityStateUpdateHandler.mjs';
 
+const invertedCapabilities: string[] = ['alarm_connectivity', 'garagedoor_closed', 'locked', 'windowcoverings_closed'];
+
 export default class BinarySensorEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
   supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('binary_sensor.');
@@ -12,6 +14,6 @@ export default class BinarySensorEntityStateUpdateHandler extends AbstractEntity
       return;
     }
 
-    this.handleOnOff(entityState, capability);
+    this.handleOnOff(entityState, capability, invertedCapabilities.includes(capability));
   }
 }

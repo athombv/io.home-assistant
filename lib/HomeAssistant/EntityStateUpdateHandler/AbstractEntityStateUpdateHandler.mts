@@ -71,18 +71,21 @@ export default abstract class AbstractEntityStateUpdateHandler implements Entity
     return capabilities[0];
   }
 
-  protected handleOnOff(entityState: HassEntity, capability: string): void {
+  protected handleOnOff(entityState: HassEntity, capability: string, invert = false): void {
+    let newValue: boolean;
     switch (entityState.state) {
       case 'on':
-        this.setCapabilityValue(capability, true);
+        newValue = true;
         break;
       case 'off':
-        this.setCapabilityValue(capability, false);
+        newValue = false;
         break;
       default:
         this.error(`Unsupported onoff entity state value: ${entityState.state}`);
-        break;
+        return;
     }
+
+    this.setCapabilityValue(capability, invert ? !newValue : newValue);
   }
 
   protected log(...args: unknown[]): void {
