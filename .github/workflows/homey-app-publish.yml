@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Use default env file
+        run: cp env.json.dist env.json
       - name: Publish
         uses: athombv/github-action-homey-app-publish@master
         id: publish

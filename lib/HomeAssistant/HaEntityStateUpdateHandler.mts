@@ -1,4 +1,5 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
+import Homey from 'homey';
 import type HomeAssistantDevice from '../HomeAssistantDevice.mjs';
 import type HomeAssistantServer from '../HomeAssistantServer.mjs';
 import BinarySensorEntityStateUpdateHandler from './EntityStateUpdateHandler/BinarySensorEntityStateUpdateHandler.mjs';
@@ -75,7 +76,7 @@ export class HaEntityStateUpdateHandler {
   }
 
   private async onEntityState(entityId: string, entityState: HassEntity): Promise<void> {
-    this.log('Handling entity state:', JSON.stringify(entityState));
+    this.debug('Handling entity state:', JSON.stringify(entityState));
 
     const capabilities = this.entityIdToCapabilityMap[entityId] ?? [];
 
@@ -108,6 +109,14 @@ export class HaEntityStateUpdateHandler {
 
       await handler.handle(entityState, capabilities);
     }
+  }
+
+  protected debug(...args: unknown[]): void {
+    if (Homey.env.DEBUG !== '1') {
+      return;
+    }
+
+    this.log('[dbg]', ...args);
   }
 
   protected log(...args: unknown[]): void {

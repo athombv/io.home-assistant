@@ -134,7 +134,7 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
       target,
       service_data: serviceData,
     };
-    this.log('Calling HA service', JSON.stringify(serviceCall));
+    this.debug('Calling HA service', JSON.stringify(serviceCall));
     await connection.sendMessagePromise(serviceCall);
   }
 
@@ -146,4 +146,12 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
       this.emit(`state_changed_entity:${data.entity_id}`, data.new_state);
     }
   };
+
+  protected debug(...args: unknown[]): void {
+    if (Homey.env.DEBUG !== '1') {
+      return;
+    }
+
+    this.log('[dbg]', ...args);
+  }
 }
