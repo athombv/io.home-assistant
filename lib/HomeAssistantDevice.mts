@@ -255,28 +255,15 @@ export default class HomeAssistantDevice extends Homey.Device {
     if (domain === 'vacuum') {
       await this.onCapabilityVacuumCleanerStateSet(value ? 'cleaning' : 'docked');
     } else {
-      await this.server.callService({
-        domain,
-        target: {
-          entity_id: entityId,
-        },
-        service: value ? 'turn_on' : 'turn_off',
-      });
+      await this.server.callEntityService(domain, entityId, value ? 'turn_on' : 'turn_off');
     }
   }
 
   private async onCapabilityDim(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'dim' });
 
-    await this.server.callService({
-      domain: 'light',
-      target: {
-        entity_id: entityId,
-      },
-      service: value > 0 ? 'turn_on' : 'turn_off',
-      serviceData: {
-        brightness: value > 0 ? value * 255 : undefined,
-      },
+    await this.server.callEntityService('light', entityId, value > 0 ? 'turn_on' : 'turn_off', {
+      brightness: value > 0 ? value * 255 : undefined,
     });
   }
 
@@ -298,15 +285,8 @@ export default class HomeAssistantDevice extends Homey.Device {
     const min = temperatureOptions.min_color_temp_kelvin ?? 2000;
     const max = temperatureOptions.max_color_temp_kelvin ?? 6500;
 
-    await this.server.callService({
-      domain: 'light',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'turn_on',
-      serviceData: {
-        color_temp_kelvin: min + (1 - value) * (max - min),
-      },
+    await this.server.callEntityService('light', entityId, 'turn_on', {
+      color_temp_kelvin: min + (1 - value) * (max - min),
     });
   }
 
@@ -314,19 +294,14 @@ export default class HomeAssistantDevice extends Homey.Device {
     light_hue: hue = this.getCapabilityValue('light_hue'),
     light_saturation: sat = this.getCapabilityValue('light_saturation'),
   }): Promise<void> {
-    if (this.hasCapability('light_mode')) this.setCapabilityValue('light_mode', 'color');
+    if (this.hasCapability('light_mode')) {
+      await this.setCapabilityValue('light_mode', 'color');
+    }
 
     const entityId = this.getEntityId({ capabilityId: 'dim' });
 
-    await this.server.callService({
-      domain: 'light',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'turn_on',
-      serviceData: {
-        hs_color: [hue * 360, sat * 100],
-      },
+    await this.server.callEntityService('light', entityId, 'turn_on', {
+      hs_color: [hue * 360, sat * 100],
     });
   }
 
@@ -334,41 +309,22 @@ export default class HomeAssistantDevice extends Homey.Device {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_playing' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: value ? 'media_play' : 'media_pause',
-    });
+    await this.server.callEntityService(domain, entityId, value ? 'media_play' : 'media_pause');
   }
 
   private async onCapabilitySpeakerService(value: string, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'onoff' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: value,
-    });
+    await this.server.callEntityService(domain, entityId, value);
   }
 
   private async onCapabilityShuffleSet(value: boolean, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_shuffle' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: 'shuffle_set',
-      serviceData: {
-        shuffle: value,
-      },
+    await this.server.callEntityService(domain, entityId, 'shuffle_set', {
+      shuffle: value,
     });
   }
 
@@ -389,31 +345,15 @@ export default class HomeAssistantDevice extends Homey.Device {
         break;
     }
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: 'repeat_set',
-      serviceData: {
-        repeat,
-      },
-    });
+    await this.server.callEntityService(domain, entityId, 'repeat_set', { repeat });
   }
 
   private async onCapabilityVolumeSet(value: number, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'volume_set' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: 'volume_set',
-      serviceData: {
-        volume_level: value,
-      },
+    await this.server.callEntityService(domain, entityId, 'volume_set', {
+      volume_level: value,
     });
   }
 
@@ -421,15 +361,8 @@ export default class HomeAssistantDevice extends Homey.Device {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'volume_mute' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: 'volume_set',
-      serviceData: {
-        is_volume_muted: value,
-      },
+    await this.server.callEntityService(domain, entityId, 'volume_set', {
+      is_volume_muted: value,
     });
   }
 
@@ -437,112 +370,54 @@ export default class HomeAssistantDevice extends Homey.Device {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'windowcoverings_state' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: value,
-    });
+    await this.server.callEntityService(domain, entityId, value);
   }
 
   private async onCapabilityCoveringSet(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'windowcoverings_set' });
 
-    await this.server.callService({
-      domain: 'cover',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'set_cover_position',
-      serviceData: {
-        position: value > 0 ? value * 100 : 0,
-      },
+    await this.server.callEntityService('cover', entityId, 'set_cover_position', {
+      position: value > 0 ? value * 100 : 0,
     });
   }
 
   private async onCapabilityCoveringTiltSet(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'windowcoverings_tilt_set' });
 
-    await this.server.callService({
-      domain: 'cover',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'set_cover_tilt_position',
-      serviceData: {
-        tilt_position: value > 0 ? value * 100 : 0,
-      },
+    await this.server.callEntityService('cover', entityId, 'set_cover_tilt_position', {
+      tilt_position: value > 0 ? value * 100 : 0,
     });
   }
 
   private async onCapabilityFanSpeedSet(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'fan_speed' });
 
-    await this.server.callService({
-      domain: 'fan',
-      target: {
-        entity_id: entityId,
-      },
-      service: value > 0 ? 'turn_on' : 'turn_off',
+    await this.server.callEntityService('fan', entityId, value > 0 ? 'turn_on' : 'turn_off', {
+      percentage: value > 0 ? value * 100 : undefined,
     });
-
-    if (value > 0) {
-      await this.server.callService({
-        domain: 'fan',
-        target: {
-          entity_id: entityId,
-        },
-        service: 'set_percentage',
-        serviceData: {
-          percentage: value * 100,
-        },
-      });
-    }
   }
 
   private async onCapabilityFanOscillateSet(value: unknown): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'fan_oscillate' });
 
-    await this.server.callService({
-      domain: 'fan',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'oscillate',
-      serviceData: {
-        oscillating: !!value,
-      },
+    await this.server.callEntityService('fan', entityId, 'oscillate', {
+      oscillating: !!value,
     });
   }
 
   private async onCapabilityFanModeSet(value?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'fan_mode' });
 
-    await this.server.callService({
-      domain: 'fan',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'set_preset_mode',
-      serviceData: {
-        preset_mode: value && capitalizeFirstLetter(value),
-      },
+    await this.server.callEntityService('fan', entityId, 'set_preset_mode', {
+      preset_mode: value && capitalizeFirstLetter(value),
     });
   }
 
   private async onCapabilityAirCleanerModeSet(value?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'aircleaner_mode' });
 
-    await this.server.callService({
-      domain: 'fan',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'set_preset_mode',
-      serviceData: {
-        preset_mode: value && capitalizeFirstLetter(value),
-      },
+    await this.server.callEntityService('fan', entityId, 'set_preset_mode', {
+      preset_mode: value && capitalizeFirstLetter(value),
     });
   }
 
@@ -571,14 +446,10 @@ export default class HomeAssistantDevice extends Homey.Device {
         break;
     }
 
-    if (service) {
-      await this.server.callService({
-        domain: 'vacuum',
-        target: {
-          entity_id: entityId,
-        },
-        service,
-      });
+    if (!service) {
+      return;
     }
+
+    await this.server.callEntityService('vacuum', entityId, service);
   }
 }
