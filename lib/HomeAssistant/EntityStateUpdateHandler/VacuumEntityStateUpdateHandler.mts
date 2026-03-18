@@ -50,6 +50,6 @@ export default class VacuumEntityStateUpdateHandler extends AbstractEntityStateU
     }
 
     this.setCapabilityValue('vacuumcleaner_state', newState);
-    this.setCapabilityValue('onoff', newState !== 'stopped');
+    this.setCapabilityValue('onoff', newState !== 'docked');
   }
 }
