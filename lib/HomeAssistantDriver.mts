@@ -3,6 +3,7 @@ import type { DiscoveryResultMDNSSD } from 'homey';
 import Homey from 'homey';
 import HaDeviceEntityMapper from './HomeAssistant/HaDeviceEntityMapper.mjs';
 import type HomeAssistantApp from './HomeAssistantApp.mjs';
+import type HomeAssistantDevice from './HomeAssistantDevice.mjs';
 import type {
   HomeAssistantDeviceRegistry,
   HomeAssistantEntityRegistry,
@@ -16,60 +17,66 @@ function getMDNSHassUrl(server: DiscoveryResultMDNSSD): string {
   return `http://${server.address}:${server.port}`;
 }
 
+type FlowDeviceArgs = {
+  device: HomeAssistantDevice;
+};
+
 export default class HomeAssistantDriver extends Homey.Driver {
   async onInit(): Promise<void> {
     await super.onInit();
 
     // Init Action Cards
-    this.homey.flow.getActionCard('fan_speed_set').registerRunListener(async args => {
-      return args.device.onCapabilityFanSpeedSet(args['fan_speed']);
+    this.homey.flow.getActionCard('fan_speed_set').registerRunListener(async (args: FlowDeviceArgs & {fan_speed: number}) => {
+      return args.device.triggerCapabilityListener('fan_speed', args.fan_speed);
     });
 
-    this.homey.flow.getActionCard('fan_mode_set').registerRunListener(async args => {
-      return args.device.onCapabilityFanModeSet(args['fan_mode']);
+    this.homey.flow.getActionCard('fan_mode_set').registerRunListener(async (args: FlowDeviceArgs & { fan_mode: string }) => {
+      return args.device.triggerCapabilityListener('fan_mode', args.fan_mode);
     });
 
-    this.homey.flow.getActionCard('aircleaner_mode_set').registerRunListener(async args => {
-      return args.device.onCapabilityAirCleanerModeSet(args['aircleaner_mode']);
-    });
+    this.homey.flow
+      .getActionCard('aircleaner_mode_set')
+      .registerRunListener(async (args: FlowDeviceArgs & { aircleaner_mode: string }) => {
+        return args.device.triggerCapabilityListener('aircleaner_mode', args.aircleaner_mode);
+      });
 
-    this.homey.flow.getConditionCard('action_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('action_is').registerRunListener(async (args: FlowDeviceArgs & {action: string}) => {
       return args.device.isValueRunListener(args.action, 'action');
     });
 
-    this.homey.flow.getConditionCard('status_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('status_is').registerRunListener(async (args: FlowDeviceArgs & {status: string}) => {
       return args.device.isValueRunListener(args.status, 'status');
     });
 
-    this.homey.flow.getConditionCard('alarm_charging_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('alarm_charging_is').registerRunListener(async (args: FlowDeviceArgs) => {
       return args.device.isOnRunListener('alarm_charging');
     });
 
-    this.homey.flow.getConditionCard('alarm_occupancy_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('alarm_occupancy_is').registerRunListener(async (args: FlowDeviceArgs) => {
       return args.device.isOnRunListener('alarm_occupancy');
     });
 
-    this.homey.flow.getConditionCard('alarm_plugged_in_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('alarm_plugged_in_is').registerRunListener(async (args: FlowDeviceArgs) => {
       return args.device.isOnRunListener('alarm_plugged_in');
     });
 
-    this.homey.flow.getConditionCard('alarm_problem_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('alarm_problem_is').registerRunListener(async (args: FlowDeviceArgs) => {
       return args.device.isOnRunListener('alarm_problem');
     });
 
-    this.homey.flow.getConditionCard('alarm_running_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('alarm_running_is').registerRunListener(async (args: FlowDeviceArgs) => {
       return args.device.isOnRunListener('alarm_running');
     });
 
-    this.homey.flow.getConditionCard('alarm_safety_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('alarm_safety_is').registerRunListener(async (args: FlowDeviceArgs) => {
       return args.device.isOnRunListener('alarm_safety');
     });
 
-    this.homey.flow.getConditionCard('alarm_sound_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('alarm_sound_is').registerRunListener(async (args: FlowDeviceArgs) => {
       return args.device.isOnRunListener('alarm_sound');
     });
 
-    this.homey.flow.getConditionCard('alarm_vibration_is').registerRunListener(async args => {
+    this.homey.flow.getConditionCard('alarm_vibration_is').registerRunListener(async (args: FlowDeviceArgs) => {
       return args.device.isOnRunListener('alarm_vibration');
     });
   }
