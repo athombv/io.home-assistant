@@ -24,7 +24,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     });
 
     // On Off Capability Migration
-    if (this.getOnOffCapabilities().length === 1) {
+    if (this.getOnOffCapabilities().length === 1 && this.hasCapability('onoff.0')) {
       const capabilityOptions = this.getCapabilityOptions(`onoff.0`);
       await this.removeCapability(`onoff.0`);
 
@@ -229,11 +229,7 @@ export default class HomeAssistantDevice extends Homey.Device {
   };
 
   getOnOffCapabilities = (): string[] => {
-    const capabilities = this.getCapabilities();
-
-    return capabilities.filter(item => {
-      return item.startsWith('onoff.');
-    });
+    return this.getCapabilities().filter(item => item.startsWith('onoff.'));
   };
 
   /*
