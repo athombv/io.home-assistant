@@ -19,7 +19,7 @@ export default class VacuumEntityStateUpdateHandler extends AbstractEntityStateU
     return entityId.startsWith('vacuum.');
   }
 
-  public async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
     let newState;
     switch (entityState.state) {
       case VacuumActivity.IDLE:

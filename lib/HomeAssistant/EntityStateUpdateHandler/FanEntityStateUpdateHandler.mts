@@ -15,7 +15,7 @@ export default class FanEntityStateUpdateHandler extends AbstractEntityStateUpda
     return entityId.startsWith('fan.');
   }
 
-  public async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
     this.mapAttributesToCapability(entityState, attributeMap);
     this.handleOnOff(entityState, 'onoff');
   }

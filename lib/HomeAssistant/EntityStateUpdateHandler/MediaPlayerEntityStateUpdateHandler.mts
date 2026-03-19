@@ -1,5 +1,5 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
-import Homey from 'homey';
+import type Homey from 'homey';
 import AbstractEntityStateUpdateHandler, { type AttributeValueMapper } from './AbstractEntityStateUpdateHandler.mjs';
 
 /** Media player states as defined by Home Assistant in `MediaPlayerState` */
@@ -53,7 +53,7 @@ export default class MediaPlayerEntityStateUpdateHandler extends AbstractEntityS
   private image?: Homey.Image;
   private imageUrl?: string;
 
-  public async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
     this.mapAttributesToCapability(entityState, attributeMap);
 
     switch (entityState.state) {

@@ -26,7 +26,7 @@ export default class LightEntityStateUpdateHandler extends AbstractEntityStateUp
     return entityId.startsWith('light.');
   }
 
-  public async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
     this.handleOnOff(entityState, 'onoff');
     this.mapAttributesToCapability(entityState, attributeMap);
 

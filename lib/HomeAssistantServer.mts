@@ -1,6 +1,6 @@
 import {
   Auth,
-  Connection,
+  type Connection,
   createConnection,
   type HassEntities,
   type HassEntity,

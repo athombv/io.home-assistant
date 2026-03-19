@@ -26,7 +26,7 @@ export default class CoverEntityStateUpdateHandler extends AbstractEntityStateUp
     return entityId.startsWith('cover.');
   }
 
-  public async handle(entityState: HassEntity): Promise<void> {
+  public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
     switch (entityState.state) {
       case CoverState.CLOSED:
         this.setCapabilityValueIfExists('windowcoverings_state', 'idle');

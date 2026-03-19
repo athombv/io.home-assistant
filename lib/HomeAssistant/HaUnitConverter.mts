@@ -1,5 +1,5 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
-import Homey from 'homey';
+import type Homey from 'homey';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function convertUnits(device: Homey.Device, capabilityId: string, entityState: HassEntity, newValue: any): any {
