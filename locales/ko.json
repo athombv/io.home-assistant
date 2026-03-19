@@ -1,3 +1,4 @@
 {
+  "allEntitiesUnavailable": "Home Assistant에서 기기를 사용할 수 없는 것 같습니다",
   "nativeAppSuggestion": "좋은 소식이 있어요! 이 기기는 Homey에서 바로 사용할 수 있어요. Homey 앱 스토어에서 __appName__을 검색해보세요."
 }

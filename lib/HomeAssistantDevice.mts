@@ -1,27 +1,20 @@
-import type { HassEntity } from 'home-assistant-js-websocket';
 import Homey from 'homey';
-import BinarySensorEntityMapper from './HomeAssistant/EntityMapper/BinarySensorEntityMapper.mjs';
-import { VacuumActivity } from './HomeAssistant/EntityMapper/VacuumEntityMapper.mjs';
-import { convertUnits } from './HomeAssistant/HaUnitConverter.mjs';
+import { HaEntityStateUpdateHandler } from './HomeAssistant/HaEntityStateUpdateHandler.mjs';
 import type HomeAssistantApp from './HomeAssistantApp.mjs';
 import type HomeAssistantServer from './HomeAssistantServer.mjs';
 import { capitalizeFirstLetter, getNativeAppSuggestion } from './HomeAssistantUtil.mjs';
 
 export default class HomeAssistantDevice extends Homey.Device {
   private server!: HomeAssistantServer;
-  private image?: Homey.Image;
-  private imageUrl?: string;
-  private entityIds: string[] = [];
-  private entityStateChangedHandler: Record<string, (entityState: HassEntity) => void> = {};
+  private stateUpdateHandler?: HaEntityStateUpdateHandler;
 
-  async onUninit(): Promise<void> {
-    this.entityIds.forEach(entityId => {
-      this.server.off(`state_changed_entity:${entityId}`, this.entityStateChangedHandler[entityId]);
-    });
+  public async onUninit(): Promise<void> {
+    this.stateUpdateHandler?.unInit();
   }
 
-  async onInit(): Promise<void> {
+  public async onInit(): Promise<void> {
     await super.onInit();
+
     // Get Server
     const { serverId } = this.getData();
     this.server = await (this.homey.app as HomeAssistantApp).getServer(serverId);
@@ -31,7 +24,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     });
 
     // On Off Capability Migration
-    if (this.getOnOffCapabilities().length === 1) {
+    if (this.getOnOffCapabilities().length === 1 && this.hasCapability('onoff.0')) {
       const capabilityOptions = this.getCapabilityOptions(`onoff.0`);
       await this.removeCapability(`onoff.0`);
 
@@ -41,51 +34,18 @@ export default class HomeAssistantDevice extends Homey.Device {
       }
     }
 
-    // Register Entity Event Listeners
-    this.entityIds = this.getEntityIds();
-    this.entityIds.forEach(entityId => {
-      // Initial sync
-      this.server
-        .getEntityState(entityId)
-        .then(async entityState => {
-          await this.onEntityState({
-            entityId,
-            entityState,
-          });
-        })
-        .catch(this.error);
-
-      // Live Syncs
-      this.entityStateChangedHandler[entityId] = (entityState): void => {
-        this.log('Entity State:', JSON.stringify(entityState));
-        this.onEntityState({
-          entityId,
-          entityState,
-        }).catch(this.error);
-      };
-      this.server.on(`state_changed_entity:${entityId}`, this.entityStateChangedHandler[entityId]);
-
-      const deviceClass = entityId.split('.')[0];
-
-      if (deviceClass === 'media_player') {
-        this.homey.images.createImage().then(image => {
-          this.image = image;
-          this.image.setUrl(null as unknown as string);
-          return this.setAlbumArtImage(this.image);
-        });
-      }
-    });
+    // Register HA entity state update handler
+    this.stateUpdateHandler = new HaEntityStateUpdateHandler(this, this.server);
+    await this.stateUpdateHandler.init();
 
     // Register Capability Listeners
     // Light / Switch Capabilities
     if (this.hasCapability('onoff')) {
-      this.registerCapabilityListener('onoff', this.onCapabilityOnOff);
+      this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
     }
 
     // Extra onoff Capabilities
-    const onoffCapabilities = this.getOnOffCapabilities();
-
-    onoffCapabilities.forEach(capabilityId => {
+    this.getOnOffCapabilities().forEach(capabilityId => {
       this.registerCapabilityListener(capabilityId, async (value, options) => {
         await this.onCapabilityOnOff(value, options, capabilityId);
       });
@@ -93,71 +53,74 @@ export default class HomeAssistantDevice extends Homey.Device {
 
     // Light Capabilities
     if (this.hasCapability('dim')) {
-      this.registerCapabilityListener('dim', this.onCapabilityDim);
+      this.registerCapabilityListener('dim', this.onCapabilityDim.bind(this));
     }
 
     if (this.hasCapability('light_hue') && this.hasCapability('light_saturation')) {
-      this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSaturation);
+      this.registerMultipleCapabilityListener(
+        ['light_hue', 'light_saturation'],
+        this.onCapabilityLightHueSaturation.bind(this),
+      );
     }
 
     if (this.hasCapability('light_temperature')) {
-      this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature);
+      this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
     }
 
     if (this.hasCapability('light_mode')) {
-      this.registerCapabilityListener('light_mode', this.onCapabilityLightMode);
+      this.registerCapabilityListener('light_mode', this.onCapabilityLightMode.bind(this));
     }
 
     // Speaker Capabilities
     if (this.hasCapability('speaker_playing')) {
-      this.registerCapabilityListener('speaker_playing', this.onCapabilitySpeakerPlaying);
+      this.registerCapabilityListener('speaker_playing', this.onCapabilitySpeakerPlaying.bind(this));
     }
 
     if (this.hasCapability('speaker_next')) {
-      this.registerCapabilityListener('speaker_next', async (value, options) => {
+      this.registerCapabilityListener('speaker_next', async (_, options) => {
         await this.onCapabilitySpeakerService('media_next_track', options, 'speaker_next');
       });
     }
 
     if (this.hasCapability('speaker_prev')) {
-      this.registerCapabilityListener('speaker_prev', async (value, options) => {
+      this.registerCapabilityListener('speaker_prev', async (_, options) => {
         await this.onCapabilitySpeakerService('media_previous_track', options, 'speaker_prev');
       });
     }
 
     if (this.hasCapability('speaker_repeat')) {
-      this.registerCapabilityListener('speaker_repeat', this.onCapabilityRepeatSet);
+      this.registerCapabilityListener('speaker_repeat', this.onCapabilityRepeatSet.bind(this));
     }
 
     if (this.hasCapability('speaker_shuffle')) {
-      this.registerCapabilityListener('speaker_shuffle', this.onCapabilityShuffleSet);
+      this.registerCapabilityListener('speaker_shuffle', this.onCapabilityShuffleSet.bind(this));
     }
 
     if (this.hasCapability('speaker_stop')) {
-      this.registerCapabilityListener('speaker_stop', async (value, options) => {
+      this.registerCapabilityListener('speaker_stop', async (_, options) => {
         await this.onCapabilitySpeakerService('media_stop', options, 'speaker_stop');
       });
     }
 
     // Volume Capabilities
     if (this.hasCapability('volume_up')) {
-      this.registerCapabilityListener('volume_up', async (value, options: unknown) => {
+      this.registerCapabilityListener('volume_up', async (_, options: unknown) => {
         await this.onCapabilitySpeakerService('volume_up', options, 'volume_up');
       });
     }
 
     if (this.hasCapability('volume_down')) {
-      this.registerCapabilityListener('volume_down', async (value, options) => {
+      this.registerCapabilityListener('volume_down', async (_, options) => {
         await this.onCapabilitySpeakerService('volume_down', options, 'volume_down');
       });
     }
 
     if (this.hasCapability('volume_set')) {
-      this.registerCapabilityListener('volume_set', this.onCapabilityVolumeSet);
+      this.registerCapabilityListener('volume_set', this.onCapabilityVolumeSet.bind(this));
     }
 
     if (this.hasCapability('volume_mute')) {
-      this.registerCapabilityListener('volume_mute', this.onCapabilityVolumeMute);
+      this.registerCapabilityListener('volume_mute', this.onCapabilityVolumeMute.bind(this));
     }
 
     // Windowcoverings Capabilities
@@ -181,7 +144,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     if (this.hasCapability('windowcoverings_tilt_set')) {
-      this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityCoveringTiltSet);
+      this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityCoveringTiltSet.bind(this));
     }
 
     if (this.hasCapability('windowcoverings_closed')) {
@@ -191,7 +154,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     if (this.hasCapability('windowcoverings_set')) {
-      this.registerCapabilityListener('windowcoverings_set', this.onCapabilityCoveringSet);
+      this.registerCapabilityListener('windowcoverings_set', this.onCapabilityCoveringSet.bind(this));
     }
 
     if (this.hasCapability('garagedoor_closed')) {
@@ -201,23 +164,23 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     if (this.hasCapability('fan_speed')) {
-      this.registerCapabilityListener('fan_speed', this.onCapabilityFanSpeedSet);
+      this.registerCapabilityListener('fan_speed', this.onCapabilityFanSpeedSet.bind(this));
     }
 
     if (this.hasCapability('fan_oscillate')) {
-      this.registerCapabilityListener('fan_oscillate', this.onCapabilityFanOscillateSet);
+      this.registerCapabilityListener('fan_oscillate', this.onCapabilityFanOscillateSet.bind(this));
     }
 
     if (this.hasCapability('fan_mode')) {
-      this.registerCapabilityListener('fan_mode', this.onCapabilityFanModeSet);
+      this.registerCapabilityListener('fan_mode', this.onCapabilityFanModeSet.bind(this));
     }
 
     if (this.hasCapability('aircleaner_mode')) {
-      this.registerCapabilityListener('aircleaner_mode', this.onCapabilityAirCleanerModeSet);
+      this.registerCapabilityListener('aircleaner_mode', this.onCapabilityAirCleanerModeSet.bind(this));
     }
 
     if (this.hasCapability('vacuumcleaner_state')) {
-      this.registerCapabilityListener('vacuumcleaner_state', this.onCapabilityVacuumCleanerStateSet);
+      this.registerCapabilityListener('vacuumcleaner_state', this.onCapabilityVacuumCleanerStateSet.bind(this));
     }
 
     // Set Warning if Homey support this device natively for a better experience.
@@ -241,7 +204,7 @@ export default class HomeAssistantDevice extends Homey.Device {
   /*
    * Helper methods
    */
-  getCoverServiceId = (value: string): string => {
+  private getCoverServiceId(value: string): string {
     switch (value) {
       case 'up':
         return 'open_cover';
@@ -250,208 +213,126 @@ export default class HomeAssistantDevice extends Homey.Device {
       default:
         return 'stop_cover';
     }
-  };
+  }
 
-  getEntityId = ({ capabilityId }: { capabilityId: string }): string => {
+  private getEntityId({ capabilityId }: { capabilityId: string }): string {
     if (!this.hasCapability(capabilityId)) {
-      throw new Error(`Invalid Capability: ${capabilityId}`);
+      throw new Error(`Invalid capability: ${capabilityId}`);
     }
 
     const capabilityOptions = this.getCapabilityOptions(capabilityId);
     const { entityId } = capabilityOptions;
     if (!entityId) {
-      throw new Error(`Invalid Entity ID For Capability: ${capabilityId}`);
+      throw new Error(`Invalid entity ID for capability: ${capabilityId}`);
     }
 
     return entityId;
-  };
+  }
 
-  getEntityIds = (): string[] => {
-    const entityIds: string[] = [];
-    const capabilities = this.getCapabilities();
-    for (const capabilityId of capabilities) {
-      const { entityId } = this.getCapabilityOptions(capabilityId);
-      if (entityId) {
-        if (!entityIds.includes(entityId)) {
-          entityIds.push(entityId);
-        }
-      }
-    }
-    return entityIds;
-  };
-
-  getOnOffCapabilities = (): string[] => {
-    const capabilities = this.getCapabilities();
-
-    return capabilities.filter(item => {
-      return item.startsWith('onoff.');
-    });
-  };
-
-  setBinarySensorState = (deviceClass: string | undefined, entityId: string, state: unknown): void => {
-    const capabilityId = BinarySensorEntityMapper.getCapabilityId(deviceClass);
-    if (!capabilityId) {
-      this.error('No capability found for', deviceClass, entityId);
-      return;
-    }
-
-    if (this.hasCapability(capabilityId)) {
-      this.setCapabilityValue(capabilityId, state).catch(this.error);
-    } else {
-      const capabilities = this.getCapabilities();
-      const capabilityId = capabilities.find(capabilityId => {
-        const capabilityOptions = this.getCapabilityOptions(capabilityId);
-        return capabilityOptions.entityId === entityId;
-      });
-
-      if (capabilityId && this.hasCapability(capabilityId)) {
-        if (capabilityId.startsWith('hass-boolean.') || capabilityId.startsWith('alarm_')) {
-          this.setCapabilityValue(capabilityId, state).catch(this.error);
-        }
-      }
-    }
-  };
+  private getOnOffCapabilities(): string[] {
+    return this.getCapabilities().filter(item => item.startsWith('onoff.'));
+  }
 
   /*
    * Capability Listeners
    */
-
-  isOnRunListener = async (capabilityId: string): Promise<void> => {
+  public async isOnRunListener(capabilityId: string): Promise<unknown> {
     return this.getCapabilityValue(capabilityId);
-  };
+  }
 
-  isValueRunListener = async (value: unknown, capabilityId: string): Promise<unknown> => {
+  public async isValueRunListener(value: unknown, capabilityId: string): Promise<unknown> {
     if (!value) {
       return false;
     }
 
     return value === this.getCapabilityValue(capabilityId);
-  };
+  }
 
-  onCapabilityOnOff = async (value: unknown, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityOnOff(value: unknown, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'onoff' });
     const domain = entityId.split('.')[0]; // TODO: I'm not sure this always works!
 
     if (domain === 'vacuum') {
       await this.onCapabilityVacuumCleanerStateSet(value ? 'cleaning' : 'docked');
     } else {
-      await this.server.callService({
-        domain,
-        target: {
-          entity_id: entityId,
-        },
-        service: value ? 'turn_on' : 'turn_off',
-      });
+      await this.server.callEntityService(domain, entityId, value ? 'turn_on' : 'turn_off');
     }
-  };
+  }
 
-  onCapabilityDim = async (value: number): Promise<void> => {
+  private async onCapabilityDim(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'dim' });
 
-    await this.server.callService({
-      domain: 'light',
-      target: {
-        entity_id: entityId,
-      },
-      service: value > 0 ? 'turn_on' : 'turn_off',
-      serviceData: {
-        brightness: value > 0 ? value * 255 : undefined,
-      },
+    await this.server.callEntityService('light', entityId, value > 0 ? 'turn_on' : 'turn_off', {
+      brightness: value > 0 ? value * 255 : undefined,
     });
-  };
+  }
 
-  onCapabilityLightMode = async (value: string): Promise<void> => {
+  private async onCapabilityLightMode(value: string): Promise<void> {
     if (value === 'color') {
       await this.triggerCapabilityListener('light_hue', this.getCapabilityValue('light_hue'));
     } else if (value === 'temperature') {
       await this.triggerCapabilityListener('light_temperature', this.getCapabilityValue('light_temperature'));
     }
-  };
+  }
 
-  onCapabilityLightTemperature = async (value: number): Promise<void> => {
-    if (this.hasCapability('light_mode')) this.setCapabilityValue('light_mode', 'temperature');
+  private async onCapabilityLightTemperature(value: number): Promise<void> {
+    if (this.hasCapability('light_mode')) {
+      await this.setCapabilityValue('light_mode', 'temperature');
+    }
 
     const entityId = this.getEntityId({ capabilityId: 'dim' });
+    const temperatureOptions = this.getCapabilityOptions('light_temperature');
+    const min = temperatureOptions.min_color_temp_kelvin ?? 2000;
+    const max = temperatureOptions.max_color_temp_kelvin ?? 6500;
 
-    await this.server.callService({
-      domain: 'light',
-      target: {
-        entity_id: entityId,
-      },
-      service: value > 0 ? 'turn_on' : 'turn_off',
-      serviceData: {
-        color_temp: value > 0 ? 153 + value * (500 - 153) : undefined,
-      },
+    await this.server.callEntityService('light', entityId, 'turn_on', {
+      color_temp_kelvin: min + (1 - value) * (max - min),
     });
-  };
+  }
 
-  onCapabilityLightHueSaturation = async ({
+  private async onCapabilityLightHueSaturation({
     light_hue: hue = this.getCapabilityValue('light_hue'),
     light_saturation: sat = this.getCapabilityValue('light_saturation'),
-  }): Promise<void> => {
-    if (this.hasCapability('light_mode')) this.setCapabilityValue('light_mode', 'color');
+  }): Promise<void> {
+    if (this.hasCapability('light_mode')) {
+      await this.setCapabilityValue('light_mode', 'color');
+    }
 
     const entityId = this.getEntityId({ capabilityId: 'dim' });
 
-    await this.server.callService({
-      domain: 'light',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'turn_on',
-      serviceData: {
-        hs_color: [hue * 360, sat * 100],
-      },
+    await this.server.callEntityService('light', entityId, 'turn_on', {
+      hs_color: [hue * 360, sat * 100],
     });
-  };
+  }
 
-  onCapabilitySpeakerPlaying = async (value: boolean, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilitySpeakerPlaying(value: boolean, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_playing' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: value ? 'media_play' : 'media_pause',
-    });
-  };
+    await this.server.callEntityService(domain, entityId, value ? 'media_play' : 'media_pause');
+  }
 
-  onCapabilitySpeakerService = async (value: string, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilitySpeakerService(value: string, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'onoff' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: value,
-    });
-  };
+    await this.server.callEntityService(domain, entityId, value);
+  }
 
-  onCapabilityShuffleSet = async (value: boolean, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityShuffleSet(value: boolean, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_shuffle' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: 'shuffle_set',
-      serviceData: {
-        shuffle: value,
-      },
+    await this.server.callEntityService(domain, entityId, 'shuffle_set', {
+      shuffle: value,
     });
-  };
+  }
 
-  onCapabilityRepeatSet = async (value: string, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityRepeatSet(value: string, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'speaker_repeat' });
     const domain = entityId.split('.')[0];
 
-    let repeat = 'off';
+    let repeat: string;
     switch (value) {
       case 'track':
         repeat = 'one';
@@ -464,164 +345,83 @@ export default class HomeAssistantDevice extends Homey.Device {
         break;
     }
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: 'repeat_set',
-      serviceData: {
-        repeat,
-      },
-    });
-  };
+    await this.server.callEntityService(domain, entityId, 'repeat_set', { repeat });
+  }
 
-  onCapabilityVolumeSet = async (value: number, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityVolumeSet(value: number, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'volume_set' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: 'volume_set',
-      serviceData: {
-        volume_level: value,
-      },
+    await this.server.callEntityService(domain, entityId, 'volume_set', {
+      volume_level: value,
     });
-  };
+  }
 
-  onCapabilityVolumeMute = async (value: boolean, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityVolumeMute(value: boolean, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'volume_mute' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: 'volume_set',
-      serviceData: {
-        is_volume_muted: value,
-      },
+    await this.server.callEntityService(domain, entityId, 'volume_set', {
+      is_volume_muted: value,
     });
-  };
+  }
 
-  onCapabilityCoveringService = async (value: string, options: unknown, capabilityId?: string): Promise<void> => {
+  private async onCapabilityCoveringService(value: string, options: unknown, capabilityId?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: capabilityId || 'windowcoverings_state' });
     const domain = entityId.split('.')[0];
 
-    await this.server.callService({
-      domain,
-      target: {
-        entity_id: entityId,
-      },
-      service: value,
-    });
-  };
+    await this.server.callEntityService(domain, entityId, value);
+  }
 
-  onCapabilityCoveringSet = async (value: number): Promise<void> => {
+  private async onCapabilityCoveringSet(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'windowcoverings_set' });
 
-    await this.server.callService({
-      domain: 'cover',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'set_cover_position',
-      serviceData: {
-        position: value > 0 ? value * 100 : 0,
-      },
+    await this.server.callEntityService('cover', entityId, 'set_cover_position', {
+      position: value > 0 ? value * 100 : 0,
     });
-  };
+  }
 
-  onCapabilityCoveringTiltSet = async (value: number): Promise<void> => {
+  private async onCapabilityCoveringTiltSet(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'windowcoverings_tilt_set' });
 
-    await this.server.callService({
-      domain: 'cover',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'set_cover_tilt_position',
-      serviceData: {
-        tilt_position: value > 0 ? value * 100 : 0,
-      },
+    await this.server.callEntityService('cover', entityId, 'set_cover_tilt_position', {
+      tilt_position: value > 0 ? value * 100 : 0,
     });
-  };
+  }
 
-  onCapabilityFanSpeedSet = async (value: number): Promise<void> => {
+  private async onCapabilityFanSpeedSet(value: number): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'fan_speed' });
 
-    await this.server.callService({
-      domain: 'fan',
-      target: {
-        entity_id: entityId,
-      },
-      service: value > 0 ? 'turn_on' : 'turn_off',
+    await this.server.callEntityService('fan', entityId, value > 0 ? 'turn_on' : 'turn_off', {
+      percentage: value > 0 ? value * 100 : undefined,
     });
+  }
 
-    if (value > 0) {
-      await this.server.callService({
-        domain: 'fan',
-        target: {
-          entity_id: entityId,
-        },
-        service: 'set_percentage',
-        serviceData: {
-          percentage: value * 100,
-        },
-      });
-    }
-  };
-
-  onCapabilityFanOscillateSet = async (value: unknown): Promise<void> => {
+  private async onCapabilityFanOscillateSet(value: unknown): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'fan_oscillate' });
 
-    await this.server.callService({
-      domain: 'fan',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'oscillate',
-      serviceData: {
-        oscillating: !!value,
-      },
+    await this.server.callEntityService('fan', entityId, 'oscillate', {
+      oscillating: !!value,
     });
-  };
+  }
 
-  onCapabilityFanModeSet = async (value?: string): Promise<void> => {
+  private async onCapabilityFanModeSet(value?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'fan_mode' });
 
-    await this.server.callService({
-      domain: 'fan',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'set_preset_mode',
-      serviceData: {
-        preset_mode: value && capitalizeFirstLetter(value),
-      },
+    await this.server.callEntityService('fan', entityId, 'set_preset_mode', {
+      preset_mode: value && capitalizeFirstLetter(value),
     });
-  };
+  }
 
-  onCapabilityAirCleanerModeSet = async (value?: string): Promise<void> => {
+  private async onCapabilityAirCleanerModeSet(value?: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'aircleaner_mode' });
 
-    await this.server.callService({
-      domain: 'fan',
-      target: {
-        entity_id: entityId,
-      },
-      service: 'set_preset_mode',
-      serviceData: {
-        preset_mode: value && capitalizeFirstLetter(value),
-      },
+    await this.server.callEntityService('fan', entityId, 'set_preset_mode', {
+      preset_mode: value && capitalizeFirstLetter(value),
     });
-  };
+  }
 
-  onCapabilityVacuumCleanerStateSet = async (value: string): Promise<void> => {
+  private async onCapabilityVacuumCleanerStateSet(value: string): Promise<void> {
     const entityId = this.getEntityId({ capabilityId: 'vacuumcleaner_state' });
 
     let service;
@@ -646,340 +446,10 @@ export default class HomeAssistantDevice extends Homey.Device {
         break;
     }
 
-    if (service) {
-      await this.server.callService({
-        domain: 'vacuum',
-        target: {
-          entity_id: entityId,
-        },
-        service,
-      });
-    }
-  };
-
-  /*
-   * Entity Event
-   */
-
-  onEntityState = async ({ entityId, entityState }: { entityId: string; entityState: HassEntity }): Promise<void> => {
-    // 'EntityState.state'
-    if (typeof entityState['state'] === 'string') {
-      if (entityState.attributes.volume_level && this.hasCapability('volume_set')) {
-        if (this.getCapabilityValue('volume_set') !== entityState.attributes.volume_level) {
-          this.setCapabilityValue('volume_set', entityState.attributes.volume_level).catch(this.error);
-        }
-      }
-
-      if (entityState.attributes.is_volume_muted && this.hasCapability('volume_mute')) {
-        if (this.getCapabilityValue('volume_mute') !== entityState.attributes.is_volume_muted) {
-          this.setCapabilityValue('volume_mute', entityState.attributes.is_volume_muted).catch(this.error);
-        }
-      }
-
-      if (entityState.attributes.shuffle && this.hasCapability('speaker_shuffle')) {
-        if (this.getCapabilityValue('speaker_shuffle') !== entityState.attributes.shuffle) {
-          this.setCapabilityValue('speaker_shuffle', entityState.attributes.shuffle).catch(this.error);
-        }
-      }
-
-      if (entityState.attributes.repeat && this.hasCapability('speaker_repeat')) {
-        switch (entityState.attributes.repeat) {
-          case 'one':
-            this.setCapabilityValue('speaker_repeat', 'track').catch(this.error);
-            break;
-          case 'all':
-            this.setCapabilityValue('speaker_repeat', 'playlist').catch(this.error);
-            break;
-          default:
-            this.setCapabilityValue('speaker_repeat', 'none').catch(this.error);
-            break;
-        }
-      }
-
-      switch (entityState['state']) {
-        case 'on': {
-          if (this.hasCapability('onoff')) {
-            this.setCapabilityValue('onoff', true).catch(this.error);
-          } else if (entityId.startsWith('binary_sensor') && entityState.attributes) {
-            this.setBinarySensorState(entityState.attributes['device_class'], entityId, true);
-          } else {
-            const onOffCapabilities = this.getOnOffCapabilities();
-
-            onOffCapabilities.forEach(capabilityId => {
-              const capabilityOptions = this.getCapabilityOptions(capabilityId);
-              if (capabilityOptions.entityId === entityId) {
-                this.setCapabilityValue(capabilityId, true).catch(this.error);
-              }
-            });
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'off': {
-          if (this.hasCapability('onoff')) {
-            this.setCapabilityValue('onoff', false).catch(this.error);
-          } else if (entityId.startsWith('binary_sensor') && entityState.attributes) {
-            this.setBinarySensorState(entityState.attributes['device_class'], entityId, false);
-          } else {
-            const onOffCapabilities = this.getOnOffCapabilities();
-
-            onOffCapabilities.forEach(capabilityId => {
-              const capabilityOptions = this.getCapabilityOptions(capabilityId);
-              if (capabilityOptions.entityId === entityId) {
-                this.setCapabilityValue(capabilityId, false).catch(this.error);
-              }
-            });
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'playing': {
-          if (this.hasCapability('speaker_playing')) {
-            this.setCapabilityValue('speaker_playing', true).catch(this.error);
-          }
-
-          if (entityState.attributes.media_title && this.hasCapability('speaker_track')) {
-            this.setCapabilityValue('speaker_track', entityState.attributes.media_title).catch(this.error);
-          }
-
-          if (entityState.attributes.media_artist && this.hasCapability('speaker_artist')) {
-            this.setCapabilityValue('speaker_artist', entityState.attributes.media_artist).catch(this.error);
-          }
-
-          if (entityState.attributes.media_album_name && this.hasCapability('speaker_album')) {
-            this.setCapabilityValue('speaker_album', entityState.attributes.media_album_name).catch(this.error);
-          }
-
-          if (entityState.attributes.media_position && this.hasCapability('speaker_position')) {
-            this.setCapabilityValue('speaker_position', entityState.attributes.media_position).catch(this.error);
-          }
-
-          if (entityState.attributes.media_duration && this.hasCapability('speaker_duration')) {
-            this.setCapabilityValue('speaker_duration', entityState.attributes.media_duration).catch(this.error);
-          }
-
-          if (this.imageUrl !== entityState.attributes.entity_picture) {
-            this.imageUrl = entityState.attributes.entity_picture;
-            try {
-              this.image?.setUrl(this.server.hassUrl + this.imageUrl);
-              this.image?.update().catch(this.error);
-            } catch (err) {
-              this.error(err);
-            }
-          }
-
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'paused':
-        case VacuumActivity.IDLE:
-        case VacuumActivity.PAUSED: {
-          if (this.hasCapability('speaker_playing')) {
-            this.setCapabilityValue('speaker_playing', false).catch(this.error);
-          } else if (this.hasCapability('vacuumcleaner_state')) {
-            this.setCapabilityValue('vacuumcleaner_state', 'stopped').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'opening': {
-          if (this.hasCapability('windowcoverings_state')) {
-            this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'closing': {
-          if (this.hasCapability('windowcoverings_state')) {
-            this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'open':
-        case 'closed': {
-          if (this.hasCapability('windowcoverings_state')) {
-            this.setCapabilityValue('windowcoverings_state', 'idle').catch(this.error);
-          }
-
-          if (entityState['state'] === 'closed' && this.hasCapability('windowcoverings_closed')) {
-            this.setCapabilityValue('windowcoverings_closed', true).catch(this.error);
-          } else if (entityState['state'] === 'open' && this.hasCapability('windowcoverings_closed')) {
-            this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
-          }
-
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'cleaning':
-        case VacuumActivity.CLEANING: {
-          if (this.hasCapability('vacuumcleaner_state')) {
-            this.setCapabilityValue('vacuumcleaner_state', 'cleaning').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'docked':
-        case VacuumActivity.DOCKED: {
-          if (this.hasCapability('vacuumcleaner_state')) {
-            this.setCapabilityValue('vacuumcleaner_state', 'docked').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'returning':
-        case 'error':
-        case VacuumActivity.RETURNING:
-        case VacuumActivity.ERROR: {
-          if (this.hasCapability('vacuumcleaner_state')) {
-            this.setCapabilityValue('vacuumcleaner_state', 'stopped').catch(this.error);
-          }
-          this.setAvailable().catch(this.error);
-          break;
-        }
-        case 'unavailable': {
-          this.setUnavailable().catch(this.error);
-          break;
-        }
-        default: {
-          const capabilities = this.getCapabilities();
-          const capabilityId = capabilities.find(capabilityId => {
-            const capabilityOptions = this.getCapabilityOptions(capabilityId);
-            return capabilityOptions.entityId === entityId;
-          });
-
-          if (capabilityId && this.hasCapability(capabilityId)) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            let capabilityValue: any = entityState['state'];
-            if (
-              capabilityId.startsWith('measure_') ||
-              capabilityId.startsWith('meter_') ||
-              capabilityId.startsWith('hass-number.')
-            ) {
-              capabilityValue = parseFloat(capabilityValue);
-              // Convert temperature to Celsius
-              if (capabilityId.includes('measure_temperature')) {
-                if (entityState.attributes['unit_of_measurement'] === 'K') {
-                  capabilityValue = capabilityValue - 273.15;
-                } else if (entityState.attributes['unit_of_measurement'] === '°F') {
-                  capabilityValue = ((capabilityValue - 32) * 5) / 9;
-                }
-              }
-            } else if (capabilityId.startsWith('hass-string.')) {
-              capabilityValue = capabilityValue.toString();
-            } else if (capabilityId.startsWith('hass-boolean.')) {
-              capabilityValue = !!capabilityValue;
-            }
-
-            // Convert the units
-            capabilityValue = convertUnits(this, capabilityId, entityState, capabilityValue);
-
-            this.setAvailable().catch(this.error);
-            this.setCapabilityValue(capabilityId, capabilityValue).catch(this.error);
-          } else {
-            this.log(`Unknown EntityState.state: ${entityState['state']}`);
-          }
-          break;
-        }
-      }
+    if (!service) {
+      return;
     }
 
-    // EntityState.attributes
-    if (entityState.attributes) {
-      // EntityState.attributes.color_mode
-      if (typeof entityState.attributes['color_mode'] === 'string') {
-        switch (entityState.attributes['color_mode']) {
-          case 'color_temp': {
-            if (this.hasCapability('light_mode')) {
-              this.setCapabilityValue('light_mode', 'temperature').catch(this.error);
-            }
-            break;
-          }
-          case 'xy':
-          case 'rgb': {
-            if (this.hasCapability('light_mode')) {
-              this.setCapabilityValue('light_mode', 'color').catch(this.error);
-            }
-            break;
-          }
-          default: {
-            this.log(`Unknown EntityState.attributes.color_mode: ${entityState.attributes['color_mode']}`);
-            break;
-          }
-        }
-      }
-      // EntityState.attributes.preset_modes
-      if (typeof entityState.attributes['preset_modes'] === 'object') {
-        if (this.hasCapability('fan_mode')) {
-          this.setCapabilityValue('fan_mode', entityState.attributes['preset_mode']?.toLowerCase() ?? null).catch(
-            this.error,
-          );
-        } else if (this.hasCapability('aircleaner_mode')) {
-          this.setCapabilityValue(
-            'aircleaner_mode',
-            entityState.attributes['preset_mode']?.toLowerCase() ?? null,
-          ).catch(this.error);
-        }
-      }
-    }
-
-    // EntityState.attributes.brightness
-    if (typeof entityState.attributes['brightness'] === 'number') {
-      if (this.hasCapability('dim')) {
-        this.setCapabilityValue('dim', entityState.attributes['brightness'] / 255).catch(this.error);
-      }
-    }
-
-    // EntityState.attributes.hs_color
-    if (Array.isArray(entityState.attributes['hs_color'])) {
-      const [hue, saturation] = entityState.attributes['hs_color'];
-
-      if (this.hasCapability('light_hue')) {
-        this.setCapabilityValue('light_hue', hue / 360).catch(this.error);
-      }
-
-      if (this.hasCapability('light_saturation')) {
-        this.setCapabilityValue('light_saturation', saturation / 100).catch(this.error);
-      }
-    }
-
-    // EntityState.attributes.color_temp
-    if (typeof entityState.attributes['color_temp'] === 'number') {
-      const min = typeof entityState.attributes['min_mireds'] === 'number' ? entityState.attributes['min_mireds'] : 153;
-
-      const max = typeof entityState.attributes['max_mireds'] === 'number' ? entityState.attributes['max_mireds'] : 500;
-
-      if (this.hasCapability('light_temperature')) {
-        this.setCapabilityValue('light_temperature', (entityState.attributes['color_temp'] - min) / (max - min)).catch(
-          this.error,
-        );
-      }
-    }
-
-    // EntityState.attributes.current_position
-    if (typeof entityState.attributes['current_position'] === 'number') {
-      if (this.hasCapability('windowcoverings_set')) {
-        this.setCapabilityValue('windowcoverings_set', entityState.attributes['current_position'] / 100).catch(
-          this.error,
-        );
-      }
-    }
-
-    // EntityState.attributes.current_position
-    if (typeof entityState.attributes['current_tilt_position'] === 'number') {
-      if (this.hasCapability('windowcoverings_tilt_set')) {
-        this.setCapabilityValue(
-          'windowcoverings_tilt_set',
-          entityState.attributes['current_tilt_position'] / 100,
-        ).catch(this.error);
-      }
-    }
-
-    // EntityState.attributes.current_position
-    if (typeof entityState.attributes['percentage'] === 'number') {
-      if (this.hasCapability('fan_speed')) {
-        this.setCapabilityValue('fan_speed', entityState.attributes['percentage'] / 100).catch(this.error);
-      }
-    }
-  };
+    await this.server.callEntityService('vacuum', entityId, service);
+  }
 }

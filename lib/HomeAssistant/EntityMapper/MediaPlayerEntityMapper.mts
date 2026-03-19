@@ -59,11 +59,11 @@ const CLASS_MAP: Record<MediaPlayerDeviceClass, string> = {
  * Mapper for media_player entities. See https://developers.home-assistant.io/docs/core/entity/media-player.
  */
 export default class MediaPlayerEntityMapper implements EntityMapper {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('media_player.');
   }
 
-  map(
+  public map(
     entityId: string,
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,

@@ -52,11 +52,11 @@ const SUPPORTED_FEATURES: Partial<Record<CoverEntityFeature, string[]>> = {
  * Mapper for cover entities. See https://developers.home-assistant.io/docs/core/entity/cover.
  */
 export default class CoverEntityMapper implements EntityMapper {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('cover.');
   }
 
-  map(
+  public map(
     entityId: string,
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,

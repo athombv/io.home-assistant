@@ -67,11 +67,11 @@ const CAPABILITY_MAP: Partial<Record<BinarySensorDeviceClass, string>> = {
  * Mapper for binary_sensor entities. See https://developers.home-assistant.io/docs/core/entity/binary-sensor.
  */
 export default class BinarySensorEntityMapper implements EntityMapper {
-  supportsEntityId(entityId: string): boolean {
+  public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('binary_sensor.');
   }
 
-  map(
+  public map(
     entityId: string,
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,
@@ -96,8 +96,7 @@ export default class BinarySensorEntityMapper implements EntityMapper {
       // Known capabilities
     } else {
       const entityIdWithoutSensor = entityId.substring('binary_sensor.'.length);
-      const capabilityType = 'boolean';
-      capabilityId = `hass-${capabilityType}.${entityIdWithoutSensor}`;
+      capabilityId = `hass-boolean.${entityIdWithoutSensor}`;
 
       capabilityOptions.title = friendlyName || deviceClass || entityIdWithoutSensor;
     }
@@ -107,7 +106,7 @@ export default class BinarySensorEntityMapper implements EntityMapper {
     homeyDevice.capabilitiesOptions[capabilityId] = capabilityOptions;
   }
 
-  static getCapabilityId(deviceClass: string | undefined): string | null {
+  private static getCapabilityId(deviceClass: string | undefined): string | null {
     let capabilityId: string | null = null;
     if (deviceClass) {
       capabilityId = CAPABILITY_MAP[deviceClass as BinarySensorDeviceClass] ?? null;

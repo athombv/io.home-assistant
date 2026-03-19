@@ -1,4 +1,3 @@
-import type { HassEntity } from 'home-assistant-js-websocket';
 import type {
   HomeyHomeAssistantDeviceOption,
   ProcessedHomeAssistantDevice,
@@ -25,7 +24,7 @@ export interface EntityMapper {
 }
 
 export default class HaDeviceEntityMapper {
-  static map(homeAssistantDevice: ProcessedHomeAssistantDevice, homeyDevice: HomeyHomeAssistantDeviceOption): void {
+  public static map(homeAssistantDevice: ProcessedHomeAssistantDevice, homeyDevice: HomeyHomeAssistantDeviceOption): void {
     const mappers = [
       new BinarySensorEntityMapper(),
       new CoverEntityMapper(),
@@ -73,7 +72,7 @@ export default class HaDeviceEntityMapper {
     }
   }
 
-  static mapFeatureMask(
+  public static mapFeatureMask(
     entityId: string,
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,

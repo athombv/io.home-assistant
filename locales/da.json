@@ -1,3 +1,4 @@
 {
+  "allEntitiesUnavailable": "Enheden ser ud til at være utilgængelig i Home Assistant",
   "nativeAppSuggestion": "Gode nyheder! Denne enhed virker også direkte med Homey. Søg i Homey App Store efter __appName__."
 }

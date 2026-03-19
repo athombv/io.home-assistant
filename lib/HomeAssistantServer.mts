@@ -1,6 +1,6 @@
 import {
   Auth,
-  Connection,
+  type Connection,
   createConnection,
   type HassEntities,
   type HassEntity,
@@ -17,7 +17,7 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
   private readonly entitiesSubscriptionPromise: Promise<void>;
   private entities: HassEntities = {};
 
-  constructor(
+  public constructor(
     public readonly name: string = 'Home Assistant',
     public readonly protocol: string,
     public readonly host: string,
@@ -50,11 +50,11 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
     });
   }
 
-  async init(): Promise<void> {
+  public async init(): Promise<void> {
     await this.getConnection();
   }
 
-  async getConnection(): Promise<Connection> {
+  public async getConnection(): Promise<Connection> {
     if (!this.connection) {
       this.connection = (async (): Promise<Connection> => {
         // Create Auth
@@ -95,23 +95,14 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
     return `${this.protocol}://${this.host}:${this.port}`;
   }
 
-  onEventStateChanged = (event: StateChangedEvent): void => {
-    const { data } = event;
-    this.emit('state_changed', data);
-
-    if (data.entity_id) {
-      this.emit(`state_changed_entity:${data.entity_id}`, data.new_state);
-    }
-  };
-
-  async getEntities(): Promise<HassEntities> {
+  public async getEntities(): Promise<HassEntities> {
     await this.getConnection();
     await this.entitiesSubscriptionPromise;
 
     return this.entities;
   }
 
-  async getEntityState(entityId: string): Promise<HassEntity> {
+  public async getEntityState(entityId: string): Promise<HassEntity> {
     const entityState = (await this.getEntities())[entityId];
     if (!entityState) {
       throw new Error(`Invalid Entity State: ${entityId}`);
@@ -120,24 +111,47 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
     return entityState;
   }
 
-  async callService({
-    target,
-    domain,
-    service,
-    serviceData,
-  }: {
-    target: HassServiceTarget;
-    domain: string;
-    service: string;
-    serviceData?: unknown;
-  }): Promise<void> {
+  public async callEntityService(
+    domain: string,
+    entityId: string,
+    service: string,
+    serviceData?: Record<string, unknown>,
+  ): Promise<void> {
+    await this.callService(domain, { entity_id: entityId }, service, serviceData);
+  }
+
+  private async callService(
+    domain: string,
+    target: HassServiceTarget,
+    service: string,
+    serviceData?: Record<string, unknown>,
+  ): Promise<void> {
     const connection = await this.getConnection();
-    await connection.sendMessagePromise({
+    const serviceCall = {
       type: 'call_service',
       domain,
       service,
       target,
       service_data: serviceData,
-    });
+    };
+    this.debug('Calling HA service', JSON.stringify(serviceCall));
+    await connection.sendMessagePromise(serviceCall);
+  }
+
+  private onEventStateChanged = (event: StateChangedEvent): void => {
+    const { data } = event;
+    this.emit('state_changed', data);
+
+    if (data.entity_id) {
+      this.emit(`state_changed_entity:${data.entity_id}`, data.new_state);
+    }
+  };
+
+  protected debug(...args: unknown[]): void {
+    if (Homey.env.DEBUG !== '1') {
+      return;
+    }
+
+    this.log('[dbg]', ...args);
   }
 }
