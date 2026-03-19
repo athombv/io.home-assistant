@@ -37,6 +37,7 @@ const converters: Record<string, UnitConverter> = {
   measure_pressure: convertPressure, // mbar
   measure_so2: convertSO2, // μg/m³
   measure_speed: convertSpeedMs, // m/s
+  measure_temperature: convertTemperature, // °C
   measure_voltage: convertVoltage, // V
   measure_content_volume: convertVolumeL, // L
   measure_rain: convertRain, // mm
@@ -480,6 +481,7 @@ function convertRain(unit: string, value: number): number {
       return value;
   }
 }
+
 function convertRainIntensity(unit: string, value: number): number {
   switch (unit) {
     case 'mm/d':
@@ -490,6 +492,17 @@ function convertRainIntensity(unit: string, value: number): number {
       return (value * 25.4) / 24;
     case 'in/h':
       return value * 25.4;
+    default:
+      return value;
+  }
+}
+
+function convertTemperature(unit: string, value: number): number {
+  switch (unit) {
+    case 'K':
+      return value - 273.15;
+    case '°F':
+      return ((value - 32) * 5) / 9;
     default:
       return value;
   }

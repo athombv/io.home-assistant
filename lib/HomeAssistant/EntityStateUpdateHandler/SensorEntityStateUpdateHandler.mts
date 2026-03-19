@@ -20,15 +20,6 @@ export default class SensorEntityStateUpdateHandler extends AbstractEntityStateU
     let capabilityValue: any = entityState.state;
     if (capability.startsWith('measure_') || capability.startsWith('meter_') || capability.startsWith('hass-number.')) {
       capabilityValue = parseFloat(capabilityValue);
-
-      // Convert temperature to Celsius
-      if (capability.includes('measure_temperature')) {
-        if (entityState.attributes.unit_of_measurement === 'K') {
-          capabilityValue = capabilityValue - 273.15;
-        } else if (entityState.attributes.unit_of_measurement === '°F') {
-          capabilityValue = ((capabilityValue - 32) * 5) / 9;
-        }
-      }
     } else if (capability.startsWith('hass-string.')) {
       capabilityValue = capabilityValue.toString();
     } else if (capability.startsWith('hass-boolean.')) {
