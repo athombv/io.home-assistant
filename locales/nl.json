@@ -1,4 +1,5 @@
 {
     "allEntitiesUnavailable": "Apparaat lijkt niet beschikbaar te zijn in Home Assistant",
+    "homealarm_partially_armed_not_supported": "Het is niet mogelijk om het alarm op gedeeltelijk ingeschakeld in te stellen. Stel het alarm in op ingeschakeld of uitgeschakeld.",
     "nativeAppSuggestion": "Goed nieuws! Dit apparaat werkt ook direct samen met Homey. Zoek in de Homey App Store naar __appName__."
 }

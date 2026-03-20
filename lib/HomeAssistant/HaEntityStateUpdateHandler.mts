@@ -2,6 +2,8 @@ import type { HassEntity } from 'home-assistant-js-websocket';
 import Homey from 'homey';
 import type HomeAssistantDevice from '../HomeAssistantDevice.mjs';
 import type HomeAssistantServer from '../HomeAssistantServer.mjs';
+import AlarmControlPanelEntityStateUpdateHandler
+  from './EntityStateUpdateHandler/AlarmControlPanelEntityStateUpdateHandler.mjs';
 import BinarySensorEntityStateUpdateHandler from './EntityStateUpdateHandler/BinarySensorEntityStateUpdateHandler.mjs';
 import CoverEntityStateUpdateHandler from './EntityStateUpdateHandler/CoverEntityStateUpdateHandler.mjs';
 import FanEntityStateUpdateHandler from './EntityStateUpdateHandler/FanEntityStateUpdateHandler.mjs';
@@ -29,6 +31,7 @@ export class HaEntityStateUpdateHandler {
     private server: HomeAssistantServer,
   ) {
     this.handlers = [
+      AlarmControlPanelEntityStateUpdateHandler,
       BinarySensorEntityStateUpdateHandler,
       CoverEntityStateUpdateHandler,
       FanEntityStateUpdateHandler,

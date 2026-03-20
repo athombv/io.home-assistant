@@ -183,6 +183,10 @@ export default class HomeAssistantDevice extends Homey.Device {
       this.registerCapabilityListener('vacuumcleaner_state', this.onCapabilityVacuumCleanerStateSet.bind(this));
     }
 
+    if (this.hasCapability('homealarm_state')) {
+      this.registerCapabilityListener('homealarm_state', this.onCapabilityHomealarmStateSet.bind(this));
+    }
+
     // Set Warning if Homey support this device natively for a better experience.
     const { manufacturer, model, identifiers } = this.getStore();
 
@@ -451,5 +455,30 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     await this.server.callEntityService('vacuum', entityId, service);
+  }
+
+  private async onCapabilityHomealarmStateSet(value: string): Promise<void> {
+    const entityId = this.getEntityId({ capabilityId: 'homealarm_state' });
+
+    let service;
+    switch (value) {
+      case 'armed':
+        service = 'alarm_arm_away';
+        break;
+      case 'disarmed':
+        service = 'alarm_disarm';
+        break;
+      case 'partially_armed':
+        throw new Error(this.homey.__('homealarm_partially_armed_not_supported'));
+      default:
+        break;
+    }
+
+    if (!service) {
+      this.error('Invalid homealarm_state', value);
+      return;
+    }
+
+    await this.server.callEntityService('alarm_control_panel', entityId, service);
   }
 }

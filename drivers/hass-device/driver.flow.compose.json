@@ -57,6 +57,22 @@
       "$filter": "capabilities=alarm_charging"
     },
     {
+      "id": "alarm_home_alarm_triggered_true",
+      "title": {
+        "en": "The home alarm is triggered",
+        "nl": "Het huisalarm gaat af"
+      },
+      "$filter": "capabilities=alarm_home_alarm_triggered"
+    },
+    {
+      "id": "alarm_home_alarm_triggered_false",
+      "title": {
+        "en": "The home alarm is no longer triggered",
+        "nl": "Het huisalarm gaat niet langer af"
+      },
+      "$filter": "capabilities=alarm_home_alarm_triggered"
+    },
+    {
       "id": "alarm_occupancy_true",
       "title": {
         "en": "The occupancy alarm turned on",

@@ -4,6 +4,7 @@ import type {
   ProcessedHomeAssistantEntity,
 } from '../HomeAssistantTypes.mjs';
 import { titleCase } from '../HomeAssistantUtil.mjs';
+import AlarmControlPanelEntityMapper from './EntityMapper/AlarmControlPanelEntityMapper.mjs';
 import BinarySensorEntityMapper from './EntityMapper/BinarySensorEntityMapper.mjs';
 import CoverEntityMapper from './EntityMapper/CoverEntityMapper.mjs';
 import FanEntityMapper from './EntityMapper/FanEntityMapper.mjs';
@@ -29,6 +30,7 @@ export default class HaDeviceEntityMapper {
     homeyDevice: HomeyHomeAssistantDeviceOption,
   ): void {
     const mappers = [
+      new AlarmControlPanelEntityMapper(),
       new BinarySensorEntityMapper(),
       new CoverEntityMapper(),
       new FanEntityMapper(),

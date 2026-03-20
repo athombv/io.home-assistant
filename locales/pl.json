@@ -1,4 +1,5 @@
 {
   "allEntitiesUnavailable": "Urządzenie wydaje się być niedostępne w Home Assistant",
+  "homealarm_partially_armed_not_supported": "Nie można uzbroić alarmu częściowo. Uzbrój lub rozbrój alarm.",
   "nativeAppSuggestion": "Dobre wieści! To urządzenie działa również bezpośrednio z Homey. Wyszukaj __appName__ w Homey App Store."
 }
