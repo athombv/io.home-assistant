@@ -82,7 +82,7 @@ export default class BinarySensorEntityMapper implements EntityMapper {
       return;
     }
 
-    const deviceClass = entity.instance.attributes['device_class'];
+    const deviceClass = entity.instance.attributes.device_class;
     if (deviceClass === BinarySensorDeviceClass.UPDATE) {
       return;
     }

@@ -24,7 +24,10 @@ export interface EntityMapper {
 }
 
 export default class HaDeviceEntityMapper {
-  public static map(homeAssistantDevice: ProcessedHomeAssistantDevice, homeyDevice: HomeyHomeAssistantDeviceOption): void {
+  public static map(
+    homeAssistantDevice: ProcessedHomeAssistantDevice,
+    homeyDevice: HomeyHomeAssistantDeviceOption,
+  ): void {
     const mappers = [
       new BinarySensorEntityMapper(),
       new CoverEntityMapper(),
@@ -93,5 +96,33 @@ export default class HaDeviceEntityMapper {
         });
       }
     }
+  }
+
+  public static addCapability(
+    homeyDevice: HomeyHomeAssistantDeviceOption,
+    entityId: string,
+    capability: string,
+    capabilityOptions?: Record<string, unknown>,
+  ): void {
+    homeyDevice.capabilities.push(capability);
+    homeyDevice.capabilitiesOptions[capability] = homeyDevice.capabilitiesOptions[capability] || {};
+    homeyDevice.capabilitiesOptions[capability].entityId = entityId;
+
+    if (!capabilityOptions) {
+      return;
+    }
+
+    for (const option in capabilityOptions) {
+      homeyDevice.capabilitiesOptions[capability][option] = capabilityOptions[option];
+    }
+  }
+
+  public static setDeviceClass(homeyDevice: HomeyHomeAssistantDeviceOption, deviceClass: string): void {
+    homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : deviceClass;
+  }
+
+  public static setDeviceIcon(homeyDevice: HomeyHomeAssistantDeviceOption, icon: string): void {
+    homeyDevice.iconOverride =
+      homeyDevice.iconOverride && homeyDevice.class !== 'sensor' ? homeyDevice.iconOverride : icon;
   }
 }
