@@ -10,6 +10,7 @@ import CoverEntityMapper from './EntityMapper/CoverEntityMapper.mjs';
 import FanEntityMapper from './EntityMapper/FanEntityMapper.mjs';
 import HumidifierEntityMapper from './EntityMapper/HumidifierEntityMapper.mjs';
 import LightEntityMapper from './EntityMapper/LightEntityMapper.mjs';
+import LockEntityMapper from './EntityMapper/LockEntityMapper.mjs';
 import MediaPlayerEntityMapper from './EntityMapper/MediaPlayerEntityMapper.mjs';
 import SensorEntityMapper from './EntityMapper/SensorEntityMapper.mjs';
 import SwitchEntityMapper from './EntityMapper/SwitchEntityMapper.mjs';
@@ -37,6 +38,7 @@ export default class HaDeviceEntityMapper {
       FanEntityMapper,
       HumidifierEntityMapper,
       LightEntityMapper,
+      LockEntityMapper,
       MediaPlayerEntityMapper,
       SensorEntityMapper,
       SwitchEntityMapper,

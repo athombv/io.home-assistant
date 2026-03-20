@@ -193,6 +193,11 @@ export default class HomeAssistantDevice extends Homey.Device {
       this.registerCapabilityListener('target_humidity', this.onCapabilityTargetHumidity.bind(this));
     }
 
+    // Lock
+    if (this.hasCapability('locked')) {
+      this.registerCapabilityListener('locked', this.onCapabilityLocked.bind(this));
+    }
+
     // Set Warning if Homey support this device natively for a better experience.
     const { manufacturer, model, identifiers } = this.getStore();
 
@@ -498,5 +503,9 @@ export default class HomeAssistantDevice extends Homey.Device {
     await this.server.callEntityService('humidifier', this.getEntityId('target_humidity'), 'set_humidity', {
       humidity: value,
     });
+  }
+
+  private async onCapabilityLocked(value: boolean): Promise<void> {
+    await this.server.callEntityService('lock', this.getEntityId('locked'), value ? 'lock' : 'unlock');
   }
 }

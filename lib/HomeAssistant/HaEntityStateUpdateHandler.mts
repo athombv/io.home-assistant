@@ -9,6 +9,7 @@ import CoverEntityStateUpdateHandler from './EntityStateUpdateHandler/CoverEntit
 import FanEntityStateUpdateHandler from './EntityStateUpdateHandler/FanEntityStateUpdateHandler.mjs';
 import HumidifierEntityStateUpdateHandler from './EntityStateUpdateHandler/HumidifierEntityStateUpdateHandler.mjs';
 import LightEntityStateUpdateHandler from './EntityStateUpdateHandler/LightEntityStateUpdateHandler.mjs';
+import LockEntityStateUpdateHandler from './EntityStateUpdateHandler/LockEntityStateUpdateHandler.mjs';
 import MediaPlayerEntityStateUpdateHandler from './EntityStateUpdateHandler/MediaPlayerEntityStateUpdateHandler.mjs';
 import SensorEntityStateUpdateHandler from './EntityStateUpdateHandler/SensorEntityStateUpdateHandler.mjs';
 import SwitchEntityStateUpdateHandler from './EntityStateUpdateHandler/SwitchEntityStateUpdateHandler.mjs';
@@ -38,6 +39,7 @@ export class HaEntityStateUpdateHandler {
       FanEntityStateUpdateHandler,
       HumidifierEntityStateUpdateHandler,
       LightEntityStateUpdateHandler,
+      LockEntityStateUpdateHandler,
       MediaPlayerEntityStateUpdateHandler,
       SensorEntityStateUpdateHandler,
       SwitchEntityStateUpdateHandler,
