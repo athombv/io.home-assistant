@@ -183,8 +183,14 @@ export default class HomeAssistantDevice extends Homey.Device {
       this.registerCapabilityListener('vacuumcleaner_state', this.onCapabilityVacuumCleanerStateSet.bind(this));
     }
 
+    // Home alarm
     if (this.hasCapability('homealarm_state')) {
       this.registerCapabilityListener('homealarm_state', this.onCapabilityHomealarmStateSet.bind(this));
+    }
+
+    // Humidifier
+    if (this.hasCapability('target_humidity')) {
+      this.registerCapabilityListener('target_humidity', this.onCapabilityTargetHumidity.bind(this));
     }
 
     // Set Warning if Homey support this device natively for a better experience.
@@ -254,12 +260,18 @@ export default class HomeAssistantDevice extends Homey.Device {
 
   private async onCapabilityOnOff(value: unknown, options: unknown, capabilityId: string = 'onoff'): Promise<void> {
     const entityId = this.getEntityId(capabilityId);
-    const domain = entityId.split('.')[0]; // TODO: I'm not sure this always works!
+    const domain = entityId.split('.')[0];
 
-    if (domain === 'vacuum') {
-      await this.onCapabilityVacuumCleanerStateSet(value ? 'cleaning' : 'docked');
-    } else {
-      await this.server.callEntityService(domain, entityId, value ? 'turn_on' : 'turn_off');
+    switch (domain) {
+      case 'vacuum':
+        return await this.onCapabilityVacuumCleanerStateSet(value ? 'cleaning' : 'docked');
+      case 'fan':
+      case 'humidifier':
+      case 'light':
+      case 'switch':
+        return await this.server.callEntityService(domain, entityId, value ? 'turn_on' : 'turn_off');
+      default:
+        throw new Error(`Unsupported domain: ${domain}`);
     }
   }
 
@@ -480,5 +492,11 @@ export default class HomeAssistantDevice extends Homey.Device {
     }
 
     await this.server.callEntityService('alarm_control_panel', entityId, service);
+  }
+
+  private async onCapabilityTargetHumidity(value: number): Promise<void> {
+    await this.server.callEntityService('humidifier', this.getEntityId('target_humidity'), 'set_humidity', {
+      humidity: value,
+    });
   }
 }

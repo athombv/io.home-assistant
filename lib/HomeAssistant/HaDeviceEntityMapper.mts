@@ -8,6 +8,7 @@ import AlarmControlPanelEntityMapper from './EntityMapper/AlarmControlPanelEntit
 import BinarySensorEntityMapper from './EntityMapper/BinarySensorEntityMapper.mjs';
 import CoverEntityMapper from './EntityMapper/CoverEntityMapper.mjs';
 import FanEntityMapper from './EntityMapper/FanEntityMapper.mjs';
+import HumidifierEntityMapper from './EntityMapper/HumidifierEntityMapper.mjs';
 import LightEntityMapper from './EntityMapper/LightEntityMapper.mjs';
 import MediaPlayerEntityMapper from './EntityMapper/MediaPlayerEntityMapper.mjs';
 import SensorEntityMapper from './EntityMapper/SensorEntityMapper.mjs';
@@ -30,22 +31,23 @@ export default class HaDeviceEntityMapper {
     homeyDevice: HomeyHomeAssistantDeviceOption,
   ): void {
     const mappers = [
-      new AlarmControlPanelEntityMapper(),
-      new BinarySensorEntityMapper(),
-      new CoverEntityMapper(),
-      new FanEntityMapper(),
-      new LightEntityMapper(),
-      new MediaPlayerEntityMapper(),
-      new SensorEntityMapper(),
-      new SwitchEntityMapper(),
-      new VacuumEntityMapper(),
+      AlarmControlPanelEntityMapper,
+      BinarySensorEntityMapper,
+      CoverEntityMapper,
+      FanEntityMapper,
+      HumidifierEntityMapper,
+      LightEntityMapper,
+      MediaPlayerEntityMapper,
+      SensorEntityMapper,
+      SwitchEntityMapper,
+      VacuumEntityMapper,
 
       /*
        * TODO:
        *  Possible other Home Assistant entities which could be added: climate, camera, device_tracker, weather,
        *  water_heater, siren, select, remote, number, humidifier, alarm, air_quality.
        */
-    ];
+    ].map(m => new m());
 
     for (const entity of Object.values(homeAssistantDevice.entities)) {
       // Skip entities without instance

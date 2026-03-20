@@ -7,6 +7,7 @@ import AlarmControlPanelEntityStateUpdateHandler
 import BinarySensorEntityStateUpdateHandler from './EntityStateUpdateHandler/BinarySensorEntityStateUpdateHandler.mjs';
 import CoverEntityStateUpdateHandler from './EntityStateUpdateHandler/CoverEntityStateUpdateHandler.mjs';
 import FanEntityStateUpdateHandler from './EntityStateUpdateHandler/FanEntityStateUpdateHandler.mjs';
+import HumidifierEntityStateUpdateHandler from './EntityStateUpdateHandler/HumidifierEntityStateUpdateHandler.mjs';
 import LightEntityStateUpdateHandler from './EntityStateUpdateHandler/LightEntityStateUpdateHandler.mjs';
 import MediaPlayerEntityStateUpdateHandler from './EntityStateUpdateHandler/MediaPlayerEntityStateUpdateHandler.mjs';
 import SensorEntityStateUpdateHandler from './EntityStateUpdateHandler/SensorEntityStateUpdateHandler.mjs';
@@ -35,6 +36,7 @@ export class HaEntityStateUpdateHandler {
       BinarySensorEntityStateUpdateHandler,
       CoverEntityStateUpdateHandler,
       FanEntityStateUpdateHandler,
+      HumidifierEntityStateUpdateHandler,
       LightEntityStateUpdateHandler,
       MediaPlayerEntityStateUpdateHandler,
       SensorEntityStateUpdateHandler,
