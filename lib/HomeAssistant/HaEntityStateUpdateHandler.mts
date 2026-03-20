@@ -78,12 +78,12 @@ export class HaEntityStateUpdateHandler {
     }
   }
 
-  private async onEntityState(entityId: string, entityState: HassEntity): Promise<void> {
+  private async onEntityState(entityId: string, entityState: HassEntity | null): Promise<void> {
     this.debug('Handling entity state:', JSON.stringify(entityState));
 
     const capabilities = this.entityIdToCapabilityMap[entityId] ?? [];
 
-    if (entityState.state === 'unavailable') {
+    if (entityState === null || entityState.state === 'unavailable') {
       // Entity value is unavailable
       this.log(`Entity ${entityId} is marked unavailable`);
       this.unavailableEntityIds.add(entityId);
