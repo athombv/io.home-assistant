@@ -151,6 +151,9 @@ export default class HomeAssistantDevice extends Homey.Device {
     // Lock
     this.registerCapabilityListenerIfAvailable('locked', this.onCapabilityLockedSet.bind(this));
 
+    // Valve
+    this.registerCapabilityListenerIfAvailable('valve_position', this.onCapabilityValvePositionSet.bind(this));
+
     // Set Warning if Homey support this device natively for a better experience.
     const { manufacturer, model, identifiers } = this.getStore();
 
@@ -231,6 +234,8 @@ export default class HomeAssistantDevice extends Homey.Device {
     switch (domain) {
       case 'vacuum':
         return await this.onCapabilityVacuumCleanerStateSet(value ? 'cleaning' : 'docked');
+      case 'valve':
+        return await this.server.callEntityService(domain, entityId, value ? 'open_valve' : 'close_valve');
       case 'fan':
       case 'humidifier':
       case 'light':
@@ -494,5 +499,11 @@ export default class HomeAssistantDevice extends Homey.Device {
 
   private async onCapabilityLockedSet(value: boolean): Promise<void> {
     await this.server.callEntityService('lock', this.getEntityId('locked'), value ? 'lock' : 'unlock');
+  }
+
+  private async onCapabilityValvePositionSet(value: number): Promise<void> {
+    await this.server.callEntityService('valve', this.getEntityId('valve_position'), 'set_valve_position', {
+      position: value > 0 ? value * 100 : 0,
+    });
   }
 }

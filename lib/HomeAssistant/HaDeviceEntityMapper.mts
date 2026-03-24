@@ -16,6 +16,7 @@ import MediaPlayerEntityMapper from './EntityMapper/MediaPlayerEntityMapper.mjs'
 import SensorEntityMapper from './EntityMapper/SensorEntityMapper.mjs';
 import SwitchEntityMapper from './EntityMapper/SwitchEntityMapper.mjs';
 import VacuumEntityMapper from './EntityMapper/VacuumEntityMapper.mjs';
+import ValveEntityMapper from './EntityMapper/ValveEntityMapper.mjs';
 
 export interface EntityMapper {
   supportsEntityId(entityId: string): boolean;
@@ -45,6 +46,7 @@ export default class HaDeviceEntityMapper {
       SensorEntityMapper,
       SwitchEntityMapper,
       VacuumEntityMapper,
+      ValveEntityMapper,
 
       /*
        * TODO:

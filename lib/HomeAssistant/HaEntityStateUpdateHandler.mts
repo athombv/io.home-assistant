@@ -15,6 +15,7 @@ import MediaPlayerEntityStateUpdateHandler from './EntityStateUpdateHandler/Medi
 import SensorEntityStateUpdateHandler from './EntityStateUpdateHandler/SensorEntityStateUpdateHandler.mjs';
 import SwitchEntityStateUpdateHandler from './EntityStateUpdateHandler/SwitchEntityStateUpdateHandler.mjs';
 import VacuumEntityStateUpdateHandler from './EntityStateUpdateHandler/VacuumEntityStateUpdateHandler.mjs';
+import ValveEntityStateUpdateHandler from './EntityStateUpdateHandler/ValveEntityStateUpdateHandler.mjs';
 
 export interface EntityStateUpdateHandler {
   supportsEntityId(entityId: string): boolean;
@@ -46,6 +47,7 @@ export class HaEntityStateUpdateHandler {
       SensorEntityStateUpdateHandler,
       SwitchEntityStateUpdateHandler,
       VacuumEntityStateUpdateHandler,
+      ValveEntityStateUpdateHandler,
     ].map(h => new h(device, server));
   }
 
