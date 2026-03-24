@@ -61,5 +61,8 @@
   },
   "1.1.0": {
     "en": "Updated light temperature to use Kelvin instead of mireds. Fixed issues including device availability, inverted sensor values and others."
+  },
+  "1.2.0": {
+    "en": "Added support for several new capabilities."
   }
 }
