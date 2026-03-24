@@ -48,5 +48,6 @@ export default class LawnMowerEntityStateUpdateHandler extends AbstractEntitySta
     }
 
     this.setCapabilityValue('lawnmower_state', newState);
+    this.setCapabilityValueIfExists('docked', entityState.state === LawnMowerActivity.DOCKED);
   }
 }

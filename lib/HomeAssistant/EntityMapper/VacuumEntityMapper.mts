@@ -45,6 +45,7 @@ export default class VacuumEntityMapper implements EntityMapper {
     HaDeviceEntityMapper.setDeviceClass(homeyDevice, 'vacuumcleaner');
     HaDeviceEntityMapper.setDeviceIcon(homeyDevice, 'vacuum-cleaner');
     HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'onoff');
+    HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'docked');
 
     if (!entity.instance.attributes) {
       return;
