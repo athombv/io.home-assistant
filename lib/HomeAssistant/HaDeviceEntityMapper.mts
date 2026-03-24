@@ -7,6 +7,7 @@ import { titleCase } from '../HomeAssistantUtil.mjs';
 import AlarmControlPanelEntityMapper from './EntityMapper/AlarmControlPanelEntityMapper.mjs';
 import BinarySensorEntityMapper from './EntityMapper/BinarySensorEntityMapper.mjs';
 import ButtonEntityMapper from './EntityMapper/ButtonEntityMapper.mjs';
+import ClimateEntityMapper from './EntityMapper/ClimateEntityMapper.mjs';
 import CoverEntityMapper from './EntityMapper/CoverEntityMapper.mjs';
 import FanEntityMapper from './EntityMapper/FanEntityMapper.mjs';
 import HumidifierEntityMapper from './EntityMapper/HumidifierEntityMapper.mjs';
@@ -38,6 +39,7 @@ export default class HaDeviceEntityMapper {
       AlarmControlPanelEntityMapper,
       ButtonEntityMapper,
       BinarySensorEntityMapper,
+      ClimateEntityMapper,
       CoverEntityMapper,
       FanEntityMapper,
       HumidifierEntityMapper,
@@ -49,12 +51,6 @@ export default class HaDeviceEntityMapper {
       SwitchEntityMapper,
       VacuumEntityMapper,
       ValveEntityMapper,
-
-      /*
-       * TODO:
-       *  Possible other Home Assistant entities which could be added: climate, camera, device_tracker, weather,
-       *  water_heater, siren, select, remote, number, humidifier, alarm, air_quality.
-       */
     ].map(m => new m());
 
     for (const entity of Object.values(homeAssistantDevice.entities)) {
@@ -94,20 +90,26 @@ export default class HaDeviceEntityMapper {
     friendlyName: string | undefined,
     features: Partial<Record<number, string[]>>,
   ): void {
+    for (const [key, value] of Object.entries(features)) {
+      if (!this.hasFeature(entity, Number(key))) {
+        continue;
+      }
+
+      (value ?? []).forEach(capabilityId => {
+        homeyDevice.capabilities.push(capabilityId);
+        homeyDevice.capabilitiesOptions[capabilityId] = {
+          title: friendlyName || entityId,
+          entityId: entityId,
+        };
+      });
+    }
+  }
+
+  /** Check if the feature is part of the supported features binary value. */
+  public static hasFeature(entity: ProcessedHomeAssistantEntity,  feature: number): boolean {
     const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
 
-    for (const [key, value] of Object.entries(features)) {
-      // Check if the key is part of the supported features binary value.
-      if (supportedFeatures & Number(key)) {
-        (value ?? []).forEach(capabilityId => {
-          homeyDevice.capabilities.push(capabilityId);
-          homeyDevice.capabilitiesOptions[capabilityId] = {
-            title: friendlyName || entityId,
-            entityId: entityId,
-          };
-        });
-      }
-    }
+    return !!(supportedFeatures & feature);
   }
 
   public static addCapability(

@@ -4,6 +4,7 @@ import type HomeAssistantDevice from '../HomeAssistantDevice.mjs';
 import type HomeAssistantServer from '../HomeAssistantServer.mjs';
 import AlarmControlPanelEntityStateUpdateHandler from './EntityStateUpdateHandler/AlarmControlPanelEntityStateUpdateHandler.mjs';
 import BinarySensorEntityStateUpdateHandler from './EntityStateUpdateHandler/BinarySensorEntityStateUpdateHandler.mjs';
+import ClimateEntityStateUpdateHandler from './EntityStateUpdateHandler/ClimateEntityStateUpdateHandler.mjs';
 import CoverEntityStateUpdateHandler from './EntityStateUpdateHandler/CoverEntityStateUpdateHandler.mjs';
 import FanEntityStateUpdateHandler from './EntityStateUpdateHandler/FanEntityStateUpdateHandler.mjs';
 import HumidifierEntityStateUpdateHandler from './EntityStateUpdateHandler/HumidifierEntityStateUpdateHandler.mjs';
@@ -36,6 +37,7 @@ export class HaEntityStateUpdateHandler {
     this.handlers = [
       AlarmControlPanelEntityStateUpdateHandler,
       BinarySensorEntityStateUpdateHandler,
+      ClimateEntityStateUpdateHandler,
       CoverEntityStateUpdateHandler,
       FanEntityStateUpdateHandler,
       HumidifierEntityStateUpdateHandler,
