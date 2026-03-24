@@ -14,7 +14,7 @@ export enum MediaPlayerState {
   BUFFERING = 'buffering',
 }
 
-const attributeMap: AttributeValueMapper = [
+const ATTRIBUTE_MAP: AttributeValueMapper = [
   { attribute: 'volume_level', capability: 'volume_set' },
   { attribute: 'is_volume_muted', capability: 'volume_mute' },
   { attribute: 'shuffle', capability: 'speaker_shuffle' },
@@ -54,7 +54,7 @@ export default class MediaPlayerEntityStateUpdateHandler extends AbstractEntityS
   private imageUrl?: string;
 
   public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
-    this.mapAttributesToCapability(entityState, attributeMap);
+    this.mapAttributesToCapability(entityState, ATTRIBUTE_MAP);
 
     switch (entityState.state) {
       case MediaPlayerState.OFF:

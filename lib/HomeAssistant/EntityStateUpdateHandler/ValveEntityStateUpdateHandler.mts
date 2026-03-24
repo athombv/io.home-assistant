@@ -1,7 +1,7 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
 import AbstractEntityStateUpdateHandler, { type AttributeValueMapper } from './AbstractEntityStateUpdateHandler.mjs';
 
-const attributeMap: AttributeValueMapper = [
+const ATTRIBUTE_MAP: AttributeValueMapper = [
   { attribute: 'is_closed', capability: 'onoff' },
   { attribute: 'current_valve_position', capability: 'valve_position', mapper: (value: number) => value / 100 },
 ];
@@ -15,6 +15,6 @@ export default class ValveEntityStateUpdateHandler extends AbstractEntityStateUp
   }
 
   public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
-    this.mapAttributesToCapability(entityState, attributeMap);
+    this.mapAttributesToCapability(entityState, ATTRIBUTE_MAP);
   }
 }

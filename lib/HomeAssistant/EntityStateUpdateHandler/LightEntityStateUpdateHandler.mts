@@ -14,7 +14,7 @@ export enum ColorMode {
   WHITE = 'white',
 }
 
-const attributeMap: AttributeValueMapper = [
+const ATTRIBUTE_MAP: AttributeValueMapper = [
   { attribute: 'brightness', capability: 'dim', mapper: (value: number) => value / 255 },
 ];
 
@@ -28,7 +28,7 @@ export default class LightEntityStateUpdateHandler extends AbstractEntityStateUp
 
   public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
     this.handleOnOff(entityState, 'onoff');
-    this.mapAttributesToCapability(entityState, attributeMap);
+    this.mapAttributesToCapability(entityState, ATTRIBUTE_MAP);
 
     if (typeof entityState.attributes.color_mode === 'string') {
       switch (entityState.attributes.color_mode) {
