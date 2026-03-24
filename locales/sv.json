@@ -1,4 +1,6 @@
 {
   "allEntitiesUnavailable": "Enheten verkar vara otillgänglig i Home Assistant",
+  "homealarm_partially_armed_not_supported": "Det är inte möjligt att ställa in larmet på delvis aktiverat. Vänligen aktivera eller inaktivera larmet.",
+  "lawnmower_state_error_not_supported": "Det är inte möjligt att ställa in gräsklipparens status till fel.",
   "nativeAppSuggestion": "Goda nyheter! Denna enhet fungerar även direkt med Homey. Sök i Homey App Store efter __appName__."
 }

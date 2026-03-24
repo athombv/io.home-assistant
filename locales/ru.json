@@ -1,4 +1,6 @@
 {
   "allEntitiesUnavailable": "Устройство, похоже, недоступно в Home Assistant",
+  "homealarm_partially_armed_not_supported": "Невозможно установить частичный режим охраны. Пожалуйста, включите или выключите охрану.",
+  "lawnmower_state_error_not_supported": "Невозможно установить состояние газонокосилки на ошибку.",
   "nativeAppSuggestion": "Хорошие новости! Это устройство также работает напрямую с Homey. Ищите в Homey App Store __appName__."
 }

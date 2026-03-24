@@ -1,5 +1,5 @@
 import type { ProcessedHomeAssistantEntity, HomeyHomeAssistantDeviceOption } from '../../HomeAssistantTypes.mjs';
-import type { EntityMapper } from '../HaDeviceEntityMapper.mjs';
+import HaDeviceEntityMapper, { type EntityMapper } from '../HaDeviceEntityMapper.mjs';
 
 /** Entity features as defined by Home Assistant in `FanEntityFeature` */
 export enum FanEntityFeature {
@@ -30,22 +30,17 @@ export default class FanEntityMapper implements EntityMapper {
     entity: ProcessedHomeAssistantEntity,
     homeyDevice: HomeyHomeAssistantDeviceOption,
   ): void {
-    homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : 'fan';
-    homeyDevice.iconOverride =
-      homeyDevice.iconOverride && homeyDevice.class !== 'sensor' ? homeyDevice.iconOverride : 'fan';
-
-    homeyDevice.capabilities.push('onoff');
-    homeyDevice.capabilitiesOptions['onoff'] = homeyDevice.capabilitiesOptions['onoff'] || {};
-    homeyDevice.capabilitiesOptions['onoff'].entityId = entityId;
+    HaDeviceEntityMapper.setDeviceClass(homeyDevice, 'fan');
+    HaDeviceEntityMapper.setDeviceIcon(homeyDevice, 'fan');
+    HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'onoff');
 
     if (!entity.instance.attributes) {
       return;
     }
 
-    const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
     for (const [key, value] of Object.entries(SUPPORTED_FEATURES)) {
       // Check if the key is part of the supported features binary value.
-      if (supportedFeatures & Number(key)) {
+      if (HaDeviceEntityMapper.hasFeature(entity, Number(key))) {
         value.forEach(capabilityId => {
           if (capabilityId === 'fan_mode') {
             if (
@@ -54,19 +49,15 @@ export default class FanEntityMapper implements EntityMapper {
               )
             ) {
               // Check if fan preset mode contains Nature and Normal.
-              homeyDevice.capabilities.push('fan_mode');
-              homeyDevice.capabilitiesOptions['fan_mode'] = homeyDevice.capabilitiesOptions['fan_mode'] || {};
-              homeyDevice.capabilitiesOptions['fan_mode'].entityId = entityId;
+              HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'fan_mode');
+
             } else if (
               entity.instance.attributes['preset_modes'].every((mode?: string) =>
                 ['fan', 'auto', 'silent', 'favorite'].includes(mode?.toLowerCase() ?? ''),
               )
             ) {
               // Check if fan preset mode contains Fan, Auto, Silent and Favorite.
-              homeyDevice.capabilities.push('aircleaner_mode');
-              homeyDevice.capabilitiesOptions['aircleaner_mode'] =
-                homeyDevice.capabilitiesOptions['aircleaner_mode'] || {};
-              homeyDevice.capabilitiesOptions['aircleaner_mode'].entityId = entityId;
+              HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'aircleaner_mode');
             }
           } else {
             homeyDevice.capabilities.push(capabilityId);

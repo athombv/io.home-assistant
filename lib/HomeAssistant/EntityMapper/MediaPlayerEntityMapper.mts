@@ -73,10 +73,10 @@ export default class MediaPlayerEntityMapper implements EntityMapper {
       return;
     }
 
-    const deviceClass = entity.instance.attributes['device_class'] ?? null;
+    const deviceClass = entity.instance.attributes.device_class ?? null;
     const mediaType = this.getMediaType(deviceClass);
 
-    homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : mediaType;
+    HaDeviceEntityMapper.setDeviceClass(homeyDevice, mediaType);
 
     if (!homeyDevice.iconOverride || homeyDevice.class === 'sensor') {
       switch (mediaType) {
@@ -96,10 +96,9 @@ export default class MediaPlayerEntityMapper implements EntityMapper {
     }
 
     // Always add playing capability
-    homeyDevice.capabilities.push('speaker_playing');
-    homeyDevice.capabilitiesOptions['speaker_playing'] = homeyDevice.capabilitiesOptions['speaker_playing'] || {};
-    homeyDevice.capabilitiesOptions['speaker_playing'].title = friendlyName || entityId;
-    homeyDevice.capabilitiesOptions['speaker_playing'].entityId = entityId;
+    HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'speaker_playing', {
+      title: friendlyName || entityId,
+    });
 
     HaDeviceEntityMapper.mapFeatureMask(entityId, entity, homeyDevice, friendlyName, SUPPORTED_FEATURES);
   }

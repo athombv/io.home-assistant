@@ -42,13 +42,10 @@ export default class VacuumEntityMapper implements EntityMapper {
     homeyDevice: HomeyHomeAssistantDeviceOption,
     friendlyName: string | undefined,
   ): void {
-    homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : 'vacuumcleaner';
-    homeyDevice.iconOverride =
-      homeyDevice.iconOverride && homeyDevice.class !== 'sensor' ? homeyDevice.iconOverride : 'vacuum-cleaner';
-
-    homeyDevice.capabilities.push('onoff');
-    homeyDevice.capabilitiesOptions['onoff'] = homeyDevice.capabilitiesOptions['onoff'] || {};
-    homeyDevice.capabilitiesOptions['onoff'].entityId = entityId;
+    HaDeviceEntityMapper.setDeviceClass(homeyDevice, 'vacuumcleaner');
+    HaDeviceEntityMapper.setDeviceIcon(homeyDevice, 'vacuum-cleaner');
+    HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'onoff');
+    HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'docked');
 
     if (!entity.instance.attributes) {
       return;

@@ -1,4 +1,6 @@
 {
   "allEntitiesUnavailable": "El dispositivo parece no estar disponible en Home Assistant",
+  "homealarm_partially_armed_not_supported": "No es posible activar la alarma parcialmente. Por favor, active o desactive la alarma.",
+  "lawnmower_state_error_not_supported": "No es posible establecer el estado del cortacésped en error.",
   "nativeAppSuggestion": "¡Buenas noticias! Este dispositivo también funciona directamente con Homey. Busca en la Homey App Store por __appName__."
 }

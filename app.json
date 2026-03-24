@@ -134,6 +134,34 @@
         ]
       },
       {
+        "id": "alarm_home_alarm_triggered_true",
+        "title": {
+          "en": "The home alarm is triggered",
+          "nl": "Het huisalarm gaat af"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_home_alarm_triggered"
+          }
+        ]
+      },
+      {
+        "id": "alarm_home_alarm_triggered_false",
+        "title": {
+          "en": "The home alarm is no longer triggered",
+          "nl": "Het huisalarm gaat niet langer af"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=hass-device&capabilities=alarm_home_alarm_triggered"
+          }
+        ]
+      },
+      {
         "id": "alarm_occupancy_true",
         "title": {
           "en": "The occupancy alarm turned on",
@@ -1159,6 +1187,28 @@
       "setable": false,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_charging.svg",
+      "uiQuickAction": false
+    },
+    "alarm_home_alarm_triggered": {
+      "type": "boolean",
+      "title": {
+        "en": "Alarm triggered",
+        "nl": "Alarm geactiveerd",
+        "da": "Alarm udløst",
+        "de": "Alarm ausgelöst",
+        "es": "Alarma activada",
+        "fr": "Alarme déclenchée",
+        "it": "Allarme attivato",
+        "no": "Alarm utløst",
+        "sv": "Larm utlöst",
+        "pl": "Alarm uruchomiony",
+        "ru": "Сработала сигнализация",
+        "ko": "알람 발동됨"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_home_alarm_triggered.svg",
       "uiQuickAction": false
     },
     "alarm_occupancy": {

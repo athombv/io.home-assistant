@@ -2,14 +2,20 @@ import type { HassEntity } from 'home-assistant-js-websocket';
 import Homey from 'homey';
 import type HomeAssistantDevice from '../HomeAssistantDevice.mjs';
 import type HomeAssistantServer from '../HomeAssistantServer.mjs';
+import AlarmControlPanelEntityStateUpdateHandler from './EntityStateUpdateHandler/AlarmControlPanelEntityStateUpdateHandler.mjs';
 import BinarySensorEntityStateUpdateHandler from './EntityStateUpdateHandler/BinarySensorEntityStateUpdateHandler.mjs';
+import ClimateEntityStateUpdateHandler from './EntityStateUpdateHandler/ClimateEntityStateUpdateHandler.mjs';
 import CoverEntityStateUpdateHandler from './EntityStateUpdateHandler/CoverEntityStateUpdateHandler.mjs';
 import FanEntityStateUpdateHandler from './EntityStateUpdateHandler/FanEntityStateUpdateHandler.mjs';
+import HumidifierEntityStateUpdateHandler from './EntityStateUpdateHandler/HumidifierEntityStateUpdateHandler.mjs';
+import LawnMowerEntityStateUpdateHandler from './EntityStateUpdateHandler/LawnMowerEntityStateUpdateHandler.mjs';
 import LightEntityStateUpdateHandler from './EntityStateUpdateHandler/LightEntityStateUpdateHandler.mjs';
+import LockEntityStateUpdateHandler from './EntityStateUpdateHandler/LockEntityStateUpdateHandler.mjs';
 import MediaPlayerEntityStateUpdateHandler from './EntityStateUpdateHandler/MediaPlayerEntityStateUpdateHandler.mjs';
 import SensorEntityStateUpdateHandler from './EntityStateUpdateHandler/SensorEntityStateUpdateHandler.mjs';
 import SwitchEntityStateUpdateHandler from './EntityStateUpdateHandler/SwitchEntityStateUpdateHandler.mjs';
 import VacuumEntityStateUpdateHandler from './EntityStateUpdateHandler/VacuumEntityStateUpdateHandler.mjs';
+import ValveEntityStateUpdateHandler from './EntityStateUpdateHandler/ValveEntityStateUpdateHandler.mjs';
 
 export interface EntityStateUpdateHandler {
   supportsEntityId(entityId: string): boolean;
@@ -29,14 +35,20 @@ export class HaEntityStateUpdateHandler {
     private server: HomeAssistantServer,
   ) {
     this.handlers = [
+      AlarmControlPanelEntityStateUpdateHandler,
       BinarySensorEntityStateUpdateHandler,
+      ClimateEntityStateUpdateHandler,
       CoverEntityStateUpdateHandler,
       FanEntityStateUpdateHandler,
+      HumidifierEntityStateUpdateHandler,
+      LawnMowerEntityStateUpdateHandler,
       LightEntityStateUpdateHandler,
+      LockEntityStateUpdateHandler,
       MediaPlayerEntityStateUpdateHandler,
       SensorEntityStateUpdateHandler,
       SwitchEntityStateUpdateHandler,
       VacuumEntityStateUpdateHandler,
+      ValveEntityStateUpdateHandler,
     ].map(h => new h(device, server));
   }
 
@@ -75,12 +87,12 @@ export class HaEntityStateUpdateHandler {
     }
   }
 
-  private async onEntityState(entityId: string, entityState: HassEntity): Promise<void> {
+  private async onEntityState(entityId: string, entityState: HassEntity | null): Promise<void> {
     this.debug('Handling entity state:', JSON.stringify(entityState));
 
     const capabilities = this.entityIdToCapabilityMap[entityId] ?? [];
 
-    if (entityState.state === 'unavailable') {
+    if (entityState === null || entityState.state === 'unavailable') {
       // Entity value is unavailable
       this.log(`Entity ${entityId} is marked unavailable`);
       this.unavailableEntityIds.add(entityId);

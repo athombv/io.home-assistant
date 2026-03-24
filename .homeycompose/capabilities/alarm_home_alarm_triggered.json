@@ -1,0 +1,22 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Alarm triggered",
+    "nl": "Alarm geactiveerd",
+    "da": "Alarm udløst",
+    "de": "Alarm ausgelöst",
+    "es": "Alarma activada",
+    "fr": "Alarme déclenchée",
+    "it": "Allarme attivato",
+    "no": "Alarm utløst",
+    "sv": "Larm utlöst",
+    "pl": "Alarm uruchomiony",
+    "ru": "Сработала сигнализация",
+    "ko": "알람 발동됨"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_home_alarm_triggered.svg",
+  "uiQuickAction": false
+}

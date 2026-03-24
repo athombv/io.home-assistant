@@ -1,4 +1,6 @@
 {
   "allEntitiesUnavailable": "Enheden ser ud til at være utilgængelig i Home Assistant",
+  "homealarm_partially_armed_not_supported": "Det er ikke muligt at sætte alarmen til delvist slået til. Sæt alarmen til tilsluttet eller frakoblet.",
+  "lawnmower_state_error_not_supported": "Det er ikke muligt at indstille plæneklipperens tilstand til fejl.",
   "nativeAppSuggestion": "Gode nyheder! Denne enhed virker også direkte med Homey. Søg i Homey App Store efter __appName__."
 }

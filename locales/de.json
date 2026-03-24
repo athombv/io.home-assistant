@@ -1,4 +1,6 @@
 {
   "allEntitiesUnavailable": "Gerät scheint in Home Assistant nicht verfügbar zu sein",
+  "homealarm_partially_armed_not_supported": "Es ist nicht möglich, den Alarm auf teilweise aktiviert zu setzen. Bitte stellen Sie den Alarm auf aktiviert oder deaktiviert.",
+  "lawnmower_state_error_not_supported": "Es ist nicht möglich, den Rasenmäherstatus auf Fehler zu setzen.",
   "nativeAppSuggestion": "Gute Nachrichten! Dieses Gerät funktioniert auch direkt mit Homey. Suche im Homey App Store nach __appName__."
 }

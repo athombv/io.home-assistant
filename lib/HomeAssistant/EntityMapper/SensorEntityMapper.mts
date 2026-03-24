@@ -127,7 +127,7 @@ export default class SensorEntityMapper implements EntityMapper {
       return;
     }
 
-    const deviceClass = entity.instance.attributes['device_class'];
+    const deviceClass = entity.instance.attributes.device_class;
 
     let capabilityId = deviceClass ? CAPABILITY_MAP[deviceClass as SensorDeviceClass] : null;
     const capabilityOptions: (typeof homeyDevice.capabilitiesOptions)[string] = {

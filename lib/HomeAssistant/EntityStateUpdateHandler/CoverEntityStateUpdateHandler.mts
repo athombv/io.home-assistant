@@ -9,7 +9,7 @@ export enum CoverState {
   OPENING = 'opening',
 }
 
-const attributeMap: AttributeValueMapper = [
+const ATTRIBUTE_MAP: AttributeValueMapper = [
   { attribute: 'current_position', capability: 'windowcoverings_set', mapper: (value: number) => value / 100 },
   {
     attribute: 'current_tilt_position',
@@ -53,6 +53,6 @@ export default class CoverEntityStateUpdateHandler extends AbstractEntityStateUp
         break;
     }
 
-    this.mapAttributesToCapability(entityState, attributeMap);
+    this.mapAttributesToCapability(entityState, ATTRIBUTE_MAP);
   }
 }

@@ -66,10 +66,10 @@ export default class CoverEntityMapper implements EntityMapper {
       return;
     }
 
-    const deviceClass = entity.instance.attributes['device_class'] ?? null;
+    const deviceClass = entity.instance.attributes.device_class ?? null;
     const coveringType = this.getCoveringType(deviceClass);
 
-    homeyDevice.class = homeyDevice.class && homeyDevice.class !== 'sensor' ? homeyDevice.class : coveringType;
+    HaDeviceEntityMapper.setDeviceClass(homeyDevice, coveringType);
 
     if (!homeyDevice.iconOverride || homeyDevice.class === 'sensor') {
       switch (coveringType) {
@@ -94,10 +94,9 @@ export default class CoverEntityMapper implements EntityMapper {
     HaDeviceEntityMapper.mapFeatureMask(entityId, entity, homeyDevice, friendlyName, SUPPORTED_FEATURES);
 
     if (coveringType === 'garagedoor') {
-      homeyDevice.capabilities.push('garagedoor_closed');
-      homeyDevice.capabilitiesOptions['garagedoor_closed'] = homeyDevice.capabilitiesOptions['garagedoor_closed'] || {};
-      homeyDevice.capabilitiesOptions['garagedoor_closed'].title = friendlyName || entityId;
-      homeyDevice.capabilitiesOptions['garagedoor_closed'].entityId = entityId;
+      HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'garagedoor_closed', {
+        title: friendlyName || entityId,
+      });
     }
   }
 
