@@ -106,7 +106,7 @@ export default class HaDeviceEntityMapper {
   }
 
   /** Check if the feature is part of the supported features binary value. */
-  public static hasFeature(entity: ProcessedHomeAssistantEntity,  feature: number): boolean {
+  public static hasFeature(entity: ProcessedHomeAssistantEntity, feature: number): boolean {
     const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
 
     return !!(supportedFeatures & feature);

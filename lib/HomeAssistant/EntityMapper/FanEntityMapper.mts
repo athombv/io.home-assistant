@@ -38,10 +38,9 @@ export default class FanEntityMapper implements EntityMapper {
       return;
     }
 
-    const supportedFeatures = entity.instance.attributes['supported_features'] || 0;
     for (const [key, value] of Object.entries(SUPPORTED_FEATURES)) {
       // Check if the key is part of the supported features binary value.
-      if (supportedFeatures & Number(key)) {
+      if (HaDeviceEntityMapper.hasFeature(entity, Number(key))) {
         value.forEach(capabilityId => {
           if (capabilityId === 'fan_mode') {
             if (
