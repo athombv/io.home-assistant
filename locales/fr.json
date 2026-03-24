@@ -1,5 +1,6 @@
 {
   "allEntitiesUnavailable": "L'appareil semble indisponible dans Home Assistant",
   "homealarm_partially_armed_not_supported": "Il n'est pas possible de régler l'alarme sur armé partiel. Veuillez régler l'alarme sur armé ou désarmé.",
+  "lawnmower_state_error_not_supported": "Il n'est pas possible de régler l'état de la tondeuse à gazon sur erreur.",
   "nativeAppSuggestion": "Bonne nouvelle ! Cet appareil fonctionne également directement avec Homey. Cherchez __appName__ dans le Homey App Store."
 }

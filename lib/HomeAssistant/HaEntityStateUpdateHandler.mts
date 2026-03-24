@@ -8,6 +8,7 @@ import BinarySensorEntityStateUpdateHandler from './EntityStateUpdateHandler/Bin
 import CoverEntityStateUpdateHandler from './EntityStateUpdateHandler/CoverEntityStateUpdateHandler.mjs';
 import FanEntityStateUpdateHandler from './EntityStateUpdateHandler/FanEntityStateUpdateHandler.mjs';
 import HumidifierEntityStateUpdateHandler from './EntityStateUpdateHandler/HumidifierEntityStateUpdateHandler.mjs';
+import LawnMowerEntityStateUpdateHandler from './EntityStateUpdateHandler/LawnMowerEntityStateUpdateHandler.mjs';
 import LightEntityStateUpdateHandler from './EntityStateUpdateHandler/LightEntityStateUpdateHandler.mjs';
 import LockEntityStateUpdateHandler from './EntityStateUpdateHandler/LockEntityStateUpdateHandler.mjs';
 import MediaPlayerEntityStateUpdateHandler from './EntityStateUpdateHandler/MediaPlayerEntityStateUpdateHandler.mjs';
@@ -38,6 +39,7 @@ export class HaEntityStateUpdateHandler {
       CoverEntityStateUpdateHandler,
       FanEntityStateUpdateHandler,
       HumidifierEntityStateUpdateHandler,
+      LawnMowerEntityStateUpdateHandler,
       LightEntityStateUpdateHandler,
       LockEntityStateUpdateHandler,
       MediaPlayerEntityStateUpdateHandler,

@@ -1,5 +1,6 @@
 {
   "allEntitiesUnavailable": "Home Assistant에서 기기를 사용할 수 없는 것 같습니다",
   "homealarm_partially_armed_not_supported": "알람을 부분 경계 상태로 설정할 수 없습니다. 알람을 경계 또는 해제 상태로 설정해 주세요.",
+  "lawnmower_state_error_not_supported": "잔디 깎이 기계 상태를 오류로 설정할 수 없습니다.",
   "nativeAppSuggestion": "좋은 소식이 있어요! 이 기기는 Homey에서 바로 사용할 수 있어요. Homey 앱 스토어에서 __appName__을 검색해보세요."
 }

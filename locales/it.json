@@ -1,5 +1,6 @@
 {
   "allEntitiesUnavailable": "Il dispositivo sembra non essere disponibile in Home Assistant",
   "homealarm_partially_armed_not_supported": "Non è possibile impostare l'allarme come parzialmente inserito. Si prega di impostare l'allarme come inserito o disinserito.",
+  "lawnmower_state_error_not_supported": "Non è possibile impostare lo stato del tagliaerba su errore.",
   "nativeAppSuggestion": "Buone notizie! Questo dispositivo funziona anche direttamente con Homey. Cerca nel Homey App Store __appName__."
 }

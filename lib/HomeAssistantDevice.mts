@@ -143,10 +143,13 @@ export default class HomeAssistantDevice extends Homey.Device {
     this.registerCapabilityListenerIfAvailable('homealarm_state', this.onCapabilityHomealarmStateSet.bind(this));
 
     // Humidifier
-    this.registerCapabilityListenerIfAvailable('target_humidity', this.onCapabilityTargetHumidity.bind(this));
+    this.registerCapabilityListenerIfAvailable('target_humidity', this.onCapabilityTargetHumiditySet.bind(this));
+
+    // Lawn mower
+    this.registerCapabilityListenerIfAvailable('lawnmower_state', this.onCapabilityLawnmowerState.bind(this));
 
     // Lock
-    this.registerCapabilityListenerIfAvailable('locked', this.onCapabilityLocked.bind(this));
+    this.registerCapabilityListenerIfAvailable('locked', this.onCapabilityLockedSet.bind(this));
 
     // Set Warning if Homey support this device natively for a better experience.
     const { manufacturer, model, identifiers } = this.getStore();
@@ -457,13 +460,39 @@ export default class HomeAssistantDevice extends Homey.Device {
     await this.server.callEntityService('alarm_control_panel', entityId, service);
   }
 
-  private async onCapabilityTargetHumidity(value: number): Promise<void> {
+  private async onCapabilityTargetHumiditySet(value: number): Promise<void> {
     await this.server.callEntityService('humidifier', this.getEntityId('target_humidity'), 'set_humidity', {
       humidity: value,
     });
   }
 
-  private async onCapabilityLocked(value: boolean): Promise<void> {
+  private async onCapabilityLawnmowerState(value: string): Promise<void> {
+    let service;
+    switch (value) {
+      case 'mowing':
+        service = 'start_mowing';
+        break;
+      case 'docked':
+        service = 'dock';
+        break;
+      case 'paused':
+        service = 'pause';
+        break;
+      case 'error':
+        throw new Error(this.homey.__('lawnmower_state_error_not_supported'));
+      default:
+        break;
+    }
+
+    if (!service) {
+      this.error('Invalid lawnmower_state', value);
+      return;
+    }
+
+    await this.server.callEntityService('lawn_mower', this.getEntityId('lawnmower_state'), service);
+  }
+
+  private async onCapabilityLockedSet(value: boolean): Promise<void> {
     await this.server.callEntityService('lock', this.getEntityId('locked'), value ? 'lock' : 'unlock');
   }
 }

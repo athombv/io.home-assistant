@@ -1,5 +1,6 @@
 {
     "allEntitiesUnavailable": "Apparaat lijkt niet beschikbaar te zijn in Home Assistant",
     "homealarm_partially_armed_not_supported": "Het is niet mogelijk om het alarm op gedeeltelijk ingeschakeld in te stellen. Stel het alarm in op ingeschakeld of uitgeschakeld.",
+    "lawnmower_state_error_not_supported": "Het is niet mogelijk om de status van de grasmaaier op fout in te stellen.",
     "nativeAppSuggestion": "Goed nieuws! Dit apparaat werkt ook direct samen met Homey. Zoek in de Homey App Store naar __appName__."
 }

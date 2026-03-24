@@ -1,5 +1,6 @@
 {
   "allEntitiesUnavailable": "Urządzenie wydaje się być niedostępne w Home Assistant",
   "homealarm_partially_armed_not_supported": "Nie można uzbroić alarmu częściowo. Uzbrój lub rozbrój alarm.",
+  "lawnmower_state_error_not_supported": "Nie można ustawić stanu kosiarki na błąd.",
   "nativeAppSuggestion": "Dobre wieści! To urządzenie działa również bezpośrednio z Homey. Wyszukaj __appName__ w Homey App Store."
 }

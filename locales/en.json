@@ -1,5 +1,6 @@
 {
   "allEntitiesUnavailable": "Device seems to be unavailable in Home Assistant",
   "homealarm_partially_armed_not_supported": "It is not possible to set the alarm to partially armed. Please set the alarm to armed or disarmed.",
+  "lawnmower_state_error_not_supported": "It is not possible to set the lawn mower state to error.",
   "nativeAppSuggestion": "Good news! This device also works directly with Homey. Search in the Homey App Store for __appName__."
 }
