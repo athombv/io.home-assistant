@@ -39,22 +39,19 @@ export default class HomeAssistantDevice extends Homey.Device {
     await this.stateUpdateHandler.init();
 
     // Register Capability Listeners
-    // Light / Switch Capabilities
-    if (this.hasCapability('onoff')) {
-      this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
-    }
 
-    // Extra onoff Capabilities
+    // Generic onoff
+    this.registerCapabilityListenerIfAvailable('onoff', this.onCapabilityOnOff.bind(this));
+
+    // Extra onoff
     this.getOnOffCapabilities().forEach(capabilityId => {
       this.registerCapabilityListener(capabilityId, async (value, options) => {
         await this.onCapabilityOnOff(value, options, capabilityId);
       });
     });
 
-    // Light Capabilities
-    if (this.hasCapability('dim')) {
-      this.registerCapabilityListener('dim', this.onCapabilityDim.bind(this));
-    }
+    // Light
+    this.registerCapabilityListenerIfAvailable('dim', this.onCapabilityDim.bind(this));
 
     if (this.hasCapability('light_hue') && this.hasCapability('light_saturation')) {
       this.registerMultipleCapabilityListener(
@@ -63,140 +60,93 @@ export default class HomeAssistantDevice extends Homey.Device {
       );
     }
 
-    if (this.hasCapability('light_temperature')) {
-      this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('light_temperature', this.onCapabilityLightTemperature.bind(this));
 
-    if (this.hasCapability('light_mode')) {
-      this.registerCapabilityListener('light_mode', this.onCapabilityLightMode.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('light_mode', this.onCapabilityLightMode.bind(this));
 
-    // Speaker Capabilities
-    if (this.hasCapability('speaker_playing')) {
-      this.registerCapabilityListener('speaker_playing', this.onCapabilitySpeakerPlaying.bind(this));
-    }
+    // Speaker
+    this.registerCapabilityListenerIfAvailable('speaker_playing', this.onCapabilitySpeakerPlaying.bind(this));
 
-    if (this.hasCapability('speaker_next')) {
-      this.registerCapabilityListener('speaker_next', async (_, options) => {
-        await this.onCapabilitySpeakerService('media_next_track', options, 'speaker_next');
-      });
-    }
+    this.registerCapabilityListenerIfAvailable('speaker_next', async (_, options) => {
+      await this.onCapabilitySpeakerService('media_next_track', options, 'speaker_next');
+    });
 
-    if (this.hasCapability('speaker_prev')) {
-      this.registerCapabilityListener('speaker_prev', async (_, options) => {
-        await this.onCapabilitySpeakerService('media_previous_track', options, 'speaker_prev');
-      });
-    }
+    this.registerCapabilityListenerIfAvailable('speaker_prev', async (_, options) => {
+      await this.onCapabilitySpeakerService('media_previous_track', options, 'speaker_prev');
+    });
 
-    if (this.hasCapability('speaker_repeat')) {
-      this.registerCapabilityListener('speaker_repeat', this.onCapabilityRepeatSet.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('speaker_repeat', this.onCapabilityRepeatSet.bind(this));
 
-    if (this.hasCapability('speaker_shuffle')) {
-      this.registerCapabilityListener('speaker_shuffle', this.onCapabilityShuffleSet.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('speaker_shuffle', this.onCapabilityShuffleSet.bind(this));
 
-    if (this.hasCapability('speaker_stop')) {
-      this.registerCapabilityListener('speaker_stop', async (_, options) => {
-        await this.onCapabilitySpeakerService('media_stop', options, 'speaker_stop');
-      });
-    }
+    this.registerCapabilityListenerIfAvailable('speaker_stop', async (_, options) => {
+      await this.onCapabilitySpeakerService('media_stop', options, 'speaker_stop');
+    });
 
-    // Volume Capabilities
-    if (this.hasCapability('volume_up')) {
-      this.registerCapabilityListener('volume_up', async (_, options: unknown) => {
-        await this.onCapabilitySpeakerService('volume_up', options, 'volume_up');
-      });
-    }
+    // Volume
+    this.registerCapabilityListenerIfAvailable('volume_up', async (_, options: unknown) => {
+      await this.onCapabilitySpeakerService('volume_up', options, 'volume_up');
+    });
 
-    if (this.hasCapability('volume_down')) {
-      this.registerCapabilityListener('volume_down', async (_, options) => {
-        await this.onCapabilitySpeakerService('volume_down', options, 'volume_down');
-      });
-    }
+    this.registerCapabilityListenerIfAvailable('volume_down', async (_, options) => {
+      await this.onCapabilitySpeakerService('volume_down', options, 'volume_down');
+    });
 
-    if (this.hasCapability('volume_set')) {
-      this.registerCapabilityListener('volume_set', this.onCapabilityVolumeSet.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('volume_set', this.onCapabilityVolumeSet.bind(this));
 
-    if (this.hasCapability('volume_mute')) {
-      this.registerCapabilityListener('volume_mute', this.onCapabilityVolumeMute.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('volume_mute', this.onCapabilityVolumeMute.bind(this));
 
-    // Windowcoverings Capabilities
-    if (this.hasCapability('windowcoverings_state')) {
-      this.registerCapabilityListener('windowcoverings_state', async (value, options) => {
-        const coverServiceId = this.getCoverServiceId(value);
-        await this.onCapabilityCoveringService(coverServiceId, options, 'windowcoverings_state');
-      });
-    }
+    // Window coverings
+    this.registerCapabilityListenerIfAvailable('windowcoverings_state', async (value, options) => {
+      const coverServiceId = this.getCoverServiceId(value);
+      await this.onCapabilityCoveringService(coverServiceId, options, 'windowcoverings_state');
+    });
 
-    if (this.hasCapability('windowcoverings_tilt_up')) {
-      this.registerCapabilityListener('windowcoverings_tilt_up', async (value, options) => {
-        await this.onCapabilityCoveringService('open_cover_tilt', options, 'windowcoverings_tilt_up');
-      });
-    }
+    this.registerCapabilityListenerIfAvailable('windowcoverings_tilt_up', async (value, options) => {
+      await this.onCapabilityCoveringService('open_cover_tilt', options, 'windowcoverings_tilt_up');
+    });
 
-    if (this.hasCapability('windowcoverings_tilt_down')) {
-      this.registerCapabilityListener('windowcoverings_tilt_down', async (value, options) => {
-        await this.onCapabilityCoveringService('close_cover_tilt', options, 'windowcoverings_tilt_down');
-      });
-    }
+    this.registerCapabilityListenerIfAvailable('windowcoverings_tilt_down', async (value, options) => {
+      await this.onCapabilityCoveringService('close_cover_tilt', options, 'windowcoverings_tilt_down');
+    });
 
-    if (this.hasCapability('windowcoverings_tilt_set')) {
-      this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityCoveringTiltSet.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('windowcoverings_tilt_set', this.onCapabilityCoveringTiltSet.bind(this));
 
-    if (this.hasCapability('windowcoverings_closed')) {
-      this.registerCapabilityListener('windowcoverings_closed', async (value, options) => {
-        await this.onCapabilityCoveringService(value ? 'close_cover' : 'open_cover', options, 'windowcoverings_closed');
-      });
-    }
+    this.registerCapabilityListenerIfAvailable('windowcoverings_closed', async (value, options) => {
+      await this.onCapabilityCoveringService(value ? 'close_cover' : 'open_cover', options, 'windowcoverings_closed');
+    });
 
-    if (this.hasCapability('windowcoverings_set')) {
-      this.registerCapabilityListener('windowcoverings_set', this.onCapabilityCoveringSet.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('windowcoverings_set', this.onCapabilityCoveringSet.bind(this));
 
-    if (this.hasCapability('garagedoor_closed')) {
-      this.registerCapabilityListener('garagedoor_closed', async (value, options) => {
-        await this.onCapabilityCoveringService(value ? 'close_cover' : 'open_cover', options, 'garagedoor_closed');
-      });
-    }
+    // Garage door
+    this.registerCapabilityListenerIfAvailable('garagedoor_closed', async (value, options) => {
+      await this.onCapabilityCoveringService(value ? 'close_cover' : 'open_cover', options, 'garagedoor_closed');
+    });
 
-    if (this.hasCapability('fan_speed')) {
-      this.registerCapabilityListener('fan_speed', this.onCapabilityFanSpeedSet.bind(this));
-    }
+    // Fan
+    this.registerCapabilityListenerIfAvailable('fan_speed', this.onCapabilityFanSpeedSet.bind(this));
 
-    if (this.hasCapability('fan_oscillate')) {
-      this.registerCapabilityListener('fan_oscillate', this.onCapabilityFanOscillateSet.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('fan_oscillate', this.onCapabilityFanOscillateSet.bind(this));
 
-    if (this.hasCapability('fan_mode')) {
-      this.registerCapabilityListener('fan_mode', this.onCapabilityFanModeSet.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('fan_mode', this.onCapabilityFanModeSet.bind(this));
 
-    if (this.hasCapability('aircleaner_mode')) {
-      this.registerCapabilityListener('aircleaner_mode', this.onCapabilityAirCleanerModeSet.bind(this));
-    }
+    // Air cleaner
+    this.registerCapabilityListenerIfAvailable('aircleaner_mode', this.onCapabilityAirCleanerModeSet.bind(this));
 
-    if (this.hasCapability('vacuumcleaner_state')) {
-      this.registerCapabilityListener('vacuumcleaner_state', this.onCapabilityVacuumCleanerStateSet.bind(this));
-    }
+    // Vacuum cleaner
+    this.registerCapabilityListenerIfAvailable(
+      'vacuumcleaner_state',
+      this.onCapabilityVacuumCleanerStateSet.bind(this),
+    );
 
     // Home alarm
-    if (this.hasCapability('homealarm_state')) {
-      this.registerCapabilityListener('homealarm_state', this.onCapabilityHomealarmStateSet.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('homealarm_state', this.onCapabilityHomealarmStateSet.bind(this));
 
     // Humidifier
-    if (this.hasCapability('target_humidity')) {
-      this.registerCapabilityListener('target_humidity', this.onCapabilityTargetHumidity.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('target_humidity', this.onCapabilityTargetHumidity.bind(this));
 
     // Lock
-    if (this.hasCapability('locked')) {
-      this.registerCapabilityListener('locked', this.onCapabilityLocked.bind(this));
-    }
+    this.registerCapabilityListenerIfAvailable('locked', this.onCapabilityLocked.bind(this));
 
     // Set Warning if Homey support this device natively for a better experience.
     const { manufacturer, model, identifiers } = this.getStore();
@@ -219,6 +169,14 @@ export default class HomeAssistantDevice extends Homey.Device {
   /*
    * Helper methods
    */
+  private registerCapabilityListenerIfAvailable(capabilityId: string, listener: Homey.Device.CapabilityCallback): void {
+    if (!this.hasCapability(capabilityId)) {
+      return;
+    }
+
+    this.registerCapabilityListener(capabilityId, listener);
+  }
+
   private getCoverServiceId(value: string): string {
     switch (value) {
       case 'up':
