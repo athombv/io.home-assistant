@@ -50,6 +50,11 @@ export default class HomeAssistantDevice extends Homey.Device {
       });
     });
 
+    // Button
+    this.getButtonCapabilities().forEach(capabilityId => {
+      this.registerCapabilityListener(capabilityId, async () => await this.onCapabilityButton(capabilityId));
+    });
+
     // Light
     this.registerCapabilityListenerIfAvailable('dim', this.onCapabilityDim.bind(this));
 
@@ -212,6 +217,10 @@ export default class HomeAssistantDevice extends Homey.Device {
     return this.getCapabilities().filter(item => item.startsWith('onoff.'));
   }
 
+  private getButtonCapabilities(): string[] {
+    return this.getCapabilities().filter(item => item.startsWith('button.'));
+  }
+
   /*
    * Capability Listeners
    */
@@ -244,6 +253,11 @@ export default class HomeAssistantDevice extends Homey.Device {
       default:
         throw new Error(`Unsupported domain: ${domain}`);
     }
+  }
+
+  private async onCapabilityButton(capabilityId: string): Promise<void>
+  {
+    return await this.server.callEntityService('button', this.getEntityId(capabilityId), 'press');
   }
 
   private async onCapabilityDim(value: number): Promise<void> {

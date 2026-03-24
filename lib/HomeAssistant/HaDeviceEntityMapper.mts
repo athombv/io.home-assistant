@@ -6,6 +6,7 @@ import type {
 import { titleCase } from '../HomeAssistantUtil.mjs';
 import AlarmControlPanelEntityMapper from './EntityMapper/AlarmControlPanelEntityMapper.mjs';
 import BinarySensorEntityMapper from './EntityMapper/BinarySensorEntityMapper.mjs';
+import ButtonEntityMapper from './EntityMapper/ButtonEntityMapper.mjs';
 import CoverEntityMapper from './EntityMapper/CoverEntityMapper.mjs';
 import FanEntityMapper from './EntityMapper/FanEntityMapper.mjs';
 import HumidifierEntityMapper from './EntityMapper/HumidifierEntityMapper.mjs';
@@ -35,6 +36,7 @@ export default class HaDeviceEntityMapper {
   ): void {
     const mappers = [
       AlarmControlPanelEntityMapper,
+      ButtonEntityMapper,
       BinarySensorEntityMapper,
       CoverEntityMapper,
       FanEntityMapper,
