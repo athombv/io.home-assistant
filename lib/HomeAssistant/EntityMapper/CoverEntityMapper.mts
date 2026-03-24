@@ -69,7 +69,7 @@ export default class CoverEntityMapper implements EntityMapper {
     const deviceClass = entity.instance.attributes.device_class ?? null;
     const coveringType = this.getCoveringType(deviceClass);
 
-    HaDeviceEntityMapper.setDeviceClass(homeyDevice, 'coveringType');
+    HaDeviceEntityMapper.setDeviceClass(homeyDevice, coveringType);
 
     if (!homeyDevice.iconOverride || homeyDevice.class === 'sensor') {
       switch (coveringType) {

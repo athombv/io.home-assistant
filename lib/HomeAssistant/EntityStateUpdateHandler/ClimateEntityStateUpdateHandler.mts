@@ -122,7 +122,7 @@ export default class ClimateEntityStateUpdateHandler extends AbstractEntityState
     }
 
     if (newSwingMode) {
-      this.setCapabilityValue('swing_mode', newSwingMode);
+      this.setCapabilityValueIfExists('swing_mode', newSwingMode);
     }
 
     if (this.hasCapability('fan_mode')) {

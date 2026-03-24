@@ -48,7 +48,7 @@ export default class ClimateEntityMapper implements EntityMapper {
     }
 
     if (homeyDevice.capabilities.includes('onoff.swing_mode_horizontal')) {
-      homeyDevice.capabilitiesOptions['onoff.swing_mode'].title = 'Horizontal swing mode';
+      homeyDevice.capabilitiesOptions['onoff.swing_mode_horizontal'].title = 'Horizontal swing mode';
     }
 
     if (homeyDevice.capabilities.includes('swing_mode')) {
