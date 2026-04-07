@@ -17,7 +17,7 @@ export default class LawnMowerEntityMapper implements EntityMapper {
     _friendlyName: string | undefined,
   ): void {
     HaDeviceEntityMapper.setDeviceClass(homeyDevice, 'lawnmower');
-    HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'lawnmower_state');
+    HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'mower_state');
     HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'docked');
   }
 }

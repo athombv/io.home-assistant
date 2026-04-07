@@ -143,7 +143,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     this.registerCapabilityListenerIfAvailable('homealarm_state', this.onCapabilityHomealarmStateSet.bind(this));
 
     // Lawn mower
-    this.registerCapabilityListenerIfAvailable('lawnmower_state', this.onCapabilityLawnmowerState.bind(this));
+    this.registerCapabilityListenerIfAvailable('mower_state', this.onCapabilityMowerState.bind(this));
 
     // Lock
     this.registerCapabilityListenerIfAvailable('locked', this.onCapabilityLockedSet.bind(this));
@@ -530,7 +530,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     });
   }
 
-  private async onCapabilityLawnmowerState(value: string): Promise<void> {
+  private async onCapabilityMowerState(value: string): Promise<void> {
     let service;
     switch (value) {
       case 'mowing':
@@ -553,7 +553,7 @@ export default class HomeAssistantDevice extends Homey.Device {
       return;
     }
 
-    await this.server.callEntityService('lawn_mower', this.getEntityId('lawnmower_state'), service);
+    await this.server.callEntityService('lawn_mower', this.getEntityId('mower_state'), service);
   }
 
   private async onCapabilityLockedSet(value: boolean): Promise<void> {
