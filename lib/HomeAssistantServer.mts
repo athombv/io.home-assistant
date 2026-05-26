@@ -75,7 +75,7 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
         this.log('Connected');
 
         // Update system config
-        this.config = await getConfig(connection);
+        await this.refreshConfig(connection);
 
         // Subscribe to events
         await connection.subscribeEvents(this.onEventStateChanged, 'state_changed');
@@ -91,12 +91,7 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
         });
 
         connection.addEventListener('ready', async () => {
-          getConfig(connection)
-            .then(config => {
-              this.config = config;
-              this.log('Configuration loaded');
-            })
-            .catch(err => this.error('Failed to load configuration', err));
+          await this.refreshConfig(connection);
         });
 
         return connection;
@@ -156,6 +151,15 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
     };
     this.debug('Calling HA service', JSON.stringify(serviceCall));
     await connection.sendMessagePromise(serviceCall);
+  }
+
+  private async refreshConfig(connection: Connection): Promise<void> {
+    try {
+      this.config = await getConfig(connection);
+      this.log('Configuration loaded');
+    } catch (err) {
+      this.error('Failed to load configuration', err);
+    }
   }
 
   private onEventStateChanged = (event: StateChangedEvent): void => {
