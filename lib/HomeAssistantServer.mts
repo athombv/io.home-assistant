@@ -90,8 +90,8 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
           }
         });
 
-        connection.addEventListener('ready', async () => {
-          await this.refreshConfig(connection);
+        connection.addEventListener('ready', () => {
+          void this.refreshConfig(connection);
         });
 
         return connection;
@@ -131,7 +131,6 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
       this.config = await getConfig(connection);
       this.log('Configuration loaded');
     } catch (err) {
-      this.config = null;
       this.error('Failed to load configuration', err);
     }
   }
