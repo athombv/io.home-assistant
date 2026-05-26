@@ -75,7 +75,7 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
         this.log('Connected');
 
         // Update system config
-        this.config = await getConfig(connection);
+        await this.refreshConfig(connection);
 
         // Subscribe to events
         await connection.subscribeEvents(this.onEventStateChanged, 'state_changed');
@@ -91,12 +91,7 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
         });
 
         connection.addEventListener('ready', async () => {
-          getConfig(connection)
-            .then(config => {
-              this.config = config;
-              this.log('Configuration loaded');
-            })
-            .catch(err => this.error('Failed to load configuration', err));
+          await this.refreshConfig(connection);
         });
 
         return connection;
@@ -129,6 +124,16 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
   public getSystemTemperatureUnit(): string {
     // Config should be available at this point, since it's loaded during connection initialization.
     return this.config?.unit_system.temperature === '°F' ? '°F' : '°C';
+  }
+
+  private async refreshConfig(connection: Connection): Promise<void> {
+    try {
+      this.config = await getConfig(connection);
+      this.log('Configuration loaded');
+    } catch (err) {
+      this.config = null;
+      this.error('Failed to load configuration', err);
+    }
   }
 
   public async callEntityService(
