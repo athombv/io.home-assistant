@@ -2,6 +2,8 @@ import {
   Auth,
   type Connection,
   createConnection,
+  getConfig,
+  type HassConfig,
   type HassEntities,
   type HassEntity,
   type HassServiceTarget,
@@ -12,6 +14,7 @@ import Homey from 'homey';
 
 export default class HomeAssistantServer extends Homey.SimpleClass {
   private connection: Promise<Connection> | null;
+  private config: HassConfig | null = null;
 
   private entitiesSubscriptionPromiseResolver?: (() => void) | null;
   private readonly entitiesSubscriptionPromise: Promise<void>;
@@ -71,6 +74,9 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
         const connection = await createConnection({ auth });
         this.log('Connected');
 
+        // Update system config
+        this.config = await getConfig(connection);
+
         // Subscribe to events
         await connection.subscribeEvents(this.onEventStateChanged, 'state_changed');
 
@@ -82,6 +88,15 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
             this.entitiesSubscriptionPromiseResolver();
             this.entitiesSubscriptionPromiseResolver = null;
           }
+        });
+
+        connection.addEventListener('ready', async () => {
+          getConfig(connection)
+            .then(config => {
+              this.config = config;
+              this.log('Configuration loaded');
+            })
+            .catch(err => this.error('Failed to load configuration', err));
         });
 
         return connection;
@@ -109,6 +124,11 @@ export default class HomeAssistantServer extends Homey.SimpleClass {
     }
 
     return entityState;
+  }
+
+  public getSystemTemperatureUnit(): string {
+    // Config should be available at this point, since it's loaded during connection initialization.
+    return this.config?.unit_system.temperature === '°F' ? '°F' : '°C';
   }
 
   public async callEntityService(
