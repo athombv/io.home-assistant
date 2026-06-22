@@ -67,5 +67,8 @@
   },
   "1.2.1": {
     "en": "Fix for mower capability "
+  },
+  "1.2.2": {
+    "en": "Fixed issue where some thermostat would use the wrong temperature unit conversion"
   }
 }
