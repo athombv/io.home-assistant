@@ -497,23 +497,12 @@ function convertRainIntensity(unit: string, value: number): number {
   }
 }
 
-export function convertTemperature(unit: string, value: number): number {
+function convertTemperature(unit: string, value: number): number {
   switch (unit) {
     case 'K':
       return value - 273.15;
     case '°F':
       return ((value - 32) * 5) / 9;
-    default:
-      return value;
-  }
-}
-
-export function convertHomeyTemperatureToHass(unit: string, value: number): number {
-  switch (unit) {
-    case 'K':
-      return value + 273.15;
-    case '°F':
-      return (value * 9) / 5 + 32;
     default:
       return value;
   }
