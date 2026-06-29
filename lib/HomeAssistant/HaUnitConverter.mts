@@ -508,8 +508,8 @@ export function convertTemperature(unit: string, value: number): number {
   }
 }
 
-export function convertHomeyTemperatureToHass(unit: string, value: number): number {
-  switch (unit) {
+export function convertHomeyTemperature(targetUnit: string, value: number): number {
+  switch (targetUnit) {
     case 'K':
       return value + 273.15;
     case '°F':
@@ -518,3 +518,12 @@ export function convertHomeyTemperatureToHass(unit: string, value: number): numb
       return value;
   }
 }
+
+export function percentageToDecimal(value: number): number {
+  return value / 100;
+}
+
+export function lowerCase(value?: string): string | undefined {
+  return value?.toLowerCase();
+}
+

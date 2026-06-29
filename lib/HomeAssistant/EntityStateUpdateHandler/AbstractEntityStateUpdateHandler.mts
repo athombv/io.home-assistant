@@ -11,6 +11,8 @@ export type AttributeValueMapper = Array<{
 }>;
 
 export default abstract class AbstractEntityStateUpdateHandler implements EntityStateUpdateHandler {
+  protected readonly attributeMap: AttributeValueMapper = [];
+
   public constructor(
     protected device: HomeAssistantDevice,
     protected server: HomeAssistantServer,

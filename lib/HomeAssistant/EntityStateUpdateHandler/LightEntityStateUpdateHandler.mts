@@ -1,5 +1,5 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
-import AbstractEntityStateUpdateHandler, { type AttributeValueMapper } from './AbstractEntityStateUpdateHandler.mjs';
+import AbstractEntityStateUpdateHandler from './AbstractEntityStateUpdateHandler.mjs';
 
 export enum ColorMode {
   UNKNOWN = 'unknown',
@@ -14,21 +14,22 @@ export enum ColorMode {
   WHITE = 'white',
 }
 
-const ATTRIBUTE_MAP: AttributeValueMapper = [
-  { attribute: 'brightness', capability: 'dim', mapper: (value: number) => value / 255 },
-];
 
 /**
  * Entity update handler for light entities. See https://developers.home-assistant.io/docs/core/entity/light/.
  */
 export default class LightEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
+  protected override readonly attributeMap = [
+    { attribute: 'brightness', capability: 'dim', mapper: (value: number): number => value / 255 },
+  ];
+
   public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('light.');
   }
 
   public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
     this.handleOnOff(entityState, 'onoff');
-    this.mapAttributesToCapability(entityState, ATTRIBUTE_MAP);
+    this.mapAttributesToCapability(entityState, this.attributeMap);
 
     if (typeof entityState.attributes.color_mode === 'string') {
       switch (entityState.attributes.color_mode) {

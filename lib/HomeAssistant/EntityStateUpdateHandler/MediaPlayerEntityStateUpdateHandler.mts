@@ -14,38 +14,38 @@ export enum MediaPlayerState {
   BUFFERING = 'buffering',
 }
 
-const ATTRIBUTE_MAP: AttributeValueMapper = [
-  { attribute: 'volume_level', capability: 'volume_set' },
-  { attribute: 'is_volume_muted', capability: 'volume_mute' },
-  { attribute: 'shuffle', capability: 'speaker_shuffle' },
-  {
-    attribute: 'repeat',
-    capability: 'speaker_repeat',
-    mapper: (value: string): string => {
-      switch (value) {
-        case 'one':
-          return 'track';
-        case 'all':
-          return 'playlist';
-        default:
-          return 'none';
-      }
-    },
-  },
-];
-
-const playingAttributeMap: AttributeValueMapper = [
-  { attribute: 'media_title', capability: 'speaker_track' },
-  { attribute: 'media_artist', capability: 'speaker_artist' },
-  { attribute: 'media_album_name', capability: 'speaker_album' },
-  { attribute: 'media_position', capability: 'speaker_position' },
-  { attribute: 'media_duration', capability: 'speaker_duration' },
-];
-
 /**
  * Entity update handler for media_player entities. See https://developers.home-assistant.io/docs/core/entity/media-player.
  */
 export default class MediaPlayerEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
+  protected override readonly attributeMap = [
+    { attribute: 'volume_level', capability: 'volume_set' },
+    { attribute: 'is_volume_muted', capability: 'volume_mute' },
+    { attribute: 'shuffle', capability: 'speaker_shuffle' },
+    {
+      attribute: 'repeat',
+      capability: 'speaker_repeat',
+      mapper: (value: string): string => {
+        switch (value) {
+          case 'one':
+            return 'track';
+          case 'all':
+            return 'playlist';
+          default:
+            return 'none';
+        }
+      },
+    },
+  ];
+
+  private readonly playingAttributeMap: AttributeValueMapper = [
+    { attribute: 'media_title', capability: 'speaker_track' },
+    { attribute: 'media_artist', capability: 'speaker_artist' },
+    { attribute: 'media_album_name', capability: 'speaker_album' },
+    { attribute: 'media_position', capability: 'speaker_position' },
+    { attribute: 'media_duration', capability: 'speaker_duration' },
+  ];
+
   public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('media_player.');
   }
@@ -54,7 +54,7 @@ export default class MediaPlayerEntityStateUpdateHandler extends AbstractEntityS
   private imageUrl?: string;
 
   public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
-    this.mapAttributesToCapability(entityState, ATTRIBUTE_MAP);
+    this.mapAttributesToCapability(entityState, this.attributeMap);
 
     switch (entityState.state) {
       case MediaPlayerState.OFF:
@@ -68,7 +68,7 @@ export default class MediaPlayerEntityStateUpdateHandler extends AbstractEntityS
       case MediaPlayerState.BUFFERING:
       case MediaPlayerState.PLAYING:
         this.setCapabilityValue('speaker_playing', true);
-        this.mapAttributesToCapability(entityState, playingAttributeMap);
+        this.mapAttributesToCapability(entityState, this.playingAttributeMap);
 
         await this.createImage();
         if (this.image && this.imageUrl !== entityState.attributes.entity_picture) {

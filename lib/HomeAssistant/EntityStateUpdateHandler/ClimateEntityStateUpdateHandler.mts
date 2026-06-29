@@ -1,6 +1,6 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
+import AbstractEntityStateUpdateHandler from './AbstractEntityStateUpdateHandler.mjs';
 import { convertTemperature } from '../HaUnitConverter.mjs';
-import AbstractEntityStateUpdateHandler, { type AttributeValueMapper } from './AbstractEntityStateUpdateHandler.mjs';
 
 /** HVAC actions as defined by Home Assistant */
 export enum HVACMode {
@@ -38,16 +38,24 @@ enum FanMode {
  * Entity update handler for climate entities. See https://developers.home-assistant.io/docs/core/entity/climate.
  */
 export default class ClimateEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
-  private mapTemperatureUnit = (value: number): number =>
-    convertTemperature(this.server.getSystemTemperatureUnit(), value);
+  private climateTemperatureMapper = (value: unknown): number | null => {
+    if (typeof value !== 'number') {
+      return null;
+    }
+  
+    const temperatureUnit = this.server.getSystemTemperatureUnit();
+    const convertedValue = convertTemperature(temperatureUnit, value);
 
-  private attributeMap: AttributeValueMapper = [
+    return convertedValue;
+  };
+
+  protected override readonly attributeMap = [
     { attribute: 'current_humidity', capability: 'measure_humidity' },
-    { attribute: 'current_temperature', capability: 'measure_temperature', mapper: this.mapTemperatureUnit },
+    { attribute: 'current_temperature', capability: 'measure_temperature', mapper: this.climateTemperatureMapper },
     { attribute: 'target_humidity', capability: 'target_humidity' },
-    { attribute: 'target_temperature', capability: 'target_temperature', mapper: this.mapTemperatureUnit },
-    { attribute: 'target_temperature_high', capability: 'target_temperature_max', mapper: this.mapTemperatureUnit },
-    { attribute: 'target_temperature_low', capability: 'target_temperature_min', mapper: this.mapTemperatureUnit },
+    { attribute: 'temperature', capability: 'target_temperature', mapper: this.climateTemperatureMapper },
+    { attribute: 'target_temp_high', capability: 'target_temperature_max', mapper: this.climateTemperatureMapper },
+    { attribute: 'target_temp_low', capability: 'target_temperature_min', mapper: this.climateTemperatureMapper },
   ];
 
   public supportsEntityId(entityId: string): boolean {

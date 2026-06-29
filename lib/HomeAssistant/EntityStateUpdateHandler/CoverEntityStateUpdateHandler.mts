@@ -1,5 +1,6 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
-import AbstractEntityStateUpdateHandler, { type AttributeValueMapper } from './AbstractEntityStateUpdateHandler.mjs';
+import AbstractEntityStateUpdateHandler from './AbstractEntityStateUpdateHandler.mjs';
+import { percentageToDecimal } from '../HaUnitConverter.mjs';
 
 /** Cover states as defined by Home Assistant in `CoverState` */
 export enum CoverState {
@@ -9,19 +10,15 @@ export enum CoverState {
   OPENING = 'opening',
 }
 
-const ATTRIBUTE_MAP: AttributeValueMapper = [
-  { attribute: 'current_position', capability: 'windowcoverings_set', mapper: (value: number) => value / 100 },
-  {
-    attribute: 'current_tilt_position',
-    capability: 'windowcoverings_tilt_set',
-    mapper: (value: number) => value / 100,
-  },
-];
-
 /**
  * Entity update handler for cover entities. See https://developers.home-assistant.io/docs/core/entity/cover.
  */
 export default class CoverEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
+  protected override readonly attributeMap = [
+    { attribute: 'current_position', capability: 'windowcoverings_set', mapper: percentageToDecimal },
+    { attribute: 'current_tilt_position', capability: 'windowcoverings_tilt_set', mapper: percentageToDecimal },
+  ];
+
   public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('cover.');
   }
@@ -53,6 +50,6 @@ export default class CoverEntityStateUpdateHandler extends AbstractEntityStateUp
         break;
     }
 
-    this.mapAttributesToCapability(entityState, ATTRIBUTE_MAP);
+    this.mapAttributesToCapability(entityState, this.attributeMap);
   }
 }
