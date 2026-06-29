@@ -39,7 +39,9 @@ enum FanMode {
  */
 export default class ClimateEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
   private climateTemperatureMapper = (value: unknown): number | null => {
-    if (typeof value !== 'number') return null;
+    if (typeof value !== 'number') {
+      return null;
+    }
   
     const temperatureUnit = this.server.getSystemTemperatureUnit();
     const convertedValue = convertTemperature(temperatureUnit, value);
