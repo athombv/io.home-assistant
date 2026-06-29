@@ -70,5 +70,8 @@
   },
   "1.2.2": {
     "en": "Fixed issue where some thermostat would use the wrong temperature unit conversion"
+  },
+  "1.2.3": {
+    "en": "Fixed temperature conversion errors for select thermostats"
   }
 }
