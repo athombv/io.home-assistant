@@ -497,7 +497,7 @@ function convertRainIntensity(unit: string, value: number): number {
   }
 }
 
-function convertTemperature(unit: string, value: number): number {
+export function convertTemperature(unit: string, value: number): number {
   switch (unit) {
     case 'K':
       return value - 273.15;
@@ -507,3 +507,23 @@ function convertTemperature(unit: string, value: number): number {
       return value;
   }
 }
+
+export function convertHomeyTemperature(targetUnit: string, value: number): number {
+  switch (targetUnit) {
+    case 'K':
+      return value + 273.15;
+    case '°F':
+      return (value * 9) / 5 + 32;
+    default:
+      return value;
+  }
+}
+
+export function percentageToDecimal(value: number): number {
+  return value / 100;
+}
+
+export function lowerCase(value?: string): string | undefined {
+  return value?.toLowerCase();
+}
+

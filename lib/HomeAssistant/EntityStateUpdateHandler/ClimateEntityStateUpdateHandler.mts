@@ -1,5 +1,6 @@
 import type { HassEntity } from 'home-assistant-js-websocket';
-import AbstractEntityStateUpdateHandler, { type AttributeValueMapper } from './AbstractEntityStateUpdateHandler.mjs';
+import AbstractEntityStateUpdateHandler from './AbstractEntityStateUpdateHandler.mjs';
+import { convertTemperature } from '../HaUnitConverter.mjs';
 
 /** HVAC actions as defined by Home Assistant */
 export enum HVACMode {
@@ -11,15 +12,6 @@ export enum HVACMode {
   DRY = 'dry',
   FAN_ONLY = 'fan_only',
 }
-
-const ATTRIBUTE_MAP: AttributeValueMapper = [
-  { attribute: 'current_humidity', capability: 'measure_humidity' },
-  { attribute: 'current_temperature', capability: 'measure_temperature' },
-  { attribute: 'target_humidity', capability: 'target_humidity' },
-  { attribute: 'target_temperature', capability: 'target_temperature' },
-  { attribute: 'target_temperature_high', capability: 'target_temperature_max' },
-  { attribute: 'target_temperature_low', capability: 'target_temperature_min' },
-];
 
 enum SwingMode {
   ON = 'on',
@@ -46,13 +38,31 @@ enum FanMode {
  * Entity update handler for climate entities. See https://developers.home-assistant.io/docs/core/entity/climate.
  */
 export default class ClimateEntityStateUpdateHandler extends AbstractEntityStateUpdateHandler {
+  private climateTemperatureMapper = (value: unknown): number | null => {
+    if (typeof value !== 'number') return null;
+  
+    const temperatureUnit = this.server.getSystemTemperatureUnit();
+    const convertedValue = convertTemperature(temperatureUnit, value);
+
+    return convertedValue;
+  };
+
+  protected override readonly attributeMap = [
+    { attribute: 'current_humidity', capability: 'measure_humidity' },
+    { attribute: 'current_temperature', capability: 'measure_temperature', mapper: this.climateTemperatureMapper },
+    { attribute: 'target_humidity', capability: 'target_humidity' },
+    { attribute: 'temperature', capability: 'target_temperature', mapper: this.climateTemperatureMapper },
+    { attribute: 'target_temp_high', capability: 'target_temperature_max', mapper: this.climateTemperatureMapper },
+    { attribute: 'target_temp_low', capability: 'target_temperature_min', mapper: this.climateTemperatureMapper },
+  ];
+
   public supportsEntityId(entityId: string): boolean {
     return entityId.startsWith('climate.');
   }
 
   public async handle(entityState: HassEntity, _capabilities: string[]): Promise<void> {
     this.setCapabilityValueIfExists('onoff', entityState.state !== HVACMode.OFF);
-    this.mapAttributesToCapability(entityState, ATTRIBUTE_MAP);
+    this.mapAttributesToCapability(entityState, this.attributeMap);
 
     switch (entityState.state) {
       case HVACMode.HEAT:

@@ -3,6 +3,7 @@ import { HaEntityStateUpdateHandler } from './HomeAssistant/HaEntityStateUpdateH
 import type HomeAssistantApp from './HomeAssistantApp.mjs';
 import type HomeAssistantServer from './HomeAssistantServer.mjs';
 import { capitalizeFirstLetter, getNativeAppSuggestion } from './HomeAssistantUtil.mjs';
+import { convertHomeyTemperature } from './HomeAssistant/HaUnitConverter.mjs';
 
 export default class HomeAssistantDevice extends Homey.Device {
   private server!: HomeAssistantServer;
@@ -159,7 +160,7 @@ export default class HomeAssistantDevice extends Homey.Device {
     const nativeAppSuggestion = getNativeAppSuggestion(manufacturer, model, identifiers, platform);
 
     if (nativeAppSuggestion) {
-      setTimeout(() => {
+      this.homey.setTimeout(() => {
         this.setWarning(
           this.homey.__('nativeAppSuggestion', {
             appName: nativeAppSuggestion,
@@ -513,20 +514,29 @@ export default class HomeAssistantDevice extends Homey.Device {
   }
 
   private async onCapabilityTargetTemperatureSet(value: number): Promise<void> {
+    const temperatureUnit = this.server.getSystemTemperatureUnit();
+    const temperature = convertHomeyTemperature(temperatureUnit, value);
+
     await this.server.callEntityService('climate', this.getEntityId('target_temperature'), 'set_temperature', {
-      temperature: value,
+      temperature,
     });
   }
 
   private async onCapabilityTargetTemperatureMaxSet(value: number): Promise<void> {
+    const temperatureUnit = this.server.getSystemTemperatureUnit();
+    const temperature = convertHomeyTemperature(temperatureUnit, value);
+
     await this.server.callEntityService('climate', this.getEntityId('target_temperature_max'), 'set_temperature', {
-      target_temp_high: value,
+      target_temp_high: temperature,
     });
   }
 
   private async onCapabilityTargetTemperatureMinSet(value: number): Promise<void> {
+    const temperatureUnit = this.server.getSystemTemperatureUnit();
+    const temperature = convertHomeyTemperature(temperatureUnit, value);
+
     await this.server.callEntityService('climate', this.getEntityId('target_temperature_min'), 'set_temperature', {
-      target_temp_low: value,
+      target_temp_low: temperature,
     });
   }
 
