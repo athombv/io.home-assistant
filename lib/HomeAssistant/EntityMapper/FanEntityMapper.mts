@@ -43,16 +43,19 @@ export default class FanEntityMapper implements EntityMapper {
       if (HaDeviceEntityMapper.hasFeature(entity, Number(key))) {
         value.forEach(capabilityId => {
           if (capabilityId === 'fan_mode') {
-            if (
-              entity.instance.attributes['preset_modes'].every((mode?: string) =>
-                ['nature', 'normal'].includes(mode?.toLowerCase() ?? ''),
-              )
+            const presetModes = entity.instance.attributes['preset_modes'];
+            if (!Array.isArray(presetModes) || presetModes.length === 0) {
+              console.warn(
+                `[FanEntityMapper] ${entityId} reports the PRESET_MODE feature but has no usable preset_modes list`,
+                presetModes,
+              );
+            } else if (
+              presetModes.every((mode?: string) => ['nature', 'normal'].includes(mode?.toLowerCase() ?? ''))
             ) {
               // Check if fan preset mode contains Nature and Normal.
               HaDeviceEntityMapper.addCapability(homeyDevice, entityId, 'fan_mode');
-
             } else if (
-              entity.instance.attributes['preset_modes'].every((mode?: string) =>
+              presetModes.every((mode?: string) =>
                 ['fan', 'auto', 'silent', 'favorite'].includes(mode?.toLowerCase() ?? ''),
               )
             ) {

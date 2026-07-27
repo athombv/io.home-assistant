@@ -309,11 +309,20 @@ export default class HomeAssistantDriver extends Homey.Driver {
               },
             };
 
-            // Map HA entities to the Homey device
-            HaDeviceEntityMapper.map(homeAssistantDevice, homeyDevice);
+            // Map HA entities to the Homey device. A single malformed entity shouldn't
+            // take down the entire pairing list, so isolate failures per device.
+            try {
+              HaDeviceEntityMapper.map(homeAssistantDevice, homeyDevice);
+            } catch (err) {
+              this.error(`Failed to map Home Assistant device ${homeAssistantDevice.id}`, err);
+              return null;
+            }
 
             return homeyDevice;
           })
+
+          // Filter devices that failed to map
+          .filter((homeyDevice): homeyDevice is HomeyHomeAssistantDeviceOption => homeyDevice !== null)
 
           // Filter devices
           .filter(homeyDevice => {
