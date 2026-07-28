@@ -73,5 +73,8 @@
   },
   "1.2.3": {
     "en": "Fixed temperature conversion errors for select thermostats"
+  },
+  "1.2.4": {
+    "en": "Fixed bug where pairing screen would sometimes not show."
   }
 }
